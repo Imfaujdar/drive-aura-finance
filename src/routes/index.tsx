@@ -218,15 +218,27 @@ function HeroCarousel() {
             key={`subj-${active}`}
             className="relative mx-auto flex h-[360px] w-full max-w-[820px] animate-fade-in items-end justify-center md:h-[460px]"
           >
+            {/* Ambient glow behind subject */}
+            <div className="pointer-events-none absolute left-1/2 top-1/2 h-[75%] w-[75%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,190,130,0.55)_0%,rgba(255,140,80,0.25)_40%,transparent_70%)] blur-2xl" />
             <img
               src={slide.subject}
               alt={slide.locationLabel}
-              className="h-full w-full object-contain object-bottom drop-shadow-[0_40px_30px_rgba(0,0,0,0.45)]"
-              style={{ filter: "drop-shadow(0 25px 18px rgba(0,0,0,0.35))" }}
+              className="relative z-[2] h-full w-full object-contain object-bottom"
+              style={{
+                filter:
+                  "drop-shadow(0 6px 4px rgba(0,0,0,0.28)) drop-shadow(0 22px 14px rgba(0,0,0,0.35)) drop-shadow(0 50px 40px rgba(80,20,0,0.45))",
+                WebkitMaskImage:
+                  "linear-gradient(to bottom, black 0%, black 88%, transparent 100%)",
+                maskImage:
+                  "linear-gradient(to bottom, black 0%, black 88%, transparent 100%)",
+              }}
             />
-            {/* Soft ground blend — feathers the bottom edge into the scene */}
-            <div className="pointer-events-none absolute inset-x-[10%] bottom-0 h-16 rounded-[50%] bg-black/35 blur-2xl" />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#c9421a]/70 to-transparent" />
+            {/* Tight contact shadow (dark, narrow) */}
+            <div className="pointer-events-none absolute inset-x-[22%] bottom-2 h-5 rounded-[50%] bg-black/70 blur-md" />
+            {/* Wider ambient ground shadow */}
+            <div className="pointer-events-none absolute inset-x-[6%] bottom-0 h-14 rounded-[50%] bg-black/45 blur-2xl" />
+            {/* Ground gradient blend */}
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#c9421a]/80 to-transparent" />
           </div>
         </div>
       </div>
@@ -467,15 +479,30 @@ function Resale() {
             </div>
           </div>
           <div className="relative grid place-items-center">
-            <div className="pointer-events-none absolute inset-0 -z-10 mx-auto h-48 w-48 rounded-full bg-primary/10 blur-3xl" />
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center select-none whitespace-nowrap font-display font-black uppercase leading-none tracking-tighter text-primary/10"
+              style={{ fontSize: "clamp(120px, 18vw, 240px)", letterSpacing: "-0.06em" }}
+            >
+              VALUE
+            </span>
+            <div className="pointer-events-none absolute inset-0 z-[1] mx-auto h-48 w-48 rounded-full bg-primary/15 blur-3xl" />
             <img
               src={resaleCar}
               alt="Car resale value"
               width={400}
               height={300}
               loading="lazy"
-              className="relative z-10 w-full max-w-[320px] car-depth transition-transform duration-500 hover:scale-105"
+              className="relative z-[2] w-full max-w-[320px] car-depth transition-transform duration-500 hover:scale-105"
+              style={{
+                filter:
+                  "drop-shadow(0 8px 6px rgba(0,0,0,0.18)) drop-shadow(0 30px 24px rgba(0,0,0,0.22))",
+                WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 90%, transparent 100%)",
+                maskImage: "linear-gradient(to bottom, black 0%, black 90%, transparent 100%)",
+              }}
             />
+            <div className="pointer-events-none absolute inset-x-[18%] bottom-2 z-[1] h-3 rounded-[50%] bg-black/50 blur-md" />
+            <div className="pointer-events-none absolute inset-x-[6%] bottom-0 z-[1] h-10 rounded-[50%] bg-black/25 blur-2xl" />
           </div>
         </div>
       </div>
@@ -543,15 +570,29 @@ function WhyCard() {
     <div className={`${TRIPLE_CARD} relative overflow-hidden`}>
       <h3 className="text-center font-display text-lg font-bold">Why Choose Finonest?</h3>
       <div className="relative my-2 grid place-items-center">
-        <div className="pointer-events-none absolute inset-0 -z-10 mx-auto h-40 w-40 rounded-full bg-primary/10 blur-3xl"/>
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center select-none whitespace-nowrap font-display font-black uppercase leading-none tracking-tighter text-primary/10"
+          style={{ fontSize: "clamp(90px, 14vw, 180px)", letterSpacing: "-0.06em" }}
+        >
+          TRUST
+        </span>
+        <div className="pointer-events-none absolute inset-0 z-[1] mx-auto h-40 w-40 rounded-full bg-primary/15 blur-3xl"/>
         <img
           src={whyCar}
           alt="Transparent car cutaway"
           width={1280}
           height={1024}
           loading="lazy"
-          className="w-full max-w-[260px] car-depth transition-transform duration-500 group-hover:scale-105"
+          className="relative z-[2] w-full max-w-[260px] car-depth transition-transform duration-500 group-hover:scale-105"
+          style={{
+            filter:
+              "drop-shadow(0 6px 4px rgba(0,0,0,0.18)) drop-shadow(0 24px 18px rgba(0,0,0,0.22))",
+            WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 90%, transparent 100%)",
+            maskImage: "linear-gradient(to bottom, black 0%, black 90%, transparent 100%)",
+          }}
         />
+        <div className="pointer-events-none absolute inset-x-[22%] bottom-2 z-[1] h-2.5 rounded-[50%] bg-black/45 blur-md" />
       </div>
       <ul className="mt-2 space-y-2">
         {features.map(f => (
