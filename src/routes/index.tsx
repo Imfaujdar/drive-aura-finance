@@ -6,9 +6,9 @@ import {
   TrendingUp, Bike, Truck, ChevronRight, Menu,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import heroCar from "@/assets/hero-car.jpg";
-import resaleSuv from "@/assets/resale-suv.jpg";
-import whyCar from "@/assets/why-car.jpg";
+import heroCar from "@/assets/hero-car.png";
+import resaleSuv from "@/assets/resale-suv.png";
+import whyCar from "@/assets/why-car.png";
 import blog1 from "@/assets/blog-1.jpg";
 import blog2 from "@/assets/blog-2.jpg";
 import blog3 from "@/assets/blog-3.jpg";
@@ -106,27 +106,26 @@ function Hero() {
         </div>
 
         <div className="relative">
-          <div className="relative aspect-square overflow-hidden rounded-[2.5rem] glass-strong p-3">
-            <div className="absolute inset-0 -z-10 bg-mesh" />
-            {/* glowing rings */}
-            <div className="pointer-events-none absolute left-1/2 top-[62%] h-[60%] w-[90%] -translate-x-1/2 rounded-[50%] border border-primary/40 animate-spin-slow" />
-            <div className="pointer-events-none absolute left-1/2 top-[64%] h-[40%] w-[70%] -translate-x-1/2 rounded-[50%] border border-accent/40" />
+          <div className="relative aspect-square">
+            {/* glowing rings on the floor */}
+            <div className="pointer-events-none absolute left-1/2 top-[72%] h-[40%] w-[95%] -translate-x-1/2 rounded-[50%] border border-primary/25 animate-spin-slow" />
+            <div className="pointer-events-none absolute left-1/2 top-[74%] h-[26%] w-[72%] -translate-x-1/2 rounded-[50%] border border-primary/15" />
             <img
               src={heroCar}
-              alt="Futuristic luxury electric car floating with neon rings"
-              width={1024}
-              height={1024}
-              className="relative z-10 h-full w-full rounded-[2.2rem] object-cover animate-float"
+              alt="Futuristic luxury electric car"
+              width={1280}
+              height={1280}
+              className="relative z-10 h-full w-full object-contain animate-float car-depth-lg"
             />
             {/* floating cards */}
-            <div className="absolute left-4 top-6 z-20 rounded-2xl glass px-3 py-2 text-xs font-semibold animate-float-sm">
+            <div className="absolute left-2 top-6 z-20 rounded-2xl glass px-3 py-2 text-xs font-semibold animate-float-sm">
               <div className="flex items-center gap-2"><Wallet className="h-4 w-4 text-primary"/>Pre-approved · ₹8.2L</div>
             </div>
-            <div className="absolute right-4 top-1/3 z-20 rounded-2xl glass px-3 py-2 text-xs font-semibold animate-float-sm" style={{animationDelay:"1.2s"}}>
+            <div className="absolute right-2 top-1/3 z-20 rounded-2xl glass px-3 py-2 text-xs font-semibold animate-float-sm" style={{animationDelay:"1.2s"}}>
               <div className="flex items-center gap-2"><TrendingUp className="h-4 w-4 text-success"/>Rate · 8.49%*</div>
             </div>
-            <div className="absolute bottom-6 left-6 z-20 rounded-2xl glass px-3 py-2 text-xs font-semibold animate-float-sm" style={{animationDelay:"2s"}}>
-              <div className="flex items-center gap-2"><Cpu className="h-4 w-4 text-accent"/>AI scoring engine</div>
+            <div className="absolute bottom-6 left-2 z-20 rounded-2xl glass px-3 py-2 text-xs font-semibold animate-float-sm" style={{animationDelay:"2s"}}>
+              <div className="flex items-center gap-2"><Cpu className="h-4 w-4 text-primary"/>AI scoring engine</div>
             </div>
           </div>
 
@@ -299,7 +298,7 @@ function Resale() {
             <div className="absolute left-1/2 top-1/2 h-[80%] w-[90%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/25 animate-spin-slow"/>
             <div className="absolute left-1/2 top-1/2 h-[55%] w-[65%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent/30"/>
           </div>
-          <img src={resaleSuv} alt="SUV resale value hologram" width={1024} height={1024} loading="lazy" className="mx-auto w-full max-w-md animate-float-sm rounded-2xl"/>
+          <img src={resaleSuv} alt="SUV resale value" width={1280} height={1024} loading="lazy" className="mx-auto w-full max-w-md animate-float-sm car-depth"/>
         </div>
         <div>
           <h3 className="font-display text-3xl font-extrabold md:text-4xl">Get the Best <span className="text-gradient">Value</span> for Your Car</h3>
@@ -335,7 +334,7 @@ function WhyFinonest() {
         </div>
         <div className="relative">
           <div className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-primary/15 blur-3xl"/>
-          <img src={whyCar} alt="Transparent futuristic car cutaway" width={1024} height={1024} loading="lazy" className="mx-auto w-full max-w-md animate-float"/>
+          <img src={whyCar} alt="Transparent futuristic car cutaway" width={1280} height={1024} loading="lazy" className="mx-auto w-full max-w-md animate-float car-depth-lg"/>
         </div>
         <div className="space-y-4">
           {features.slice(3).map(f=>(<FeatureRow key={f} text={f} reverse/>))}
