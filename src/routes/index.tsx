@@ -5,12 +5,10 @@ import {
   Zap, FileCheck, Clock, Users, Building2, CircleDollarSign,
   TrendingUp, Bike, Truck, ChevronRight, Menu, Play, Pause,
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import gsap from "gsap";
-import heroCar1 from "@/assets/hero-car-1.png";
-import heroCar2 from "@/assets/hero-car-2.png";
-import heroCar3 from "@/assets/hero-car-3.png";
-import resaleSuv from "@/assets/resale-suv.png";
+import heroScene from "@/assets/hero-scene.jpg";
+import resaleScene from "@/assets/resale-scene.jpg";
 import whyCar from "@/assets/why-car.png";
 import blog1 from "@/assets/blog-1.jpg";
 import blog2 from "@/assets/blog-2.jpg";
@@ -74,55 +72,61 @@ function Nav() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden">
-      {/* mesh + blobs */}
-      <div className="pointer-events-none absolute inset-0 bg-mesh" />
-      <div className="pointer-events-none absolute -left-32 top-20 h-96 w-96 rounded-full bg-primary/8 blur-3xl animate-blob" />
-      <div className="pointer-events-none absolute -right-20 top-40 h-[28rem] w-[28rem] rounded-full bg-accent/8 blur-3xl animate-blob" style={{ animationDelay: "4s" }}/>
-      <div className="pointer-events-none absolute left-1/3 bottom-0 h-72 w-72 rounded-full bg-secondary/8 blur-3xl animate-blob" style={{ animationDelay: "8s" }}/>
+    <section className="relative">
+      <div className="mx-auto max-w-7xl px-4 pt-6 pb-8">
+        <div className="relative overflow-hidden rounded-[2rem] border border-border/60 bg-white/60 shadow-[var(--shadow-glass)]">
+          <img
+            src={heroScene}
+            alt="Futuristic supercar with city skyline"
+            className="block h-auto w-full object-cover"
+            width={1600}
+            height={900}
+          />
 
-      <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 pb-20 pt-12 md:grid-cols-2 md:pt-20">
-        <div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-white/60 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-primary backdrop-blur">
-            <Cpu className="h-3.5 w-3.5" /> AI Powered Used Car Finance
+          {/* fade overlay so left text is readable */}
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white/95 via-white/55 to-transparent" />
+
+          {/* left content overlay */}
+          <div className="absolute left-0 top-0 flex h-full max-w-[58%] flex-col justify-center p-6 sm:p-10 md:p-14">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.3em] text-primary">
+              Smart Finance for a Smarter Drive
+            </div>
+            <h1 className="mt-4 font-display text-4xl font-extrabold leading-[1.02] tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
+              Drive Today.<br/>
+              Achieve <span className="text-gradient">Tomorrow.</span>
+            </h1>
+            <p className="mt-4 max-w-md text-sm text-muted-foreground sm:text-base">
+              India's most advanced platform for all your Auto Loans, Insurance & Vehicle Finances.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <button className="btn-shine inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-5 py-3 text-sm font-semibold text-white shadow-[var(--shadow-glow)]">
+                Check Auto Loan Offers <ChevronRight className="h-4 w-4"/>
+              </button>
+              <button className="inline-flex items-center gap-2 rounded-xl border border-border bg-white/85 px-5 py-3 text-sm font-semibold text-foreground backdrop-blur hover:bg-white">
+                Login to Dashboard <ArrowRight className="h-4 w-4"/>
+              </button>
+            </div>
+
+            <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3">
+              <Stat value={2} suffix="M+" label="Happy Customers" icon={<Users className="h-4 w-4"/>} />
+              <Stat value={50} suffix="+" label="Lending Partners" icon={<Building2 className="h-4 w-4"/>} />
+              <Stat value={99.6} suffix="%" label="Approval Rate" icon={<BadgeCheck className="h-4 w-4"/>} decimals={1}/>
+            </div>
           </div>
-          <h1 className="mt-6 font-display text-5xl font-extrabold leading-[1.02] tracking-tight md:text-7xl">
-            Drive Today.<br/>Achieve <span className="text-gradient">Tomorrow.</span>
-          </h1>
-          <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-            India's most advanced platform for Used Car Loans, Refinance, Insurance, Credit Score & Car Valuation — powered by intelligent finance.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <button className="btn-shine inline-flex items-center gap-2 rounded-2xl bg-gradient-brand px-6 py-3.5 font-semibold text-white shadow-[var(--shadow-lift)]">
-              Get Loan Offers <ArrowRight className="h-4 w-4" />
-            </button>
-            <button className="inline-flex items-center gap-2 rounded-2xl border border-border bg-white/70 px-6 py-3.5 font-semibold text-foreground backdrop-blur hover:bg-white">
-              Explore Dashboard <ChevronRight className="h-4 w-4" />
-            </button>
-          </div>
 
-          <div className="mt-10 grid max-w-xl grid-cols-3 gap-3">
-            <Stat value={2} suffix="M+" label="Happy Customers" icon={<Users className="h-4 w-4"/>} />
-            <Stat value={50} suffix="+" label="Lending Partners" icon={<Building2 className="h-4 w-4"/>} />
-            <Stat value={99.6} suffix="%" label="Approval Rate" icon={<BadgeCheck className="h-4 w-4"/>} decimals={1}/>
-          </div>
-        </div>
-
-        <div className="relative">
-          <HeroCarStage />
-
-          {/* quick actions floating panel */}
-          <div className="absolute -right-3 top-1/2 z-30 hidden -translate-y-1/2 flex-col gap-2 rounded-2xl glass-strong p-2 lg:flex">
+          {/* right vertical sidebar */}
+          <div className="absolute right-3 top-1/2 hidden -translate-y-1/2 flex-col gap-2 md:flex">
             {[
-              { icon: <Car className="h-4 w-4"/>, label: "Apply Loan" },
-              { icon: <Calculator className="h-4 w-4"/>, label: "EMI Calc" },
-              { icon: <MessageCircle className="h-4 w-4"/>, label: "AI Chat" },
-              { icon: <Gauge className="h-4 w-4"/>, label: "Credit Score" },
-              { icon: <Shield className="h-4 w-4"/>, label: "Insurance" },
-            ].map((a) => (
-              <button key={a.label} className="group flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold transition-all hover:bg-gradient-brand hover:text-white hover:shadow-[var(--shadow-glow)]">
-                <span className="grid h-7 w-7 place-items-center rounded-lg bg-primary/10 text-primary group-hover:bg-white/20 group-hover:text-white">{a.icon}</span>
-                <span className="whitespace-nowrap">{a.label}</span>
+              { icon: <Car className="h-5 w-5"/>, label: "Quick Apply" },
+              { icon: <Calculator className="h-5 w-5"/>, label: "EMI Calculator" },
+              { icon: <MessageCircle className="h-5 w-5"/>, label: "Chat Now" },
+            ].map(a => (
+              <button
+                key={a.label}
+                className="flex w-20 flex-col items-center gap-1 rounded-2xl bg-white/90 px-2 py-3 text-[11px] font-semibold text-foreground shadow-[var(--shadow-glass)] ring-1 ring-border/60 backdrop-blur transition hover:bg-white"
+              >
+                <span className="text-primary">{a.icon}</span>
+                <span className="text-center leading-tight">{a.label}</span>
               </button>
             ))}
           </div>
@@ -132,287 +136,50 @@ function Hero() {
   );
 }
 
-const HERO_CARS = [
-  { src: heroCar1, name: "Hyundai Creta", tag: "SUV · ₹11.0L onwards" },
-  { src: heroCar2, name: "Mahindra XUV", tag: "SUV · ₹14.0L onwards" },
-  { src: heroCar3, name: "Maruti Swift",  tag: "Hatchback · ₹6.5L onwards" },
-];
 
-function HeroCarStage() {
-  const [idx, setIdx] = useState(0);
-  const [transitioning, setTransitioning] = useState(false);
-  const [playing, setPlaying] = useState(true);
-  const carRef = useRef<HTMLImageElement | null>(null);
-  const stageRef = useRef<HTMLDivElement | null>(null);
-  const ringsRef = useRef<HTMLDivElement | null>(null);
-  const wheelsRef = useRef<HTMLDivElement | null>(null);
-  const bobTween = useRef<gsap.core.Tween | null>(null);
-
-  // entrance
-  useEffect(() => {
-    if (!stageRef.current) return;
-    const ctx = gsap.context(() => {
-      gsap.from(".hero-floating-card", {
-        y: 20, opacity: 0, duration: 0.9, stagger: 0.18, ease: "power3.out", delay: 0.4,
-      });
-      gsap.from(".hero-ring", {
-        scale: 0.7, opacity: 0, duration: 1.3, stagger: 0.12, ease: "power3.out",
-      });
-    }, stageRef);
-    return () => ctx.revert();
-  }, []);
-
-  // gentle idle bob
-  useEffect(() => {
-    if (!carRef.current) return;
-    bobTween.current?.kill();
-    bobTween.current = gsap.to(carRef.current, {
-      y: -5, duration: 2.2, repeat: -1, yoyo: true, ease: "sine.inOut",
-    });
-    return () => { bobTween.current?.kill(); };
-  }, [idx]);
-
-  // mouse parallax on rings + floating cards
-  useEffect(() => {
-    const stage = stageRef.current;
-    if (!stage) return;
-    let raf = 0;
-    let tx = 0, ty = 0;
-    const xToRings = gsap.quickTo(ringsRef.current, "x", { duration: 0.9, ease: "power3.out" });
-    const yToRings = gsap.quickTo(ringsRef.current, "y", { duration: 0.9, ease: "power3.out" });
-    const rotXRings = gsap.quickTo(ringsRef.current, "rotationX", { duration: 0.9, ease: "power3.out" });
-    const rotYRings = gsap.quickTo(ringsRef.current, "rotationY", { duration: 0.9, ease: "power3.out" });
-
-    const onMove = (e: MouseEvent) => {
-      const r = stage.getBoundingClientRect();
-      const nx = ((e.clientX - r.left) / r.width - 0.5) * 2;   // -1..1
-      const ny = ((e.clientY - r.top) / r.height - 0.5) * 2;
-      tx = nx; ty = ny;
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        xToRings(tx * 24);
-        yToRings(ty * 12);
-        rotXRings(60 + ty * 8);   // base tilt + parallax
-        rotYRings(tx * 8);
-        gsap.to(".hero-floating-card", { x: tx * -10, y: ty * -6, duration: 0.7, ease: "power3.out", overwrite: "auto" });
-      });
-    };
-    const onLeave = () => {
-      xToRings(0); yToRings(0); rotXRings(60); rotYRings(0);
-      gsap.to(".hero-floating-card", { x: 0, y: 0, duration: 0.7, ease: "power3.out", overwrite: "auto" });
-    };
-    stage.addEventListener("mousemove", onMove);
-    stage.addEventListener("mouseleave", onLeave);
-    return () => {
-      stage.removeEventListener("mousemove", onMove);
-      stage.removeEventListener("mouseleave", onLeave);
-      cancelAnimationFrame(raf);
-    };
-  }, []);
-
-  const goTo = (next: number) => {
-    if (transitioning || !carRef.current) return;
-    setTransitioning(true);
-    bobTween.current?.kill();
-    const el = carRef.current;
-    const speedLines = stageRef.current?.querySelectorAll(".speed-line") ?? [];
-    const wheelEls = wheelsRef.current?.querySelectorAll(".roll-wheel") ?? [];
-    const wheelSpinners = wheelsRef.current?.querySelectorAll(".roll-wheel-spin") ?? [];
-
-    const tl = gsap.timeline({
-      defaults: { ease: "power2.inOut" },
-      onComplete: () => {
-        setIdx(next);
-        setTransitioning(false);
-      },
-    });
-
-    // show wheels overlay + spin them
-    tl.set(wheelEls, { opacity: 0, x: 0 });
-    tl.to(wheelEls, { opacity: 1, duration: 0.25 }, 0);
-    tl.to(wheelSpinners, { rotation: 1440, duration: 1.6, ease: "none" }, 0);
-
-    // drive away
-    tl.to(el, {
-      x: 560, filter: "blur(2.5px)", opacity: 0, duration: 0.8, ease: "power2.in",
-    }, 0);
-    tl.to(wheelEls, {
-      x: 560, duration: 0.8, ease: "power2.in",
-    }, 0);
-    tl.to(speedLines, {
-      x: -260, opacity: 1, duration: 0.6, stagger: 0.05, ease: "power2.out",
-    }, 0.1);
-    tl.to(speedLines, { opacity: 0, duration: 0.25 }, 0.7);
-
-    // swap car
-    tl.add(() => {
-      el.src = HERO_CARS[next].src;
-      gsap.set(el, { x: -560, opacity: 0, filter: "blur(2.5px)", y: 0 });
-      gsap.set(wheelEls, { x: -560, opacity: 1 });
-      gsap.set(speedLines, { x: 0, opacity: 0 });
-    });
-
-    // drive in
-    tl.to(el, {
-      x: 0, opacity: 1, filter: "blur(0px)", duration: 0.85, ease: "power3.out",
-    });
-    tl.to(wheelEls, {
-      x: 0, duration: 0.85, ease: "power3.out",
-    }, "<");
-    tl.to(wheelEls, { opacity: 0, duration: 0.3 }, ">-0.15");
-  };
-
-  const next = () => goTo((idx + 1) % HERO_CARS.length);
-  const prev = () => goTo((idx - 1 + HERO_CARS.length) % HERO_CARS.length);
-
-  // autoplay
-  useEffect(() => {
-    if (!playing) return;
-    const id = setTimeout(() => {
-      if (!transitioning) goTo((idx + 1) % HERO_CARS.length);
-    }, 6500);
-    return () => clearTimeout(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [idx, transitioning, playing]);
-
-  const car = HERO_CARS[idx];
-
-  return (
-    <div ref={stageRef} className="relative aspect-square [perspective:1400px]">
-      {/* depth rings on the floor — tilted, with mouse parallax */}
-      <div
-        ref={ringsRef}
-        className="pointer-events-none absolute inset-0"
-        style={{ transformStyle: "preserve-3d", transform: "rotateX(60deg)" }}
-      >
-        <div className="hero-ring absolute left-1/2 top-[68%] h-[60%] w-[110%] -translate-x-1/2 rounded-full border border-primary/30 animate-spin-slow" />
-        <div className="hero-ring absolute left-1/2 top-[70%] h-[44%] w-[82%] -translate-x-1/2 rounded-full border border-primary/20" />
-        <div className="hero-ring absolute left-1/2 top-[72%] h-[28%] w-[56%] -translate-x-1/2 rounded-full border border-primary/15" />
-        <div className="hero-ring absolute left-1/2 top-[74%] h-[18%] w-[42%] -translate-x-1/2 rounded-full bg-primary/10 blur-2xl" />
-      </div>
-
-      {/* speed lines */}
-      <div className="pointer-events-none absolute inset-x-0 top-[58%] z-10 h-24">
-        {[0,1,2,3,4].map(i=>(
-          <span key={i}
-            className="speed-line absolute h-[2px] rounded-full bg-primary/40 opacity-0"
-            style={{ right: `${10 + i*8}%`, top: `${20 + i*12}%`, width: `${40 + i*14}px` }}
-          />
-        ))}
-      </div>
-
-      {/* car */}
-      <img
-        ref={carRef}
-        src={car.src}
-        alt={car.name}
-        width={1280}
-        height={1280}
-        className="relative z-20 h-full w-full object-contain car-depth-lg"
-        style={{ willChange: "transform, filter, opacity" }}
-      />
-
-      {/* spinning wheels overlay (visible only during transition) */}
-      <div ref={wheelsRef} className="pointer-events-none absolute inset-0 z-[25]">
-        {[
-          { left: "21%" },
-          { left: "70%" },
-        ].map((pos, i) => (
-          <div key={i}
-            className="roll-wheel absolute opacity-0"
-            style={{ left: pos.left, top: "78%", width: "11%", aspectRatio: "1 / 1" }}
-          >
-            <svg viewBox="0 0 100 100" className="roll-wheel-spin h-full w-full" style={{ transformOrigin: "50% 50%" }}>
-              <circle cx="50" cy="50" r="46" fill="#0d0d10" stroke="#2a2a35" strokeWidth="3"/>
-              <circle cx="50" cy="50" r="14" fill="#5a5a66"/>
-              {Array.from({length:6}).map((_,k)=>(
-                <rect key={k} x="48" y="14" width="4" height="36" rx="2" fill="#3a3a44"
-                  transform={`rotate(${k*60} 50 50)`}/>
-              ))}
-            </svg>
-          </div>
-        ))}
-      </div>
-
-      {/* floating cards */}
-      <div className="hero-floating-card absolute left-2 top-6 z-30 rounded-2xl glass px-3 py-2 text-xs font-semibold">
-        <div className="flex items-center gap-2"><Wallet className="h-4 w-4 text-primary"/>Pre-approved · ₹8.2L</div>
-      </div>
-      <div className="hero-floating-card absolute right-2 top-1/3 z-30 rounded-2xl glass px-3 py-2 text-xs font-semibold">
-        <div className="flex items-center gap-2"><TrendingUp className="h-4 w-4 text-success"/>Rate · 8.49%*</div>
-      </div>
-      <div className="hero-floating-card absolute bottom-20 left-2 z-30 rounded-2xl glass px-3 py-2 text-xs font-semibold">
-        <div className="flex items-center gap-2"><Cpu className="h-4 w-4 text-primary"/>AI scoring engine</div>
-      </div>
-
-      {/* control dock */}
-      <div className="absolute bottom-3 left-1/2 z-30 flex -translate-x-1/2 items-center gap-2 rounded-full glass-strong px-2.5 py-1.5">
-        <button onClick={prev} aria-label="Previous car" className="grid h-8 w-8 place-items-center rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-white transition">
-          <ChevronRight className="h-4 w-4 rotate-180"/>
-        </button>
-        <button
-          onClick={() => setPlaying(p => !p)}
-          aria-label={playing ? "Pause autoplay" : "Play autoplay"}
-          className="grid h-8 w-8 place-items-center rounded-full bg-gradient-brand text-white shadow-[var(--shadow-glow)]"
-        >
-          {playing ? <Pause className="h-4 w-4"/> : <Play className="h-4 w-4"/>}
-        </button>
-        <div className="px-1.5 text-center min-w-[110px]">
-          <div className="font-display text-xs font-bold leading-none">{car.name}</div>
-          <div className="text-[10px] text-muted-foreground mt-0.5">{car.tag}</div>
-        </div>
-        <button onClick={next} aria-label="Next car" className="grid h-8 w-8 place-items-center rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-white transition">
-          <ChevronRight className="h-4 w-4"/>
-        </button>
-      </div>
-      <div className="absolute -bottom-3 left-1/2 z-30 flex -translate-x-1/2 gap-1.5">
-        {HERO_CARS.map((_, i) => (
-          <button key={i} onClick={() => goTo(i)} aria-label={`Go to car ${i+1}`}
-            className={`h-1.5 rounded-full transition-all ${i===idx ? "w-6 bg-primary" : "w-1.5 bg-primary/30"}`}/>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 
 
 function Stat({ value, suffix, label, icon, decimals = 0 }:{value:number;suffix:string;label:string;icon:React.ReactNode;decimals?:number}) {
   const v = useCounter(value);
   return (
-    <div className="rounded-2xl glass p-4 card-lift">
-      <div className="flex items-center gap-2 text-primary">{icon}<span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">{label}</span></div>
-      <div className="mt-1 font-num text-2xl font-bold">
-        {v.toFixed(decimals)}{suffix}
+    <div className="flex items-center gap-2.5">
+      <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-primary ring-1 ring-primary/15 shadow-[var(--shadow-glass)]">{icon}</span>
+      <div>
+        <div className="font-num text-lg font-bold leading-none">{v.toFixed(decimals)}{suffix}</div>
+        <div className="mt-1 text-[11px] text-muted-foreground">{label}</div>
       </div>
     </div>
   );
 }
 
 function Services() {
-  const items = [
-    { icon: CircleDollarSign, title: "Check Auto", sub: "Loan Offers" },
-    { icon: FileCheck, title: "Check & Pay", sub: "Challan" },
-    { icon: CircleDollarSign, title: "Check Resale", sub: "Value" },
-    { icon: Shield, title: "Renew", sub: "Insurance" },
-    { icon: HomeIcon, title: "Book Home", sub: "Inspection" },
-    { icon: Gauge, title: "Check Credit Score", sub: "& Offers" },
+  const items: { icon: any; title: string; sub: string; color: string }[] = [
+    { icon: CircleDollarSign, title: "Check Auto", sub: "Loan Offers", color: "bg-blue-50 text-blue-500 ring-blue-100" },
+    { icon: FileCheck,        title: "Check & Pay", sub: "Challan",    color: "bg-amber-50 text-amber-500 ring-amber-100" },
+    { icon: CircleDollarSign, title: "Check Resale", sub: "Value",     color: "bg-pink-50 text-pink-500 ring-pink-100" },
+    { icon: Shield,           title: "Renew",       sub: "Insurance",  color: "bg-violet-50 text-violet-500 ring-violet-100" },
+    { icon: HomeIcon,         title: "Book Home",   sub: "Inspection", color: "bg-sky-50 text-sky-500 ring-sky-100" },
+    { icon: Gauge,            title: "Check Credit Score", sub: "& Offers", color: "bg-indigo-50 text-indigo-500 ring-indigo-100" },
   ];
   return (
     <section className="relative mx-auto max-w-7xl px-4 -mt-2">
-      <div className="rounded-3xl glass-strong p-6 md:p-8">
+      <div className="relative rounded-3xl border border-border/60 bg-white/85 p-5 shadow-[var(--shadow-glass)] backdrop-blur md:p-7">
         <div className="grid grid-cols-3 gap-4 md:grid-cols-6">
-          {items.map(({ icon: Icon, title, sub }) => (
-            <button key={title} className="group flex flex-col items-center gap-3 rounded-2xl p-3 transition-all hover:-translate-y-1">
-              <span className="grid h-16 w-16 place-items-center rounded-full bg-primary/8 text-primary ring-1 ring-primary/15 transition-all group-hover:bg-gradient-brand group-hover:text-white group-hover:shadow-[var(--shadow-glow)]">
+          {items.map(({ icon: Icon, title, sub, color }) => (
+            <button key={title} className="group flex flex-col items-center gap-3 rounded-2xl p-2 transition-all hover:-translate-y-1">
+              <span className={`grid h-16 w-16 place-items-center rounded-full ring-1 ${color} transition-transform group-hover:scale-105`}>
                 <Icon className="h-7 w-7" />
               </span>
-              <div className="text-center text-xs font-semibold leading-tight">
+              <div className="text-center text-xs font-semibold leading-tight text-foreground/85">
                 {title}<br/>{sub}
               </div>
             </button>
           ))}
         </div>
+        <button aria-label="Next services" className="absolute -right-3 top-1/2 hidden h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-white shadow-[var(--shadow-glass)] ring-1 ring-border md:grid">
+          <ChevronRight className="h-5 w-5 text-primary"/>
+        </button>
       </div>
     </section>
   );
@@ -517,27 +284,38 @@ function CreditScoreCard() {
 
 function Resale() {
   return (
-    <section className="relative mx-auto max-w-7xl px-4 py-16">
-      <div className="grid items-center gap-8 overflow-hidden rounded-3xl glass-strong p-6 md:grid-cols-2 md:p-10">
-        <div className="relative">
-          <div className="pointer-events-none absolute inset-0 -z-10">
-            <div className="absolute left-1/2 top-1/2 h-[80%] w-[90%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/25 animate-spin-slow"/>
-            <div className="absolute left-1/2 top-1/2 h-[55%] w-[65%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent/30"/>
-          </div>
-          <img src={resaleSuv} alt="SUV resale value" width={1280} height={1024} loading="lazy" className="mx-auto w-full max-w-md animate-float-sm car-depth"/>
-        </div>
-        <div>
-          <h3 className="font-display text-3xl font-extrabold md:text-4xl">Get the Best <span className="text-gradient">Value</span> for Your Car</h3>
-          <p className="mt-2 text-muted-foreground">Check the resale value of your used car in just a few clicks.</p>
-          <div className="mt-5 grid gap-3 sm:grid-cols-3">
-            <Field label="Car Number"><input className="field" placeholder="MH 12 AB 1234"/></Field>
-            <Field label="Brand"><select className="field"><option>Maruti</option><option>Hyundai</option><option>BMW</option></select></Field>
-            <Field label="Model"><select className="field"><option>Select model</option></select></Field>
-          </div>
+    <section className="relative mx-auto max-w-7xl px-4 py-10">
+      <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-white/70 shadow-[var(--shadow-glass)]">
+        <img
+          src={resaleScene}
+          alt="Get the best resale value for your car"
+          width={1600}
+          height={600}
+          loading="lazy"
+          className="block h-auto w-full object-cover"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-l from-white/95 via-white/40 to-transparent" />
+        <div className="absolute right-0 top-0 flex h-full max-w-[55%] flex-col justify-center p-6 sm:p-10 md:p-12">
+          <h3 className="font-display text-2xl font-extrabold sm:text-3xl md:text-4xl">
+            Get the Best <span className="text-gradient">Value</span> for Your Car
+          </h3>
+          <p className="mt-2 max-w-md text-sm text-muted-foreground sm:text-base">
+            Check resale value of your used car in just a few clicks.
+          </p>
           <div className="mt-5 flex flex-wrap items-center gap-3">
-            <button className="btn-shine inline-flex items-center gap-2 rounded-2xl bg-gradient-brand px-6 py-3 font-semibold text-white shadow-[var(--shadow-glow)]">Check Value <ArrowRight className="h-4 w-4"/></button>
-            {["Instant","Accurate","Reliable"].map(t=>(
-              <span key={t} className="rounded-full border border-border bg-white/60 px-3 py-1 text-xs font-semibold">{t}</span>
+            <button className="btn-shine inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-primary ring-1 ring-primary/30 shadow-[var(--shadow-glass)]">
+              Check Resale Value <ChevronRight className="h-4 w-4"/>
+            </button>
+          </div>
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            {[
+              { i: <Zap className="h-3.5 w-3.5"/>, t: "Instant" },
+              { i: <Sparkles className="h-3.5 w-3.5"/>, t: "Accurate" },
+              { i: <BadgeCheck className="h-3.5 w-3.5"/>, t: "Reliable" },
+            ].map(c => (
+              <span key={c.t} className="inline-flex items-center gap-1.5 rounded-full border border-border bg-white/85 px-3 py-1 text-xs font-semibold text-foreground/80">
+                <span className="text-primary">{c.i}</span>{c.t}
+              </span>
             ))}
           </div>
         </div>
@@ -546,99 +324,112 @@ function Resale() {
   );
 }
 
-function WhyFinonest() {
-  const features = [
-    "AI Powered Approval","Lowest Interest","Instant Eligibility",
-    "50+ Partners","Paperless Process","Fast Disbursal",
-  ];
+function BottomTriple() {
   return (
-    <section className="relative mx-auto max-w-7xl px-4 py-24">
-      <SectionHeader eyebrow="Why Finonest" title={<>Built like a <span className="text-gradient">finance super-engine</span></>} sub="Every gear of your loan, tuned by AI."/>
-      <div className="relative mt-14 grid items-center gap-8 md:grid-cols-3">
-        <div className="space-y-4">
-          {features.slice(0,3).map(f=>(<FeatureRow key={f} text={f}/>))}
-        </div>
-        <div className="relative">
-          <div className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-primary/15 blur-3xl"/>
-          <img src={whyCar} alt="Transparent futuristic car cutaway" width={1280} height={1024} loading="lazy" className="mx-auto w-full max-w-md animate-float car-depth-lg"/>
-        </div>
-        <div className="space-y-4">
-          {features.slice(3).map(f=>(<FeatureRow key={f} text={f} reverse/>))}
-        </div>
+    <section className="relative mx-auto max-w-7xl px-4 py-12">
+      <div className="grid gap-6 lg:grid-cols-3">
+        <BlogCard />
+        <WhyCard />
+        <RatesCard />
       </div>
     </section>
   );
 }
 
-function FeatureRow({ text, reverse }: { text: string; reverse?: boolean }) {
+function BlogCard() {
+  const posts = [
+    { img: blog1, cat: "Auto Industry",  date: "May 15, 2026", title: "Future of EV in India: What to Expect in 2026 & Beyond", read: "5 min read" },
+    { img: blog2, cat: "Finance Tips",   date: "May 10, 2026", title: "5 Smart Tips to Get the Best Auto Loan in 2026",        read: "4 min read" },
+    { img: blog3, cat: "Market Insights",date: "May 05, 2026", title: "Auto Loan Trends: Key Insights You Should Know",          read: "6 min read" },
+  ];
   return (
-    <div className={`flex items-center gap-3 rounded-2xl glass card-lift p-4 ${reverse?"flex-row-reverse text-right":""}`}>
-      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-brand text-white shadow-[var(--shadow-glow)]">
-        <BadgeCheck className="h-5 w-5"/>
-      </span>
-      <span className="font-display font-semibold">{text}</span>
+    <div className="rounded-3xl border border-border/60 bg-white/85 p-5 shadow-[var(--shadow-glass)] backdrop-blur">
+      <div className="mb-4 flex items-center justify-between">
+        <h3 className="font-display text-lg font-bold">Latest from the Blog</h3>
+        <a href="#" className="inline-flex items-center gap-1 text-xs font-semibold text-primary">View All <ArrowRight className="h-3.5 w-3.5"/></a>
+      </div>
+      <ul className="space-y-3">
+        {posts.map((p, i) => (
+          <li key={i} className="group flex items-start gap-3 rounded-2xl p-2 transition hover:bg-primary/5">
+            <img src={p.img} alt={p.title} width={120} height={90} loading="lazy" className="h-16 w-20 shrink-0 rounded-xl object-cover"/>
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 text-[10px]">
+                <span className="rounded-full bg-amber-50 px-2 py-0.5 font-bold uppercase tracking-widest text-amber-600">{p.cat}</span>
+                <span className="text-muted-foreground">{p.date}</span>
+              </div>
+              <div className="mt-1 line-clamp-2 text-sm font-semibold leading-snug">{p.title}</div>
+              <div className="mt-0.5 text-[11px] text-muted-foreground">{p.read}</div>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <a href="#" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-primary">Explore More Articles <ArrowRight className="h-4 w-4"/></a>
     </div>
   );
 }
 
-function Rates() {
-  const rates = [
-    { icon: Car, t: "New Car Loan", v: "8.49%*", tone: "from-primary to-secondary" },
-    { icon: Car, t: "Used Car Loan", v: "9.25%*", tone: "from-primary to-secondary" },
-    { icon: Bike, t: "Two Wheeler", v: "10.50%*", tone: "from-primary to-secondary" },
-    { icon: Truck, t: "Commercial", v: "9.75%*", tone: "from-primary to-secondary" },
+function WhyCard() {
+  const features = [
+    "Specialized in Auto Finance",
+    "50+ Trusted Lending Partners",
+    "Competitive Interest Rates",
+    "Quick Processing & Disbursal",
+    "End-to-End Digital Experience",
+    "Expert Support at Every Step",
   ];
   return (
-    <section className="relative mx-auto max-w-7xl px-4 py-16">
-      <SectionHeader eyebrow="Live Rates" title={<>Current <span className="text-gradient">Interest Rates</span></>} sub="Updated daily across our 50+ lending partners."/>
-      <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {rates.map(({icon:Icon,t,v,tone})=>(
-          <div key={t} className="group relative overflow-hidden rounded-3xl glass card-lift p-6">
-            <div className={`grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br ${tone} text-white shadow-[var(--shadow-glow)]`}><Icon className="h-6 w-6"/></div>
-            <div className="mt-4 text-sm text-muted-foreground">{t}</div>
-            <div className="font-num text-3xl font-extrabold">{v}</div>
-            <div className="mt-1 text-xs text-muted-foreground">Starting from</div>
-            <div className={`pointer-events-none absolute -right-8 -bottom-8 h-32 w-32 rounded-full bg-gradient-to-br ${tone} opacity-20 blur-2xl transition-opacity group-hover:opacity-40`}/>
-          </div>
-        ))}
+    <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-white/85 p-5 shadow-[var(--shadow-glass)] backdrop-blur">
+      <h3 className="text-center font-display text-lg font-bold">Why Choose Finonest?</h3>
+      <div className="relative my-3">
+        <div className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-primary/10 blur-3xl"/>
+        <img src={whyCar} alt="Transparent car cutaway" width={1280} height={1024} loading="lazy" className="mx-auto w-full max-w-[260px] car-depth"/>
       </div>
-    </section>
+      <ul className="space-y-2">
+        {features.map(f => (
+          <li key={f} className="flex items-center gap-2 text-sm font-medium text-foreground/85">
+            <BadgeCheck className="h-4 w-4 shrink-0 text-primary"/> {f}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
-function Blog() {
-  const posts = [
-    { img: blog1, cat: "Auto Industry", date: "May 15, 2026", title: "Future of EV in India: What to Expect in 2026 & Beyond", read: "5 min read" },
-    { img: blog2, cat: "Finance Tips", date: "May 10, 2026", title: "5 Smart Tips to Get the Best Auto Loan in 2026", read: "4 min read" },
-    { img: blog3, cat: "Market Insights", date: "May 05, 2026", title: "Auto Loan Trends: Key Insights You Should Know", read: "6 min read" },
+function RatesCard() {
+  const rates = [
+    { icon: Car,   t: "New Car Loan",       v: "8.49%*",  color: "bg-blue-50 text-blue-500" },
+    { icon: Car,   t: "Used Car Loan",      v: "9.25%*",  color: "bg-amber-50 text-amber-500" },
+    { icon: Bike,  t: "Two Wheeler Loan",   v: "10.50%*", color: "bg-pink-50 text-pink-500" },
+    { icon: Truck, t: "Commercial Vehicle Loan", v: "9.75%*", color: "bg-indigo-50 text-indigo-500" },
   ];
   return (
-    <section className="relative mx-auto max-w-7xl px-4 py-24">
-      <div className="mb-10 flex items-end justify-between">
-        <div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-white/60 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-primary backdrop-blur">Latest from the blog</div>
-          <h2 className="mt-4 font-display text-4xl font-extrabold md:text-5xl">Insights to drive <span className="text-gradient">smarter</span></h2>
-        </div>
-        <a className="hidden items-center gap-1 text-sm font-semibold text-primary md:inline-flex" href="#">View All <ArrowRight className="h-4 w-4"/></a>
+    <div className="rounded-3xl border border-border/60 bg-white/85 p-5 shadow-[var(--shadow-glass)] backdrop-blur">
+      <div className="mb-4 flex items-center justify-between">
+        <h3 className="font-display text-lg font-bold">Current Interest Rates</h3>
+        <a href="#" className="inline-flex items-center gap-1 text-xs font-semibold text-primary">View All <ArrowRight className="h-3.5 w-3.5"/></a>
       </div>
-      <div className="grid gap-6 md:grid-cols-3">
-        {posts.map((p,i)=>(
-          <article key={i} className="group overflow-hidden rounded-3xl glass card-lift">
-            <div className="relative aspect-[5/3] overflow-hidden">
-              <img src={p.img} alt={p.title} width={800} height={600} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"/>
-              <span className="absolute left-3 top-3 rounded-full bg-white/85 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-primary backdrop-blur">{p.cat}</span>
+      <ul className="divide-y divide-border/60">
+        {rates.map(({ icon: Icon, t, v, color }) => (
+          <li key={t} className="flex items-center justify-between gap-3 py-3">
+            <div className="flex items-center gap-3">
+              <span className={`grid h-10 w-10 place-items-center rounded-full ${color}`}>
+                <Icon className="h-5 w-5"/>
+              </span>
+              <div>
+                <div className="text-sm font-semibold leading-tight">{t}</div>
+                <div className="text-[11px] text-muted-foreground">Starting from</div>
+              </div>
             </div>
-            <div className="p-5">
-              <div className="flex items-center gap-2 text-xs text-muted-foreground"><span>{p.date}</span><span>·</span><span>{p.read}</span></div>
-              <h3 className="mt-2 font-display text-lg font-bold leading-snug">{p.title}</h3>
-              <a href="#" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-primary">Read article <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1"/></a>
-            </div>
-          </article>
+            <div className="font-num text-lg font-extrabold text-primary">{v}</div>
+          </li>
         ))}
-      </div>
-    </section>
+      </ul>
+      <div className="mt-2 text-right text-[10px] text-muted-foreground">* T&C Apply</div>
+    </div>
   );
 }
+
+
 
 function Partners() {
   const list = ["HDFC Bank","ICICI Bank","Axis Bank","Bajaj Finserv","Tata Capital","Kotak","SBI","Digit Insurance","IDFC First","Yes Bank"];
@@ -739,9 +530,7 @@ function Index() {
         <div data-reveal><Services /></div>
         <div data-reveal><Calculator2 /></div>
         <div data-reveal><Resale /></div>
-        <div data-reveal><WhyFinonest /></div>
-        <div data-reveal><Rates /></div>
-        <div data-reveal><Blog /></div>
+        <div data-reveal><BottomTriple /></div>
         <div data-reveal><Partners /></div>
         <div data-reveal><CTA /></div>
       </main>
