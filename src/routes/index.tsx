@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import heroSuv from "@/assets/hero-suv.jpg";
+import heroSuv from "@/assets/hero-suv.png";
 import whyCar from "@/assets/why-car.png";
 import blog1 from "@/assets/blog-1.jpg";
 import blog2 from "@/assets/blog-2.jpg";
@@ -118,13 +118,23 @@ function Hero() {
           </div>
         </div>
 
-        {/* Right — Hero SUV */}
-        <div className="relative lg:col-span-6">
-          <img
-            src={heroSuv}
-            alt="Red Tata Safari SUV with city skyline"
-            className="relative z-10 w-full drop-shadow-[0_30px_40px_rgba(180,40,50,0.25)]"
-          />
+        {/* Right — Hero SUV with 3D depth */}
+        <div className="relative lg:col-span-6 [perspective:1400px]">
+          {/* Glow halo */}
+          <div className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center">
+            <div className="h-[70%] w-[80%] rounded-full bg-gradient-to-br from-primary/30 via-primary/10 to-transparent blur-3xl" />
+          </div>
+          {/* Floor reflection / ground shadow */}
+          <div className="pointer-events-none absolute inset-x-10 bottom-4 h-10 rounded-[50%] bg-black/40 blur-2xl" />
+
+          <div className="animate-float">
+            <img
+              src={heroSuv}
+              alt="Red Tata Safari SUV"
+              className="relative z-10 w-full select-none [transform:rotateX(8deg)_rotateY(-14deg)_rotateZ(-1deg)] drop-shadow-[0_45px_35px_rgba(180,30,45,0.45)] transition-transform duration-700 hover:[transform:rotateX(4deg)_rotateY(-6deg)_rotateZ(0deg)_scale(1.03)]"
+              style={{ transformStyle: "preserve-3d" }}
+            />
+          </div>
         </div>
 
       </div>
