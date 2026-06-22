@@ -8,7 +8,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import SplitText from "@/components/SplitText";
-import Shuffle from "@/components/Shuffle";
+
 import heroSuv from "@/assets/hero-suv.png";
 import heroCar1 from "@/assets/hero-car-1.png";
 import heroCar2 from "@/assets/hero-car-2.png";
