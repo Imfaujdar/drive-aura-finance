@@ -74,11 +74,10 @@ const FRAME_COUNT = 272;
 const framePath = (i: number) => `/hero-frames/ezgif-frame-${String(i).padStart(3, "0")}.jpg`;
 
 function CinematicHero() {
-  const sectionRef = (typeof window !== "undefined" ? require("react") : null);
-  const wrapRef = (useRef as any)(null) as React.MutableRefObject<HTMLDivElement | null>;
-  const canvasRef = (useRef as any)(null) as React.MutableRefObject<HTMLCanvasElement | null>;
-  const imagesRef = (useRef as any)(null) as React.MutableRefObject<HTMLImageElement[]>;
-  const frameRef = (useRef as any)(null) as React.MutableRefObject<{ i: number }>;
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const imagesRef = useRef<HTMLImageElement[]>([]);
+  const frameRef = useRef<{ i: number }>({ i: 0 });
   const [progress, setProgress] = useState(0);
   const [loaded, setLoaded] = useState(0);
 
