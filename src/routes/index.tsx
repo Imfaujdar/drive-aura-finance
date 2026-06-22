@@ -266,30 +266,31 @@ function HeroCarousel() {
               transition: "transform .6s ease-out",
             }}
           >
-            <div className="flex items-end justify-end gap-4">
+            <div className="flex items-end justify-end -mr-6 lg:-mr-16">
               {upcoming.map((s, i) => {
                 const idx = (active + i + 1) % total;
                 return (
                   <button
                     key={`${active}-${idx}`}
                     onClick={() => goto(idx)}
-                    className="group relative h-[340px] w-[180px] shrink-0 overflow-hidden rounded-[28px] ring-1 ring-white/15 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] transition-all duration-500 hover:-translate-y-2 sm:h-[400px] sm:w-[210px]"
+                    className="group relative -ml-6 h-[360px] w-[200px] shrink-0 overflow-hidden rounded-[32px] ring-1 ring-white/20 shadow-[0_40px_90px_-20px_rgba(0,0,0,0.7)] transition-all duration-500 hover:-translate-y-3 hover:z-10 sm:h-[440px] sm:w-[230px]"
                     style={{
-                      transform: `translateY(${i * 22}px)`,
-                      animation: `fade-in .7s ease-out ${i * 0.1}s both`,
+                      zIndex: 3 - i,
+                      transform: `translateY(${i * 14}px) rotate(${(i - 1) * 1.2}deg)`,
+                      animation: `fade-in .7s ease-out ${i * 0.12}s both`,
                     }}
                   >
                     <img
-                      src={s.image}
+                      src={s.bgImage}
                       alt={s.tag}
                       className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-                    <div className="absolute inset-x-4 bottom-4">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+                    <div className="absolute inset-x-5 bottom-5">
                       <div className="text-[9px] font-semibold uppercase tracking-[0.22em] text-white/70">
-                        {s.tag}
+                        {s.locationLabel}
                       </div>
-                      <div className="mt-1 whitespace-pre-line font-display text-[15px] font-extrabold leading-tight text-white">
+                      <div className="mt-1 whitespace-pre-line font-display text-[18px] font-extrabold leading-[1.05] text-white">
                         {s.title.replace("\n", " ")}
                       </div>
                     </div>
