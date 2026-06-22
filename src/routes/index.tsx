@@ -165,7 +165,7 @@ function CinematicHero() {
   const textY = (1 - Math.min(1, progress / 0.15)) * 30;
 
   return (
-    <section ref={wrapRef} className="relative" style={{ height: "300vh" }}>
+    <section ref={wrapRef} className="relative" style={{ height: "900vh" }}>
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* luxury gradient background */}
         <div
