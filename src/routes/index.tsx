@@ -8,8 +8,11 @@ import {
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import SplitText from "@/components/SplitText";
-import Shuffle from "@/components/Shuffle";
+
 import heroSuv from "@/assets/hero-suv.png";
+import heroCar1 from "@/assets/hero-car-1.png";
+import heroCar2 from "@/assets/hero-car-2.png";
+import heroCar3 from "@/assets/hero-car-3.png";
 import whyCar from "@/assets/why-car.png";
 import resaleCar from "@/assets/resale-car.png";
 import blog1 from "@/assets/blog-1.jpg";
@@ -130,80 +133,9 @@ function Hero() {
           </div>
         </div>
 
-        {/* Right — Hero SUV with 3D depth */}
-        <div className="relative lg:col-span-6 [perspective:1400px]">
-          {/* Glow halo */}
-          <div className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center">
-            <div className="h-[70%] w-[80%] rounded-full bg-gradient-to-br from-primary/30 via-primary/10 to-transparent blur-3xl" />
-          </div>
-          {/* Floor reflection / ground shadow */}
-          <div className="pointer-events-none absolute inset-x-10 bottom-4 h-10 rounded-[50%] bg-black/40 blur-2xl" />
-
-          <div className="relative animate-float">
-            <img
-              src={heroSuv}
-              alt="Red Tata Safari SUV"
-              className="relative z-10 w-full select-none [transform:rotateX(8deg)_rotateY(-14deg)_rotateZ(-1deg)] drop-shadow-[0_45px_35px_rgba(180,30,45,0.45)] transition-transform duration-700 hover:[transform:rotateX(4deg)_rotateY(-6deg)_rotateZ(0deg)_scale(1.03)]"
-              style={{ transformStyle: "preserve-3d" }}
-            />
-
-            {/* Shuffle floating labels around the car */}
-            <div className="pointer-events-none absolute -top-2 -left-2 z-20 rotate-[-6deg] rounded-2xl border border-primary/20 bg-white/85 px-3 py-1.5 shadow-[var(--shadow-glass)] backdrop-blur">
-              <Shuffle
-                text="LOWEST EMI"
-                tag="span"
-                shuffleDirection="right"
-                duration={0.4}
-                shuffleTimes={2}
-                stagger={0.04}
-                triggerOnHover
-                className="font-display text-xs font-extrabold tracking-[0.18em] text-primary"
-                textAlign="center"
-              />
-            </div>
-
-            <div className="pointer-events-none absolute top-6 -right-2 z-20 rotate-[5deg] rounded-2xl border border-primary/20 bg-gradient-brand px-3 py-1.5 shadow-[var(--shadow-glow)]">
-              <Shuffle
-                text="AI APPROVED"
-                tag="span"
-                shuffleDirection="up"
-                duration={0.45}
-                shuffleTimes={2}
-                stagger={0.05}
-                triggerOnHover
-                className="font-display text-xs font-extrabold tracking-[0.18em] text-white"
-                textAlign="center"
-              />
-            </div>
-
-            <div className="pointer-events-none absolute -bottom-1 left-6 z-20 rotate-[-3deg] rounded-2xl border border-amber-200 bg-amber-50/90 px-3 py-1.5 shadow-[var(--shadow-glass)] backdrop-blur">
-              <Shuffle
-                text="0% PROCESSING"
-                tag="span"
-                shuffleDirection="left"
-                duration={0.45}
-                shuffleTimes={2}
-                stagger={0.04}
-                triggerOnHover
-                className="font-display text-xs font-extrabold tracking-[0.18em] text-amber-600"
-                textAlign="center"
-              />
-            </div>
-
-            <div className="pointer-events-none absolute bottom-8 -right-3 z-20 rotate-[6deg] rounded-2xl border border-emerald-200 bg-emerald-50/90 px-3 py-1.5 shadow-[var(--shadow-glass)] backdrop-blur">
-              <Shuffle
-                text="2 MIN APPROVAL"
-                tag="span"
-                shuffleDirection="down"
-                duration={0.45}
-                shuffleTimes={2}
-                stagger={0.04}
-                triggerOnHover
-                className="font-display text-xs font-extrabold tracking-[0.18em] text-emerald-600"
-                textAlign="center"
-              />
-            </div>
-          </div>
+        {/* Right — Hero Carousel */}
+        <div className="lg:col-span-6">
+          <HeroCarousel />
         </div>
 
       </div>
@@ -211,6 +143,198 @@ function Hero() {
       {/* Right side rail */}
       <SideRail />
     </section>
+  );
+}
+
+const heroSlides = [
+  {
+    tag: "Used Car Loans",
+    title: "DRIVE YOUR\nDREAM SUV",
+    desc: "Up to ₹50L financing on certified pre-owned SUVs with rates starting at 8.49% p.a. Get instant approval in under 2 minutes.",
+    cta: "CHECK OFFERS",
+    image: heroSuv,
+    accent: "from-rose-100 via-orange-50 to-white",
+    badge: "LOWEST EMI",
+  },
+  {
+    tag: "New Car Finance",
+    title: "BRAND NEW.\nBETTER RATES.",
+    desc: "Finance your brand-new car with 50+ partner lenders. Zero processing fee for the first 1000 customers this month.",
+    cta: "EXPLORE LOANS",
+    image: heroCar1,
+    accent: "from-sky-100 via-indigo-50 to-white",
+    badge: "0% PROCESSING",
+  },
+  {
+    tag: "Refinance & Save",
+    title: "PAY LESS\nEVERY MONTH.",
+    desc: "Refinance your existing car loan and save up to ₹15,000/year on EMIs. Switch in 24 hours with zero foreclosure hassles.",
+    cta: "GET QUOTE",
+    image: heroCar2,
+    accent: "from-emerald-100 via-teal-50 to-white",
+    badge: "SAVE ₹15K/YR",
+  },
+  {
+    tag: "Commercial Vehicles",
+    title: "POWER UP\nYOUR BUSINESS.",
+    desc: "Tailored financing for trucks, taxis & fleets. Flexible tenures up to 7 years and minimal documentation for working pros.",
+    cta: "APPLY NOW",
+    image: heroCar3,
+    accent: "from-amber-100 via-yellow-50 to-white",
+    badge: "FLEET READY",
+  },
+];
+
+function HeroCarousel() {
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const total = heroSlides.length;
+  const DURATION = 5000;
+
+  useEffect(() => {
+    if (paused) return;
+    const start = performance.now();
+    let raf = 0;
+    const tick = (t: number) => {
+      const p = Math.min(1, (t - start) / DURATION);
+      setProgress(p);
+      if (p >= 1) {
+        setActive((a) => (a + 1) % total);
+        setProgress(0);
+      } else {
+        raf = requestAnimationFrame(tick);
+      }
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [active, paused, total]);
+
+  const goto = (i: number) => {
+    setActive(((i % total) + total) % total);
+    setProgress(0);
+  };
+
+  const slide = heroSlides[active];
+
+  return (
+    <div
+      className="relative [perspective:1400px]"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      <div className="relative overflow-hidden rounded-[28px] border border-border/60 bg-white/70 shadow-[var(--shadow-glass)] backdrop-blur">
+        <div
+          key={active}
+          className={`relative animate-fade-in bg-gradient-to-br ${slide.accent}`}
+        >
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <div className="h-[70%] w-[80%] rounded-full bg-gradient-to-br from-primary/25 via-primary/10 to-transparent blur-3xl" />
+          </div>
+
+          <div className="relative grid grid-cols-5 items-center gap-2 p-5 md:p-7">
+            <div className="col-span-3">
+              <span className="inline-flex items-center rounded-full border border-primary/25 bg-white/80 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
+                {slide.tag}
+              </span>
+              <h3 className="mt-3 whitespace-pre-line font-display text-2xl font-extrabold leading-[1.05] tracking-tight text-foreground sm:text-3xl md:text-4xl">
+                {slide.title}
+              </h3>
+              <p className="mt-3 max-w-[36ch] text-xs text-muted-foreground sm:text-sm">
+                {slide.desc}
+              </p>
+              <button className="btn-shine mt-4 inline-flex items-center gap-2 rounded-full bg-gradient-brand px-5 py-2 text-[11px] font-bold tracking-wider text-white shadow-[var(--shadow-glow)]">
+                {slide.cta} <ArrowRight className="h-3.5 w-3.5" />
+              </button>
+              <div className="ml-2 mt-3 inline-flex items-center gap-1.5 rounded-full bg-white/85 px-2.5 py-1 text-[10px] font-extrabold tracking-[0.18em] text-primary ring-1 ring-primary/15">
+                <Sparkles className="h-3 w-3" /> {slide.badge}
+              </div>
+            </div>
+
+            <div className="col-span-2 flex justify-end">
+              <img
+                src={slide.image}
+                alt={slide.tag}
+                className="w-full max-w-[260px] select-none drop-shadow-[0_30px_25px_rgba(60,30,80,0.35)] [transform:rotateX(6deg)_rotateY(-12deg)_rotateZ(-1deg)] animate-float"
+                style={{ transformStyle: "preserve-3d" }}
+              />
+            </div>
+          </div>
+
+          {/* Upcoming mini-cards rail */}
+          <div className="pointer-events-auto absolute bottom-5 right-4 hidden gap-2 md:flex">
+            {[1, 2, 3].map((offset) => {
+              const idx = (active + offset) % total;
+              const s = heroSlides[idx];
+              return (
+                <button
+                  key={`${active}-${idx}`}
+                  onClick={() => goto(idx)}
+                  className="group relative h-24 w-[88px] shrink-0 overflow-hidden rounded-2xl border border-white/70 bg-white/90 shadow-[var(--shadow-glass)] backdrop-blur transition-all hover:-translate-y-1"
+                  style={{
+                    transform: `translateY(${offset * 4}px) scale(${1 - offset * 0.04})`,
+                  }}
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${s.accent} opacity-80`} />
+                  <img
+                    src={s.image}
+                    alt={s.tag}
+                    className="absolute inset-x-0 bottom-0 m-auto w-[110%] max-w-none translate-y-2 select-none transition-transform group-hover:scale-105"
+                  />
+                  <div className="absolute inset-x-1.5 top-1.5 truncate rounded-md bg-white/90 px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-foreground/80">
+                    {s.tag}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Footer controls */}
+        <div className="flex items-center gap-3 border-t border-border/50 bg-white/70 px-4 py-3 backdrop-blur">
+          <button
+            onClick={() => goto(active - 1)}
+            aria-label="Previous"
+            className="grid h-8 w-8 place-items-center rounded-full border border-border bg-white text-foreground/80 transition hover:bg-primary hover:text-white"
+          >
+            <ChevronRight className="h-4 w-4 rotate-180" />
+          </button>
+          <button
+            onClick={() => goto(active + 1)}
+            aria-label="Next"
+            className="grid h-8 w-8 place-items-center rounded-full border border-border bg-white text-foreground/80 transition hover:bg-primary hover:text-white"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
+
+          <div className="relative mx-2 h-1 flex-1 overflow-hidden rounded-full bg-foreground/10">
+            <div
+              className="absolute inset-y-0 left-0 rounded-full bg-gradient-brand transition-[width] duration-100"
+              style={{ width: `${((active + progress) / total) * 100}%` }}
+            />
+          </div>
+
+          <div className="font-num text-xs font-bold tabular-nums text-foreground/70">
+            <span className="text-foreground">{String(active + 1).padStart(2, "0")}</span>
+            <span className="mx-1 text-foreground/30">/</span>
+            <span>{String(total).padStart(2, "0")}</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-3 flex items-center justify-center gap-1.5">
+        {heroSlides.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => goto(i)}
+            aria-label={`Slide ${i + 1}`}
+            className={`h-1.5 rounded-full transition-all ${
+              i === active ? "w-8 bg-primary" : "w-1.5 bg-foreground/20 hover:bg-foreground/40"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
 
