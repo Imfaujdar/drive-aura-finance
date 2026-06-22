@@ -298,7 +298,7 @@ function Resale() {
             <div className="absolute left-1/2 top-1/2 h-[80%] w-[90%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/25 animate-spin-slow"/>
             <div className="absolute left-1/2 top-1/2 h-[55%] w-[65%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent/30"/>
           </div>
-          <img src={resaleSuv} alt="SUV resale value hologram" width={1024} height={1024} loading="lazy" className="mx-auto w-full max-w-md animate-float-sm rounded-2xl"/>
+          <img src={resaleSuv} alt="SUV resale value" width={1280} height={1024} loading="lazy" className="mx-auto w-full max-w-md animate-float-sm car-depth"/>
         </div>
         <div>
           <h3 className="font-display text-3xl font-extrabold md:text-4xl">Get the Best <span className="text-gradient">Value</span> for Your Car</h3>
