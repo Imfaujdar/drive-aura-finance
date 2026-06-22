@@ -334,7 +334,7 @@ function WhyFinonest() {
         </div>
         <div className="relative">
           <div className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-primary/15 blur-3xl"/>
-          <img src={whyCar} alt="Transparent futuristic car cutaway" width={1024} height={1024} loading="lazy" className="mx-auto w-full max-w-md animate-float"/>
+          <img src={whyCar} alt="Transparent futuristic car cutaway" width={1280} height={1024} loading="lazy" className="mx-auto w-full max-w-md animate-float car-depth-lg"/>
         </div>
         <div className="space-y-4">
           {features.slice(3).map(f=>(<FeatureRow key={f} text={f} reverse/>))}
