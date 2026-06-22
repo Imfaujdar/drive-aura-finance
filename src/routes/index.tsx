@@ -164,34 +164,33 @@ function Stat({ value, suffix, label, icon, decimals = 0 }:{value:number;suffix:
 
 function Services() {
   const items = [
-    { icon: Car, title: "Used Car Loan", desc: "Lowest rates from 50+ partners.", tone: "from-primary to-secondary" },
-    { icon: RefreshCw, title: "Refinance", desc: "Switch & save up to 2% interest.", tone: "from-primary to-secondary" },
-    { icon: Shield, title: "Insurance", desc: "Comprehensive cover, instant.", tone: "from-primary to-secondary" },
-    { icon: Gauge, title: "Credit Score", desc: "AI-driven personalised offers.", tone: "from-primary to-secondary" },
-    { icon: CircleDollarSign, title: "Resale Value", desc: "Real-time market valuation.", tone: "from-primary to-secondary" },
-    { icon: HomeIcon, title: "Home Inspection", desc: "Smart checks before you buy.", tone: "from-primary to-secondary" },
+    { icon: CircleDollarSign, title: "Check Auto", sub: "Loan Offers" },
+    { icon: FileCheck, title: "Check & Pay", sub: "Challan" },
+    { icon: CircleDollarSign, title: "Check Resale", sub: "Value" },
+    { icon: Shield, title: "Renew", sub: "Insurance" },
+    { icon: HomeIcon, title: "Book Home", sub: "Inspection" },
+    { icon: Gauge, title: "Check Credit Score", sub: "& Offers" },
   ];
   return (
-    <section className="relative mx-auto max-w-7xl px-4 py-24">
-      <SectionHeader eyebrow="Our Services" title={<>Everything for your <span className="text-gradient">drive & finance</span></>} sub="A complete intelligent suite — from offers to ownership."/>
-      <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {items.map(({ icon: Icon, title, desc, tone }, i) => (
-          <div key={title} className={`group relative overflow-hidden rounded-3xl glass card-lift p-7 ${i===0?"lg:row-span-2 lg:row-start-1":""}`}>
-            <div className={`pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-gradient-to-br ${tone} opacity-20 blur-2xl transition-opacity group-hover:opacity-40`} />
-            <div className={`grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br ${tone} text-white shadow-[var(--shadow-glow)] transition-transform group-hover:rotate-6`}>
-              <Icon className="h-7 w-7" />
-            </div>
-            <h3 className="mt-5 font-display text-xl font-bold">{title}</h3>
-            <p className="mt-1 text-sm text-muted-foreground">{desc}</p>
-            <div className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-primary">
-              Learn more <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </div>
-          </div>
-        ))}
+    <section className="relative mx-auto max-w-7xl px-4 -mt-2">
+      <div className="rounded-3xl glass-strong p-6 md:p-8">
+        <div className="grid grid-cols-3 gap-4 md:grid-cols-6">
+          {items.map(({ icon: Icon, title, sub }) => (
+            <button key={title} className="group flex flex-col items-center gap-3 rounded-2xl p-3 transition-all hover:-translate-y-1">
+              <span className="grid h-16 w-16 place-items-center rounded-full bg-primary/8 text-primary ring-1 ring-primary/15 transition-all group-hover:bg-gradient-brand group-hover:text-white group-hover:shadow-[var(--shadow-glow)]">
+                <Icon className="h-7 w-7" />
+              </span>
+              <div className="text-center text-xs font-semibold leading-tight">
+                {title}<br/>{sub}
+              </div>
+            </button>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
+
 
 function SectionHeader({ eyebrow, title, sub }:{eyebrow:string;title:React.ReactNode;sub:string}) {
   return (
