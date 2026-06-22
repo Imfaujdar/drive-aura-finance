@@ -167,7 +167,7 @@ function HeroCarousel() {
   return (
     <section
       ref={containerRef}
-      className="relative h-screen min-h-[720px] w-full overflow-hidden bg-[#fdf6ee] text-foreground"
+      className="relative h-[calc(100vh-2rem)] min-h-[680px] w-full overflow-hidden rounded-3xl bg-[#fdf6ee] text-foreground"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => { setPaused(false); setParallax({ x: 0, y: 0 }); }}
       onMouseMove={onMouseMove}
@@ -180,8 +180,6 @@ function HeroCarousel() {
           alt={slide.locationLabel}
           className="h-full w-full object-cover transition-opacity duration-700"
         />
-        <div className="absolute inset-0 bg-white/30" />
-        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 70% 30%, rgba(255,228,225,0.5) 0%, rgba(255,245,236,0.3) 50%, rgba(253,246,238,0.1) 80%)" }} />
       </div>
       <div
         className="pointer-events-none absolute inset-0 z-0"
@@ -721,7 +719,7 @@ function Index() {
   return (
     <div className="bg-mesh min-h-screen">
       <Nav />
-      <main>
+      <main className="px-4 pt-4">
         <Hero />
         <div data-reveal><Services /></div>
         <div data-reveal><Calculator2 /></div>
