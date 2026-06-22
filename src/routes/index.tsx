@@ -110,7 +110,6 @@ function Hero() {
 
         <div className="relative">
           <HeroCarStage />
-        </div>
 
           {/* quick actions floating panel */}
           <div className="absolute -right-3 top-1/2 z-30 hidden -translate-y-1/2 flex-col gap-2 rounded-2xl glass-strong p-2 lg:flex">
