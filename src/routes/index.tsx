@@ -9,14 +9,10 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import SplitText from "@/components/SplitText";
 
-import heroSuv from "@/assets/hero-suv.png";
-import heroCar1 from "@/assets/hero-car-1.png";
-import heroCar2 from "@/assets/hero-car-2.png";
-import heroCar3 from "@/assets/hero-car-3.png";
-import heroBg1 from "@/assets/hero-bg-1.jpg";
-import heroBg2 from "@/assets/hero-bg-2.jpg";
-import heroBg3 from "@/assets/hero-bg-3.jpg";
-import heroBg4 from "@/assets/hero-bg-4.jpg";
+import cardCarLoan from "@/assets/card-car-loan.jpg";
+import cardHomeLoan from "@/assets/card-home-loan.jpg";
+import cardCreditCard from "@/assets/card-credit-card.jpg";
+import cardUsedCar from "@/assets/card-used-car.jpg";
 import whyCar from "@/assets/why-car.png";
 import resaleCar from "@/assets/resale-car.png";
 import blog1 from "@/assets/blog-1.jpg";
@@ -83,44 +79,40 @@ function Nav() {
 
 const heroSlides = [
   {
-    tag: "Used Car Loans · India",
-    title: "DRIVE YOUR\nDREAM SUV",
-    desc: "Up to ₹50L financing on certified pre-owned SUVs with rates starting at 8.49% p.a. Get instant approval in under 2 minutes.",
+    tag: "Auto Finance · India",
+    title: "DRIVE YOUR\nDREAM CAR.",
+    desc: "Finance your brand-new car with 50+ partner lenders. Rates from 8.49% p.a., zero processing fee for the first 1,000 customers this month.",
     cta: "CHECK OFFERS",
-    image: heroSuv,
-    bgImage: heroBg1,
-    badge: "LOWEST EMI",
-    locationLabel: "Used Car Loans",
-  },
-  {
-    tag: "New Car Finance · India",
-    title: "BRAND NEW.\nBETTER RATES.",
-    desc: "Finance your brand-new car with 50+ partner lenders. Zero processing fee for the first 1000 customers this month.",
-    cta: "EXPLORE LOANS",
-    image: heroCar1,
-    bgImage: heroBg2,
+    image: cardCarLoan,
     badge: "0% PROCESSING",
-    locationLabel: "New Car Loans",
+    locationLabel: "Car Loan",
   },
   {
-    tag: "Refinance & Save · India",
-    title: "PAY LESS\nEVERY MONTH.",
-    desc: "Refinance your existing car loan and save up to ₹15,000/year on EMIs. Switch in 24 hours with zero foreclosure hassles.",
+    tag: "Home Finance · India",
+    title: "OWN THE\nHOME YOU LOVE.",
+    desc: "Up to ₹5Cr home loans with rates starting at 7.99% p.a. Tenures up to 30 years and quick digital approval in 48 hours.",
     cta: "GET QUOTE",
-    image: heroCar2,
-    bgImage: heroBg3,
-    badge: "SAVE ₹15K/YR",
-    locationLabel: "Refinance",
+    image: cardHomeLoan,
+    badge: "LOW EMI",
+    locationLabel: "Home Loan",
   },
   {
-    tag: "Commercial Vehicles · India",
-    title: "POWER UP\nYOUR BUSINESS.",
-    desc: "Tailored financing for trucks, taxis & fleets. Flexible tenures up to 7 years and minimal documentation for working pros.",
+    tag: "Credit Cards · India",
+    title: "REWARDS THAT\nWORK FOR YOU.",
+    desc: "Premium credit cards from top banks with cashback up to 5%, lifetime free options and instant digital issuance in minutes.",
     cta: "APPLY NOW",
-    image: heroCar3,
-    bgImage: heroBg4,
-    badge: "FLEET READY",
-    locationLabel: "Commercial",
+    image: cardCreditCard,
+    badge: "LIFETIME FREE",
+    locationLabel: "Credit Card",
+  },
+  {
+    tag: "Used Car Loans · India",
+    title: "PRE-OWNED.\nFULLY APPROVED.",
+    desc: "Up to ₹50L financing on certified pre-owned cars and SUVs with rates from 9.25% p.a. Instant approval in under 2 minutes.",
+    cta: "EXPLORE LOANS",
+    image: cardUsedCar,
+    badge: "LOWEST EMI",
+    locationLabel: "Used Car Loan",
   },
 ];
 
@@ -175,123 +167,103 @@ function HeroCarousel() {
   return (
     <section
       ref={containerRef}
-      className="relative h-screen w-full overflow-hidden bg-[#0a0a0a] text-white"
+      className="relative h-screen min-h-[720px] w-full overflow-hidden bg-[#fdf6ee] text-foreground"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => { setPaused(false); setParallax({ x: 0, y: 0 }); }}
       onMouseMove={onMouseMove}
     >
-      {/* Background images crossfade with parallax + Ken Burns */}
-      {heroSlides.map((s, i) => (
-        <div
-          key={i}
-          className="absolute inset-0 transition-opacity duration-[1400ms] ease-out"
-          style={{ opacity: i === active ? 1 : 0 }}
-        >
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url(${s.bgImage})`,
-              backgroundSize: "cover",
-              backgroundPosition: "65% 50%",
-              transform: `scale(1.12) translate3d(${parallax.x * -30}px, ${parallax.y * -20}px, 0)`,
-              transition: "transform .8s ease-out",
-              filter: "saturate(0.85) contrast(1.05)",
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/30" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40" />
-        </div>
-      ))}
-
-      {/* Top nav strip */}
-      <div className="relative z-20 mx-auto flex max-w-[1400px] items-center justify-between px-6 pt-6 lg:px-10">
-        <div className="flex items-center gap-2">
-          <div className="grid h-9 w-9 place-items-center rounded-xl bg-white/10 ring-1 ring-white/20 backdrop-blur">
-            <Sparkles className="h-5 w-5" />
-          </div>
-          <div className="font-display text-sm font-bold uppercase tracking-[0.32em]">Finonest</div>
-        </div>
-        <nav className="hidden items-center gap-9 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/75 md:flex">
-          <a className="relative text-white after:absolute after:-bottom-2 after:left-1/2 after:h-px after:w-5 after:-translate-x-1/2 after:bg-amber-400" href="#">Home</a>
-          <a href="#" className="hover:text-white">Loans</a>
-          <a href="#" className="hover:text-white">Insurance</a>
-          <a href="#" className="hover:text-white">Tools</a>
-          <a href="#" className="hover:text-white">Offers</a>
-          <a href="#" className="hover:text-white">Contact</a>
-        </nav>
+      {/* Soft layered light background */}
+      <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 80% 20%, #ffe4e1 0%, #fff5ec 45%, #fdf6ee 80%)" }} />
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          transform: `translate3d(${parallax.x * -22}px, ${parallax.y * -16}px, 0)`,
+          transition: "transform .5s ease-out",
+        }}
+      >
+        <div className="absolute right-[5%] top-[15%] h-[55vh] w-[55vh] rounded-full bg-gradient-to-br from-primary/15 via-primary/5 to-transparent blur-3xl" />
+        <div className="absolute left-[5%] bottom-[10%] h-[40vh] w-[40vh] rounded-full bg-accent/15 blur-3xl" />
       </div>
 
       {/* Slide content */}
-      <div className="relative z-10 mx-auto flex h-[calc(100vh-72px)] max-w-[1400px] items-center px-6 lg:px-10">
-        <div className="grid w-full grid-cols-1 items-center gap-10 lg:grid-cols-12">
-          <div className="lg:col-span-6">
+      <div className="relative z-10 mx-auto flex h-full max-w-[1400px] items-center px-6 pt-8 lg:px-10">
+        <div className="grid w-full grid-cols-1 items-center gap-8 lg:grid-cols-12">
+          {/* Left copy */}
+          <div className="lg:col-span-5">
             <div
               key={`copy-${active}`}
               className="animate-fade-in"
               style={{
-                transform: `translate3d(${parallax.x * 18}px, ${parallax.y * 12}px, 0)`,
+                transform: `translate3d(${parallax.x * 16}px, ${parallax.y * 10}px, 0)`,
                 transition: "transform .5s ease-out",
               }}
             >
               <div className="flex items-center gap-3">
-                <span className="h-px w-8 bg-white/70" />
-                <span className="text-[11px] font-semibold uppercase tracking-[0.32em] text-white/80">
+                <span className="h-px w-8 bg-foreground/60" />
+                <span className="text-[11px] font-semibold uppercase tracking-[0.32em] text-foreground/70">
                   {slide.tag}
                 </span>
               </div>
-              <h1 className="mt-6 whitespace-pre-line font-display text-[64px] font-extrabold leading-[0.95] tracking-tight text-white sm:text-[84px] lg:text-[104px]">
+              <h1 className="mt-6 whitespace-pre-line font-display text-[56px] font-extrabold leading-[0.95] tracking-tight text-foreground sm:text-[72px] lg:text-[88px]">
                 {slide.title}
               </h1>
-              <p className="mt-6 max-w-md text-sm leading-relaxed text-white/75 sm:text-[15px]">
+              <p className="mt-6 max-w-md text-[15px] leading-relaxed text-muted-foreground">
                 {slide.desc}
               </p>
               <div className="mt-8 flex items-center gap-4">
-                <button className="group inline-flex items-center gap-3 rounded-full bg-white/10 py-2 pl-2 pr-6 text-[11px] font-bold uppercase tracking-[0.28em] text-white ring-1 ring-white/25 backdrop-blur transition hover:bg-white hover:text-black">
-                  <span className="grid h-9 w-9 place-items-center rounded-full bg-amber-400 text-black transition group-hover:bg-black group-hover:text-amber-400">
+                <button className="group inline-flex items-center gap-3 rounded-full bg-foreground/5 py-2 pl-2 pr-6 text-[11px] font-bold uppercase tracking-[0.28em] text-foreground ring-1 ring-foreground/15 transition hover:bg-foreground hover:text-white">
+                  <span className="grid h-10 w-10 place-items-center rounded-full bg-gradient-brand text-white shadow-[var(--shadow-glow)] transition group-hover:bg-white group-hover:text-foreground">
                     <ArrowRight className="h-4 w-4" />
                   </span>
                   {slide.cta}
                 </button>
-                <span className="hidden items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.28em] text-amber-300 sm:inline-flex">
+                <span className="hidden items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.28em] text-primary sm:inline-flex">
                   <Sparkles className="h-3 w-3" /> {slide.badge}
                 </span>
               </div>
             </div>
           </div>
 
+          {/* Right: overlapping cards */}
           <div
-            className="relative lg:col-span-6"
+            className="relative lg:col-span-7"
             style={{
-              transform: `translate3d(${parallax.x * -28}px, ${parallax.y * -18}px, 0)`,
+              transform: `translate3d(${parallax.x * -24}px, ${parallax.y * -16}px, 0)`,
               transition: "transform .6s ease-out",
             }}
           >
-            <div className="flex items-end justify-end -mr-6 lg:-mr-16">
-              {upcoming.map((s, i) => {
-                const idx = (active + i + 1) % total;
+            <div className="relative flex h-[500px] items-end justify-end pr-0 sm:h-[560px]">
+              {[0, 1, 2].map((offset) => {
+                const idx = (active + offset + 1) % total;
+                const s = heroSlides[idx];
+                const cardWidth = 240;
+                const overlap = 70;
                 return (
                   <button
                     key={`${active}-${idx}`}
                     onClick={() => goto(idx)}
-                    className="group relative -ml-6 h-[360px] w-[200px] shrink-0 overflow-hidden rounded-[32px] ring-1 ring-white/20 shadow-[0_40px_90px_-20px_rgba(0,0,0,0.7)] transition-all duration-500 hover:-translate-y-3 hover:z-10 sm:h-[440px] sm:w-[230px]"
+                    className="group absolute bottom-0 overflow-hidden rounded-[36px] ring-1 ring-foreground/10 shadow-[0_40px_90px_-25px_rgba(60,30,80,0.35)] transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_50px_100px_-20px_rgba(60,30,80,0.45)]"
                     style={{
-                      zIndex: 3 - i,
-                      transform: `translateY(${i * 14}px) rotate(${(i - 1) * 1.2}deg)`,
-                      animation: `fade-in .7s ease-out ${i * 0.12}s both`,
+                      width: `${cardWidth}px`,
+                      height: offset === 0 ? "520px" : "460px",
+                      right: `${offset * (cardWidth - overlap) - 30}px`,
+                      zIndex: 3 - offset,
+                      transform: `translateY(${offset * 18}px) rotate(${(offset - 0.5) * 2}deg)`,
+                      animation: `fade-in .7s ease-out ${offset * 0.12}s both`,
                     }}
                   >
                     <img
-                      src={s.bgImage}
-                      alt={s.tag}
+                      src={s.image}
+                      alt={s.locationLabel}
                       className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
-                    <div className="absolute inset-x-5 bottom-5">
-                      <div className="text-[9px] font-semibold uppercase tracking-[0.22em] text-white/70">
-                        {s.locationLabel}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
+                    <div className="absolute inset-x-5 bottom-5 text-left">
+                      <div className="text-[9px] font-semibold uppercase tracking-[0.24em] text-white/75">
+                        {s.tag.split("·")[0]?.trim()}
                       </div>
-                      <div className="mt-1 whitespace-pre-line font-display text-[18px] font-extrabold leading-[1.05] text-white">
-                        {s.title.replace("\n", " ")}
+                      <div className="mt-1 font-display text-[20px] font-extrabold uppercase leading-[1.05] tracking-tight text-white">
+                        {s.locationLabel}
                       </div>
                     </div>
                   </button>
@@ -303,8 +275,8 @@ function HeroCarousel() {
       </div>
 
       {/* Bottom controls */}
-      <div className="absolute inset-x-0 bottom-0 z-20 mx-auto max-w-[1400px] px-6 pb-8 lg:px-10">
-        <div className="mb-6 flex items-center gap-2">
+      <div className="absolute inset-x-0 bottom-0 z-20 mx-auto max-w-[1400px] px-6 pb-7 lg:px-10">
+        <div className="mb-5 flex items-center gap-2">
           {heroSlides.map((s, i) => {
             const fill = i < active ? 1 : i === active ? progress : 0;
             return (
@@ -312,14 +284,14 @@ function HeroCarousel() {
                 key={i}
                 onClick={() => goto(i)}
                 className="group flex-1 text-left"
-                aria-label={`Go to ${s.tag}`}
+                aria-label={`Go to ${s.locationLabel}`}
               >
-                <div className="mb-1.5 hidden text-[9px] font-bold uppercase tracking-[0.24em] text-white/50 md:block">
-                  0{i + 1} · {s.tag}
+                <div className="mb-1.5 hidden text-[9px] font-bold uppercase tracking-[0.24em] text-foreground/50 md:block">
+                  0{i + 1} · {s.locationLabel}
                 </div>
-                <div className="relative h-[2px] overflow-hidden bg-white/15">
+                <div className="relative h-[2px] overflow-hidden bg-foreground/15">
                   <div
-                    className="absolute inset-y-0 left-0 bg-amber-400"
+                    className="absolute inset-y-0 left-0 bg-gradient-brand"
                     style={{
                       width: `${fill * 100}%`,
                       transition: i === active ? "width 100ms linear" : "width 500ms ease-out",
@@ -336,31 +308,31 @@ function HeroCarousel() {
             <button
               onClick={() => goto(active - 1)}
               aria-label="Previous"
-              className="grid h-11 w-11 place-items-center rounded-full ring-1 ring-white/30 text-white/80 transition hover:bg-white hover:text-black"
+              className="grid h-11 w-11 place-items-center rounded-full ring-1 ring-foreground/20 bg-white/70 text-foreground/80 backdrop-blur transition hover:bg-foreground hover:text-white"
             >
               <ChevronRight className="h-4 w-4 rotate-180" />
             </button>
             <button
               onClick={() => goto(active + 1)}
               aria-label="Next"
-              className="grid h-11 w-11 place-items-center rounded-full ring-1 ring-white/30 text-white/80 transition hover:bg-white hover:text-black"
+              className="grid h-11 w-11 place-items-center rounded-full ring-1 ring-foreground/20 bg-white/70 text-foreground/80 backdrop-blur transition hover:bg-foreground hover:text-white"
             >
               <ChevronRight className="h-4 w-4" />
             </button>
             <button
               onClick={() => setPaused((p) => !p)}
               aria-label={paused ? "Play" : "Pause"}
-              className="ml-2 grid h-11 w-11 place-items-center rounded-full ring-1 ring-white/20 text-white/60 transition hover:text-white"
+              className="ml-2 grid h-11 w-11 place-items-center rounded-full ring-1 ring-foreground/15 text-foreground/60 transition hover:text-foreground"
             >
               {paused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
             </button>
           </div>
 
           <div className="flex items-baseline gap-2 font-num tabular-nums">
-            <span className="text-xs font-bold uppercase tracking-[0.28em] text-white/50">
+            <span className="text-xs font-bold uppercase tracking-[0.28em] text-foreground/50">
               {String(active + 1).padStart(2, "0")} /
             </span>
-            <span className="font-display text-6xl font-extrabold leading-none text-white sm:text-7xl">
+            <span className="font-display text-6xl font-extrabold leading-none text-foreground sm:text-7xl">
               {total}
             </span>
           </div>
