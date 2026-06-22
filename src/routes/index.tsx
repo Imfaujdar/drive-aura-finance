@@ -570,15 +570,29 @@ function WhyCard() {
     <div className={`${TRIPLE_CARD} relative overflow-hidden`}>
       <h3 className="text-center font-display text-lg font-bold">Why Choose Finonest?</h3>
       <div className="relative my-2 grid place-items-center">
-        <div className="pointer-events-none absolute inset-0 -z-10 mx-auto h-40 w-40 rounded-full bg-primary/10 blur-3xl"/>
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center select-none whitespace-nowrap font-display font-black uppercase leading-none tracking-tighter text-primary/10"
+          style={{ fontSize: "clamp(90px, 14vw, 180px)", letterSpacing: "-0.06em" }}
+        >
+          TRUST
+        </span>
+        <div className="pointer-events-none absolute inset-0 z-[1] mx-auto h-40 w-40 rounded-full bg-primary/15 blur-3xl"/>
         <img
           src={whyCar}
           alt="Transparent car cutaway"
           width={1280}
           height={1024}
           loading="lazy"
-          className="w-full max-w-[260px] car-depth transition-transform duration-500 group-hover:scale-105"
+          className="relative z-[2] w-full max-w-[260px] car-depth transition-transform duration-500 group-hover:scale-105"
+          style={{
+            filter:
+              "drop-shadow(0 6px 4px rgba(0,0,0,0.18)) drop-shadow(0 24px 18px rgba(0,0,0,0.22))",
+            WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 90%, transparent 100%)",
+            maskImage: "linear-gradient(to bottom, black 0%, black 90%, transparent 100%)",
+          }}
         />
+        <div className="pointer-events-none absolute inset-x-[22%] bottom-2 z-[1] h-2.5 rounded-[50%] bg-black/45 blur-md" />
       </div>
       <ul className="mt-2 space-y-2">
         {features.map(f => (
