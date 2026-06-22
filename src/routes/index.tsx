@@ -9,14 +9,10 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import SplitText from "@/components/SplitText";
 
-import heroSuv from "@/assets/hero-suv.png";
-import heroCar1 from "@/assets/hero-car-1.png";
-import heroCar2 from "@/assets/hero-car-2.png";
-import heroCar3 from "@/assets/hero-car-3.png";
-import heroBg1 from "@/assets/hero-bg-1.jpg";
-import heroBg2 from "@/assets/hero-bg-2.jpg";
-import heroBg3 from "@/assets/hero-bg-3.jpg";
-import heroBg4 from "@/assets/hero-bg-4.jpg";
+import cardCarLoan from "@/assets/card-car-loan.jpg";
+import cardHomeLoan from "@/assets/card-home-loan.jpg";
+import cardCreditCard from "@/assets/card-credit-card.jpg";
+import cardUsedCar from "@/assets/card-used-car.jpg";
 import whyCar from "@/assets/why-car.png";
 import resaleCar from "@/assets/resale-car.png";
 import blog1 from "@/assets/blog-1.jpg";
