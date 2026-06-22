@@ -353,9 +353,14 @@ function Resale() {
           </div>
           <div className="relative grid place-items-center">
             <div className="pointer-events-none absolute inset-0 -z-10 mx-auto h-48 w-48 rounded-full bg-primary/10 blur-3xl" />
-            <div className="grid h-40 w-40 place-items-center rounded-full bg-primary/5 ring-1 ring-primary/20">
-              <Car className="h-16 w-16 text-primary/40" />
-            </div>
+            <img
+              src={resaleCar}
+              alt="Car resale value"
+              width={400}
+              height={300}
+              loading="lazy"
+              className="relative z-10 w-full max-w-[320px] car-depth transition-transform duration-500 hover:scale-105"
+            />
           </div>
         </div>
       </div>
