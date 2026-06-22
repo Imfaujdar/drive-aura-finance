@@ -5,8 +5,11 @@ import {
   Zap, FileCheck, Clock, Users, Building2, CircleDollarSign,
   TrendingUp, Bike, Truck, ChevronRight, Menu,
 } from "lucide-react";
-import { useEffect, useState } from "react";
-import heroCar from "@/assets/hero-car.png";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import heroCar1 from "@/assets/hero-car-1.png";
+import heroCar2 from "@/assets/hero-car-2.png";
+import heroCar3 from "@/assets/hero-car-3.png";
 import resaleSuv from "@/assets/resale-suv.png";
 import whyCar from "@/assets/why-car.png";
 import blog1 from "@/assets/blog-1.jpg";
@@ -106,28 +109,7 @@ function Hero() {
         </div>
 
         <div className="relative">
-          <div className="relative aspect-square">
-            {/* glowing rings on the floor */}
-            <div className="pointer-events-none absolute left-1/2 top-[72%] h-[40%] w-[95%] -translate-x-1/2 rounded-[50%] border border-primary/25 animate-spin-slow" />
-            <div className="pointer-events-none absolute left-1/2 top-[74%] h-[26%] w-[72%] -translate-x-1/2 rounded-[50%] border border-primary/15" />
-            <img
-              src={heroCar}
-              alt="Futuristic luxury electric car"
-              width={1280}
-              height={1280}
-              className="relative z-10 h-full w-full object-contain animate-float car-depth-lg"
-            />
-            {/* floating cards */}
-            <div className="absolute left-2 top-6 z-20 rounded-2xl glass px-3 py-2 text-xs font-semibold animate-float-sm">
-              <div className="flex items-center gap-2"><Wallet className="h-4 w-4 text-primary"/>Pre-approved · ₹8.2L</div>
-            </div>
-            <div className="absolute right-2 top-1/3 z-20 rounded-2xl glass px-3 py-2 text-xs font-semibold animate-float-sm" style={{animationDelay:"1.2s"}}>
-              <div className="flex items-center gap-2"><TrendingUp className="h-4 w-4 text-success"/>Rate · 8.49%*</div>
-            </div>
-            <div className="absolute bottom-6 left-2 z-20 rounded-2xl glass px-3 py-2 text-xs font-semibold animate-float-sm" style={{animationDelay:"2s"}}>
-              <div className="flex items-center gap-2"><Cpu className="h-4 w-4 text-primary"/>AI scoring engine</div>
-            </div>
-          </div>
+          <HeroCarStage />
 
           {/* quick actions floating panel */}
           <div className="absolute -right-3 top-1/2 z-30 hidden -translate-y-1/2 flex-col gap-2 rounded-2xl glass-strong p-2 lg:flex">
@@ -149,6 +131,173 @@ function Hero() {
     </section>
   );
 }
+
+const HERO_CARS = [
+  { src: heroCar1, name: "Hyundai Creta", tag: "SUV · ₹11.0L onwards" },
+  { src: heroCar2, name: "Mahindra XUV", tag: "SUV · ₹14.0L onwards" },
+  { src: heroCar3, name: "Maruti Swift",  tag: "Hatchback · ₹6.5L onwards" },
+];
+
+function HeroCarStage() {
+  const [idx, setIdx] = useState(0);
+  const [transitioning, setTransitioning] = useState(false);
+  const carRef = useRef<HTMLImageElement | null>(null);
+  const stageRef = useRef<HTMLDivElement | null>(null);
+  const bobTween = useRef<gsap.core.Tween | null>(null);
+
+  // entrance + idle bob
+  useEffect(() => {
+    if (!stageRef.current) return;
+    const ctx = gsap.context(() => {
+      gsap.from(".hero-floating-card", {
+        y: 20, opacity: 0, duration: 0.8, stagger: 0.15, ease: "power3.out", delay: 0.3,
+      });
+      gsap.from(".hero-ring", {
+        scale: 0.7, opacity: 0, duration: 1.1, stagger: 0.1, ease: "power3.out",
+      });
+    }, stageRef);
+    return () => ctx.revert();
+  }, []);
+
+  // idle bob (wheels-on-road feel)
+  useEffect(() => {
+    if (!carRef.current) return;
+    bobTween.current?.kill();
+    bobTween.current = gsap.to(carRef.current, {
+      y: -6, duration: 1.4, repeat: -1, yoyo: true, ease: "sine.inOut",
+    });
+    return () => { bobTween.current?.kill(); };
+  }, [idx]);
+
+  const goTo = (next: number) => {
+    if (transitioning || !carRef.current) return;
+    setTransitioning(true);
+    bobTween.current?.kill();
+    const el = carRef.current;
+    const speedLines = stageRef.current?.querySelectorAll(".speed-line") ?? [];
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        setIdx(next);
+        setTransitioning(false);
+      },
+    });
+
+    // drive away (rolling bounce + motion blur + slide right)
+    tl.to(el, {
+      keyframes: [
+        { y: -4, duration: 0.08 },
+        { y: 2,  duration: 0.08 },
+        { y: -4, duration: 0.08 },
+        { y: 2,  duration: 0.08 },
+      ],
+      ease: "none",
+    }, 0);
+    tl.to(el, {
+      x: 520, filter: "blur(3px)", opacity: 0, duration: 0.55, ease: "power2.in",
+    }, 0);
+    tl.to(speedLines, {
+      x: -260, opacity: 1, duration: 0.45, stagger: 0.04, ease: "power2.out",
+    }, 0.05);
+    tl.to(speedLines, { opacity: 0, duration: 0.2 }, 0.5);
+
+    // swap source mid-blink
+    tl.add(() => {
+      el.src = HERO_CARS[next].src;
+      gsap.set(el, { x: -520, opacity: 0, filter: "blur(3px)" });
+      gsap.set(speedLines, { x: 0, opacity: 0 });
+    });
+
+    // drive in
+    tl.to(el, {
+      x: 0, opacity: 1, filter: "blur(0px)", duration: 0.6, ease: "power3.out",
+    });
+    tl.to(el, {
+      keyframes: [
+        { y: -4, duration: 0.09 },
+        { y: 2,  duration: 0.09 },
+        { y: -4, duration: 0.09 },
+        { y: 0,  duration: 0.09 },
+      ],
+      ease: "none",
+    }, "<");
+  };
+
+  const next = () => goTo((idx + 1) % HERO_CARS.length);
+  const prev = () => goTo((idx - 1 + HERO_CARS.length) % HERO_CARS.length);
+
+  // auto-rotate
+  useEffect(() => {
+    const id = setInterval(() => {
+      if (!transitioning) goTo((idx + 1) % HERO_CARS.length);
+    }, 4500);
+    return () => clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [idx, transitioning]);
+
+  const car = HERO_CARS[idx];
+
+  return (
+    <div ref={stageRef} className="relative aspect-square [perspective:1400px]">
+      {/* depth rings on the floor */}
+      <div className="hero-ring pointer-events-none absolute left-1/2 top-[72%] h-[42%] w-[100%] -translate-x-1/2 rounded-[50%] border border-primary/25 animate-spin-slow" />
+      <div className="hero-ring pointer-events-none absolute left-1/2 top-[74%] h-[28%] w-[74%] -translate-x-1/2 rounded-[50%] border border-primary/15" />
+      <div className="hero-ring pointer-events-none absolute left-1/2 top-[76%] h-[16%] w-[48%] -translate-x-1/2 rounded-[50%] bg-primary/5 blur-2xl" />
+
+      {/* speed lines */}
+      <div className="pointer-events-none absolute inset-x-0 top-[60%] z-10 h-24">
+        {[0,1,2,3,4].map(i=>(
+          <span key={i}
+            className="speed-line absolute h-[2px] rounded-full bg-primary/40 opacity-0"
+            style={{ right: `${10 + i*8}%`, top: `${20 + i*12}%`, width: `${40 + i*14}px` }}
+          />
+        ))}
+      </div>
+
+      <img
+        ref={carRef}
+        src={car.src}
+        alt={car.name}
+        width={1280}
+        height={1280}
+        className="relative z-20 h-full w-full object-contain car-depth-lg"
+        style={{ willChange: "transform, filter, opacity" }}
+      />
+
+      {/* floating cards */}
+      <div className="hero-floating-card absolute left-2 top-6 z-30 rounded-2xl glass px-3 py-2 text-xs font-semibold">
+        <div className="flex items-center gap-2"><Wallet className="h-4 w-4 text-primary"/>Pre-approved · ₹8.2L</div>
+      </div>
+      <div className="hero-floating-card absolute right-2 top-1/3 z-30 rounded-2xl glass px-3 py-2 text-xs font-semibold">
+        <div className="flex items-center gap-2"><TrendingUp className="h-4 w-4 text-success"/>Rate · 8.49%*</div>
+      </div>
+      <div className="hero-floating-card absolute bottom-20 left-2 z-30 rounded-2xl glass px-3 py-2 text-xs font-semibold">
+        <div className="flex items-center gap-2"><Cpu className="h-4 w-4 text-primary"/>AI scoring engine</div>
+      </div>
+
+      {/* car label + dots */}
+      <div className="absolute bottom-3 left-1/2 z-30 flex -translate-x-1/2 items-center gap-3 rounded-full glass-strong px-4 py-2">
+        <button onClick={prev} aria-label="Previous car" className="grid h-7 w-7 place-items-center rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-white transition">
+          <ChevronRight className="h-4 w-4 rotate-180"/>
+        </button>
+        <div className="text-center">
+          <div className="font-display text-sm font-bold leading-none">{car.name}</div>
+          <div className="text-[10px] text-muted-foreground mt-0.5">{car.tag}</div>
+        </div>
+        <button onClick={next} aria-label="Next car" className="grid h-7 w-7 place-items-center rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-white transition">
+          <ChevronRight className="h-4 w-4"/>
+        </button>
+      </div>
+      <div className="absolute -bottom-3 left-1/2 z-30 flex -translate-x-1/2 gap-1.5">
+        {HERO_CARS.map((_, i) => (
+          <button key={i} onClick={() => goTo(i)} aria-label={`Go to car ${i+1}`}
+            className={`h-1.5 rounded-full transition-all ${i===idx ? "w-6 bg-primary" : "w-1.5 bg-primary/30"}`}/>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 
 function Stat({ value, suffix, label, icon, decimals = 0 }:{value:number;suffix:string;label:string;icon:React.ReactNode;decimals?:number}) {
   const v = useCounter(value);
@@ -483,19 +632,40 @@ function Footer() {
 }
 
 function Index() {
+  useEffect(() => {
+    const els = document.querySelectorAll<HTMLElement>("[data-reveal]");
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            gsap.fromTo(
+              e.target,
+              { y: 40, opacity: 0 },
+              { y: 0, opacity: 1, duration: 0.9, ease: "power3.out" }
+            );
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
   return (
     <div className="bg-mesh min-h-screen">
       <Nav />
       <main>
         <Hero />
-        <Services />
-        <Calculator2 />
-        <Resale />
-        <WhyFinonest />
-        <Rates />
-        <Blog />
-        <Partners />
-        <CTA />
+        <div data-reveal><Services /></div>
+        <div data-reveal><Calculator2 /></div>
+        <div data-reveal><Resale /></div>
+        <div data-reveal><WhyFinonest /></div>
+        <div data-reveal><Rates /></div>
+        <div data-reveal><Blog /></div>
+        <div data-reveal><Partners /></div>
+        <div data-reveal><CTA /></div>
       </main>
       <Footer />
     </div>
