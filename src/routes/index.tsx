@@ -5,7 +5,7 @@ import {
   Zap, FileCheck, Clock, Users, Building2, CircleDollarSign,
   TrendingUp, Bike, Truck, ChevronRight, Menu, Play, Pause,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import heroScene from "@/assets/hero-scene.jpg";
 import resaleScene from "@/assets/resale-scene.jpg";
@@ -70,69 +70,217 @@ function Nav() {
   );
 }
 
-function Hero() {
+const FRAME_COUNT = 272;
+const framePath = (i: number) => `/hero-frames/ezgif-frame-${String(i).padStart(3, "0")}.jpg`;
+
+function CinematicHero() {
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const imagesRef = useRef<HTMLImageElement[]>([]);
+  const frameRef = useRef<{ i: number }>({ i: 0 });
+  const [progress, setProgress] = useState(0);
+  const [loaded, setLoaded] = useState(0);
+
+  useEffect(() => {
+    const imgs: HTMLImageElement[] = [];
+    let count = 0;
+    for (let i = 1; i <= FRAME_COUNT; i++) {
+      const img = new Image();
+      img.src = framePath(i);
+      img.onload = () => {
+        count++;
+        setLoaded(count);
+        if (i === 1) drawFrame(0);
+      };
+      imgs.push(img);
+    }
+    imagesRef.current = imgs;
+    frameRef.current = { i: 0 };
+  }, []);
+
+  const drawFrame = (idx: number) => {
+    const canvas = canvasRef.current;
+    const imgs = imagesRef.current;
+    if (!canvas || !imgs) return;
+    const img = imgs[Math.min(FRAME_COUNT - 1, Math.max(0, idx))];
+    if (!img || !img.complete || !img.naturalWidth) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const w = canvas.clientWidth;
+    const h = canvas.clientHeight;
+    if (canvas.width !== w * dpr || canvas.height !== h * dpr) {
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+    }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    // cover-fit
+    const ir = img.naturalWidth / img.naturalHeight;
+    const cr = w / h;
+    let dw = w, dh = h, dx = 0, dy = 0;
+    if (ir > cr) { dh = h; dw = h * ir; dx = (w - dw) / 2; }
+    else { dw = w; dh = w / ir; dy = (h - dh) / 2; }
+    ctx.drawImage(img, dx, dy, dw, dh);
+  };
+
+  useEffect(() => {
+    const onScroll = () => {
+      const wrap = wrapRef.current;
+      if (!wrap) return;
+      const rect = wrap.getBoundingClientRect();
+      const total = wrap.offsetHeight - window.innerHeight;
+      const scrolled = Math.min(Math.max(-rect.top, 0), total);
+      const p = total > 0 ? scrolled / total : 0;
+      setProgress(p);
+      const idx = Math.round(p * (FRAME_COUNT - 1));
+      if (idx !== frameRef.current.i) {
+        frameRef.current.i = idx;
+        drawFrame(idx);
+      }
+    };
+    const onResize = () => drawFrame(frameRef.current?.i ?? 0);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize);
+    onScroll();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
+
+  // text fade: in 0-15%, hold, out 30-45%
+  const textOpacity = progress < 0.15 ? progress / 0.15 : progress < 0.30 ? 1 : progress < 0.45 ? 1 - (progress - 0.30) / 0.15 : 0;
+  const textY = (1 - Math.min(1, progress / 0.15)) * 30;
+
   return (
-    <section className="relative">
-      <div className="mx-auto max-w-7xl px-4 pt-6 pb-8">
-        <div className="relative overflow-hidden rounded-[2rem] border border-border/60 bg-white/60 shadow-[var(--shadow-glass)]">
-          <img
-            src={heroScene}
-            alt="Futuristic supercar with city skyline"
-            className="block h-auto w-full object-cover"
-            width={1600}
-            height={900}
-          />
+    <section ref={wrapRef} className="relative" style={{ height: "300vh" }}>
+      <div className="sticky top-0 h-screen w-full overflow-hidden">
+        {/* luxury gradient background */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse at 50% 35%, #fff5ec 0%, #ffe4e1 38%, #e8dfe0 70%, #c9c4c8 100%)",
+          }}
+        />
+        {/* volumetric glow */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 60% 40% at 50% 60%, rgba(255,220,180,0.55) 0%, rgba(255,220,180,0) 70%)",
+            mixBlendMode: "screen",
+          }}
+        />
+        {/* dust particles */}
+        <DustParticles />
 
-          {/* fade overlay so left text is readable */}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white/95 via-white/55 to-transparent" />
+        {/* canvas sequence */}
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 h-full w-full"
+          style={{ filter: "drop-shadow(0 30px 60px rgba(60,30,20,0.35))" }}
+        />
 
-          {/* left content overlay */}
-          <div className="absolute left-0 top-0 flex h-full max-w-[58%] flex-col justify-center p-6 sm:p-10 md:p-14">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.3em] text-primary">
-              Smart Finance for a Smarter Drive
-            </div>
-            <h1 className="mt-4 font-display text-4xl font-extrabold leading-[1.02] tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
-              Drive Today.<br/>
-              Achieve <span className="text-gradient">Tomorrow.</span>
-            </h1>
-            <p className="mt-4 max-w-md text-sm text-muted-foreground sm:text-base">
-              India's most advanced platform for all your Auto Loans, Insurance & Vehicle Finances.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <button className="btn-shine inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-5 py-3 text-sm font-semibold text-white shadow-[var(--shadow-glow)]">
-                Check Auto Loan Offers <ChevronRight className="h-4 w-4"/>
-              </button>
-              <button className="inline-flex items-center gap-2 rounded-xl border border-border bg-white/85 px-5 py-3 text-sm font-semibold text-foreground backdrop-blur hover:bg-white">
-                Login to Dashboard <ArrowRight className="h-4 w-4"/>
-              </button>
-            </div>
+        {/* subtle vignette */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgba(40,20,30,0.35)_100%)]" />
 
-            <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3">
-              <Stat value={2} suffix="M+" label="Happy Customers" icon={<Users className="h-4 w-4"/>} />
-              <Stat value={50} suffix="+" label="Lending Partners" icon={<Building2 className="h-4 w-4"/>} />
-              <Stat value={99.6} suffix="%" label="Approval Rate" icon={<BadgeCheck className="h-4 w-4"/>} decimals={1}/>
-            </div>
+        {/* centered overlay text */}
+        <div
+          className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center"
+          style={{
+            opacity: textOpacity,
+            transform: `translateY(${textY}px)`,
+            transition: "opacity 120ms linear",
+          }}
+        >
+          <div className="text-[11px] font-semibold uppercase tracking-[0.4em] text-primary/80">
+            Finonest × Premium SUVs
           </div>
-
-          {/* right vertical sidebar */}
-          <div className="absolute right-3 top-1/2 hidden -translate-y-1/2 flex-col gap-2 md:flex">
-            {[
-              { icon: <Car className="h-5 w-5"/>, label: "Quick Apply" },
-              { icon: <Calculator className="h-5 w-5"/>, label: "EMI Calculator" },
-              { icon: <MessageCircle className="h-5 w-5"/>, label: "Chat Now" },
-            ].map(a => (
-              <button
-                key={a.label}
-                className="flex w-20 flex-col items-center gap-1 rounded-2xl bg-white/90 px-2 py-3 text-[11px] font-semibold text-foreground shadow-[var(--shadow-glass)] ring-1 ring-border/60 backdrop-blur transition hover:bg-white"
-              >
-                <span className="text-primary">{a.icon}</span>
-                <span className="text-center leading-tight">{a.label}</span>
-              </button>
-            ))}
+          <h1 className="mt-4 font-display text-5xl font-extrabold leading-[1.02] tracking-tight text-foreground drop-shadow-[0_4px_20px_rgba(255,255,255,0.6)] sm:text-6xl md:text-7xl lg:text-8xl">
+            Drive Beyond <span className="text-gradient">Limits</span>
+          </h1>
+          <p className="mt-5 font-display text-base font-medium uppercase tracking-[0.35em] text-foreground/70 sm:text-lg">
+            Power · Performance · Prestige
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3 pointer-events-auto">
+            <button className="btn-shine inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-6 py-3 text-sm font-semibold text-white shadow-[var(--shadow-glow)]">
+              Check Auto Loan Offers <ChevronRight className="h-4 w-4" />
+            </button>
+            <button className="inline-flex items-center gap-2 rounded-xl border border-border bg-white/85 px-6 py-3 text-sm font-semibold text-foreground backdrop-blur hover:bg-white">
+              Login to Dashboard <ArrowRight className="h-4 w-4" />
+            </button>
           </div>
         </div>
+
+        {/* scroll hint */}
+        <div
+          className="absolute bottom-6 left-1/2 z-10 -translate-x-1/2 text-[10px] font-semibold uppercase tracking-[0.4em] text-foreground/60"
+          style={{ opacity: progress < 0.05 ? 1 : 0, transition: "opacity 300ms" }}
+        >
+          Scroll to ignite ↓
+        </div>
+
+        {/* loader */}
+        {loaded < FRAME_COUNT && (
+          <div className="absolute bottom-3 right-4 z-20 rounded-full bg-white/70 px-3 py-1 text-[10px] font-medium text-foreground/70 backdrop-blur">
+            Loading {Math.round((loaded / FRAME_COUNT) * 100)}%
+          </div>
+        )}
       </div>
     </section>
+  );
+}
+
+function DustParticles() {
+  // 18 floating dust dots, deterministic positions
+  const dots = Array.from({ length: 22 }, (_, i) => {
+    const seed = (i * 9301 + 49297) % 233280;
+    const r = seed / 233280;
+    const left = (i * 47) % 100;
+    const top = (i * 73) % 100;
+    const size = 2 + (r * 4);
+    const dur = 8 + (r * 10);
+    const delay = (i % 7) * 0.7;
+    return { left, top, size, dur, delay, op: 0.25 + r * 0.5 };
+  });
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      {dots.map((d, i) => (
+        <span
+          key={i}
+          className="absolute rounded-full bg-white"
+          style={{
+            left: `${d.left}%`,
+            top: `${d.top}%`,
+            width: d.size,
+            height: d.size,
+            opacity: d.op,
+            filter: "blur(1px)",
+            boxShadow: "0 0 8px rgba(255,240,220,0.7)",
+            animation: `float-y ${d.dur}s ease-in-out ${d.delay}s infinite`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function Hero() {
+  return (
+    <>
+      <CinematicHero />
+      <section className="relative mx-auto max-w-7xl px-4 pt-2 pb-6">
+        <div className="rounded-3xl border border-border/60 bg-white/85 p-5 shadow-[var(--shadow-glass)] backdrop-blur md:p-7">
+          <div className="flex flex-wrap items-center justify-around gap-x-8 gap-y-4">
+            <Stat value={2} suffix="M+" label="Happy Customers" icon={<Users className="h-4 w-4"/>} />
+            <Stat value={50} suffix="+" label="Lending Partners" icon={<Building2 className="h-4 w-4"/>} />
+            <Stat value={99.6} suffix="%" label="Approval Rate" icon={<BadgeCheck className="h-4 w-4"/>} decimals={1}/>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
 
