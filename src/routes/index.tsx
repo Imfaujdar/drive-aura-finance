@@ -78,249 +78,58 @@ function Nav() {
   );
 }
 
-const heroSlides = [
-  {
-    tag: "Auto Finance · India",
-    title: "DRIVE YOUR\nDREAM CAR.",
-    desc: "Finance your brand-new car with 50+ partner lenders. Rates from 8.49% p.a., zero processing fee for the first 1,000 customers this month.",
-    cta: "CHECK OFFERS",
-    image: cardCarLoan,
-    badge: "0% PROCESSING",
-    locationLabel: "Car Loan",
-  },
-  {
-    tag: "Home Finance · India",
-    title: "OWN THE\nHOME YOU LOVE.",
-    desc: "Up to ₹5Cr home loans with rates starting at 7.99% p.a. Tenures up to 30 years and quick digital approval in 48 hours.",
-    cta: "GET QUOTE",
-    image: cardHomeLoan,
-    badge: "LOW EMI",
-    locationLabel: "Home Loan",
-  },
-  {
-    tag: "Credit Cards · India",
-    title: "REWARDS THAT\nWORK FOR YOU.",
-    desc: "Premium credit cards from top banks with cashback up to 5%, lifetime free options and instant digital issuance in minutes.",
-    cta: "APPLY NOW",
-    image: cardCreditCard,
-    badge: "LIFETIME FREE",
-    locationLabel: "Credit Card",
-  },
-  {
-    tag: "Used Car Loans · India",
-    title: "PRE-OWNED.\nFULLY APPROVED.",
-    desc: "Up to ₹50L financing on certified pre-owned cars and SUVs with rates from 9.25% p.a. Instant approval in under 2 minutes.",
-    cta: "EXPLORE LOANS",
-    image: cardUsedCar,
-    badge: "LOWEST EMI",
-    locationLabel: "Used Car Loan",
-  },
-];
-
 function Hero() {
-  return <HeroCarousel />;
-}
-
-const heroTabs = [
-  { key: "car", label: "Car Loan", icon: Car },
-  { key: "home", label: "Home Loan", icon: HomeIcon },
-  { key: "card", label: "Credit Card", icon: CircleDollarSign },
-  { key: "used", label: "Used Car Loan", icon: RefreshCw },
-] as const;
-
-const tabConfig: Record<string, {
-  image: string;
-  headline: string;
-  highlight: string;
-  sub: string;
-  fields: { label: string; options: string[] }[];
-  cta: string;
-  rate: string;
-  meta: string;
-}> = {
-  car: {
-    image: cardCarLoan,
-    headline: "Drive home your",
-    highlight: "dream car today.",
-    sub: "Loans up to ₹50L from 50+ banks. Instant approval, zero processing fee.",
-    fields: [
-      { label: "City", options: ["Mumbai", "Delhi", "Bengaluru", "Pune", "Hyderabad"] },
-      { label: "Brand", options: ["Maruti", "Hyundai", "Toyota", "Tata", "BMW"] },
-      { label: "Budget", options: ["Under ₹5L", "₹5L – ₹10L", "₹10L – ₹20L", "Above ₹20L"] },
-    ],
-    cta: "Check Offers",
-    rate: "8.49%",
-    meta: "Starting interest p.a.",
-  },
-  home: {
-    image: cardHomeLoan,
-    headline: "Own the home",
-    highlight: "you've always loved.",
-    sub: "Up to ₹5Cr home loans, tenures up to 30 years, digital approval in 48 hours.",
-    fields: [
-      { label: "City", options: ["Mumbai", "Delhi", "Bengaluru", "Pune", "Chennai"] },
-      { label: "Property Type", options: ["Apartment", "Villa", "Plot + Construction", "Resale"] },
-      { label: "Loan Amount", options: ["Up to ₹50L", "₹50L – ₹1Cr", "₹1Cr – ₹3Cr", "Above ₹3Cr"] },
-    ],
-    cta: "Get Quote",
-    rate: "7.99%",
-    meta: "Starting interest p.a.",
-  },
-  card: {
-    image: cardCreditCard,
-    headline: "Rewards that",
-    highlight: "work for you.",
-    sub: "Lifetime free cards from top banks with cashback up to 5% and instant issuance.",
-    fields: [
-      { label: "Income", options: ["< ₹5L", "₹5L – ₹10L", "₹10L – ₹25L", "₹25L+"] },
-      { label: "Card Type", options: ["Cashback", "Travel", "Fuel", "Premium"] },
-      { label: "Employment", options: ["Salaried", "Self-Employed", "Business Owner"] },
-    ],
-    cta: "Apply Now",
-    rate: "0",
-    meta: "Joining fee for select cards",
-  },
-  used: {
-    image: cardUsedCar,
-    headline: "Pre-owned.",
-    highlight: "Fully approved.",
-    sub: "Certified pre-owned cars financed at rates from 9.25% p.a. Approval in 2 minutes.",
-    fields: [
-      { label: "City", options: ["Mumbai", "Delhi", "Bengaluru", "Pune", "Hyderabad"] },
-      { label: "Brand", options: ["Maruti", "Hyundai", "Honda", "Toyota", "Tata"] },
-      { label: "Budget", options: ["Under ₹3L", "₹3L – ₹6L", "₹6L – ₹10L", "₹10L+"] },
-    ],
-    cta: "Explore Loans",
-    rate: "9.25%",
-    meta: "Starting interest p.a.",
-  },
-};
-
-function HeroCarousel() {
-  const [activeKey, setActiveKey] = useState<string>("car");
-  const cfg = tabConfig[activeKey];
-
   return (
     <section className="relative w-full overflow-hidden rounded-3xl bg-background px-5 py-10 text-foreground md:px-12 md:py-14">
-      {/* Decorative background image */}
       <div className="pointer-events-none absolute inset-0 -z-0">
-        <img
-          key={`bg-${activeKey}`}
-          src={cfg.image}
-          alt=""
-          className="ml-auto h-full w-full max-w-[55%] animate-fade-in object-cover opacity-25 [mask-image:linear-gradient(to_left,black_30%,transparent_100%)]"
-        />
+        <div className="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-primary/10 blur-3xl" />
+        <div className="absolute -left-20 bottom-0 h-72 w-72 rounded-full bg-accent/10 blur-3xl" />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-6xl">
-        {/* Headline */}
-        <div className="max-w-2xl">
-          <div className="inline-flex items-center gap-2 rounded-full bg-background px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-primary neu-pressed">
-            <Sparkles className="h-3.5 w-3.5" /> India's Finance Marketplace
-          </div>
-          <h1
-            key={`h-${activeKey}`}
-            className="mt-6 animate-fade-in font-display text-5xl font-extrabold leading-[1.05] tracking-tight text-foreground md:text-6xl lg:text-7xl"
-          >
-            {cfg.headline}{" "}
-            <span className="text-primary">{cfg.highlight}</span>
-          </h1>
-          <p className="mt-5 max-w-xl text-base text-muted-foreground md:text-lg">{cfg.sub}</p>
-        </div>
-
-        {/* Tabbed search card (Cars24-style) */}
-        <div className="mt-10 rounded-[2rem] bg-background p-2 neu-raised md:p-3">
-          {/* Tabs */}
-          <div className="grid grid-cols-2 gap-2 rounded-2xl bg-background p-2 neu-pressed md:grid-cols-4">
-            {heroTabs.map(({ key, label, icon: Icon }) => {
-              const isActive = activeKey === key;
-              return (
-                <button
-                  key={key}
-                  onClick={() => setActiveKey(key)}
-                  className={`flex items-center justify-center gap-2 rounded-xl px-3 py-3 text-sm font-bold transition-all duration-300 ${
-                    isActive
-                      ? "bg-primary text-primary-foreground shadow-[var(--shadow-glow)]"
-                      : "bg-background text-foreground neu-raised-sm hover:text-primary"
-                  }`}
-                >
-                  <Icon className="h-4 w-4" />
-                  <span className="truncate">{label}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Search form */}
-          <div
-            key={`form-${activeKey}`}
-            className="grid animate-fade-in grid-cols-1 gap-3 p-3 md:grid-cols-4 md:gap-4 md:p-4"
-          >
-            {cfg.fields.map((f) => (
-              <label key={f.label} className="block rounded-2xl bg-background p-4 neu-pressed">
-                <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
-                  {f.label}
-                </div>
-                <select className="mt-1 w-full bg-transparent text-sm font-bold text-foreground outline-none">
-                  {f.options.map((o) => (
-                    <option key={o}>{o}</option>
-                  ))}
-                </select>
-              </label>
-            ))}
-            <button className="group btn-shine flex items-center justify-center gap-2 rounded-2xl bg-gradient-brand px-6 py-4 text-base font-bold text-white shadow-[var(--shadow-glow)] transition-transform hover:-translate-y-0.5">
-              {cfg.cta}
-              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-            </button>
-          </div>
-
-          {/* Strip bottom */}
-          <div className="flex flex-wrap items-center justify-between gap-4 border-t border-border/40 px-4 py-4 md:px-6">
-            <div className="flex items-center gap-2 text-sm">
-              <span className="grid h-9 w-9 place-items-center rounded-full bg-background text-primary neu-pressed">
-                <TrendingUp className="h-4 w-4" />
-              </span>
-              <div>
-                <div className="font-num text-base font-bold leading-none text-foreground">
-                  {cfg.rate}{activeKey !== "card" ? " p.a." : ""}
-                </div>
-                <div className="text-[11px] text-muted-foreground">{cfg.meta}</div>
+      <div className="relative z-10 mx-auto max-w-7xl">
+        <div className="grid items-center gap-10 lg:grid-cols-2">
+          {/* Left — Copy */}
+          <div className="max-w-xl">
+            <div className="inline-flex items-center gap-2 rounded-full bg-background px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-primary neu-pressed">
+              <Sparkles className="h-3.5 w-3.5" /> India's AI Finance Marketplace
+            </div>
+            <h1 className="mt-6 font-display text-5xl font-extrabold leading-[1.05] tracking-tight text-foreground md:text-6xl lg:text-7xl">
+              Drive Your <span className="text-primary">Dream Car</span> Today
+            </h1>
+            <p className="mt-5 max-w-lg text-base text-muted-foreground md:text-lg">
+              AI-powered auto loans, home loans, credit cards and insurance from 50+ trusted lenders. Instant approval, lowest rates, zero hassle.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <button className="btn-shine inline-flex items-center gap-2 rounded-2xl bg-gradient-brand px-6 py-3.5 text-base font-bold text-white shadow-[var(--shadow-glow)]">
+                Check Offers <ArrowRight className="h-5 w-5" />
+              </button>
+              <button className="inline-flex items-center gap-2 rounded-2xl bg-background px-6 py-3.5 text-base font-bold text-foreground neu-raised hover:shadow-[var(--shadow-extruded-hover)] transition-shadow">
+                Get Pre-Approved
+              </button>
+            </div>
+            <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-xs font-semibold text-muted-foreground">
+              <div className="flex items-center gap-2">
+                <Users className="h-4 w-4 text-primary" /> 1.2M+ customers
+              </div>
+              <div className="flex items-center gap-2">
+                <BadgeCheck className="h-4 w-4 text-primary" /> 4.8/5 rating
+              </div>
+              <div className="flex items-center gap-2">
+                <Zap className="h-4 w-4 text-primary" /> 2-min approval
               </div>
             </div>
-            <div className="flex items-center gap-2 text-sm">
-              <span className="grid h-9 w-9 place-items-center rounded-full bg-background text-primary neu-pressed">
-                <Zap className="h-4 w-4" />
-              </span>
-              <div>
-                <div className="text-sm font-bold text-foreground">2-min approval</div>
-                <div className="text-[11px] text-muted-foreground">100% paperless journey</div>
-              </div>
-            </div>
-            <div className="flex items-center gap-2 text-sm">
-              <span className="grid h-9 w-9 place-items-center rounded-full bg-background text-primary neu-pressed">
-                <Shield className="h-4 w-4" />
-              </span>
-              <div>
-                <div className="text-sm font-bold text-foreground">50+ Lender Network</div>
-                <div className="text-[11px] text-muted-foreground">RBI-regulated partners</div>
-              </div>
-            </div>
-            <button className="rounded-xl bg-background px-4 py-2 text-sm font-bold text-primary neu-raised-sm hover:shadow-[var(--shadow-inset)]">
-              EMI Calculator
-            </button>
           </div>
-        </div>
 
-        {/* Trust row */}
-        <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3 text-xs font-semibold text-muted-foreground">
-          <div className="flex items-center gap-2">
-            <Users className="h-4 w-4 text-primary" /> 1.2M+ customers served
-          </div>
-          <div className="flex items-center gap-2">
-            <Building2 className="h-4 w-4 text-primary" /> Present in 120+ cities
-          </div>
-          <div className="flex items-center gap-2">
-            <BadgeCheck className="h-4 w-4 text-primary" /> 4.8/5 customer rating
+          {/* Right — Car Image */}
+          <div className="relative grid place-items-center">
+            <div className="pointer-events-none absolute inset-0 -z-10 mx-auto h-64 w-64 rounded-full bg-primary/15 blur-3xl md:h-80 md:w-80" />
+            <img
+              src={heroCarMain}
+              alt="Premium SUV"
+              width={1024}
+              height={1024}
+              className="relative z-10 w-full max-w-[520px] animate-float car-depth-lg transition-transform duration-500 hover:scale-105"
+            />
           </div>
         </div>
       </div>
