@@ -3,7 +3,7 @@ import {
   Car, Calculator, MessageCircle, Gauge, Shield, Home as HomeIcon,
   ArrowRight, Sparkles, Wallet, RefreshCw, BadgeCheck, Cpu,
   Zap, FileCheck, Clock, Users, Building2, CircleDollarSign,
-  TrendingUp, Bike, Truck, ChevronRight, Menu,
+  TrendingUp, Bike, Truck, ChevronRight, Menu, Play, Pause,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
@@ -141,33 +141,74 @@ const HERO_CARS = [
 function HeroCarStage() {
   const [idx, setIdx] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
+  const [playing, setPlaying] = useState(true);
   const carRef = useRef<HTMLImageElement | null>(null);
   const stageRef = useRef<HTMLDivElement | null>(null);
+  const ringsRef = useRef<HTMLDivElement | null>(null);
+  const wheelsRef = useRef<HTMLDivElement | null>(null);
   const bobTween = useRef<gsap.core.Tween | null>(null);
 
-  // entrance + idle bob
+  // entrance
   useEffect(() => {
     if (!stageRef.current) return;
     const ctx = gsap.context(() => {
       gsap.from(".hero-floating-card", {
-        y: 20, opacity: 0, duration: 0.8, stagger: 0.15, ease: "power3.out", delay: 0.3,
+        y: 20, opacity: 0, duration: 0.9, stagger: 0.18, ease: "power3.out", delay: 0.4,
       });
       gsap.from(".hero-ring", {
-        scale: 0.7, opacity: 0, duration: 1.1, stagger: 0.1, ease: "power3.out",
+        scale: 0.7, opacity: 0, duration: 1.3, stagger: 0.12, ease: "power3.out",
       });
     }, stageRef);
     return () => ctx.revert();
   }, []);
 
-  // idle bob (wheels-on-road feel)
+  // gentle idle bob
   useEffect(() => {
     if (!carRef.current) return;
     bobTween.current?.kill();
     bobTween.current = gsap.to(carRef.current, {
-      y: -6, duration: 1.4, repeat: -1, yoyo: true, ease: "sine.inOut",
+      y: -5, duration: 2.2, repeat: -1, yoyo: true, ease: "sine.inOut",
     });
     return () => { bobTween.current?.kill(); };
   }, [idx]);
+
+  // mouse parallax on rings + floating cards
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    let raf = 0;
+    let tx = 0, ty = 0;
+    const xToRings = gsap.quickTo(ringsRef.current, "x", { duration: 0.9, ease: "power3.out" });
+    const yToRings = gsap.quickTo(ringsRef.current, "y", { duration: 0.9, ease: "power3.out" });
+    const rotXRings = gsap.quickTo(ringsRef.current, "rotationX", { duration: 0.9, ease: "power3.out" });
+    const rotYRings = gsap.quickTo(ringsRef.current, "rotationY", { duration: 0.9, ease: "power3.out" });
+
+    const onMove = (e: MouseEvent) => {
+      const r = stage.getBoundingClientRect();
+      const nx = ((e.clientX - r.left) / r.width - 0.5) * 2;   // -1..1
+      const ny = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      tx = nx; ty = ny;
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        xToRings(tx * 24);
+        yToRings(ty * 12);
+        rotXRings(60 + ty * 8);   // base tilt + parallax
+        rotYRings(tx * 8);
+        gsap.to(".hero-floating-card", { x: tx * -10, y: ty * -6, duration: 0.7, ease: "power3.out", overwrite: "auto" });
+      });
+    };
+    const onLeave = () => {
+      xToRings(0); yToRings(0); rotXRings(60); rotYRings(0);
+      gsap.to(".hero-floating-card", { x: 0, y: 0, duration: 0.7, ease: "power3.out", overwrite: "auto" });
+    };
+    stage.addEventListener("mousemove", onMove);
+    stage.addEventListener("mouseleave", onLeave);
+    return () => {
+      stage.removeEventListener("mousemove", onMove);
+      stage.removeEventListener("mouseleave", onLeave);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
 
   const goTo = (next: number) => {
     if (transitioning || !carRef.current) return;
@@ -175,77 +216,83 @@ function HeroCarStage() {
     bobTween.current?.kill();
     const el = carRef.current;
     const speedLines = stageRef.current?.querySelectorAll(".speed-line") ?? [];
+    const wheelEls = wheelsRef.current?.querySelectorAll(".roll-wheel") ?? [];
+    const wheelSpinners = wheelsRef.current?.querySelectorAll(".roll-wheel-spin") ?? [];
 
     const tl = gsap.timeline({
+      defaults: { ease: "power2.inOut" },
       onComplete: () => {
         setIdx(next);
         setTransitioning(false);
       },
     });
 
-    // drive away (rolling bounce + motion blur + slide right)
+    // show wheels overlay + spin them
+    tl.set(wheelEls, { opacity: 0, x: 0 });
+    tl.to(wheelEls, { opacity: 1, duration: 0.25 }, 0);
+    tl.to(wheelSpinners, { rotation: 1440, duration: 1.6, ease: "none" }, 0);
+
+    // drive away
     tl.to(el, {
-      keyframes: [
-        { y: -4, duration: 0.08 },
-        { y: 2,  duration: 0.08 },
-        { y: -4, duration: 0.08 },
-        { y: 2,  duration: 0.08 },
-      ],
-      ease: "none",
+      x: 560, filter: "blur(2.5px)", opacity: 0, duration: 0.8, ease: "power2.in",
     }, 0);
-    tl.to(el, {
-      x: 520, filter: "blur(3px)", opacity: 0, duration: 0.55, ease: "power2.in",
+    tl.to(wheelEls, {
+      x: 560, duration: 0.8, ease: "power2.in",
     }, 0);
     tl.to(speedLines, {
-      x: -260, opacity: 1, duration: 0.45, stagger: 0.04, ease: "power2.out",
-    }, 0.05);
-    tl.to(speedLines, { opacity: 0, duration: 0.2 }, 0.5);
+      x: -260, opacity: 1, duration: 0.6, stagger: 0.05, ease: "power2.out",
+    }, 0.1);
+    tl.to(speedLines, { opacity: 0, duration: 0.25 }, 0.7);
 
-    // swap source mid-blink
+    // swap car
     tl.add(() => {
       el.src = HERO_CARS[next].src;
-      gsap.set(el, { x: -520, opacity: 0, filter: "blur(3px)" });
+      gsap.set(el, { x: -560, opacity: 0, filter: "blur(2.5px)", y: 0 });
+      gsap.set(wheelEls, { x: -560, opacity: 1 });
       gsap.set(speedLines, { x: 0, opacity: 0 });
     });
 
     // drive in
     tl.to(el, {
-      x: 0, opacity: 1, filter: "blur(0px)", duration: 0.6, ease: "power3.out",
+      x: 0, opacity: 1, filter: "blur(0px)", duration: 0.85, ease: "power3.out",
     });
-    tl.to(el, {
-      keyframes: [
-        { y: -4, duration: 0.09 },
-        { y: 2,  duration: 0.09 },
-        { y: -4, duration: 0.09 },
-        { y: 0,  duration: 0.09 },
-      ],
-      ease: "none",
+    tl.to(wheelEls, {
+      x: 0, duration: 0.85, ease: "power3.out",
     }, "<");
+    tl.to(wheelEls, { opacity: 0, duration: 0.3 }, ">-0.15");
   };
 
   const next = () => goTo((idx + 1) % HERO_CARS.length);
   const prev = () => goTo((idx - 1 + HERO_CARS.length) % HERO_CARS.length);
 
-  // auto-rotate
+  // autoplay
   useEffect(() => {
-    const id = setInterval(() => {
+    if (!playing) return;
+    const id = setTimeout(() => {
       if (!transitioning) goTo((idx + 1) % HERO_CARS.length);
-    }, 4500);
-    return () => clearInterval(id);
+    }, 6500);
+    return () => clearTimeout(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [idx, transitioning]);
+  }, [idx, transitioning, playing]);
 
   const car = HERO_CARS[idx];
 
   return (
     <div ref={stageRef} className="relative aspect-square [perspective:1400px]">
-      {/* depth rings on the floor */}
-      <div className="hero-ring pointer-events-none absolute left-1/2 top-[72%] h-[42%] w-[100%] -translate-x-1/2 rounded-[50%] border border-primary/25 animate-spin-slow" />
-      <div className="hero-ring pointer-events-none absolute left-1/2 top-[74%] h-[28%] w-[74%] -translate-x-1/2 rounded-[50%] border border-primary/15" />
-      <div className="hero-ring pointer-events-none absolute left-1/2 top-[76%] h-[16%] w-[48%] -translate-x-1/2 rounded-[50%] bg-primary/5 blur-2xl" />
+      {/* depth rings on the floor — tilted, with mouse parallax */}
+      <div
+        ref={ringsRef}
+        className="pointer-events-none absolute inset-0"
+        style={{ transformStyle: "preserve-3d", transform: "rotateX(60deg)" }}
+      >
+        <div className="hero-ring absolute left-1/2 top-[68%] h-[60%] w-[110%] -translate-x-1/2 rounded-full border border-primary/30 animate-spin-slow" />
+        <div className="hero-ring absolute left-1/2 top-[70%] h-[44%] w-[82%] -translate-x-1/2 rounded-full border border-primary/20" />
+        <div className="hero-ring absolute left-1/2 top-[72%] h-[28%] w-[56%] -translate-x-1/2 rounded-full border border-primary/15" />
+        <div className="hero-ring absolute left-1/2 top-[74%] h-[18%] w-[42%] -translate-x-1/2 rounded-full bg-primary/10 blur-2xl" />
+      </div>
 
       {/* speed lines */}
-      <div className="pointer-events-none absolute inset-x-0 top-[60%] z-10 h-24">
+      <div className="pointer-events-none absolute inset-x-0 top-[58%] z-10 h-24">
         {[0,1,2,3,4].map(i=>(
           <span key={i}
             className="speed-line absolute h-[2px] rounded-full bg-primary/40 opacity-0"
@@ -254,6 +301,7 @@ function HeroCarStage() {
         ))}
       </div>
 
+      {/* car */}
       <img
         ref={carRef}
         src={car.src}
@@ -263,6 +311,28 @@ function HeroCarStage() {
         className="relative z-20 h-full w-full object-contain car-depth-lg"
         style={{ willChange: "transform, filter, opacity" }}
       />
+
+      {/* spinning wheels overlay (visible only during transition) */}
+      <div ref={wheelsRef} className="pointer-events-none absolute inset-0 z-[25]">
+        {[
+          { left: "21%" },
+          { left: "70%" },
+        ].map((pos, i) => (
+          <div key={i}
+            className="roll-wheel absolute opacity-0"
+            style={{ left: pos.left, top: "78%", width: "11%", aspectRatio: "1 / 1" }}
+          >
+            <svg viewBox="0 0 100 100" className="roll-wheel-spin h-full w-full" style={{ transformOrigin: "50% 50%" }}>
+              <circle cx="50" cy="50" r="46" fill="#0d0d10" stroke="#2a2a35" strokeWidth="3"/>
+              <circle cx="50" cy="50" r="14" fill="#5a5a66"/>
+              {Array.from({length:6}).map((_,k)=>(
+                <rect key={k} x="48" y="14" width="4" height="36" rx="2" fill="#3a3a44"
+                  transform={`rotate(${k*60} 50 50)`}/>
+              ))}
+            </svg>
+          </div>
+        ))}
+      </div>
 
       {/* floating cards */}
       <div className="hero-floating-card absolute left-2 top-6 z-30 rounded-2xl glass px-3 py-2 text-xs font-semibold">
@@ -275,16 +345,23 @@ function HeroCarStage() {
         <div className="flex items-center gap-2"><Cpu className="h-4 w-4 text-primary"/>AI scoring engine</div>
       </div>
 
-      {/* car label + dots */}
-      <div className="absolute bottom-3 left-1/2 z-30 flex -translate-x-1/2 items-center gap-3 rounded-full glass-strong px-4 py-2">
-        <button onClick={prev} aria-label="Previous car" className="grid h-7 w-7 place-items-center rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-white transition">
+      {/* control dock */}
+      <div className="absolute bottom-3 left-1/2 z-30 flex -translate-x-1/2 items-center gap-2 rounded-full glass-strong px-2.5 py-1.5">
+        <button onClick={prev} aria-label="Previous car" className="grid h-8 w-8 place-items-center rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-white transition">
           <ChevronRight className="h-4 w-4 rotate-180"/>
         </button>
-        <div className="text-center">
-          <div className="font-display text-sm font-bold leading-none">{car.name}</div>
+        <button
+          onClick={() => setPlaying(p => !p)}
+          aria-label={playing ? "Pause autoplay" : "Play autoplay"}
+          className="grid h-8 w-8 place-items-center rounded-full bg-gradient-brand text-white shadow-[var(--shadow-glow)]"
+        >
+          {playing ? <Pause className="h-4 w-4"/> : <Play className="h-4 w-4"/>}
+        </button>
+        <div className="px-1.5 text-center min-w-[110px]">
+          <div className="font-display text-xs font-bold leading-none">{car.name}</div>
           <div className="text-[10px] text-muted-foreground mt-0.5">{car.tag}</div>
         </div>
-        <button onClick={next} aria-label="Next car" className="grid h-7 w-7 place-items-center rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-white transition">
+        <button onClick={next} aria-label="Next car" className="grid h-8 w-8 place-items-center rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-white transition">
           <ChevronRight className="h-4 w-4"/>
         </button>
       </div>
@@ -297,6 +374,7 @@ function HeroCarStage() {
     </div>
   );
 }
+
 
 
 function Stat({ value, suffix, label, icon, decimals = 0 }:{value:number;suffix:string;label:string;icon:React.ReactNode;decimals?:number}) {
