@@ -180,8 +180,8 @@ function HeroCarousel() {
           alt={slide.locationLabel}
           className="h-full w-full object-cover transition-opacity duration-700"
         />
-        <div className="absolute inset-0 bg-white/80 backdrop-blur-sm" />
-        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 80% 20%, #ffe4e1 0%, #fff5ec 45%, #fdf6ee 80%)" }} />
+        <div className="absolute inset-0 bg-white/30" />
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 70% 30%, rgba(255,228,225,0.5) 0%, rgba(255,245,236,0.3) 50%, rgba(253,246,238,0.1) 80%)" }} />
       </div>
       <div
         className="pointer-events-none absolute inset-0 z-0"
