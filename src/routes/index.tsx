@@ -4,6 +4,7 @@ import {
   ArrowRight, Sparkles, BadgeCheck,
   Zap, FileCheck, Clock, Users, CircleDollarSign,
   Bike, Truck, ChevronRight, Menu,
+  Headphones, Building2, Eye, Wallet, Quote, Star, Handshake, TrendingUp, Rocket,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
