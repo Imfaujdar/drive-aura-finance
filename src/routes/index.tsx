@@ -120,8 +120,19 @@ function Hero() {
   return <HeroCarousel />;
 }
 
+const heroTabs = [
+  { label: "Home", icon: HomeIcon },
+  { label: "Buy used car", icon: Car },
+  { label: "Sell car", icon: CircleDollarSign },
+  { label: "Loans", icon: Wallet },
+  { label: "Challan", icon: FileCheck },
+  { label: "Car check", icon: Gauge },
+  { label: "Insurance", icon: Shield },
+];
+
 function HeroCarousel() {
   const [active, setActive] = useState(0);
+  const [tab, setTab] = useState(0);
   const [paused, setPaused] = useState(false);
   const total = heroSlides.length;
   const DURATION = 6500;
@@ -136,113 +147,112 @@ function HeroCarousel() {
 
   return (
     <section
-      className="relative w-full rounded-3xl bg-background px-6 py-12 text-foreground md:px-12 md:py-16"
+      className="relative w-full px-4 pb-24 pt-6 md:px-8"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
-        {/* Left copy */}
-        <div className="space-y-8">
-          <div className="inline-block rounded-full bg-background px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-primary neu-pressed">
-            {slide.tag}
+      <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-gradient-to-br from-primary via-primary to-[hsl(245_85%_55%)] shadow-[var(--shadow-glow)]">
+        <div className="grid grid-cols-1 lg:grid-cols-12">
+          {/* Left blue panel */}
+          <div className="relative z-10 col-span-1 px-8 py-14 lg:col-span-6 lg:px-14 lg:py-24">
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-white backdrop-blur">
+              {slide.tag}
+            </div>
+            <h1
+              key={`h-${active}`}
+              className="mt-6 animate-fade-in font-display text-5xl font-extrabold leading-[1.05] tracking-tight text-white md:text-6xl lg:text-[4.25rem]"
+            >
+              {slide.title.split("\n")[0]}
+              <br />
+              <span className="text-white/90">{slide.title.split("\n")[1] ?? ""}</span>
+            </h1>
+            <p
+              key={`d-${active}`}
+              className="mt-6 max-w-md animate-fade-in text-base leading-relaxed text-white/85"
+            >
+              {slide.desc}
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <button className="group inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-bold text-primary shadow-lg transition hover:-translate-y-0.5">
+                {slide.cta}
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </button>
+              <div className="flex items-center gap-2">
+                {heroSlides.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActive(i)}
+                    aria-label={`Slide ${i + 1}`}
+                    className={`h-1.5 rounded-full transition-all ${
+                      i === active ? "w-8 bg-white" : "w-3 bg-white/40 hover:bg-white/70"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
 
-          <h1
-            key={`h-${active}`}
-            className="animate-fade-in font-display text-5xl font-extrabold leading-[1.05] tracking-tight text-foreground md:text-6xl"
-          >
-            {slide.title.split("\n")[0]}{" "}
-            <span className="text-primary">{slide.title.split("\n")[1] ?? ""}</span>
-          </h1>
-
-          <p
-            key={`d-${active}`}
-            className="max-w-lg animate-fade-in text-lg leading-relaxed text-muted-foreground"
-          >
-            {slide.desc}
-          </p>
-
-          <div className="flex flex-wrap gap-5 pt-2">
-            <button className="group inline-flex items-center gap-2 rounded-2xl bg-background px-8 py-4 font-bold text-primary neu-raised transition-all duration-300 hover:shadow-[var(--shadow-inset)]">
-              {slide.cta}
-              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-            </button>
-            <button className="rounded-2xl bg-background px-8 py-4 font-bold text-muted-foreground neu-pressed">
-              Learn More
-            </button>
+          {/* Right image panel with curved divider */}
+          <div className="relative col-span-1 min-h-[340px] lg:col-span-6 lg:min-h-[560px]">
+            <img
+              key={`img-${active}`}
+              src={slide.image}
+              alt={slide.locationLabel}
+              className="absolute inset-0 h-full w-full animate-fade-in object-cover"
+            />
+            {/* curved divider — only on lg+ */}
+            <svg
+              className="pointer-events-none absolute inset-y-0 -left-px hidden h-full lg:block"
+              viewBox="0 0 120 600"
+              preserveAspectRatio="none"
+              aria-hidden
+            >
+              <path
+                d="M0,0 L80,0 C20,200 20,400 80,600 L0,600 Z"
+                fill="hsl(var(--primary))"
+              />
+            </svg>
+            {/* badge */}
+            <div className="absolute right-5 top-5 rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-primary shadow backdrop-blur">
+              {slide.badge}
+            </div>
           </div>
         </div>
 
-        {/* Right: featured card + selection list */}
-        <div className="relative flex flex-col gap-6">
-          {/* Active Card */}
-          <div
-            key={`card-${active}`}
-            className="relative z-20 animate-fade-in rounded-[2rem] bg-background p-8 neu-raised"
-            style={{ boxShadow: "var(--shadow-extruded-hover)" }}
-          >
-            <div className="mb-8 flex items-start justify-between">
-              <div>
-                <p className="mb-1 text-xs font-bold uppercase tracking-[0.22em] text-primary">
-                  Active Selection
-                </p>
-                <h3 className="font-display text-2xl font-bold text-foreground">
-                  {slide.locationLabel}
-                </h3>
-              </div>
-              <div className="grid h-12 w-12 place-items-center rounded-xl bg-background text-primary neu-pressed">
-                {slide.locationLabel.includes("Home") ? (
-                  <HomeIcon className="h-6 w-6" />
-                ) : slide.locationLabel.includes("Credit") ? (
-                  <CircleDollarSign className="h-6 w-6" />
-                ) : (
-                  <Car className="h-6 w-6" />
-                )}
-              </div>
-            </div>
+        {/* decorative blobs */}
+        <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-32 left-1/3 h-80 w-80 rounded-full bg-white/10 blur-3xl" />
+      </div>
 
-            <div className="mb-6 h-48 w-full overflow-hidden rounded-2xl neu-pressed">
-              <img
-                src={slide.image}
-                alt={slide.locationLabel}
-                className="h-full w-full object-cover"
-              />
-            </div>
-
-            <div className="space-y-3">
-              <div className="h-2 w-full overflow-hidden rounded-full neu-pressed">
-                <div
-                  className="h-full rounded-full bg-primary transition-all duration-500"
-                  style={{ width: `${65 + active * 5}%` }}
-                />
-              </div>
-              <div className="flex justify-between text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
-                <span>Eligibility</span>
-                <span>{65 + active * 5}% Match</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Selection list */}
-          <div className="relative z-30 grid grid-cols-2 gap-4">
-            {heroSlides.map((s, i) => {
-              const isActive = i === active;
+      {/* Tab bar overlapping bottom of hero */}
+      <div className="relative z-20 mx-auto -mt-12 max-w-5xl px-4">
+        <div className="rounded-[2rem] border border-border/60 bg-white/95 p-3 shadow-[var(--shadow-glass)] backdrop-blur">
+          <div className="flex items-center justify-between gap-1 overflow-x-auto md:gap-2">
+            {heroTabs.map(({ label, icon: Icon }, i) => {
+              const isActive = i === tab;
               return (
                 <button
-                  key={s.locationLabel}
-                  onClick={() => setActive(i)}
-                  className={`flex items-center gap-3 rounded-xl bg-background p-4 text-left transition-all duration-300 ${
-                    isActive ? "neu-pressed" : "neu-raised-sm hover:shadow-[var(--shadow-inset)]"
+                  key={label}
+                  onClick={() => setTab(i)}
+                  className={`group flex min-w-[84px] flex-1 flex-col items-center gap-1.5 rounded-2xl px-3 py-2.5 text-[11px] font-semibold transition-all md:min-w-0 ${
+                    isActive
+                      ? "text-primary"
+                      : "text-foreground/70 hover:text-primary"
                   }`}
                 >
                   <span
-                    className={`h-2 w-2 rounded-full ${
-                      isActive ? "bg-primary shadow-[0_0_8px_var(--primary)]" : "bg-muted"
+                    className={`grid h-10 w-10 place-items-center rounded-xl transition-all ${
+                      isActive
+                        ? "bg-primary/10 text-primary ring-1 ring-primary/20"
+                        : "bg-muted/50 text-foreground/60 group-hover:bg-primary/5"
                     }`}
-                  />
-                  <span className="truncate text-sm font-bold text-foreground">
-                    {s.locationLabel}
+                  >
+                    <Icon className="h-5 w-5" />
                   </span>
+                  <span className="whitespace-nowrap">{label}</span>
+                  {isActive && (
+                    <span className="h-0.5 w-6 rounded-full bg-primary" />
+                  )}
                 </button>
               );
             })}
