@@ -148,13 +148,11 @@
   }
 
   .text-gradient {
-    background: var(--gradient-brand);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: var(--primary);
   }
 
-  .bg-gradient-brand { background: var(--gradient-brand); }
+  .bg-gradient-brand { background: var(--primary); }
+
 
   .bg-mesh {
     background-color: var(--background);
