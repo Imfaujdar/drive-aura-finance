@@ -77,75 +77,6 @@ function Nav() {
   );
 }
 
-function Hero() {
-  return (
-    <section className="relative overflow-hidden">
-      {/* soft gradient background */}
-      <div
-        className="absolute inset-0 -z-10"
-        style={{
-          background:
-            "radial-gradient(ellipse at 70% 35%, #ffe4e1 0%, #fff5ec 40%, #ffffff 80%)",
-        }}
-      />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-pink-100/60 to-transparent" />
-
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-4 pt-10 pb-8 lg:grid-cols-12 lg:gap-6 lg:pt-16">
-        {/* Left copy */}
-        <div className="lg:col-span-6">
-          <span className="inline-flex items-center rounded-full border border-primary/20 bg-white/70 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-primary backdrop-blur">
-            Smart Finance for a Smarter Drive
-          </span>
-          <SplitText
-            tag="h1"
-            text="Drive Today. Achieve Tomorrow."
-            className="mt-5 font-display text-5xl font-extrabold leading-[1.02] tracking-tight text-foreground sm:text-6xl lg:text-7xl"
-            delay={40}
-            duration={0.7}
-            ease="power3.out"
-            splitType="chars"
-            from={{ opacity: 0, y: 50 }}
-            to={{ opacity: 1, y: 0 }}
-            threshold={0.1}
-            textAlign="left"
-          />
-          <p className="mt-5 max-w-md text-base text-muted-foreground sm:text-lg">
-            India's most advanced platform for all your{" "}
-            <span className="font-semibold text-foreground">
-              Auto Loans, Insurance & Vehicle Finances.
-            </span>
-          </p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <button className="btn-shine inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-6 py-3 text-sm font-semibold text-white shadow-[var(--shadow-glow)]">
-              Check Auto Loan Offers <ArrowRight className="h-4 w-4" />
-            </button>
-            <button className="inline-flex items-center gap-2 rounded-xl border border-border bg-white/85 px-6 py-3 text-sm font-semibold text-foreground backdrop-blur hover:bg-white">
-              Login to Dashboard <ArrowRight className="h-4 w-4" />
-            </button>
-          </div>
-
-          {/* Stats */}
-          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <Stat value={2} suffix="M+" label="Happy Customers" icon={<Users className="h-4 w-4" />} />
-            <Stat value={50} suffix="+" label="Lending Partners" icon={<Building2 className="h-4 w-4" />} />
-            <Stat value={99.6} suffix="%" label="Approval Rate" icon={<BadgeCheck className="h-4 w-4" />} decimals={1} />
-            <Stat value={0} suffix="" label={"Minimal\nDocumentation"} icon={<FileCheck className="h-4 w-4" />} hideValue />
-          </div>
-        </div>
-
-        {/* Right — Hero Carousel */}
-        <div className="lg:col-span-6">
-          <HeroCarousel />
-        </div>
-
-      </div>
-
-      {/* Right side rail */}
-      <SideRail />
-    </section>
-  );
-}
-
 const heroSlides = [
   {
     tag: "Used Car Loans",
@@ -153,7 +84,8 @@ const heroSlides = [
     desc: "Up to ₹50L financing on certified pre-owned SUVs with rates starting at 8.49% p.a. Get instant approval in under 2 minutes.",
     cta: "CHECK OFFERS",
     image: heroSuv,
-    accent: "from-rose-100 via-orange-50 to-white",
+    accent: "from-rose-200 via-orange-100 to-white",
+    bg: "radial-gradient(ellipse at 70% 35%, #ffe4e1 0%, #fff5ec 45%, #ffffff 85%)",
     badge: "LOWEST EMI",
   },
   {
@@ -162,7 +94,8 @@ const heroSlides = [
     desc: "Finance your brand-new car with 50+ partner lenders. Zero processing fee for the first 1000 customers this month.",
     cta: "EXPLORE LOANS",
     image: heroCar1,
-    accent: "from-sky-100 via-indigo-50 to-white",
+    accent: "from-sky-200 via-indigo-100 to-white",
+    bg: "radial-gradient(ellipse at 70% 35%, #dbeafe 0%, #eef2ff 45%, #ffffff 85%)",
     badge: "0% PROCESSING",
   },
   {
@@ -171,7 +104,8 @@ const heroSlides = [
     desc: "Refinance your existing car loan and save up to ₹15,000/year on EMIs. Switch in 24 hours with zero foreclosure hassles.",
     cta: "GET QUOTE",
     image: heroCar2,
-    accent: "from-emerald-100 via-teal-50 to-white",
+    accent: "from-emerald-200 via-teal-100 to-white",
+    bg: "radial-gradient(ellipse at 70% 35%, #d1fae5 0%, #ecfeff 45%, #ffffff 85%)",
     badge: "SAVE ₹15K/YR",
   },
   {
@@ -180,17 +114,24 @@ const heroSlides = [
     desc: "Tailored financing for trucks, taxis & fleets. Flexible tenures up to 7 years and minimal documentation for working pros.",
     cta: "APPLY NOW",
     image: heroCar3,
-    accent: "from-amber-100 via-yellow-50 to-white",
+    accent: "from-amber-200 via-yellow-100 to-white",
+    bg: "radial-gradient(ellipse at 70% 35%, #fef3c7 0%, #fffbeb 45%, #ffffff 85%)",
     badge: "FLEET READY",
   },
 ];
+
+function Hero() {
+  return <HeroCarousel />;
+}
 
 function HeroCarousel() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [parallax, setParallax] = useState({ x: 0, y: 0 });
   const total = heroSlides.length;
-  const DURATION = 5000;
+  const DURATION = 6000;
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (paused) return;
@@ -215,126 +156,190 @@ function HeroCarousel() {
     setProgress(0);
   };
 
-  const slide = heroSlides[active];
+  const onMouseMove = (e: React.MouseEvent) => {
+    const r = containerRef.current?.getBoundingClientRect();
+    if (!r) return;
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    setParallax({ x, y });
+  };
 
   return (
-    <div
-      className="relative [perspective:1400px]"
+    <section
+      ref={containerRef}
+      className="relative h-screen w-full overflow-hidden"
       onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
+      onMouseLeave={() => { setPaused(false); setParallax({ x: 0, y: 0 }); }}
+      onMouseMove={onMouseMove}
     >
-      <div className="relative overflow-hidden rounded-[28px] border border-border/60 bg-white/70 shadow-[var(--shadow-glass)] backdrop-blur">
+      {/* Layered backgrounds (crossfade) */}
+      {heroSlides.map((s, i) => (
         <div
-          key={active}
-          className={`relative animate-fade-in bg-gradient-to-br ${slide.accent}`}
-        >
-          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <div className="h-[70%] w-[80%] rounded-full bg-gradient-to-br from-primary/25 via-primary/10 to-transparent blur-3xl" />
-          </div>
+          key={i}
+          className="absolute inset-0 transition-opacity duration-[1200ms] ease-out"
+          style={{ background: s.bg, opacity: i === active ? 1 : 0 }}
+        />
+      ))}
 
-          <div className="relative grid grid-cols-5 items-center gap-2 p-5 md:p-7">
-            <div className="col-span-3">
-              <span className="inline-flex items-center rounded-full border border-primary/25 bg-white/80 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
-                {slide.tag}
-              </span>
-              <h3 className="mt-3 whitespace-pre-line font-display text-2xl font-extrabold leading-[1.05] tracking-tight text-foreground sm:text-3xl md:text-4xl">
-                {slide.title}
-              </h3>
-              <p className="mt-3 max-w-[36ch] text-xs text-muted-foreground sm:text-sm">
-                {slide.desc}
-              </p>
-              <button className="btn-shine mt-4 inline-flex items-center gap-2 rounded-full bg-gradient-brand px-5 py-2 text-[11px] font-bold tracking-wider text-white shadow-[var(--shadow-glow)]">
-                {slide.cta} <ArrowRight className="h-3.5 w-3.5" />
-              </button>
-              <div className="ml-2 mt-3 inline-flex items-center gap-1.5 rounded-full bg-white/85 px-2.5 py-1 text-[10px] font-extrabold tracking-[0.18em] text-primary ring-1 ring-primary/15">
-                <Sparkles className="h-3 w-3" /> {slide.badge}
-              </div>
-            </div>
+      {/* Parallax glow */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          transform: `translate3d(${parallax.x * -20}px, ${parallax.y * -20}px, 0)`,
+          transition: "transform .4s ease-out",
+        }}
+      >
+        <div className="absolute right-[10%] top-[20%] h-[60vh] w-[60vh] rounded-full bg-gradient-to-br from-primary/25 via-primary/10 to-transparent blur-3xl" />
+        <div className="absolute left-[5%] bottom-[10%] h-[40vh] w-[40vh] rounded-full bg-accent/20 blur-3xl" />
+      </div>
 
-            <div className="col-span-2 flex justify-end">
-              <img
-                src={slide.image}
-                alt={slide.tag}
-                className="w-full max-w-[260px] select-none drop-shadow-[0_30px_25px_rgba(60,30,80,0.35)] [transform:rotateX(6deg)_rotateY(-12deg)_rotateZ(-1deg)] animate-float"
-                style={{ transformStyle: "preserve-3d" }}
-              />
-            </div>
-          </div>
-
-          {/* Upcoming mini-cards rail */}
-          <div className="pointer-events-auto absolute bottom-5 right-4 hidden gap-2 md:flex">
-            {[1, 2, 3].map((offset) => {
-              const idx = (active + offset) % total;
-              const s = heroSlides[idx];
-              return (
-                <button
-                  key={`${active}-${idx}`}
-                  onClick={() => goto(idx)}
-                  className="group relative h-24 w-[88px] shrink-0 overflow-hidden rounded-2xl border border-white/70 bg-white/90 shadow-[var(--shadow-glass)] backdrop-blur transition-all hover:-translate-y-1"
+      {/* Slides stacked */}
+      <div className="relative z-10 mx-auto h-full max-w-7xl px-4 lg:px-8">
+        {heroSlides.map((slide, i) => {
+          const isActive = i === active;
+          return (
+            <div
+              key={i}
+              className="absolute inset-0 grid grid-cols-1 items-center gap-8 px-4 lg:grid-cols-12 lg:px-8"
+              style={{
+                opacity: isActive ? 1 : 0,
+                transform: `translateX(${isActive ? 0 : i < active ? -40 : 40}px)`,
+                transition: "opacity 900ms ease-out, transform 900ms cubic-bezier(.2,.7,.2,1)",
+                pointerEvents: isActive ? "auto" : "none",
+              }}
+            >
+              {/* Left: Copy */}
+              <div className="lg:col-span-6">
+                <span
+                  className="inline-flex items-center rounded-full border border-primary/25 bg-white/80 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-primary backdrop-blur"
                   style={{
-                    transform: `translateY(${offset * 4}px) scale(${1 - offset * 0.04})`,
+                    transform: `translate3d(${parallax.x * 12}px, ${parallax.y * 8}px, 0)`,
+                    transition: "transform .4s ease-out",
                   }}
                 >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${s.accent} opacity-80`} />
+                  {slide.tag}
+                </span>
+                <h1
+                  className="mt-5 whitespace-pre-line font-display text-5xl font-extrabold leading-[1.02] tracking-tight text-foreground sm:text-6xl lg:text-7xl xl:text-8xl"
+                  style={{
+                    transform: `translate3d(${parallax.x * 18}px, ${parallax.y * 12}px, 0)`,
+                    transition: "transform .5s ease-out",
+                  }}
+                >
+                  {slide.title}
+                </h1>
+                <p
+                  className="mt-5 max-w-md text-base text-muted-foreground sm:text-lg"
+                  style={{
+                    transform: `translate3d(${parallax.x * 24}px, ${parallax.y * 16}px, 0)`,
+                    transition: "transform .55s ease-out",
+                  }}
+                >
+                  {slide.desc}
+                </p>
+                <div
+                  className="mt-7 flex flex-wrap gap-3"
+                  style={{
+                    transform: `translate3d(${parallax.x * 30}px, ${parallax.y * 20}px, 0)`,
+                    transition: "transform .6s ease-out",
+                  }}
+                >
+                  <button className="btn-shine inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-6 py-3 text-sm font-semibold text-white shadow-[var(--shadow-glow)]">
+                    {slide.cta} <ArrowRight className="h-4 w-4" />
+                  </button>
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white/85 px-4 py-2 text-[11px] font-extrabold tracking-[0.18em] text-primary ring-1 ring-primary/15">
+                    <Sparkles className="h-3.5 w-3.5" /> {slide.badge}
+                  </span>
+                </div>
+              </div>
+
+              {/* Right: Image with parallax */}
+              <div className="relative lg:col-span-6">
+                <div
+                  className="relative mx-auto aspect-[5/4] w-full max-w-[640px]"
+                  style={{
+                    transform: `translate3d(${parallax.x * -50}px, ${parallax.y * -30}px, 0) scale(${isActive ? 1 : 0.92})`,
+                    transition: "transform .8s cubic-bezier(.2,.7,.2,1)",
+                  }}
+                >
                   <img
-                    src={s.image}
-                    alt={s.tag}
-                    className="absolute inset-x-0 bottom-0 m-auto w-[110%] max-w-none translate-y-2 select-none transition-transform group-hover:scale-105"
+                    src={slide.image}
+                    alt={slide.tag}
+                    className="h-full w-full select-none object-contain drop-shadow-[0_40px_50px_rgba(60,30,80,0.35)] [transform:rotateX(6deg)_rotateY(-12deg)_rotateZ(-1deg)] animate-float"
+                    style={{ transformStyle: "preserve-3d" }}
                   />
-                  <div className="absolute inset-x-1.5 top-1.5 truncate rounded-md bg-white/90 px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-foreground/80">
-                    {s.tag}
-                  </div>
-                </button>
-              );
-            })}
-          </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Bottom controls + per-slide progress segments */}
+      <div className="absolute inset-x-0 bottom-6 z-20 mx-auto flex max-w-7xl items-center gap-4 px-4 lg:px-8">
+        <button
+          onClick={() => goto(active - 1)}
+          aria-label="Previous"
+          className="grid h-10 w-10 place-items-center rounded-full border border-border bg-white/80 text-foreground/80 backdrop-blur transition hover:bg-primary hover:text-white"
+        >
+          <ChevronRight className="h-4 w-4 rotate-180" />
+        </button>
+        <button
+          onClick={() => goto(active + 1)}
+          aria-label="Next"
+          className="grid h-10 w-10 place-items-center rounded-full border border-border bg-white/80 text-foreground/80 backdrop-blur transition hover:bg-primary hover:text-white"
+        >
+          <ChevronRight className="h-4 w-4" />
+        </button>
+
+        {/* Per-slide progress bars */}
+        <div className="flex flex-1 items-center gap-2">
+          {heroSlides.map((s, i) => {
+            const fill = i < active ? 1 : i === active ? progress : 0;
+            return (
+              <button
+                key={i}
+                onClick={() => goto(i)}
+                className="group relative flex-1 cursor-pointer"
+                aria-label={`Go to ${s.tag}`}
+              >
+                <div className="mb-1.5 hidden text-[10px] font-bold uppercase tracking-[0.18em] text-foreground/60 md:block">
+                  0{i + 1} · {s.tag}
+                </div>
+                <div className="relative h-1 overflow-hidden rounded-full bg-foreground/15">
+                  <div
+                    className="absolute inset-y-0 left-0 rounded-full bg-gradient-brand"
+                    style={{
+                      width: `${fill * 100}%`,
+                      transition: i === active ? "width 100ms linear" : "width 400ms ease-out",
+                    }}
+                  />
+                </div>
+              </button>
+            );
+          })}
         </div>
 
-        {/* Footer controls */}
-        <div className="flex items-center gap-3 border-t border-border/50 bg-white/70 px-4 py-3 backdrop-blur">
-          <button
-            onClick={() => goto(active - 1)}
-            aria-label="Previous"
-            className="grid h-8 w-8 place-items-center rounded-full border border-border bg-white text-foreground/80 transition hover:bg-primary hover:text-white"
-          >
-            <ChevronRight className="h-4 w-4 rotate-180" />
-          </button>
-          <button
-            onClick={() => goto(active + 1)}
-            aria-label="Next"
-            className="grid h-8 w-8 place-items-center rounded-full border border-border bg-white text-foreground/80 transition hover:bg-primary hover:text-white"
-          >
-            <ChevronRight className="h-4 w-4" />
-          </button>
+        <button
+          onClick={() => setPaused((p) => !p)}
+          aria-label={paused ? "Play" : "Pause"}
+          className="grid h-10 w-10 place-items-center rounded-full border border-border bg-white/80 text-foreground/80 backdrop-blur transition hover:bg-primary hover:text-white"
+        >
+          {paused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
+        </button>
 
-          <div className="relative mx-2 h-1 flex-1 overflow-hidden rounded-full bg-foreground/10">
-            <div
-              className="absolute inset-y-0 left-0 rounded-full bg-gradient-brand transition-[width] duration-100"
-              style={{ width: `${((active + progress) / total) * 100}%` }}
-            />
-          </div>
-
-          <div className="font-num text-xs font-bold tabular-nums text-foreground/70">
-            <span className="text-foreground">{String(active + 1).padStart(2, "0")}</span>
-            <span className="mx-1 text-foreground/30">/</span>
-            <span>{String(total).padStart(2, "0")}</span>
-          </div>
+        <div className="font-num text-xs font-bold tabular-nums text-foreground/70">
+          <span className="text-foreground">{String(active + 1).padStart(2, "0")}</span>
+          <span className="mx-1 text-foreground/30">/</span>
+          <span>{String(total).padStart(2, "0")}</span>
         </div>
       </div>
 
-      <div className="mt-3 flex items-center justify-center gap-1.5">
-        {heroSlides.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => goto(i)}
-            aria-label={`Slide ${i + 1}`}
-            className={`h-1.5 rounded-full transition-all ${
-              i === active ? "w-8 bg-primary" : "w-1.5 bg-foreground/20 hover:bg-foreground/40"
-            }`}
-          />
-        ))}
+      {/* Scroll hint */}
+      <div className="pointer-events-none absolute bottom-2 left-1/2 z-20 -translate-x-1/2 text-[10px] font-bold uppercase tracking-[0.3em] text-foreground/40">
+        scroll
       </div>
-    </div>
+    </section>
   );
 }
 
