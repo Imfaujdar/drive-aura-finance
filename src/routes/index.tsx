@@ -92,10 +92,19 @@ function Hero() {
           <span className="inline-flex items-center rounded-full border border-primary/20 bg-white/70 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-primary backdrop-blur">
             Smart Finance for a Smarter Drive
           </span>
-          <h1 className="mt-5 font-display text-5xl font-extrabold leading-[1.02] tracking-tight text-foreground sm:text-6xl lg:text-7xl">
-            Drive Today. <br />
-            Achieve <span className="text-gradient">Tomorrow.</span>
-          </h1>
+          <SplitText
+            tag="h1"
+            text="Drive Today. Achieve Tomorrow."
+            className="mt-5 font-display text-5xl font-extrabold leading-[1.02] tracking-tight text-foreground sm:text-6xl lg:text-7xl"
+            delay={40}
+            duration={0.7}
+            ease="power3.out"
+            splitType="chars"
+            from={{ opacity: 0, y: 50 }}
+            to={{ opacity: 1, y: 0 }}
+            threshold={0.1}
+            textAlign="left"
+          />
           <p className="mt-5 max-w-md text-base text-muted-foreground sm:text-lg">
             India's most advanced platform for all your{" "}
             <span className="font-semibold text-foreground">
