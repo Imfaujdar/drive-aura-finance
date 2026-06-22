@@ -13,6 +13,10 @@ import heroSuv from "@/assets/hero-suv.png";
 import heroCar1 from "@/assets/hero-car-1.png";
 import heroCar2 from "@/assets/hero-car-2.png";
 import heroCar3 from "@/assets/hero-car-3.png";
+import heroBg1 from "@/assets/hero-bg-1.jpg";
+import heroBg2 from "@/assets/hero-bg-2.jpg";
+import heroBg3 from "@/assets/hero-bg-3.jpg";
+import heroBg4 from "@/assets/hero-bg-4.jpg";
 import whyCar from "@/assets/why-car.png";
 import resaleCar from "@/assets/resale-car.png";
 import blog1 from "@/assets/blog-1.jpg";
@@ -79,44 +83,44 @@ function Nav() {
 
 const heroSlides = [
   {
-    tag: "Used Car Loans",
+    tag: "Used Car Loans · India",
     title: "DRIVE YOUR\nDREAM SUV",
     desc: "Up to ₹50L financing on certified pre-owned SUVs with rates starting at 8.49% p.a. Get instant approval in under 2 minutes.",
     cta: "CHECK OFFERS",
     image: heroSuv,
-    accent: "from-rose-200 via-orange-100 to-white",
-    bg: "radial-gradient(ellipse at 70% 35%, #ffe4e1 0%, #fff5ec 45%, #ffffff 85%)",
+    bgImage: heroBg1,
     badge: "LOWEST EMI",
+    locationLabel: "Used Car Loans",
   },
   {
-    tag: "New Car Finance",
+    tag: "New Car Finance · India",
     title: "BRAND NEW.\nBETTER RATES.",
     desc: "Finance your brand-new car with 50+ partner lenders. Zero processing fee for the first 1000 customers this month.",
     cta: "EXPLORE LOANS",
     image: heroCar1,
-    accent: "from-sky-200 via-indigo-100 to-white",
-    bg: "radial-gradient(ellipse at 70% 35%, #dbeafe 0%, #eef2ff 45%, #ffffff 85%)",
+    bgImage: heroBg2,
     badge: "0% PROCESSING",
+    locationLabel: "New Car Loans",
   },
   {
-    tag: "Refinance & Save",
+    tag: "Refinance & Save · India",
     title: "PAY LESS\nEVERY MONTH.",
     desc: "Refinance your existing car loan and save up to ₹15,000/year on EMIs. Switch in 24 hours with zero foreclosure hassles.",
     cta: "GET QUOTE",
     image: heroCar2,
-    accent: "from-emerald-200 via-teal-100 to-white",
-    bg: "radial-gradient(ellipse at 70% 35%, #d1fae5 0%, #ecfeff 45%, #ffffff 85%)",
+    bgImage: heroBg3,
     badge: "SAVE ₹15K/YR",
+    locationLabel: "Refinance",
   },
   {
-    tag: "Commercial Vehicles",
+    tag: "Commercial Vehicles · India",
     title: "POWER UP\nYOUR BUSINESS.",
     desc: "Tailored financing for trucks, taxis & fleets. Flexible tenures up to 7 years and minimal documentation for working pros.",
     cta: "APPLY NOW",
     image: heroCar3,
-    accent: "from-amber-200 via-yellow-100 to-white",
-    bg: "radial-gradient(ellipse at 70% 35%, #fef3c7 0%, #fffbeb 45%, #ffffff 85%)",
+    bgImage: heroBg4,
     badge: "FLEET READY",
+    locationLabel: "Commercial",
   },
 ];
 
@@ -186,7 +190,7 @@ function HeroCarousel() {
           <div
             className="absolute inset-0"
             style={{
-              backgroundImage: `url(${s.image})`,
+              backgroundImage: `url(${s.bgImage})`,
               backgroundSize: "cover",
               backgroundPosition: "65% 50%",
               transform: `scale(1.12) translate3d(${parallax.x * -30}px, ${parallax.y * -20}px, 0)`,
@@ -262,30 +266,31 @@ function HeroCarousel() {
               transition: "transform .6s ease-out",
             }}
           >
-            <div className="flex items-end justify-end gap-4">
+            <div className="flex items-end justify-end -mr-6 lg:-mr-16">
               {upcoming.map((s, i) => {
                 const idx = (active + i + 1) % total;
                 return (
                   <button
                     key={`${active}-${idx}`}
                     onClick={() => goto(idx)}
-                    className="group relative h-[340px] w-[180px] shrink-0 overflow-hidden rounded-[28px] ring-1 ring-white/15 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] transition-all duration-500 hover:-translate-y-2 sm:h-[400px] sm:w-[210px]"
+                    className="group relative -ml-6 h-[360px] w-[200px] shrink-0 overflow-hidden rounded-[32px] ring-1 ring-white/20 shadow-[0_40px_90px_-20px_rgba(0,0,0,0.7)] transition-all duration-500 hover:-translate-y-3 hover:z-10 sm:h-[440px] sm:w-[230px]"
                     style={{
-                      transform: `translateY(${i * 22}px)`,
-                      animation: `fade-in .7s ease-out ${i * 0.1}s both`,
+                      zIndex: 3 - i,
+                      transform: `translateY(${i * 14}px) rotate(${(i - 1) * 1.2}deg)`,
+                      animation: `fade-in .7s ease-out ${i * 0.12}s both`,
                     }}
                   >
                     <img
-                      src={s.image}
+                      src={s.bgImage}
                       alt={s.tag}
                       className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-                    <div className="absolute inset-x-4 bottom-4">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+                    <div className="absolute inset-x-5 bottom-5">
                       <div className="text-[9px] font-semibold uppercase tracking-[0.22em] text-white/70">
-                        {s.tag}
+                        {s.locationLabel}
                       </div>
-                      <div className="mt-1 whitespace-pre-line font-display text-[15px] font-extrabold leading-tight text-white">
+                      <div className="mt-1 whitespace-pre-line font-display text-[18px] font-extrabold leading-[1.05] text-white">
                         {s.title.replace("\n", " ")}
                       </div>
                     </div>
