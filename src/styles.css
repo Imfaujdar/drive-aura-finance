@@ -89,14 +89,14 @@
   --sidebar-border: oklch(0.7 0.08 275 / 0.18);
   --sidebar-ring: oklch(0.55 0.27 277);
 
-  /* Brand solids & shadows (gradients removed) */
-  --gradient-brand: #4F46FF;
+  /* Brand gradients & shadows */
+  --gradient-brand: linear-gradient(90deg, #4F46FF 0%, #7C3AED 100%);
   --gradient-mesh:
-    radial-gradient(at 15% 10%, rgba(79, 70, 255, 0.04) 0px, transparent 55%),
-    radial-gradient(at 85% 90%, rgba(30, 30, 80, 0.03) 0px, transparent 55%);
+    radial-gradient(at 15% 10%, rgba(79, 70, 255, 0.05) 0px, transparent 55%),
+    radial-gradient(at 85% 90%, rgba(124, 58, 237, 0.04) 0px, transparent 55%);
   --shadow-glass: 0 10px 40px -10px rgba(30, 30, 80, 0.08);
-  --shadow-lift: 0 30px 80px -20px rgba(30, 30, 80, 0.18);
-  --shadow-glow: 0 6px 24px rgba(79, 70, 255, 0.18);
+  --shadow-lift: 0 30px 80px -20px rgba(79, 70, 255, 0.22);
+  --shadow-glow: 0 8px 28px rgba(79, 70, 255, 0.28);
   --shadow-depth: 0 40px 60px -20px rgba(20, 25, 60, 0.35), 0 20px 30px -15px rgba(20, 25, 60, 0.2);
 }
 
