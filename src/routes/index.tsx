@@ -190,7 +190,7 @@ function HeroCarousel() {
           <div
             className="absolute inset-0"
             style={{
-              backgroundImage: `url(${s.image})`,
+              backgroundImage: `url(${s.bgImage})`,
               backgroundSize: "cover",
               backgroundPosition: "65% 50%",
               transform: `scale(1.12) translate3d(${parallax.x * -30}px, ${parallax.y * -20}px, 0)`,
