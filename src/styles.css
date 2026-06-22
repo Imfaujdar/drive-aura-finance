@@ -92,12 +92,12 @@
   /* Brand gradients & shadows */
   --gradient-brand: linear-gradient(90deg, #4F46FF 0%, #7C3AED 50%, #00C2FF 100%);
   --gradient-mesh:
-    radial-gradient(at 12% 8%, rgba(79, 70, 255, 0.18) 0px, transparent 50%),
-    radial-gradient(at 88% 0%, rgba(0, 194, 255, 0.18) 0px, transparent 50%),
-    radial-gradient(at 50% 100%, rgba(124, 58, 237, 0.16) 0px, transparent 55%);
-  --shadow-glass: 0 10px 40px -10px rgba(79, 70, 255, 0.18);
-  --shadow-lift: 0 30px 80px -20px rgba(79, 70, 255, 0.28);
-  --shadow-glow: 0 0 60px rgba(79, 70, 255, 0.35);
+    radial-gradient(at 12% 8%, rgba(79, 70, 255, 0.07) 0px, transparent 50%),
+    radial-gradient(at 88% 0%, rgba(0, 194, 255, 0.06) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(124, 58, 237, 0.05) 0px, transparent 55%);
+  --shadow-glass: 0 10px 40px -10px rgba(30, 30, 80, 0.08);
+  --shadow-lift: 0 30px 80px -20px rgba(79, 70, 255, 0.18);
+  --shadow-glow: 0 0 30px rgba(79, 70, 255, 0.18);
 }
 
 @layer base {

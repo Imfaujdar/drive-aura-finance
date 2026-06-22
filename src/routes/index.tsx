@@ -74,9 +74,9 @@ function Hero() {
     <section className="relative overflow-hidden">
       {/* mesh + blobs */}
       <div className="pointer-events-none absolute inset-0 bg-mesh" />
-      <div className="pointer-events-none absolute -left-32 top-20 h-96 w-96 rounded-full bg-primary/20 blur-3xl animate-blob" />
-      <div className="pointer-events-none absolute -right-20 top-40 h-[28rem] w-[28rem] rounded-full bg-accent/25 blur-3xl animate-blob" style={{ animationDelay: "4s" }}/>
-      <div className="pointer-events-none absolute left-1/3 bottom-0 h-72 w-72 rounded-full bg-secondary/20 blur-3xl animate-blob" style={{ animationDelay: "8s" }}/>
+      <div className="pointer-events-none absolute -left-32 top-20 h-96 w-96 rounded-full bg-primary/8 blur-3xl animate-blob" />
+      <div className="pointer-events-none absolute -right-20 top-40 h-[28rem] w-[28rem] rounded-full bg-accent/8 blur-3xl animate-blob" style={{ animationDelay: "4s" }}/>
+      <div className="pointer-events-none absolute left-1/3 bottom-0 h-72 w-72 rounded-full bg-secondary/8 blur-3xl animate-blob" style={{ animationDelay: "8s" }}/>
 
       <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 pb-20 pt-12 md:grid-cols-2 md:pt-20">
         <div>
@@ -166,11 +166,11 @@ function Stat({ value, suffix, label, icon, decimals = 0 }:{value:number;suffix:
 function Services() {
   const items = [
     { icon: Car, title: "Used Car Loan", desc: "Lowest rates from 50+ partners.", tone: "from-primary to-secondary" },
-    { icon: RefreshCw, title: "Refinance", desc: "Switch & save up to 2% interest.", tone: "from-secondary to-accent" },
-    { icon: Shield, title: "Insurance", desc: "Comprehensive cover, instant.", tone: "from-accent to-primary" },
-    { icon: Gauge, title: "Credit Score", desc: "AI-driven personalised offers.", tone: "from-primary to-accent" },
-    { icon: CircleDollarSign, title: "Resale Value", desc: "Real-time market valuation.", tone: "from-secondary to-primary" },
-    { icon: HomeIcon, title: "Home Inspection", desc: "Smart checks before you buy.", tone: "from-accent to-secondary" },
+    { icon: RefreshCw, title: "Refinance", desc: "Switch & save up to 2% interest.", tone: "from-primary to-secondary" },
+    { icon: Shield, title: "Insurance", desc: "Comprehensive cover, instant.", tone: "from-primary to-secondary" },
+    { icon: Gauge, title: "Credit Score", desc: "AI-driven personalised offers.", tone: "from-primary to-secondary" },
+    { icon: CircleDollarSign, title: "Resale Value", desc: "Real-time market valuation.", tone: "from-primary to-secondary" },
+    { icon: HomeIcon, title: "Home Inspection", desc: "Smart checks before you buy.", tone: "from-primary to-secondary" },
   ];
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-24">
@@ -359,9 +359,9 @@ function FeatureRow({ text, reverse }: { text: string; reverse?: boolean }) {
 function Rates() {
   const rates = [
     { icon: Car, t: "New Car Loan", v: "8.49%*", tone: "from-primary to-secondary" },
-    { icon: Car, t: "Used Car Loan", v: "9.25%*", tone: "from-secondary to-accent" },
-    { icon: Bike, t: "Two Wheeler", v: "10.50%*", tone: "from-accent to-primary" },
-    { icon: Truck, t: "Commercial", v: "9.75%*", tone: "from-primary to-accent" },
+    { icon: Car, t: "Used Car Loan", v: "9.25%*", tone: "from-primary to-secondary" },
+    { icon: Bike, t: "Two Wheeler", v: "10.50%*", tone: "from-primary to-secondary" },
+    { icon: Truck, t: "Commercial", v: "9.75%*", tone: "from-primary to-secondary" },
   ];
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-16">
