@@ -72,77 +72,150 @@ function Nav() {
   );
 }
 
+const HERO_CARS = [
+  { name: "Tata Safari",   tag: "SAFARI",  hue: 0,    label: "Red"    },
+  { name: "Hyundai Creta", tag: "CRETA",   hue: 200,  label: "Blue"   },
+  { name: "Mahindra XUV",  tag: "XUV700",  hue: 25,   label: "Bronze" },
+  { name: "Maruti Brezza", tag: "BREZZA",  hue: -40,  label: "Silver" },
+];
+
 function Hero() {
+  const [active, setActive] = useState(0);
+  const car = HERO_CARS[active];
+
   return (
-    <section className="relative overflow-hidden">
-      {/* soft gradient background */}
+    <section className="relative overflow-hidden bg-[#F4F1EA]">
+      {/* Diagonal navy stripe like Behance */}
       <div
-        className="absolute inset-0 -z-10"
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 right-[8%] -z-0 w-[34%] -skew-x-[10deg] bg-[#1B2A4E]"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 right-[8%] -z-0 w-[34%] -skew-x-[10deg] opacity-30"
         style={{
           background:
-            "radial-gradient(ellipse at 70% 35%, #ffe4e1 0%, #fff5ec 40%, #ffffff 80%)",
+            "linear-gradient(180deg, rgba(255,255,255,0.08), transparent 40%, rgba(0,0,0,0.25))",
         }}
       />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-pink-100/60 to-transparent" />
 
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-4 pt-10 pb-8 lg:grid-cols-12 lg:gap-6 lg:pt-16">
-        {/* Left copy */}
-        <div className="lg:col-span-6">
-          <span className="inline-flex items-center rounded-full border border-primary/20 bg-white/70 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-primary backdrop-blur">
-            Smart Finance for a Smarter Drive
+      <div className="relative mx-auto grid max-w-7xl grid-cols-12 items-center gap-4 px-4 pt-8 pb-10 lg:pt-12">
+        {/* Left thumbnails column */}
+        <div className="col-span-2 hidden flex-col items-center gap-4 lg:flex">
+          {HERO_CARS.map((c, i) => (
+            <button
+              key={c.name}
+              onClick={() => setActive(i)}
+              className={`group relative w-full overflow-hidden rounded-2xl border bg-white/70 p-2 backdrop-blur transition-all ${
+                active === i
+                  ? "border-primary ring-2 ring-primary/40 shadow-[var(--shadow-glow)] -translate-y-0.5"
+                  : "border-border hover:-translate-y-0.5 hover:border-primary/40"
+              }`}
+              aria-label={c.name}
+            >
+              <img
+                src={heroSuv}
+                alt={c.name}
+                className="h-14 w-full object-contain"
+                style={{ filter: `hue-rotate(${c.hue}deg) saturate(1.1)` }}
+              />
+              <div className="mt-1 text-center text-[10px] font-bold tracking-wide text-foreground/70">
+                {c.label}
+              </div>
+            </button>
+          ))}
+        </div>
+
+        {/* Center — Big tag + car */}
+        <div className="col-span-12 lg:col-span-8 [perspective:1400px]">
+          <div className="relative">
+            {/* Massive backdrop wordmark */}
+            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+              <span className="font-display select-none text-[22vw] font-black leading-none tracking-tighter text-foreground/90 lg:text-[180px]">
+                {car.tag.slice(0, 3)}
+                <span className="text-white/95 mix-blend-difference">{car.tag.slice(3)}</span>
+              </span>
+            </div>
+
+            {/* Floor shadow */}
+            <div className="pointer-events-none absolute inset-x-10 bottom-6 h-10 rounded-[50%] bg-black/45 blur-2xl" />
+
+            <div className="relative animate-float">
+              <img
+                src={heroSuv}
+                alt={car.name}
+                className="relative z-10 mx-auto w-full max-w-2xl select-none drop-shadow-[0_45px_35px_rgba(0,0,0,0.45)] transition-all duration-700 [transform:rotateX(6deg)_rotateY(-10deg)] hover:[transform:rotateX(3deg)_rotateY(-4deg)_scale(1.03)]"
+                style={{ filter: `hue-rotate(${car.hue}deg) saturate(1.1)`, transformStyle: "preserve-3d" }}
+              />
+            </div>
+
+            {/* Loan stats strip — replaces Distance/Time/Speed */}
+            <div className="relative z-10 -mt-4 flex flex-wrap items-center justify-end gap-6 pr-4 text-white">
+              <LoanStat icon={<CircleDollarSign className="h-5 w-5" />} label="Loan Amount" value="₹ 12 L" />
+              <LoanStat icon={<Calculator className="h-5 w-5" />} label="EMI / mo"      value="₹ 18,499" />
+              <LoanStat icon={<TrendingUp className="h-5 w-5" />} label="Rate"          value="8.49% p.a." />
+            </div>
+          </div>
+        </div>
+
+        {/* Right side — copy + CTAs */}
+        <div className="col-span-12 lg:col-span-2">
+          <span className="inline-flex items-center rounded-full border border-primary/20 bg-white/80 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
+            Drive India
           </span>
-          <h1 className="mt-5 font-display text-5xl font-extrabold leading-[1.02] tracking-tight text-foreground sm:text-6xl lg:text-7xl">
-            Drive Today. <br />
-            Achieve <span className="text-gradient">Tomorrow.</span>
+          <h1 className="mt-3 font-display text-3xl font-extrabold leading-[1.02] tracking-tight lg:text-4xl">
+            Drive Today.<br/>
+            <span className="text-gradient">Pay Smart.</span>
           </h1>
-          <p className="mt-5 max-w-md text-base text-muted-foreground sm:text-lg">
-            India's most advanced platform for all your{" "}
-            <span className="font-semibold text-foreground">
-              Auto Loans, Insurance & Vehicle Finances.
-            </span>
+          <p className="mt-3 text-sm text-muted-foreground">
+            India's smartest used-car loan platform. Instant offers from 50+ lenders.
           </p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <button className="btn-shine inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-6 py-3 text-sm font-semibold text-white shadow-[var(--shadow-glow)]">
-              Check Auto Loan Offers <ArrowRight className="h-4 w-4" />
+          <div className="mt-5 flex flex-col gap-2">
+            <button className="btn-shine inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-brand px-4 py-3 text-sm font-semibold text-white shadow-[var(--shadow-glow)]">
+              Find Loan <ArrowRight className="h-4 w-4" />
             </button>
-            <button className="inline-flex items-center gap-2 rounded-xl border border-border bg-white/85 px-6 py-3 text-sm font-semibold text-foreground backdrop-blur hover:bg-white">
-              Login to Dashboard <ArrowRight className="h-4 w-4" />
+            <button className="inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-white/85 px-4 py-3 text-sm font-semibold backdrop-blur hover:bg-white">
+              EMI Calculator
             </button>
-          </div>
-
-          {/* Stats */}
-          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <Stat value={2} suffix="M+" label="Happy Customers" icon={<Users className="h-4 w-4" />} />
-            <Stat value={50} suffix="+" label="Lending Partners" icon={<Building2 className="h-4 w-4" />} />
-            <Stat value={99.6} suffix="%" label="Approval Rate" icon={<BadgeCheck className="h-4 w-4" />} decimals={1} />
-            <Stat value={0} suffix="" label={"Minimal\nDocumentation"} icon={<FileCheck className="h-4 w-4" />} hideValue />
           </div>
         </div>
-
-        {/* Right — Hero SUV with 3D depth */}
-        <div className="relative lg:col-span-6 [perspective:1400px]">
-          {/* Glow halo */}
-          <div className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center">
-            <div className="h-[70%] w-[80%] rounded-full bg-gradient-to-br from-primary/30 via-primary/10 to-transparent blur-3xl" />
-          </div>
-          {/* Floor reflection / ground shadow */}
-          <div className="pointer-events-none absolute inset-x-10 bottom-4 h-10 rounded-[50%] bg-black/40 blur-2xl" />
-
-          <div className="animate-float">
-            <img
-              src={heroSuv}
-              alt="Red Tata Safari SUV"
-              className="relative z-10 w-full select-none [transform:rotateX(8deg)_rotateY(-14deg)_rotateZ(-1deg)] drop-shadow-[0_45px_35px_rgba(180,30,45,0.45)] transition-transform duration-700 hover:[transform:rotateX(4deg)_rotateY(-6deg)_rotateZ(0deg)_scale(1.03)]"
-              style={{ transformStyle: "preserve-3d" }}
-            />
-          </div>
-        </div>
-
       </div>
 
-      {/* Right side rail */}
-      <SideRail />
+      {/* Bottom: available colors + quick stats */}
+      <div className="relative mx-auto max-w-7xl px-4 pb-8">
+        <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-border/60 bg-white/70 px-5 py-3 backdrop-blur">
+          <div className="flex items-center gap-3">
+            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-foreground/70">Available Colors</span>
+            <div className="flex items-center gap-2">
+              {["#111827","#C0C5CC","#0E7490","#B91C1C"].map((c, i)=>(
+                <button key={c} onClick={()=>setActive(i)} aria-label={c}
+                  className={`h-7 w-7 rounded-md ring-2 transition ${active===i?"ring-primary scale-110":"ring-transparent hover:ring-foreground/30"}`}
+                  style={{ background: c }}/>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-5">
+            <Stat value={2} suffix="M+" label="Customers" icon={<Users className="h-4 w-4" />} />
+            <Stat value={50} suffix="+" label="Lenders" icon={<Building2 className="h-4 w-4" />} />
+            <Stat value={99.6} suffix="%" label="Approval" icon={<BadgeCheck className="h-4 w-4" />} decimals={1} />
+            <Stat value={24} suffix="h" label="Quick Disburse" icon={<Clock className="h-4 w-4" />} />
+          </div>
+        </div>
+      </div>
     </section>
+  );
+}
+
+function LoanStat({ icon, label, value }:{icon:React.ReactNode;label:string;value:string}) {
+  return (
+    <div className="flex items-center gap-2">
+      <span className="grid h-9 w-9 place-items-center rounded-full bg-white/15 text-white ring-1 ring-white/20 backdrop-blur">{icon}</span>
+      <div className="leading-tight">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/70">{label}</div>
+        <div className="font-num text-sm font-bold text-white">{value}</div>
+      </div>
+    </div>
   );
 }
 
