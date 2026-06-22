@@ -137,6 +137,7 @@ function HeroCarousel() {
   return (
     <section
       className="relative w-full rounded-3xl bg-background px-6 py-12 text-foreground md:px-12 md:py-16"
+      style={{ ["--primary" as any]: "#E55A2B", ["--ring" as any]: "#E55A2B" }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
