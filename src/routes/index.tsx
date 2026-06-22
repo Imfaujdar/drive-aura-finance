@@ -708,8 +708,12 @@ function Index() {
         <Hero />
         <div data-reveal><Services /></div>
         <div data-reveal><Calculator2 /></div>
+        <div data-reveal><HowItWorks /></div>
         <div data-reveal><Resale /></div>
+        <div data-reveal><WhyChooseUs /></div>
         <div data-reveal><BottomTriple /></div>
+        <div data-reveal><Testimonials /></div>
+        <div data-reveal><DSAPartner /></div>
         <div data-reveal><Partners /></div>
         <div data-reveal><CTA /></div>
       </main>
