@@ -13,10 +13,6 @@ import cardCarLoan from "@/assets/card-car-loan.jpg";
 import cardHomeLoan from "@/assets/card-home-loan.jpg";
 import cardCreditCard from "@/assets/card-credit-card.jpg";
 import cardUsedCar from "@/assets/card-used-car.jpg";
-import subjectCar from "@/assets/subject-car.png";
-import subjectHome from "@/assets/subject-home.png";
-import subjectCard from "@/assets/subject-card.png";
-import subjectUsed from "@/assets/subject-used.png";
 import whyCar from "@/assets/why-car.png";
 import resaleCar from "@/assets/resale-car.png";
 import blog1 from "@/assets/blog-1.jpg";
@@ -85,44 +81,36 @@ const heroSlides = [
   {
     tag: "Auto Finance · India",
     title: "DRIVE YOUR\nDREAM CAR.",
-    bigWord: "DRIVE",
     desc: "Finance your brand-new car with 50+ partner lenders. Rates from 8.49% p.a., zero processing fee for the first 1,000 customers this month.",
     cta: "CHECK OFFERS",
     image: cardCarLoan,
-    subject: subjectCar,
     badge: "0% PROCESSING",
     locationLabel: "Car Loan",
   },
   {
     tag: "Home Finance · India",
     title: "OWN THE\nHOME YOU LOVE.",
-    bigWord: "HOME",
     desc: "Up to ₹5Cr home loans with rates starting at 7.99% p.a. Tenures up to 30 years and quick digital approval in 48 hours.",
     cta: "GET QUOTE",
     image: cardHomeLoan,
-    subject: subjectHome,
     badge: "LOW EMI",
     locationLabel: "Home Loan",
   },
   {
     tag: "Credit Cards · India",
     title: "REWARDS THAT\nWORK FOR YOU.",
-    bigWord: "REWARDS",
     desc: "Premium credit cards from top banks with cashback up to 5%, lifetime free options and instant digital issuance in minutes.",
     cta: "APPLY NOW",
     image: cardCreditCard,
-    subject: subjectCard,
     badge: "LIFETIME FREE",
     locationLabel: "Credit Card",
   },
   {
     tag: "Used Car Loans · India",
     title: "PRE-OWNED.\nFULLY APPROVED.",
-    bigWord: "RESALE",
     desc: "Up to ₹50L financing on certified pre-owned cars and SUVs with rates from 9.25% p.a. Instant approval in under 2 minutes.",
     cta: "EXPLORE LOANS",
     image: cardUsedCar,
-    subject: subjectUsed,
     badge: "LOWEST EMI",
     locationLabel: "Used Car Loan",
   },
@@ -148,125 +136,117 @@ function HeroCarousel() {
 
   return (
     <section
-      className="relative w-full overflow-hidden rounded-3xl text-white"
-      style={{
-        background:
-          "radial-gradient(ellipse at 50% 110%, #ff7a3d 0%, #E55A2B 45%, #c9421a 100%)",
-        ["--primary" as any]: "#ffffff",
-      }}
+      className="relative w-full rounded-3xl bg-background px-6 py-12 text-foreground md:px-12 md:py-16"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* Big background word — text-behind-subject base layer */}
-      <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center overflow-hidden">
-        <span
-          key={`bw-${active}`}
-          className="animate-fade-in select-none whitespace-nowrap font-display font-black uppercase leading-none tracking-tighter text-white/95"
-          style={{
-            fontSize: "clamp(180px, 26vw, 360px)",
-            letterSpacing: "-0.06em",
-            transform: "translateY(-2%)",
-          }}
-        >
-          {slide.bigWord}
-        </span>
-      </div>
-
-      {/* Soft vignette */}
-      <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.25)_100%)]" />
-
-      <div className="relative z-10 mx-auto grid min-h-[640px] max-w-7xl grid-cols-1 items-end gap-8 px-6 pb-10 pt-16 md:min-h-[720px] md:px-12 md:pb-16 md:pt-20 lg:grid-cols-12 lg:items-center">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
         {/* Left copy */}
-        <div className="space-y-6 lg:col-span-4">
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-md ring-1 ring-white/30">
-            <span className="h-1.5 w-1.5 rounded-full bg-white" />
+        <div className="space-y-8">
+          <div className="inline-block rounded-full bg-background px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-primary neu-pressed">
             {slide.tag}
           </div>
 
           <h1
             key={`h-${active}`}
-            className="animate-fade-in font-display text-4xl font-extrabold leading-[1] tracking-tight text-white md:text-5xl"
+            className="animate-fade-in font-display text-5xl font-extrabold leading-[1.05] tracking-tight text-foreground md:text-6xl"
           >
-            {slide.title.split("\n").map((line, i) => (
-              <span key={i} className="block">
-                {line}
-              </span>
-            ))}
+            {slide.title.split("\n")[0]}{" "}
+            <span className="text-primary">{slide.title.split("\n")[1] ?? ""}</span>
           </h1>
 
           <p
             key={`d-${active}`}
-            className="max-w-md animate-fade-in text-[15px] leading-relaxed text-white/85"
+            className="max-w-lg animate-fade-in text-lg leading-relaxed text-muted-foreground"
           >
             {slide.desc}
           </p>
 
-          <div className="flex flex-wrap items-center gap-4 pt-2">
-            <button className="group inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-bold uppercase tracking-wider text-[#c9421a] shadow-[0_10px_30px_-8px_rgba(0,0,0,0.35)] transition-all duration-300 hover:scale-[1.03]">
+          <div className="flex flex-wrap gap-5 pt-2">
+            <button className="group inline-flex items-center gap-2 rounded-2xl bg-background px-8 py-4 font-bold text-primary neu-raised transition-all duration-300 hover:shadow-[var(--shadow-inset)]">
               {slide.cta}
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
             </button>
-            <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.22em] text-white/85">
-              <Sparkles className="h-3.5 w-3.5" /> {slide.badge}
-            </span>
+            <button className="rounded-2xl bg-background px-8 py-4 font-bold text-muted-foreground neu-pressed">
+              Learn More
+            </button>
           </div>
         </div>
 
-        {/* Center stage — subject sits on top of the big word */}
-        <div className="relative lg:col-span-8">
+        {/* Right: featured card + selection list */}
+        <div className="relative flex flex-col gap-6">
+          {/* Active Card */}
           <div
-            key={`subj-${active}`}
-            className="relative mx-auto flex h-[360px] w-full max-w-[820px] animate-fade-in items-end justify-center md:h-[460px]"
+            key={`card-${active}`}
+            className="relative z-20 animate-fade-in rounded-[2rem] bg-background p-8 neu-raised"
+            style={{ boxShadow: "var(--shadow-extruded-hover)" }}
           >
-            {/* Ambient glow behind subject */}
-            <div className="pointer-events-none absolute left-1/2 top-1/2 h-[75%] w-[75%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,190,130,0.55)_0%,rgba(255,140,80,0.25)_40%,transparent_70%)] blur-2xl" />
-            <img
-              src={slide.subject}
-              alt={slide.locationLabel}
-              className="relative z-[2] h-full w-full object-contain object-bottom"
-              style={{
-                filter:
-                  "drop-shadow(0 6px 4px rgba(0,0,0,0.28)) drop-shadow(0 22px 14px rgba(0,0,0,0.35)) drop-shadow(0 50px 40px rgba(80,20,0,0.45))",
-                WebkitMaskImage:
-                  "linear-gradient(to bottom, black 0%, black 88%, transparent 100%)",
-                maskImage:
-                  "linear-gradient(to bottom, black 0%, black 88%, transparent 100%)",
-              }}
-            />
-            {/* Tight contact shadow (dark, narrow) */}
-            <div className="pointer-events-none absolute inset-x-[22%] bottom-2 h-5 rounded-[50%] bg-black/70 blur-md" />
-            {/* Wider ambient ground shadow */}
-            <div className="pointer-events-none absolute inset-x-[6%] bottom-0 h-14 rounded-[50%] bg-black/45 blur-2xl" />
-            {/* Ground gradient blend */}
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#c9421a]/80 to-transparent" />
-          </div>
-        </div>
-      </div>
+            <div className="mb-8 flex items-start justify-between">
+              <div>
+                <p className="mb-1 text-xs font-bold uppercase tracking-[0.22em] text-primary">
+                  Active Selection
+                </p>
+                <h3 className="font-display text-2xl font-bold text-foreground">
+                  {slide.locationLabel}
+                </h3>
+              </div>
+              <div className="grid h-12 w-12 place-items-center rounded-xl bg-background text-primary neu-pressed">
+                {slide.locationLabel.includes("Home") ? (
+                  <HomeIcon className="h-6 w-6" />
+                ) : slide.locationLabel.includes("Credit") ? (
+                  <CircleDollarSign className="h-6 w-6" />
+                ) : (
+                  <Car className="h-6 w-6" />
+                )}
+              </div>
+            </div>
 
-      {/* Selector pills */}
-      <div className="relative z-10 mx-auto max-w-7xl px-6 pb-8 md:px-12 md:pb-10">
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-          {heroSlides.map((s, i) => {
-            const isActive = i === active;
-            return (
-              <button
-                key={s.locationLabel}
-                onClick={() => setActive(i)}
-                className={`group flex items-center justify-between gap-3 rounded-2xl px-5 py-3.5 text-left text-sm font-bold uppercase tracking-wider transition-all duration-300 ${
-                  isActive
-                    ? "bg-white text-[#c9421a] shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)]"
-                    : "bg-white/10 text-white ring-1 ring-white/25 backdrop-blur-md hover:bg-white/20"
-                }`}
-              >
-                <span className="truncate">{s.locationLabel}</span>
-                <ArrowRight
-                  className={`h-4 w-4 transition-transform ${
-                    isActive ? "translate-x-0" : "-translate-x-1 opacity-60 group-hover:translate-x-0 group-hover:opacity-100"
-                  }`}
+            <div className="mb-6 h-48 w-full overflow-hidden rounded-2xl neu-pressed">
+              <img
+                src={slide.image}
+                alt={slide.locationLabel}
+                className="h-full w-full object-cover"
+              />
+            </div>
+
+            <div className="space-y-3">
+              <div className="h-2 w-full overflow-hidden rounded-full neu-pressed">
+                <div
+                  className="h-full rounded-full bg-primary transition-all duration-500"
+                  style={{ width: `${65 + active * 5}%` }}
                 />
-              </button>
-            );
-          })}
+              </div>
+              <div className="flex justify-between text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+                <span>Eligibility</span>
+                <span>{65 + active * 5}% Match</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Selection list */}
+          <div className="relative z-30 grid grid-cols-2 gap-4">
+            {heroSlides.map((s, i) => {
+              const isActive = i === active;
+              return (
+                <button
+                  key={s.locationLabel}
+                  onClick={() => setActive(i)}
+                  className={`flex items-center gap-3 rounded-xl bg-background p-4 text-left transition-all duration-300 ${
+                    isActive ? "neu-pressed" : "neu-raised-sm hover:shadow-[var(--shadow-inset)]"
+                  }`}
+                >
+                  <span
+                    className={`h-2 w-2 rounded-full ${
+                      isActive ? "bg-primary shadow-[0_0_8px_var(--primary)]" : "bg-muted"
+                    }`}
+                  />
+                  <span className="truncate text-sm font-bold text-foreground">
+                    {s.locationLabel}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
@@ -479,30 +459,15 @@ function Resale() {
             </div>
           </div>
           <div className="relative grid place-items-center">
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center select-none whitespace-nowrap font-display font-black uppercase leading-none tracking-tighter text-primary/10"
-              style={{ fontSize: "clamp(120px, 18vw, 240px)", letterSpacing: "-0.06em" }}
-            >
-              VALUE
-            </span>
-            <div className="pointer-events-none absolute inset-0 z-[1] mx-auto h-48 w-48 rounded-full bg-primary/15 blur-3xl" />
+            <div className="pointer-events-none absolute inset-0 -z-10 mx-auto h-48 w-48 rounded-full bg-primary/10 blur-3xl" />
             <img
               src={resaleCar}
               alt="Car resale value"
               width={400}
               height={300}
               loading="lazy"
-              className="relative z-[2] w-full max-w-[320px] car-depth transition-transform duration-500 hover:scale-105"
-              style={{
-                filter:
-                  "drop-shadow(0 8px 6px rgba(0,0,0,0.18)) drop-shadow(0 30px 24px rgba(0,0,0,0.22))",
-                WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 90%, transparent 100%)",
-                maskImage: "linear-gradient(to bottom, black 0%, black 90%, transparent 100%)",
-              }}
+              className="relative z-10 w-full max-w-[320px] car-depth transition-transform duration-500 hover:scale-105"
             />
-            <div className="pointer-events-none absolute inset-x-[18%] bottom-2 z-[1] h-3 rounded-[50%] bg-black/50 blur-md" />
-            <div className="pointer-events-none absolute inset-x-[6%] bottom-0 z-[1] h-10 rounded-[50%] bg-black/25 blur-2xl" />
           </div>
         </div>
       </div>
@@ -570,29 +535,15 @@ function WhyCard() {
     <div className={`${TRIPLE_CARD} relative overflow-hidden`}>
       <h3 className="text-center font-display text-lg font-bold">Why Choose Finonest?</h3>
       <div className="relative my-2 grid place-items-center">
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center select-none whitespace-nowrap font-display font-black uppercase leading-none tracking-tighter text-primary/10"
-          style={{ fontSize: "clamp(90px, 14vw, 180px)", letterSpacing: "-0.06em" }}
-        >
-          TRUST
-        </span>
-        <div className="pointer-events-none absolute inset-0 z-[1] mx-auto h-40 w-40 rounded-full bg-primary/15 blur-3xl"/>
+        <div className="pointer-events-none absolute inset-0 -z-10 mx-auto h-40 w-40 rounded-full bg-primary/10 blur-3xl"/>
         <img
           src={whyCar}
           alt="Transparent car cutaway"
           width={1280}
           height={1024}
           loading="lazy"
-          className="relative z-[2] w-full max-w-[260px] car-depth transition-transform duration-500 group-hover:scale-105"
-          style={{
-            filter:
-              "drop-shadow(0 6px 4px rgba(0,0,0,0.18)) drop-shadow(0 24px 18px rgba(0,0,0,0.22))",
-            WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 90%, transparent 100%)",
-            maskImage: "linear-gradient(to bottom, black 0%, black 90%, transparent 100%)",
-          }}
+          className="w-full max-w-[260px] car-depth transition-transform duration-500 group-hover:scale-105"
         />
-        <div className="pointer-events-none absolute inset-x-[22%] bottom-2 z-[1] h-2.5 rounded-[50%] bg-black/45 blur-md" />
       </div>
       <ul className="mt-2 space-y-2">
         {features.map(f => (
