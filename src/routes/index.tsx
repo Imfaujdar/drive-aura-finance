@@ -127,12 +127,14 @@ function Hero() {
           {/* Floor reflection / ground shadow */}
           <div className="pointer-events-none absolute inset-x-10 bottom-4 h-10 rounded-[50%] bg-black/40 blur-2xl" />
 
-          <img
-            src={heroSuv}
-            alt="Red Tata Safari SUV"
-            className="relative z-10 w-full select-none animate-float-slow [transform:rotateX(8deg)_rotateY(-12deg)_rotateZ(-1deg)] drop-shadow-[0_45px_35px_rgba(180,30,45,0.45)] drop-shadow-[0_20px_18px_rgba(0,0,0,0.25)] transition-transform duration-700 hover:[transform:rotateX(4deg)_rotateY(-6deg)_rotateZ(0deg)_scale(1.03)]"
-            style={{ transformStyle: "preserve-3d" }}
-          />
+          <div className="animate-float">
+            <img
+              src={heroSuv}
+              alt="Red Tata Safari SUV"
+              className="relative z-10 w-full select-none [transform:rotateX(8deg)_rotateY(-14deg)_rotateZ(-1deg)] drop-shadow-[0_45px_35px_rgba(180,30,45,0.45)] transition-transform duration-700 hover:[transform:rotateX(4deg)_rotateY(-6deg)_rotateZ(0deg)_scale(1.03)]"
+              style={{ transformStyle: "preserve-3d" }}
+            />
+          </div>
         </div>
 
       </div>
