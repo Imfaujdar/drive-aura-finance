@@ -119,12 +119,15 @@ function Hero() {
           </div>
         </div>
 
-        {/* Right — 3D Model */}
+        {/* Right — Hero SUV */}
         <div className="relative lg:col-span-6">
-          <div className="relative z-10 aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.2)] ring-1 ring-black/5 bg-gradient-to-br from-gray-50 to-gray-100">
-            <ModelScene />
-          </div>
+          <img
+            src={heroSuv}
+            alt="Red Tata Safari SUV with city skyline"
+            className="relative z-10 w-full drop-shadow-[0_30px_40px_rgba(180,40,50,0.25)]"
+          />
         </div>
+
       </div>
 
       {/* Right side rail */}
