@@ -518,7 +518,139 @@ function CTA() {
   );
 }
 
-function Footer() {
+function HowItWorks() {
+  const steps = [
+    { n: "01", icon: FileCheck, title: "Apply Online", sub: "Fill our simple online form in 5 minutes with basic details." },
+    { n: "02", icon: Eye, title: "Document Verification", sub: "Upload digitally or opt for doorstep pickup by our executive." },
+    { n: "03", icon: BadgeCheck, title: "Quick Approval", sub: "Get approved within 24 hours of document verification." },
+    { n: "04", icon: Wallet, title: "Loan Disbursement", sub: "Amount credited to your bank within 48 hours of approval." },
+  ];
+  return (
+    <section className="relative mx-auto max-w-7xl px-4 py-16">
+      <SectionHeader eyebrow="How It Works" title={<>Get Your Loan in <span className="text-primary">4 Simple Steps</span></>} sub="Our streamlined process gets your funds quickly with minimum hassle." />
+      <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        {steps.map(({ n, icon: Icon, title, sub }, i) => (
+          <div key={n} className="group relative rounded-3xl glass-strong p-6 transition-all hover:-translate-y-1">
+            <div className="absolute -top-3 left-6 rounded-full bg-gradient-brand px-3 py-1 text-xs font-bold tracking-widest text-white shadow-[var(--shadow-glow)]">STEP {n}</div>
+            <div className="mt-3 grid h-14 w-14 place-items-center rounded-2xl bg-primary/10 text-primary ring-1 ring-primary/20">
+              <Icon className="h-7 w-7" />
+            </div>
+            <h3 className="mt-5 font-display text-xl font-bold">{title}</h3>
+            <p className="mt-2 text-sm text-muted-foreground">{sub}</p>
+            {i < steps.length - 1 && (
+              <ChevronRight className="absolute -right-3 top-1/2 hidden h-6 w-6 -translate-y-1/2 text-primary/40 lg:block" />
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function WhyChooseUs() {
+  const items = [
+    { icon: Zap, title: "Quick Approval", sub: "Get approved within 24 hours with minimal documentation.", c: "from-blue-500/10 to-blue-500/0 text-blue-600" },
+    { icon: FileCheck, title: "Simple Process", sub: "Easy online application with doorstep document collection.", c: "from-emerald-500/10 to-emerald-500/0 text-emerald-600" },
+    { icon: TrendingUp, title: "Best Rates", sub: "Competitive interest rates with flexible repayment options.", c: "from-amber-500/10 to-amber-500/0 text-amber-600" },
+    { icon: Headphones, title: "24/7 Support", sub: "Dedicated relationship managers for personalised assistance.", c: "from-pink-500/10 to-pink-500/0 text-pink-600" },
+    { icon: Building2, title: "50+ Bank Partners", sub: "Wide network of banking partners for the best loan offers.", c: "from-violet-500/10 to-violet-500/0 text-violet-600" },
+    { icon: Shield, title: "100% Transparent", sub: "No hidden charges or processing-fee surprises. Ever.", c: "from-sky-500/10 to-sky-500/0 text-sky-600" },
+  ];
+  return (
+    <section className="relative mx-auto max-w-7xl px-4 py-16">
+      <SectionHeader eyebrow="Why Choose Us" title={<>We Make Financial Freedom <span className="text-primary">Accessible</span></>} sub="Over 5 years of experience and 50,000+ satisfied customers — Finonest is India's trusted partner for every financial need." />
+      <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {items.map(({ icon: Icon, title, sub, c }) => (
+          <div key={title} className="relative overflow-hidden rounded-3xl border border-border/60 bg-white/80 p-6 shadow-[var(--shadow-glass)] backdrop-blur transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
+            <div className={`pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-gradient-to-br ${c} blur-2xl`} />
+            <div className={`grid h-12 w-12 place-items-center rounded-xl bg-white ring-1 ring-border ${c.split(" ").pop()}`}>
+              <Icon className="h-6 w-6" />
+            </div>
+            <h3 className="mt-5 font-display text-lg font-bold">{title}</h3>
+            <p className="mt-2 text-sm text-muted-foreground">{sub}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function DSAPartner() {
+  const perks = [
+    { icon: Wallet, t: "Zero Investment", s: "Start earning without any upfront costs." },
+    { icon: Sparkles, t: "Multiple Products", s: "8+ loan products to offer customers." },
+    { icon: TrendingUp, t: "High Earnings", s: "Attractive commissions on every disbursal." },
+    { icon: Rocket, t: "Quick Start", s: "Simple online registration process." },
+  ];
+  return (
+    <section className="relative mx-auto max-w-7xl px-4 py-16">
+      <div className="relative overflow-hidden rounded-[2rem] border border-border/60 bg-white/80 p-8 shadow-[var(--shadow-glass)] backdrop-blur md:p-12">
+        <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-primary/15 blur-3xl" />
+        <div className="pointer-events-none absolute -left-16 bottom-0 h-72 w-72 rounded-full bg-accent/15 blur-3xl" />
+        <div className="relative grid gap-10 lg:grid-cols-2 lg:items-center">
+          <div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-white/70 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+              <Handshake className="h-3.5 w-3.5" /> Business Opportunity
+            </div>
+            <h2 className="mt-5 font-display text-4xl font-extrabold tracking-tight md:text-5xl">Start Your Loan Business with <span className="text-primary">Finonest</span></h2>
+            <p className="mt-4 max-w-lg text-muted-foreground">Join as a DSA Partner and earn attractive commissions on every disbursement. Zero investment, multiple products, and dedicated support — every step of the way.</p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <button className="btn-shine inline-flex items-center gap-2 rounded-2xl bg-gradient-brand px-6 py-3.5 font-semibold text-white shadow-[var(--shadow-glow)]">Become Partner <ArrowRight className="h-4 w-4" /></button>
+              <button className="inline-flex items-center gap-2 rounded-2xl border border-border bg-white/70 px-6 py-3.5 font-semibold text-foreground hover:bg-white">Learn More</button>
+            </div>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {perks.map(({ icon: Icon, t, s }) => (
+              <div key={t} className="rounded-2xl glass-strong p-5">
+                <div className="grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
+                  <Icon className="h-5 w-5" />
+                </div>
+                <h3 className="mt-3 font-display text-base font-bold">{t}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">{s}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Testimonials() {
+  const reviews = [
+    { name: "Rahul Sharma", role: "Used Car Loan", text: "Finonest delivered excellent service across multiple products. Every interaction has been smooth, professional and customer-focused." },
+    { name: "Priya Verma", role: "Home Loan", text: "The team explained documentation clearly and guided me through every stage. Approval updates were shared regularly — completely stress-free." },
+    { name: "Arjun Mehta", role: "DSA Partner", text: "As a DSA partner, I value strong communication. Finonest is always available for support and ensures smooth coordination on every case." },
+    { name: "Neha Kapoor", role: "Personal Loan", text: "Applied for a personal loan and appreciated how professionally everything was handled. Transparent, supportive and quick — highly recommend." },
+    { name: "Vikram Singh", role: "Business Loan", text: "My client received a business loan through Finonest with zero hassle. The team understood the requirement and closed it efficiently." },
+    { name: "Anita Desai", role: "Loan Against Property", text: "Impressed by how clearly everything was explained. The entire experience felt reliable, well-managed and genuinely customer-first." },
+  ];
+  return (
+    <section className="relative mx-auto max-w-7xl px-4 py-16">
+      <SectionHeader eyebrow="Top Testimonials" title={<>What Our <span className="text-primary">Customers Say</span></>} sub="Ranked by customer satisfaction and feedback quality." />
+      <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {reviews.map((r, i) => (
+          <div key={r.name} className="relative rounded-3xl border border-border/60 bg-white/80 p-6 shadow-[var(--shadow-glass)] backdrop-blur transition-all hover:-translate-y-1">
+            <Quote className="absolute right-5 top-5 h-8 w-8 text-primary/15" />
+            <div className="flex items-center gap-1 text-amber-500">
+              {Array.from({ length: 5 }).map((_, k) => <Star key={k} className="h-4 w-4 fill-current" />)}
+            </div>
+            <p className="mt-4 text-sm leading-relaxed text-foreground/85">"{r.text}"</p>
+            <div className="mt-6 flex items-center gap-3 border-t border-border/60 pt-4">
+              <div className="grid h-10 w-10 place-items-center rounded-full bg-gradient-brand font-bold text-white">{r.name.charAt(0)}</div>
+              <div>
+                <div className="text-sm font-semibold">{r.name}</div>
+                <div className="text-xs text-muted-foreground">{r.role} · #{i + 1} Verified Review</div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+
   return (
     <footer className="border-t border-border bg-white/60 backdrop-blur">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-4">
