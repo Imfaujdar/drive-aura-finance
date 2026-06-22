@@ -3,7 +3,7 @@ import {
   Car, Calculator, MessageCircle, Gauge, Shield, Home as HomeIcon,
   ArrowRight, Sparkles, Wallet, RefreshCw, BadgeCheck, Cpu,
   Zap, FileCheck, Clock, Users, Building2, CircleDollarSign,
-  TrendingUp, Bike, Truck, ChevronRight, Menu,
+  TrendingUp, Bike, Truck, ChevronRight, Menu, Play, Pause,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
