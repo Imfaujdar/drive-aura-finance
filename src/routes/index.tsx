@@ -120,132 +120,206 @@ function Hero() {
   return <HeroCarousel />;
 }
 
+const heroTabs = [
+  { key: "car", label: "Car Loan", icon: Car },
+  { key: "home", label: "Home Loan", icon: HomeIcon },
+  { key: "card", label: "Credit Card", icon: CircleDollarSign },
+  { key: "used", label: "Used Car Loan", icon: RefreshCw },
+] as const;
+
+const tabConfig: Record<string, {
+  image: string;
+  headline: string;
+  highlight: string;
+  sub: string;
+  fields: { label: string; options: string[] }[];
+  cta: string;
+  rate: string;
+  meta: string;
+}> = {
+  car: {
+    image: cardCarLoan,
+    headline: "Drive home your",
+    highlight: "dream car today.",
+    sub: "Loans up to ₹50L from 50+ banks. Instant approval, zero processing fee.",
+    fields: [
+      { label: "City", options: ["Mumbai", "Delhi", "Bengaluru", "Pune", "Hyderabad"] },
+      { label: "Brand", options: ["Maruti", "Hyundai", "Toyota", "Tata", "BMW"] },
+      { label: "Budget", options: ["Under ₹5L", "₹5L – ₹10L", "₹10L – ₹20L", "Above ₹20L"] },
+    ],
+    cta: "Check Offers",
+    rate: "8.49%",
+    meta: "Starting interest p.a.",
+  },
+  home: {
+    image: cardHomeLoan,
+    headline: "Own the home",
+    highlight: "you've always loved.",
+    sub: "Up to ₹5Cr home loans, tenures up to 30 years, digital approval in 48 hours.",
+    fields: [
+      { label: "City", options: ["Mumbai", "Delhi", "Bengaluru", "Pune", "Chennai"] },
+      { label: "Property Type", options: ["Apartment", "Villa", "Plot + Construction", "Resale"] },
+      { label: "Loan Amount", options: ["Up to ₹50L", "₹50L – ₹1Cr", "₹1Cr – ₹3Cr", "Above ₹3Cr"] },
+    ],
+    cta: "Get Quote",
+    rate: "7.99%",
+    meta: "Starting interest p.a.",
+  },
+  card: {
+    image: cardCreditCard,
+    headline: "Rewards that",
+    highlight: "work for you.",
+    sub: "Lifetime free cards from top banks with cashback up to 5% and instant issuance.",
+    fields: [
+      { label: "Income", options: ["< ₹5L", "₹5L – ₹10L", "₹10L – ₹25L", "₹25L+"] },
+      { label: "Card Type", options: ["Cashback", "Travel", "Fuel", "Premium"] },
+      { label: "Employment", options: ["Salaried", "Self-Employed", "Business Owner"] },
+    ],
+    cta: "Apply Now",
+    rate: "0",
+    meta: "Joining fee for select cards",
+  },
+  used: {
+    image: cardUsedCar,
+    headline: "Pre-owned.",
+    highlight: "Fully approved.",
+    sub: "Certified pre-owned cars financed at rates from 9.25% p.a. Approval in 2 minutes.",
+    fields: [
+      { label: "City", options: ["Mumbai", "Delhi", "Bengaluru", "Pune", "Hyderabad"] },
+      { label: "Brand", options: ["Maruti", "Hyundai", "Honda", "Toyota", "Tata"] },
+      { label: "Budget", options: ["Under ₹3L", "₹3L – ₹6L", "₹6L – ₹10L", "₹10L+"] },
+    ],
+    cta: "Explore Loans",
+    rate: "9.25%",
+    meta: "Starting interest p.a.",
+  },
+};
+
 function HeroCarousel() {
-  const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const total = heroSlides.length;
-  const DURATION = 6500;
-
-  useEffect(() => {
-    if (paused) return;
-    const id = setTimeout(() => setActive((a) => (a + 1) % total), DURATION);
-    return () => clearTimeout(id);
-  }, [active, paused, total]);
-
-  const slide = heroSlides[active];
+  const [activeKey, setActiveKey] = useState<string>("car");
+  const cfg = tabConfig[activeKey];
 
   return (
-    <section
-      className="relative w-full rounded-3xl bg-background px-6 py-12 text-foreground md:px-12 md:py-16"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
-      <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
-        {/* Left copy */}
-        <div className="space-y-8">
-          <div className="inline-block rounded-full bg-background px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-primary neu-pressed">
-            {slide.tag}
+    <section className="relative w-full overflow-hidden rounded-3xl bg-background px-5 py-10 text-foreground md:px-12 md:py-14">
+      {/* Decorative background image */}
+      <div className="pointer-events-none absolute inset-0 -z-0">
+        <img
+          key={`bg-${activeKey}`}
+          src={cfg.image}
+          alt=""
+          className="ml-auto h-full w-full max-w-[55%] animate-fade-in object-cover opacity-25 [mask-image:linear-gradient(to_left,black_30%,transparent_100%)]"
+        />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-6xl">
+        {/* Headline */}
+        <div className="max-w-2xl">
+          <div className="inline-flex items-center gap-2 rounded-full bg-background px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-primary neu-pressed">
+            <Sparkles className="h-3.5 w-3.5" /> India's Finance Marketplace
+          </div>
+          <h1
+            key={`h-${activeKey}`}
+            className="mt-6 animate-fade-in font-display text-5xl font-extrabold leading-[1.05] tracking-tight text-foreground md:text-6xl lg:text-7xl"
+          >
+            {cfg.headline}{" "}
+            <span className="text-primary">{cfg.highlight}</span>
+          </h1>
+          <p className="mt-5 max-w-xl text-base text-muted-foreground md:text-lg">{cfg.sub}</p>
+        </div>
+
+        {/* Tabbed search card (Cars24-style) */}
+        <div className="mt-10 rounded-[2rem] bg-background p-2 neu-raised md:p-3">
+          {/* Tabs */}
+          <div className="grid grid-cols-2 gap-2 rounded-2xl bg-background p-2 neu-pressed md:grid-cols-4">
+            {heroTabs.map(({ key, label, icon: Icon }) => {
+              const isActive = activeKey === key;
+              return (
+                <button
+                  key={key}
+                  onClick={() => setActiveKey(key)}
+                  className={`flex items-center justify-center gap-2 rounded-xl px-3 py-3 text-sm font-bold transition-all duration-300 ${
+                    isActive
+                      ? "bg-primary text-primary-foreground shadow-[var(--shadow-glow)]"
+                      : "bg-background text-foreground neu-raised-sm hover:text-primary"
+                  }`}
+                >
+                  <Icon className="h-4 w-4" />
+                  <span className="truncate">{label}</span>
+                </button>
+              );
+            })}
           </div>
 
-          <h1
-            key={`h-${active}`}
-            className="animate-fade-in font-display text-5xl font-extrabold leading-[1.05] tracking-tight text-foreground md:text-6xl"
+          {/* Search form */}
+          <div
+            key={`form-${activeKey}`}
+            className="grid animate-fade-in grid-cols-1 gap-3 p-3 md:grid-cols-4 md:gap-4 md:p-4"
           >
-            {slide.title.split("\n")[0]}{" "}
-            <span className="text-primary">{slide.title.split("\n")[1] ?? ""}</span>
-          </h1>
-
-          <p
-            key={`d-${active}`}
-            className="max-w-lg animate-fade-in text-lg leading-relaxed text-muted-foreground"
-          >
-            {slide.desc}
-          </p>
-
-          <div className="flex flex-wrap gap-5 pt-2">
-            <button className="group inline-flex items-center gap-2 rounded-2xl bg-background px-8 py-4 font-bold text-primary neu-raised transition-all duration-300 hover:shadow-[var(--shadow-inset)]">
-              {slide.cta}
+            {cfg.fields.map((f) => (
+              <label key={f.label} className="block rounded-2xl bg-background p-4 neu-pressed">
+                <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
+                  {f.label}
+                </div>
+                <select className="mt-1 w-full bg-transparent text-sm font-bold text-foreground outline-none">
+                  {f.options.map((o) => (
+                    <option key={o}>{o}</option>
+                  ))}
+                </select>
+              </label>
+            ))}
+            <button className="group btn-shine flex items-center justify-center gap-2 rounded-2xl bg-gradient-brand px-6 py-4 text-base font-bold text-white shadow-[var(--shadow-glow)] transition-transform hover:-translate-y-0.5">
+              {cfg.cta}
               <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
             </button>
-            <button className="rounded-2xl bg-background px-8 py-4 font-bold text-muted-foreground neu-pressed">
-              Learn More
+          </div>
+
+          {/* Strip bottom */}
+          <div className="flex flex-wrap items-center justify-between gap-4 border-t border-border/40 px-4 py-4 md:px-6">
+            <div className="flex items-center gap-2 text-sm">
+              <span className="grid h-9 w-9 place-items-center rounded-full bg-background text-primary neu-pressed">
+                <TrendingUp className="h-4 w-4" />
+              </span>
+              <div>
+                <div className="font-num text-base font-bold leading-none text-foreground">
+                  {cfg.rate}{activeKey !== "card" ? " p.a." : ""}
+                </div>
+                <div className="text-[11px] text-muted-foreground">{cfg.meta}</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 text-sm">
+              <span className="grid h-9 w-9 place-items-center rounded-full bg-background text-primary neu-pressed">
+                <Zap className="h-4 w-4" />
+              </span>
+              <div>
+                <div className="text-sm font-bold text-foreground">2-min approval</div>
+                <div className="text-[11px] text-muted-foreground">100% paperless journey</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 text-sm">
+              <span className="grid h-9 w-9 place-items-center rounded-full bg-background text-primary neu-pressed">
+                <Shield className="h-4 w-4" />
+              </span>
+              <div>
+                <div className="text-sm font-bold text-foreground">50+ Lender Network</div>
+                <div className="text-[11px] text-muted-foreground">RBI-regulated partners</div>
+              </div>
+            </div>
+            <button className="rounded-xl bg-background px-4 py-2 text-sm font-bold text-primary neu-raised-sm hover:shadow-[var(--shadow-inset)]">
+              EMI Calculator
             </button>
           </div>
         </div>
 
-        {/* Right: featured card + selection list */}
-        <div className="relative flex flex-col gap-6">
-          {/* Active Card */}
-          <div
-            key={`card-${active}`}
-            className="relative z-20 animate-fade-in rounded-[2rem] bg-background p-8 neu-raised"
-            style={{ boxShadow: "var(--shadow-extruded-hover)" }}
-          >
-            <div className="mb-8 flex items-start justify-between">
-              <div>
-                <p className="mb-1 text-xs font-bold uppercase tracking-[0.22em] text-primary">
-                  Active Selection
-                </p>
-                <h3 className="font-display text-2xl font-bold text-foreground">
-                  {slide.locationLabel}
-                </h3>
-              </div>
-              <div className="grid h-12 w-12 place-items-center rounded-xl bg-background text-primary neu-pressed">
-                {slide.locationLabel.includes("Home") ? (
-                  <HomeIcon className="h-6 w-6" />
-                ) : slide.locationLabel.includes("Credit") ? (
-                  <CircleDollarSign className="h-6 w-6" />
-                ) : (
-                  <Car className="h-6 w-6" />
-                )}
-              </div>
-            </div>
-
-            <div className="mb-6 h-48 w-full overflow-hidden rounded-2xl neu-pressed">
-              <img
-                src={slide.image}
-                alt={slide.locationLabel}
-                className="h-full w-full object-cover"
-              />
-            </div>
-
-            <div className="space-y-3">
-              <div className="h-2 w-full overflow-hidden rounded-full neu-pressed">
-                <div
-                  className="h-full rounded-full bg-primary transition-all duration-500"
-                  style={{ width: `${65 + active * 5}%` }}
-                />
-              </div>
-              <div className="flex justify-between text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
-                <span>Eligibility</span>
-                <span>{65 + active * 5}% Match</span>
-              </div>
-            </div>
+        {/* Trust row */}
+        <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3 text-xs font-semibold text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <Users className="h-4 w-4 text-primary" /> 1.2M+ customers served
           </div>
-
-          {/* Selection list */}
-          <div className="relative z-30 grid grid-cols-2 gap-4">
-            {heroSlides.map((s, i) => {
-              const isActive = i === active;
-              return (
-                <button
-                  key={s.locationLabel}
-                  onClick={() => setActive(i)}
-                  className={`flex items-center gap-3 rounded-xl bg-background p-4 text-left transition-all duration-300 ${
-                    isActive ? "neu-pressed" : "neu-raised-sm hover:shadow-[var(--shadow-inset)]"
-                  }`}
-                >
-                  <span
-                    className={`h-2 w-2 rounded-full ${
-                      isActive ? "bg-primary shadow-[0_0_8px_var(--primary)]" : "bg-muted"
-                    }`}
-                  />
-                  <span className="truncate text-sm font-bold text-foreground">
-                    {s.locationLabel}
-                  </span>
-                </button>
-              );
-            })}
+          <div className="flex items-center gap-2">
+            <Building2 className="h-4 w-4 text-primary" /> Present in 120+ cities
+          </div>
+          <div className="flex items-center gap-2">
+            <BadgeCheck className="h-4 w-4 text-primary" /> 4.8/5 customer rating
           </div>
         </div>
       </div>
