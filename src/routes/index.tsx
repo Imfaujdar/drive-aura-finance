@@ -123,164 +123,132 @@ function Hero() {
 function HeroCarousel() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [parallax, setParallax] = useState({ x: 0, y: 0 });
   const total = heroSlides.length;
   const DURATION = 6500;
-  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (paused) return;
-    const start = performance.now();
-    let raf = 0;
-    const tick = (t: number) => {
-      const p = Math.min(1, (t - start) / DURATION);
-      setProgress(p);
-      if (p >= 1) {
-        setActive((a) => (a + 1) % total);
-        setProgress(0);
-      } else {
-        raf = requestAnimationFrame(tick);
-      }
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    const id = setTimeout(() => setActive((a) => (a + 1) % total), DURATION);
+    return () => clearTimeout(id);
   }, [active, paused, total]);
 
-  const goto = (i: number) => {
-    setActive(((i % total) + total) % total);
-    setProgress(0);
-  };
-
-  const onMouseMove = (e: React.MouseEvent) => {
-    const r = containerRef.current?.getBoundingClientRect();
-    if (!r) return;
-    setParallax({
-      x: (e.clientX - r.left) / r.width - 0.5,
-      y: (e.clientY - r.top) / r.height - 0.5,
-    });
-  };
-
   const slide = heroSlides[active];
-  const upcoming = [1, 2, 3].map((o) => heroSlides[(active + o) % total]);
 
   return (
     <section
-      ref={containerRef}
-      className="relative h-[calc(100vh-2rem)] min-h-[680px] w-full overflow-hidden rounded-3xl bg-[#fdf6ee] text-foreground"
+      className="relative w-full rounded-3xl bg-background px-6 py-12 text-foreground md:px-12 md:py-16"
       onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => { setPaused(false); setParallax({ x: 0, y: 0 }); }}
-      onMouseMove={onMouseMove}
+      onMouseLeave={() => setPaused(false)}
     >
-      {/* Active slide background image */}
-      <div className="absolute inset-0 z-0">
-        <img
-          key={`bg-${active}`}
-          src={slide.image}
-          alt={slide.locationLabel}
-          className="h-full w-full object-cover transition-opacity duration-700"
-        />
-      </div>
-      <div
-        className="pointer-events-none absolute inset-0 z-0"
-        style={{
-          transform: `translate3d(${parallax.x * -22}px, ${parallax.y * -16}px, 0)`,
-          transition: "transform .5s ease-out",
-        }}
-      >
-        <div className="absolute right-[5%] top-[15%] h-[55vh] w-[55vh] rounded-full bg-gradient-to-br from-primary/15 via-primary/5 to-transparent blur-3xl" />
-        <div className="absolute left-[5%] bottom-[10%] h-[40vh] w-[40vh] rounded-full bg-accent/15 blur-3xl" />
-      </div>
+      <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        {/* Left copy */}
+        <div className="space-y-8">
+          <div className="inline-block rounded-full bg-background px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-primary neu-pressed">
+            {slide.tag}
+          </div>
 
-      {/* Slide content */}
-      <div className="relative z-10 mx-auto flex h-full max-w-[1400px] items-center px-6 pt-8 lg:px-10">
-        <div className="grid w-full grid-cols-1 items-center gap-8 lg:grid-cols-12">
-          {/* Left copy */}
-          <div className="lg:col-span-5">
-            <div
-              key={`copy-${active}`}
-              className="animate-fade-in"
-              style={{
-                transform: `translate3d(${parallax.x * 16}px, ${parallax.y * 10}px, 0)`,
-                transition: "transform .5s ease-out",
-              }}
-            >
-              <div className="flex items-center gap-3">
-                <span className="h-px w-8 bg-foreground/60" />
-                <span className="text-[11px] font-semibold uppercase tracking-[0.32em] text-foreground/70">
-                  {slide.tag}
-                </span>
+          <h1
+            key={`h-${active}`}
+            className="animate-fade-in font-display text-5xl font-extrabold leading-[1.05] tracking-tight text-foreground md:text-6xl"
+          >
+            {slide.title.split("\n")[0]}{" "}
+            <span className="text-primary">{slide.title.split("\n")[1] ?? ""}</span>
+          </h1>
+
+          <p
+            key={`d-${active}`}
+            className="max-w-lg animate-fade-in text-lg leading-relaxed text-muted-foreground"
+          >
+            {slide.desc}
+          </p>
+
+          <div className="flex flex-wrap gap-5 pt-2">
+            <button className="group inline-flex items-center gap-2 rounded-2xl bg-background px-8 py-4 font-bold text-primary neu-raised transition-all duration-300 hover:shadow-[var(--shadow-inset)]">
+              {slide.cta}
+              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+            </button>
+            <button className="rounded-2xl bg-background px-8 py-4 font-bold text-muted-foreground neu-pressed">
+              Learn More
+            </button>
+          </div>
+        </div>
+
+        {/* Right: featured card + selection list */}
+        <div className="relative flex flex-col gap-6">
+          {/* Active Card */}
+          <div
+            key={`card-${active}`}
+            className="relative z-20 animate-fade-in rounded-[2rem] bg-background p-8 neu-raised"
+            style={{ boxShadow: "var(--shadow-extruded-hover)" }}
+          >
+            <div className="mb-8 flex items-start justify-between">
+              <div>
+                <p className="mb-1 text-xs font-bold uppercase tracking-[0.22em] text-primary">
+                  Active Selection
+                </p>
+                <h3 className="font-display text-2xl font-bold text-foreground">
+                  {slide.locationLabel}
+                </h3>
               </div>
-              <h1 className="mt-6 whitespace-pre-line font-display text-[56px] font-extrabold leading-[0.95] tracking-tight text-foreground sm:text-[72px] lg:text-[88px]">
-                {slide.title}
-              </h1>
-              <p className="mt-6 max-w-md text-[15px] leading-relaxed text-muted-foreground">
-                {slide.desc}
-              </p>
-              <div className="mt-8 flex items-center gap-4">
-                <button className="group inline-flex items-center gap-3 rounded-full bg-foreground/5 py-2 pl-2 pr-6 text-[11px] font-bold uppercase tracking-[0.28em] text-foreground ring-1 ring-foreground/15 transition hover:bg-foreground hover:text-white">
-                  <span className="grid h-10 w-10 place-items-center rounded-full bg-gradient-brand text-white shadow-[var(--shadow-glow)] transition group-hover:bg-white group-hover:text-foreground">
-                    <ArrowRight className="h-4 w-4" />
-                  </span>
-                  {slide.cta}
-                </button>
-                <span className="hidden items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.28em] text-primary sm:inline-flex">
-                  <Sparkles className="h-3 w-3" /> {slide.badge}
-                </span>
+              <div className="grid h-12 w-12 place-items-center rounded-xl bg-background text-primary neu-pressed">
+                {slide.locationLabel.includes("Home") ? (
+                  <HomeIcon className="h-6 w-6" />
+                ) : slide.locationLabel.includes("Credit") ? (
+                  <CircleDollarSign className="h-6 w-6" />
+                ) : (
+                  <Car className="h-6 w-6" />
+                )}
+              </div>
+            </div>
+
+            <div className="mb-6 h-48 w-full overflow-hidden rounded-2xl neu-pressed">
+              <img
+                src={slide.image}
+                alt={slide.locationLabel}
+                className="h-full w-full object-cover"
+              />
+            </div>
+
+            <div className="space-y-3">
+              <div className="h-2 w-full overflow-hidden rounded-full neu-pressed">
+                <div
+                  className="h-full rounded-full bg-primary transition-all duration-500"
+                  style={{ width: `${65 + active * 5}%` }}
+                />
+              </div>
+              <div className="flex justify-between text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+                <span>Eligibility</span>
+                <span>{65 + active * 5}% Match</span>
               </div>
             </div>
           </div>
 
-          {/* Right: overlapping cards */}
-          <div
-            className="relative lg:col-span-7"
-            style={{
-              transform: `translate3d(${parallax.x * -24}px, ${parallax.y * -16}px, 0)`,
-              transition: "transform .6s ease-out",
-            }}
-          >
-            <div className="relative flex h-[360px] items-end justify-end pr-0 sm:h-[400px]">
-              {[0, 1, 2].map((offset) => {
-                const idx = (active + offset + 1) % total;
-                const s = heroSlides[idx];
-                const cardWidth = 160;
-                const overlap = 45;
-                return (
-                  <button
-                    key={`${active}-${idx}`}
-                    onClick={() => goto(idx)}
-                    className="group absolute bottom-0 overflow-hidden rounded-[28px] ring-1 ring-foreground/10 shadow-[0_30px_60px_-20px_rgba(60,30,80,0.3)] transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_40px_80px_-15px_rgba(60,30,80,0.4)]"
-                    style={{
-                      width: `${cardWidth}px`,
-                      height: offset === 0 ? "340px" : "300px",
-                      right: `${offset * (cardWidth - overlap) - 20}px`,
-                      zIndex: 3 - offset,
-                      transform: `translateY(${offset * 14}px) rotate(${(offset - 0.5) * 2}deg)`,
-                      animation: `fade-in .7s ease-out ${offset * 0.12}s both`,
-                    }}
-                  >
-                    <img
-                      src={s.image}
-                      alt={s.locationLabel}
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
-                    <div className="absolute inset-x-4 bottom-4 text-left">
-                      <div className="text-[9px] font-semibold uppercase tracking-[0.24em] text-white/75">
-                        {s.tag.split("·")[0]?.trim()}
-                      </div>
-                      <div className="mt-1 font-display text-[14px] font-extrabold uppercase leading-[1.05] tracking-tight text-white">
-                        {s.locationLabel}
-                      </div>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
+          {/* Selection list */}
+          <div className="relative z-30 grid grid-cols-2 gap-4">
+            {heroSlides.map((s, i) => {
+              const isActive = i === active;
+              return (
+                <button
+                  key={s.locationLabel}
+                  onClick={() => setActive(i)}
+                  className={`flex items-center gap-3 rounded-xl bg-background p-4 text-left transition-all duration-300 ${
+                    isActive ? "neu-pressed" : "neu-raised-sm hover:shadow-[var(--shadow-inset)]"
+                  }`}
+                >
+                  <span
+                    className={`h-2 w-2 rounded-full ${
+                      isActive ? "bg-primary shadow-[0_0_8px_var(--primary)]" : "bg-muted"
+                    }`}
+                  />
+                  <span className="truncate text-sm font-bold text-foreground">
+                    {s.locationLabel}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
-
     </section>
   );
 }
