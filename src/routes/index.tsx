@@ -130,7 +130,7 @@ function HeroCarousel() {
   const [progress, setProgress] = useState(0);
   const [parallax, setParallax] = useState({ x: 0, y: 0 });
   const total = heroSlides.length;
-  const DURATION = 6000;
+  const DURATION = 6500;
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -159,159 +159,165 @@ function HeroCarousel() {
   const onMouseMove = (e: React.MouseEvent) => {
     const r = containerRef.current?.getBoundingClientRect();
     if (!r) return;
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    const y = (e.clientY - r.top) / r.height - 0.5;
-    setParallax({ x, y });
+    setParallax({
+      x: (e.clientX - r.left) / r.width - 0.5,
+      y: (e.clientY - r.top) / r.height - 0.5,
+    });
   };
+
+  const slide = heroSlides[active];
+  const upcoming = [1, 2, 3].map((o) => heroSlides[(active + o) % total]);
 
   return (
     <section
       ref={containerRef}
-      className="relative h-screen w-full overflow-hidden"
+      className="relative h-screen w-full overflow-hidden bg-[#0a0a0a] text-white"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => { setPaused(false); setParallax({ x: 0, y: 0 }); }}
       onMouseMove={onMouseMove}
     >
-      {/* Layered backgrounds (crossfade) */}
+      {/* Background images crossfade with parallax + Ken Burns */}
       {heroSlides.map((s, i) => (
         <div
           key={i}
-          className="absolute inset-0 transition-opacity duration-[1200ms] ease-out"
-          style={{ background: s.bg, opacity: i === active ? 1 : 0 }}
-        />
+          className="absolute inset-0 transition-opacity duration-[1400ms] ease-out"
+          style={{ opacity: i === active ? 1 : 0 }}
+        >
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url(${s.image})`,
+              backgroundSize: "cover",
+              backgroundPosition: "65% 50%",
+              transform: `scale(1.12) translate3d(${parallax.x * -30}px, ${parallax.y * -20}px, 0)`,
+              transition: "transform .8s ease-out",
+              filter: "saturate(0.85) contrast(1.05)",
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/30" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40" />
+        </div>
       ))}
 
-      {/* Parallax glow */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          transform: `translate3d(${parallax.x * -20}px, ${parallax.y * -20}px, 0)`,
-          transition: "transform .4s ease-out",
-        }}
-      >
-        <div className="absolute right-[10%] top-[20%] h-[60vh] w-[60vh] rounded-full bg-gradient-to-br from-primary/25 via-primary/10 to-transparent blur-3xl" />
-        <div className="absolute left-[5%] bottom-[10%] h-[40vh] w-[40vh] rounded-full bg-accent/20 blur-3xl" />
+      {/* Top nav strip */}
+      <div className="relative z-20 mx-auto flex max-w-[1400px] items-center justify-between px-6 pt-6 lg:px-10">
+        <div className="flex items-center gap-2">
+          <div className="grid h-9 w-9 place-items-center rounded-xl bg-white/10 ring-1 ring-white/20 backdrop-blur">
+            <Sparkles className="h-5 w-5" />
+          </div>
+          <div className="font-display text-sm font-bold uppercase tracking-[0.32em]">Finonest</div>
+        </div>
+        <nav className="hidden items-center gap-9 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/75 md:flex">
+          <a className="relative text-white after:absolute after:-bottom-2 after:left-1/2 after:h-px after:w-5 after:-translate-x-1/2 after:bg-amber-400" href="#">Home</a>
+          <a href="#" className="hover:text-white">Loans</a>
+          <a href="#" className="hover:text-white">Insurance</a>
+          <a href="#" className="hover:text-white">Tools</a>
+          <a href="#" className="hover:text-white">Offers</a>
+          <a href="#" className="hover:text-white">Contact</a>
+        </nav>
       </div>
 
-      {/* Slides stacked */}
-      <div className="relative z-10 mx-auto h-full max-w-7xl px-4 lg:px-8">
-        {heroSlides.map((slide, i) => {
-          const isActive = i === active;
-          return (
+      {/* Slide content */}
+      <div className="relative z-10 mx-auto flex h-[calc(100vh-72px)] max-w-[1400px] items-center px-6 lg:px-10">
+        <div className="grid w-full grid-cols-1 items-center gap-10 lg:grid-cols-12">
+          <div className="lg:col-span-6">
             <div
-              key={i}
-              className="absolute inset-0 grid grid-cols-1 items-center gap-8 px-4 lg:grid-cols-12 lg:px-8"
+              key={`copy-${active}`}
+              className="animate-fade-in"
               style={{
-                opacity: isActive ? 1 : 0,
-                transform: `translateX(${isActive ? 0 : i < active ? -40 : 40}px)`,
-                transition: "opacity 900ms ease-out, transform 900ms cubic-bezier(.2,.7,.2,1)",
-                pointerEvents: isActive ? "auto" : "none",
+                transform: `translate3d(${parallax.x * 18}px, ${parallax.y * 12}px, 0)`,
+                transition: "transform .5s ease-out",
               }}
             >
-              {/* Left: Copy */}
-              <div className="lg:col-span-6">
-                <span
-                  className="inline-flex items-center rounded-full border border-primary/25 bg-white/80 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-primary backdrop-blur"
-                  style={{
-                    transform: `translate3d(${parallax.x * 12}px, ${parallax.y * 8}px, 0)`,
-                    transition: "transform .4s ease-out",
-                  }}
-                >
+              <div className="flex items-center gap-3">
+                <span className="h-px w-8 bg-white/70" />
+                <span className="text-[11px] font-semibold uppercase tracking-[0.32em] text-white/80">
                   {slide.tag}
                 </span>
-                <h1
-                  className="mt-5 whitespace-pre-line font-display text-5xl font-extrabold leading-[1.02] tracking-tight text-foreground sm:text-6xl lg:text-7xl xl:text-8xl"
-                  style={{
-                    transform: `translate3d(${parallax.x * 18}px, ${parallax.y * 12}px, 0)`,
-                    transition: "transform .5s ease-out",
-                  }}
-                >
-                  {slide.title}
-                </h1>
-                <p
-                  className="mt-5 max-w-md text-base text-muted-foreground sm:text-lg"
-                  style={{
-                    transform: `translate3d(${parallax.x * 24}px, ${parallax.y * 16}px, 0)`,
-                    transition: "transform .55s ease-out",
-                  }}
-                >
-                  {slide.desc}
-                </p>
-                <div
-                  className="mt-7 flex flex-wrap gap-3"
-                  style={{
-                    transform: `translate3d(${parallax.x * 30}px, ${parallax.y * 20}px, 0)`,
-                    transition: "transform .6s ease-out",
-                  }}
-                >
-                  <button className="btn-shine inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-6 py-3 text-sm font-semibold text-white shadow-[var(--shadow-glow)]">
-                    {slide.cta} <ArrowRight className="h-4 w-4" />
-                  </button>
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white/85 px-4 py-2 text-[11px] font-extrabold tracking-[0.18em] text-primary ring-1 ring-primary/15">
-                    <Sparkles className="h-3.5 w-3.5" /> {slide.badge}
-                  </span>
-                </div>
               </div>
-
-              {/* Right: Image with parallax */}
-              <div className="relative lg:col-span-6">
-                <div
-                  className="relative mx-auto aspect-[5/4] w-full max-w-[640px]"
-                  style={{
-                    transform: `translate3d(${parallax.x * -50}px, ${parallax.y * -30}px, 0) scale(${isActive ? 1 : 0.92})`,
-                    transition: "transform .8s cubic-bezier(.2,.7,.2,1)",
-                  }}
-                >
-                  <img
-                    src={slide.image}
-                    alt={slide.tag}
-                    className="h-full w-full select-none object-contain drop-shadow-[0_40px_50px_rgba(60,30,80,0.35)] [transform:rotateX(6deg)_rotateY(-12deg)_rotateZ(-1deg)] animate-float"
-                    style={{ transformStyle: "preserve-3d" }}
-                  />
-                </div>
+              <h1 className="mt-6 whitespace-pre-line font-display text-[64px] font-extrabold leading-[0.95] tracking-tight text-white sm:text-[84px] lg:text-[104px]">
+                {slide.title}
+              </h1>
+              <p className="mt-6 max-w-md text-sm leading-relaxed text-white/75 sm:text-[15px]">
+                {slide.desc}
+              </p>
+              <div className="mt-8 flex items-center gap-4">
+                <button className="group inline-flex items-center gap-3 rounded-full bg-white/10 py-2 pl-2 pr-6 text-[11px] font-bold uppercase tracking-[0.28em] text-white ring-1 ring-white/25 backdrop-blur transition hover:bg-white hover:text-black">
+                  <span className="grid h-9 w-9 place-items-center rounded-full bg-amber-400 text-black transition group-hover:bg-black group-hover:text-amber-400">
+                    <ArrowRight className="h-4 w-4" />
+                  </span>
+                  {slide.cta}
+                </button>
+                <span className="hidden items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.28em] text-amber-300 sm:inline-flex">
+                  <Sparkles className="h-3 w-3" /> {slide.badge}
+                </span>
               </div>
             </div>
-          );
-        })}
+          </div>
+
+          <div
+            className="relative lg:col-span-6"
+            style={{
+              transform: `translate3d(${parallax.x * -28}px, ${parallax.y * -18}px, 0)`,
+              transition: "transform .6s ease-out",
+            }}
+          >
+            <div className="flex items-end justify-end gap-4">
+              {upcoming.map((s, i) => {
+                const idx = (active + i + 1) % total;
+                return (
+                  <button
+                    key={`${active}-${idx}`}
+                    onClick={() => goto(idx)}
+                    className="group relative h-[340px] w-[180px] shrink-0 overflow-hidden rounded-[28px] ring-1 ring-white/15 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] transition-all duration-500 hover:-translate-y-2 sm:h-[400px] sm:w-[210px]"
+                    style={{
+                      transform: `translateY(${i * 22}px)`,
+                      animation: `fade-in .7s ease-out ${i * 0.1}s both`,
+                    }}
+                  >
+                    <img
+                      src={s.image}
+                      alt={s.tag}
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+                    <div className="absolute inset-x-4 bottom-4">
+                      <div className="text-[9px] font-semibold uppercase tracking-[0.22em] text-white/70">
+                        {s.tag}
+                      </div>
+                      <div className="mt-1 whitespace-pre-line font-display text-[15px] font-extrabold leading-tight text-white">
+                        {s.title.replace("\n", " ")}
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Bottom controls + per-slide progress segments */}
-      <div className="absolute inset-x-0 bottom-6 z-20 mx-auto flex max-w-7xl items-center gap-4 px-4 lg:px-8">
-        <button
-          onClick={() => goto(active - 1)}
-          aria-label="Previous"
-          className="grid h-10 w-10 place-items-center rounded-full border border-border bg-white/80 text-foreground/80 backdrop-blur transition hover:bg-primary hover:text-white"
-        >
-          <ChevronRight className="h-4 w-4 rotate-180" />
-        </button>
-        <button
-          onClick={() => goto(active + 1)}
-          aria-label="Next"
-          className="grid h-10 w-10 place-items-center rounded-full border border-border bg-white/80 text-foreground/80 backdrop-blur transition hover:bg-primary hover:text-white"
-        >
-          <ChevronRight className="h-4 w-4" />
-        </button>
-
-        {/* Per-slide progress bars */}
-        <div className="flex flex-1 items-center gap-2">
+      {/* Bottom controls */}
+      <div className="absolute inset-x-0 bottom-0 z-20 mx-auto max-w-[1400px] px-6 pb-8 lg:px-10">
+        <div className="mb-6 flex items-center gap-2">
           {heroSlides.map((s, i) => {
             const fill = i < active ? 1 : i === active ? progress : 0;
             return (
               <button
                 key={i}
                 onClick={() => goto(i)}
-                className="group relative flex-1 cursor-pointer"
+                className="group flex-1 text-left"
                 aria-label={`Go to ${s.tag}`}
               >
-                <div className="mb-1.5 hidden text-[10px] font-bold uppercase tracking-[0.18em] text-foreground/60 md:block">
+                <div className="mb-1.5 hidden text-[9px] font-bold uppercase tracking-[0.24em] text-white/50 md:block">
                   0{i + 1} · {s.tag}
                 </div>
-                <div className="relative h-1 overflow-hidden rounded-full bg-foreground/15">
+                <div className="relative h-[2px] overflow-hidden bg-white/15">
                   <div
-                    className="absolute inset-y-0 left-0 rounded-full bg-gradient-brand"
+                    className="absolute inset-y-0 left-0 bg-amber-400"
                     style={{
                       width: `${fill * 100}%`,
-                      transition: i === active ? "width 100ms linear" : "width 400ms ease-out",
+                      transition: i === active ? "width 100ms linear" : "width 500ms ease-out",
                     }}
                   />
                 </div>
@@ -320,24 +326,40 @@ function HeroCarousel() {
           })}
         </div>
 
-        <button
-          onClick={() => setPaused((p) => !p)}
-          aria-label={paused ? "Play" : "Pause"}
-          className="grid h-10 w-10 place-items-center rounded-full border border-border bg-white/80 text-foreground/80 backdrop-blur transition hover:bg-primary hover:text-white"
-        >
-          {paused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
-        </button>
+        <div className="flex items-end justify-between">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => goto(active - 1)}
+              aria-label="Previous"
+              className="grid h-11 w-11 place-items-center rounded-full ring-1 ring-white/30 text-white/80 transition hover:bg-white hover:text-black"
+            >
+              <ChevronRight className="h-4 w-4 rotate-180" />
+            </button>
+            <button
+              onClick={() => goto(active + 1)}
+              aria-label="Next"
+              className="grid h-11 w-11 place-items-center rounded-full ring-1 ring-white/30 text-white/80 transition hover:bg-white hover:text-black"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+            <button
+              onClick={() => setPaused((p) => !p)}
+              aria-label={paused ? "Play" : "Pause"}
+              className="ml-2 grid h-11 w-11 place-items-center rounded-full ring-1 ring-white/20 text-white/60 transition hover:text-white"
+            >
+              {paused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
+            </button>
+          </div>
 
-        <div className="font-num text-xs font-bold tabular-nums text-foreground/70">
-          <span className="text-foreground">{String(active + 1).padStart(2, "0")}</span>
-          <span className="mx-1 text-foreground/30">/</span>
-          <span>{String(total).padStart(2, "0")}</span>
+          <div className="flex items-baseline gap-2 font-num tabular-nums">
+            <span className="text-xs font-bold uppercase tracking-[0.28em] text-white/50">
+              {String(active + 1).padStart(2, "0")} /
+            </span>
+            <span className="font-display text-6xl font-extrabold leading-none text-white sm:text-7xl">
+              {total}
+            </span>
+          </div>
         </div>
-      </div>
-
-      {/* Scroll hint */}
-      <div className="pointer-events-none absolute bottom-2 left-1/2 z-20 -translate-x-1/2 text-[10px] font-bold uppercase tracking-[0.3em] text-foreground/40">
-        scroll
       </div>
     </section>
   );
