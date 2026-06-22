@@ -719,7 +719,7 @@ function Index() {
   return (
     <div className="bg-mesh min-h-screen">
       <Nav />
-      <main>
+      <main className="px-4 pt-4">
         <Hero />
         <div data-reveal><Services /></div>
         <div data-reveal><Calculator2 /></div>
