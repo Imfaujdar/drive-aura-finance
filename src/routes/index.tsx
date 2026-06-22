@@ -82,125 +82,131 @@ const HERO_CARS = [
 function Hero() {
   const [active, setActive] = useState(0);
   const car = HERO_CARS[active];
+  const next = () => setActive((i) => (i + 1) % HERO_CARS.length);
+  const prev = () => setActive((i) => (i - 1 + HERO_CARS.length) % HERO_CARS.length);
 
   return (
     <section className="relative overflow-hidden bg-[#F4F1EA]">
-      {/* Diagonal navy stripe like Behance */}
+      {/* Vertical navy band behind car (like Behance) */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-[8%] -z-0 w-[34%] -skew-x-[10deg] bg-[#1B2A4E]"
+        className="pointer-events-none absolute inset-y-0 left-1/2 -z-0 w-[26%] -translate-x-1/4 bg-[#1B2A4E]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-[8%] -z-0 w-[34%] -skew-x-[10deg] opacity-30"
+        className="pointer-events-none absolute inset-y-0 left-1/2 -z-0 w-[26%] -translate-x-1/4"
         style={{
           background:
-            "linear-gradient(180deg, rgba(255,255,255,0.08), transparent 40%, rgba(0,0,0,0.25))",
+            "linear-gradient(180deg, rgba(255,255,255,0.06), transparent 35%, rgba(0,0,0,0.25))",
         }}
       />
 
-      <div className="relative mx-auto grid max-w-7xl grid-cols-12 items-center gap-4 px-4 pt-8 pb-10 lg:pt-12">
-        {/* Left thumbnails column */}
-        <div className="col-span-2 hidden flex-col items-center gap-4 lg:flex">
+      <div className="relative mx-auto grid max-w-7xl grid-cols-12 items-center gap-4 px-4 pt-10 pb-6 lg:pt-16">
+        {/* LEFT: thumbnails column with arrows */}
+        <div className="col-span-2 hidden flex-col items-center gap-3 lg:flex">
           {HERO_CARS.map((c, i) => (
             <button
               key={c.name}
               onClick={() => setActive(i)}
-              className={`group relative w-full overflow-hidden rounded-2xl border bg-white/70 p-2 backdrop-blur transition-all ${
+              className={`group relative w-full overflow-hidden rounded-xl border bg-white p-2 transition-all ${
                 active === i
-                  ? "border-primary ring-2 ring-primary/40 shadow-[var(--shadow-glow)] -translate-y-0.5"
-                  : "border-border hover:-translate-y-0.5 hover:border-primary/40"
+                  ? "border-primary ring-2 ring-primary/40 shadow-[var(--shadow-glow)]"
+                  : "border-border hover:border-primary/40"
               }`}
               aria-label={c.name}
             >
               <img
                 src={heroSuv}
                 alt={c.name}
-                className="h-14 w-full object-contain"
+                className="h-12 w-full object-contain"
                 style={{ filter: `hue-rotate(${c.hue}deg) saturate(1.1)` }}
               />
-              <div className="mt-1 text-center text-[10px] font-bold tracking-wide text-foreground/70">
-                {c.label}
-              </div>
             </button>
           ))}
+          <div className="mt-1 flex items-center gap-2">
+            <button onClick={prev} aria-label="Previous" className="grid h-8 w-8 place-items-center rounded-md border border-border bg-white text-foreground/70 hover:text-primary">
+              <ChevronRight className="h-4 w-4 -rotate-90" />
+            </button>
+            <button onClick={next} aria-label="Next" className="grid h-8 w-8 place-items-center rounded-md border border-border bg-white text-foreground/70 hover:text-primary">
+              <ChevronRight className="h-4 w-4 rotate-90" />
+            </button>
+          </div>
         </div>
 
-        {/* Center — Big tag + car */}
-        <div className="col-span-12 lg:col-span-8 [perspective:1400px]">
-          <div className="relative">
-            {/* Massive backdrop wordmark */}
-            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-              <span className="font-display select-none text-[22vw] font-black leading-none tracking-tighter text-foreground/90 lg:text-[180px]">
-                {car.tag.slice(0, 3)}
-                <span className="text-white/95 mix-blend-difference">{car.tag.slice(3)}</span>
+        {/* CENTER: massive wordmark + flat side-view car */}
+        <div className="relative col-span-12 lg:col-span-10">
+          <div className="relative h-[420px] sm:h-[480px] lg:h-[520px]">
+            {/* Backdrop wordmark — split black/white halves like GT3RS */}
+            <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
+              <span className="font-display select-none whitespace-nowrap text-[18vw] font-black leading-none tracking-tighter lg:text-[200px]">
+                <span className="text-foreground">{car.tag.slice(0, Math.ceil(car.tag.length / 2))}</span>
+                <span className="text-white">{car.tag.slice(Math.ceil(car.tag.length / 2))}</span>
               </span>
             </div>
 
             {/* Floor shadow */}
-            <div className="pointer-events-none absolute inset-x-10 bottom-6 h-10 rounded-[50%] bg-black/45 blur-2xl" />
+            <div className="pointer-events-none absolute inset-x-16 bottom-16 h-8 rounded-[50%] bg-black/55 blur-2xl" />
 
-            <div className="relative animate-float">
-              <img
-                src={heroSuv}
-                alt={car.name}
-                className="relative z-10 mx-auto w-full max-w-2xl select-none drop-shadow-[0_45px_35px_rgba(0,0,0,0.45)] transition-all duration-700 [transform:rotateX(6deg)_rotateY(-10deg)] hover:[transform:rotateX(3deg)_rotateY(-4deg)_scale(1.03)]"
-                style={{ filter: `hue-rotate(${car.hue}deg) saturate(1.1)`, transformStyle: "preserve-3d" }}
-              />
-            </div>
-
-            {/* Loan stats strip — replaces Distance/Time/Speed */}
-            <div className="relative z-10 -mt-4 flex flex-wrap items-center justify-end gap-6 pr-4 text-white">
-              <LoanStat icon={<CircleDollarSign className="h-5 w-5" />} label="Loan Amount" value="₹ 12 L" />
-              <LoanStat icon={<Calculator className="h-5 w-5" />} label="EMI / mo"      value="₹ 18,499" />
-              <LoanStat icon={<TrendingUp className="h-5 w-5" />} label="Rate"          value="8.49% p.a." />
-            </div>
+            {/* Car — flat side view, sitting in center, NOT tilted */}
+            <img
+              src={heroSuv}
+              alt={car.name}
+              className="absolute inset-x-0 bottom-8 z-10 mx-auto w-full max-w-[820px] select-none drop-shadow-[0_30px_25px_rgba(0,0,0,0.45)]"
+              style={{ filter: `hue-rotate(${car.hue}deg) saturate(1.1)` }}
+            />
           </div>
-        </div>
 
-        {/* Right side — copy + CTAs */}
-        <div className="col-span-12 lg:col-span-2">
-          <span className="inline-flex items-center rounded-full border border-primary/20 bg-white/80 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
-            Drive India
-          </span>
-          <h1 className="mt-3 font-display text-3xl font-extrabold leading-[1.02] tracking-tight lg:text-4xl">
-            Drive Today.<br/>
-            <span className="text-gradient">Pay Smart.</span>
-          </h1>
-          <p className="mt-3 text-sm text-muted-foreground">
-            India's smartest used-car loan platform. Instant offers from 50+ lenders.
-          </p>
-          <div className="mt-5 flex flex-col gap-2">
-            <button className="btn-shine inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-brand px-4 py-3 text-sm font-semibold text-white shadow-[var(--shadow-glow)]">
-              Find Loan <ArrowRight className="h-4 w-4" />
-            </button>
-            <button className="inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-white/85 px-4 py-3 text-sm font-semibold backdrop-blur hover:bg-white">
-              EMI Calculator
-            </button>
+          {/* Loan stats — bottom-right of hero (replaces Distance/Time/Speed) */}
+          <div className="mt-2 flex flex-wrap items-center justify-end gap-8 pr-2 text-white">
+            <LoanStat icon={<CircleDollarSign className="h-5 w-5" />} label="Loan" value="₹ 12 L" />
+            <LoanStat icon={<Calculator className="h-5 w-5" />} label="EMI / mo" value="₹ 18,499" />
+            <LoanStat icon={<TrendingUp className="h-5 w-5" />} label="Rate" value="8.49% p.a." />
           </div>
         </div>
       </div>
 
-      {/* Bottom: available colors + quick stats */}
-      <div className="relative mx-auto max-w-7xl px-4 pb-8">
-        <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-border/60 bg-white/70 px-5 py-3 backdrop-blur">
-          <div className="flex items-center gap-3">
-            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-foreground/70">Available Colors</span>
-            <div className="flex items-center gap-2">
+      {/* Bottom strip: Available Colors + headline + CTAs */}
+      <div className="relative mx-auto max-w-7xl px-4 pb-10">
+        <div className="grid items-end gap-6 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <div className="text-[11px] font-bold uppercase tracking-[0.25em] text-foreground/70">Available Colors :</div>
+            <div className="mt-3 flex items-center gap-3">
               {["#111827","#C0C5CC","#0E7490","#B91C1C"].map((c, i)=>(
-                <button key={c} onClick={()=>setActive(i)} aria-label={c}
-                  className={`h-7 w-7 rounded-md ring-2 transition ${active===i?"ring-primary scale-110":"ring-transparent hover:ring-foreground/30"}`}
+                <button key={c} onClick={()=>setActive(i)} aria-label={`color-${i}`}
+                  className={`h-10 w-10 rounded-md ring-2 transition ${active===i?"ring-primary scale-110":"ring-transparent hover:ring-foreground/30"}`}
                   style={{ background: c }}/>
               ))}
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-5">
-            <Stat value={2} suffix="M+" label="Customers" icon={<Users className="h-4 w-4" />} />
-            <Stat value={50} suffix="+" label="Lenders" icon={<Building2 className="h-4 w-4" />} />
-            <Stat value={99.6} suffix="%" label="Approval" icon={<BadgeCheck className="h-4 w-4" />} decimals={1} />
-            <Stat value={24} suffix="h" label="Quick Disburse" icon={<Clock className="h-4 w-4" />} />
+          <div className="lg:col-span-5">
+            <span className="inline-flex items-center rounded-full border border-primary/20 bg-white/80 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
+              Drive India · Pay Smart
+            </span>
+            <h1 className="mt-3 font-display text-3xl font-extrabold leading-[1.05] tracking-tight md:text-4xl">
+              India's smartest <span className="text-gradient">used-car loans</span>.
+            </h1>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Instant offers from 50+ lenders. Approvals in 24 hours, minimal paperwork.
+            </p>
           </div>
+
+          <div className="flex flex-col gap-2 lg:col-span-3">
+            <button className="btn-shine inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-brand px-5 py-3 text-sm font-semibold text-white shadow-[var(--shadow-glow)]">
+              Check Loan Offers <ArrowRight className="h-4 w-4" />
+            </button>
+            <button className="inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-white px-5 py-3 text-sm font-semibold hover:bg-white/90">
+              EMI Calculator
+            </button>
+          </div>
+        </div>
+
+        {/* trust stats row */}
+        <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
+          <Stat value={2} suffix="M+" label="Customers" icon={<Users className="h-4 w-4" />} />
+          <Stat value={50} suffix="+" label="Lenders" icon={<Building2 className="h-4 w-4" />} />
+          <Stat value={99.6} suffix="%" label="Approval" icon={<BadgeCheck className="h-4 w-4" />} decimals={1} />
+          <Stat value={24} suffix="h" label="Quick Disburse" icon={<Clock className="h-4 w-4" />} />
         </div>
       </div>
     </section>
@@ -209,12 +215,10 @@ function Hero() {
 
 function LoanStat({ icon, label, value }:{icon:React.ReactNode;label:string;value:string}) {
   return (
-    <div className="flex items-center gap-2">
-      <span className="grid h-9 w-9 place-items-center rounded-full bg-white/15 text-white ring-1 ring-white/20 backdrop-blur">{icon}</span>
-      <div className="leading-tight">
-        <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/70">{label}</div>
-        <div className="font-num text-sm font-bold text-white">{value}</div>
-      </div>
+    <div className="flex flex-col items-center text-center">
+      <span className="grid h-12 w-12 place-items-center rounded-full bg-white/10 text-white ring-1 ring-white/25 backdrop-blur">{icon}</span>
+      <div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/70">{label}</div>
+      <div className="font-num text-sm font-bold text-white">{value}</div>
     </div>
   );
 }
