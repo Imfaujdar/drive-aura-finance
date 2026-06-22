@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
   Car, Calculator, MessageCircle, Gauge, Shield, Home as HomeIcon,
-  ArrowRight, Sparkles, Wallet, RefreshCw, BadgeCheck, Cpu,
-  Zap, FileCheck, Clock, Users, Building2, CircleDollarSign,
-  TrendingUp, Bike, Truck, ChevronRight, Menu, Play, Pause,
+  ArrowRight, Sparkles, BadgeCheck,
+  Zap, FileCheck, Clock, Users, CircleDollarSign,
+  Bike, Truck, ChevronRight, Menu,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
@@ -13,6 +13,7 @@ import cardCarLoan from "@/assets/card-car-loan.jpg";
 import cardHomeLoan from "@/assets/card-home-loan.jpg";
 import cardCreditCard from "@/assets/card-credit-card.jpg";
 import cardUsedCar from "@/assets/card-used-car.jpg";
+import heroCarMain from "@/assets/hero-car-main.png";
 import whyCar from "@/assets/why-car.png";
 import resaleCar from "@/assets/resale-car.png";
 import blog1 from "@/assets/blog-1.jpg";
