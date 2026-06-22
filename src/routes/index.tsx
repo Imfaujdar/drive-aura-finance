@@ -6,9 +6,9 @@ import {
   TrendingUp, Bike, Truck, ChevronRight, Menu,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import heroCar from "@/assets/hero-car.jpg";
-import resaleSuv from "@/assets/resale-suv.jpg";
-import whyCar from "@/assets/why-car.jpg";
+import heroCar from "@/assets/hero-car.png";
+import resaleSuv from "@/assets/resale-suv.png";
+import whyCar from "@/assets/why-car.png";
 import blog1 from "@/assets/blog-1.jpg";
 import blog2 from "@/assets/blog-2.jpg";
 import blog3 from "@/assets/blog-3.jpg";
