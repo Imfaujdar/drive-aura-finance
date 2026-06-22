@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import heroScene from "@/assets/hero-scene.jpg";
+import heroSuv from "@/assets/hero-suv.jpg";
 import resaleScene from "@/assets/resale-scene.jpg";
 import whyCar from "@/assets/why-car.png";
 import blog1 from "@/assets/blog-1.jpg";
@@ -70,243 +70,111 @@ function Nav() {
   );
 }
 
-const FRAME_COUNT = 272;
-const framePath = (i: number) => `/hero-frames/ezgif-frame-${String(i).padStart(3, "0")}.jpg`;
-
-function CinematicHero() {
-  const wrapRef = useRef<HTMLDivElement | null>(null);
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const imagesRef = useRef<HTMLImageElement[]>([]);
-  const targetFrameRef = useRef(0);
-  const currentFrameRef = useRef(0);
-  const rafRef = useRef(0);
-  const [progress, setProgress] = useState(0);
-  const [loaded, setLoaded] = useState(0);
-
-  useEffect(() => {
-    const imgs: HTMLImageElement[] = [];
-    let count = 0;
-    for (let i = 1; i <= FRAME_COUNT; i++) {
-      const img = new Image();
-      img.src = framePath(i);
-      img.onload = () => {
-        count++;
-        setLoaded(count);
-        if (i === 1) drawFrame(0);
-      };
-      imgs.push(img);
-    }
-    imagesRef.current = imgs;
-  }, []);
-
-  const drawFrame = (idx: number) => {
-    const canvas = canvasRef.current;
-    const imgs = imagesRef.current;
-    if (!canvas || !imgs) return;
-    const img = imgs[Math.min(FRAME_COUNT - 1, Math.max(0, idx))];
-    if (!img || !img.complete || !img.naturalWidth) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const w = canvas.clientWidth;
-    const h = canvas.clientHeight;
-    if (canvas.width !== w * dpr || canvas.height !== h * dpr) {
-      canvas.width = w * dpr;
-      canvas.height = h * dpr;
-    }
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.clearRect(0, 0, w, h);
-    // cover-fit
-    const ir = img.naturalWidth / img.naturalHeight;
-    const cr = w / h;
-    let dw = w, dh = h, dx = 0, dy = 0;
-    if (ir > cr) { dh = h; dw = h * ir; dx = (w - dw) / 2; }
-    else { dw = w; dh = w / ir; dy = (h - dh) / 2; }
-    ctx.drawImage(img, dx, dy, dw, dh);
-  };
-
-  useEffect(() => {
-    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-
-    const tick = () => {
-      const current = currentFrameRef.current;
-      const target = targetFrameRef.current;
-      if (Math.abs(target - current) > 0.05) {
-        currentFrameRef.current = lerp(current, target, 0.08);
-        drawFrame(Math.round(currentFrameRef.current));
-      }
-      rafRef.current = requestAnimationFrame(tick);
-    };
-    rafRef.current = requestAnimationFrame(tick);
-
-    const onScroll = () => {
-      const wrap = wrapRef.current;
-      if (!wrap) return;
-      const rect = wrap.getBoundingClientRect();
-      const total = wrap.offsetHeight - window.innerHeight;
-      const scrolled = Math.min(Math.max(-rect.top, 0), total);
-      const p = total > 0 ? scrolled / total : 0;
-      setProgress(p);
-      targetFrameRef.current = p * (FRAME_COUNT - 1);
-    };
-    const onResize = () => drawFrame(Math.round(currentFrameRef.current));
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onResize);
-    onScroll();
-    return () => {
-      cancelAnimationFrame(rafRef.current);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
-    };
-  }, []);
-
-  // text fade: in 0-15%, hold, out 30-45%
-  const textOpacity = progress < 0.15 ? progress / 0.15 : progress < 0.30 ? 1 : progress < 0.45 ? 1 - (progress - 0.30) / 0.15 : 0;
-  const textY = (1 - Math.min(1, progress / 0.15)) * 30;
-
+function Hero() {
   return (
-    <section ref={wrapRef} className="relative" style={{ height: "900vh" }}>
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
-        {/* luxury gradient background */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse at 50% 35%, #fff5ec 0%, #ffe4e1 38%, #e8dfe0 70%, #c9c4c8 100%)",
-          }}
-        />
-        {/* volumetric glow */}
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse 60% 40% at 50% 60%, rgba(255,220,180,0.55) 0%, rgba(255,220,180,0) 70%)",
-            mixBlendMode: "screen",
-          }}
-        />
-        {/* dust particles */}
-        <DustParticles />
+    <section className="relative overflow-hidden">
+      {/* soft gradient background */}
+      <div
+        className="absolute inset-0 -z-10"
+        style={{
+          background:
+            "radial-gradient(ellipse at 70% 35%, #ffe4e1 0%, #fff5ec 40%, #ffffff 80%)",
+        }}
+      />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-pink-100/60 to-transparent" />
 
-        {/* canvas sequence */}
-        <canvas
-          ref={canvasRef}
-          className="absolute inset-0 h-full w-full"
-          style={{ filter: "drop-shadow(0 30px 60px rgba(60,30,20,0.35))" }}
-        />
-
-        {/* subtle vignette */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgba(40,20,30,0.35)_100%)]" />
-
-        {/* centered overlay text */}
-        <div
-          className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center"
-          style={{
-            opacity: textOpacity,
-            transform: `translateY(${textY}px)`,
-            transition: "opacity 120ms linear",
-          }}
-        >
-          <div className="text-[11px] font-semibold uppercase tracking-[0.4em] text-primary/80">
-            Finonest × Premium SUVs
-          </div>
-          <h1 className="mt-4 font-display text-5xl font-extrabold leading-[1.02] tracking-tight text-foreground drop-shadow-[0_4px_20px_rgba(255,255,255,0.6)] sm:text-6xl md:text-7xl lg:text-8xl">
-            Drive Beyond <span className="text-gradient">Limits</span>
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-4 pt-10 pb-8 lg:grid-cols-12 lg:gap-6 lg:pt-16">
+        {/* Left copy */}
+        <div className="lg:col-span-6">
+          <span className="inline-flex items-center rounded-full border border-primary/20 bg-white/70 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-primary backdrop-blur">
+            Smart Finance for a Smarter Drive
+          </span>
+          <h1 className="mt-5 font-display text-5xl font-extrabold leading-[1.02] tracking-tight text-foreground sm:text-6xl lg:text-7xl">
+            Drive Today. <br />
+            Achieve <span className="text-gradient">Tomorrow.</span>
           </h1>
-          <p className="mt-5 font-display text-base font-medium uppercase tracking-[0.35em] text-foreground/70 sm:text-lg">
-            Power · Performance · Prestige
+          <p className="mt-5 max-w-md text-base text-muted-foreground sm:text-lg">
+            India's most advanced platform for all your{" "}
+            <span className="font-semibold text-foreground">
+              Auto Loans, Insurance & Vehicle Finances.
+            </span>
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3 pointer-events-auto">
+          <div className="mt-7 flex flex-wrap gap-3">
             <button className="btn-shine inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-6 py-3 text-sm font-semibold text-white shadow-[var(--shadow-glow)]">
-              Check Auto Loan Offers <ChevronRight className="h-4 w-4" />
+              Check Auto Loan Offers <ArrowRight className="h-4 w-4" />
             </button>
             <button className="inline-flex items-center gap-2 rounded-xl border border-border bg-white/85 px-6 py-3 text-sm font-semibold text-foreground backdrop-blur hover:bg-white">
               Login to Dashboard <ArrowRight className="h-4 w-4" />
             </button>
           </div>
-        </div>
 
-        {/* scroll hint */}
-        <div
-          className="absolute bottom-6 left-1/2 z-10 -translate-x-1/2 text-[10px] font-semibold uppercase tracking-[0.4em] text-foreground/60"
-          style={{ opacity: progress < 0.05 ? 1 : 0, transition: "opacity 300ms" }}
-        >
-          Scroll to ignite ↓
-        </div>
-
-        {/* loader */}
-        {loaded < FRAME_COUNT && (
-          <div className="absolute bottom-3 right-4 z-20 rounded-full bg-white/70 px-3 py-1 text-[10px] font-medium text-foreground/70 backdrop-blur">
-            Loading {Math.round((loaded / FRAME_COUNT) * 100)}%
+          {/* Stats */}
+          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <Stat value={2} suffix="M+" label="Happy Customers" icon={<Users className="h-4 w-4" />} />
+            <Stat value={50} suffix="+" label="Lending Partners" icon={<Building2 className="h-4 w-4" />} />
+            <Stat value={99.6} suffix="%" label="Approval Rate" icon={<BadgeCheck className="h-4 w-4" />} decimals={1} />
+            <Stat value={0} suffix="" label={"Minimal\nDocumentation"} icon={<FileCheck className="h-4 w-4" />} hideValue />
           </div>
-        )}
+        </div>
+
+        {/* Right image */}
+        <div className="relative lg:col-span-6">
+          <img
+            src={heroSuv}
+            alt="Premium SUV — Drive today, achieve tomorrow"
+            width={1536}
+            height={1024}
+            className="relative z-10 w-full select-none drop-shadow-[0_30px_40px_rgba(180,40,50,0.25)]"
+          />
+        </div>
       </div>
+
+      {/* Right side rail */}
+      <SideRail />
     </section>
   );
 }
 
-function DustParticles() {
-  // 18 floating dust dots, deterministic positions
-  const dots = Array.from({ length: 22 }, (_, i) => {
-    const seed = (i * 9301 + 49297) % 233280;
-    const r = seed / 233280;
-    const left = (i * 47) % 100;
-    const top = (i * 73) % 100;
-    const size = 2 + (r * 4);
-    const dur = 8 + (r * 10);
-    const delay = (i % 7) * 0.7;
-    return { left, top, size, dur, delay, op: 0.25 + r * 0.5 };
-  });
+function SideRail() {
+  const items = [
+    { icon: Car, label: "Quick Apply" },
+    { icon: Calculator, label: "EMI Calculator" },
+    { icon: BadgeCheck, label: "Check Offers" },
+    { icon: MessageCircle, label: "Chat Now" },
+  ];
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      {dots.map((d, i) => (
-        <span
-          key={i}
-          className="absolute rounded-full bg-white"
-          style={{
-            left: `${d.left}%`,
-            top: `${d.top}%`,
-            width: d.size,
-            height: d.size,
-            opacity: d.op,
-            filter: "blur(1px)",
-            boxShadow: "0 0 8px rgba(255,240,220,0.7)",
-            animation: `float-y ${d.dur}s ease-in-out ${d.delay}s infinite`,
-          }}
-        />
-      ))}
+    <div className="pointer-events-auto absolute right-3 top-1/2 z-20 hidden -translate-y-1/2 lg:block">
+      <div className="flex flex-col items-center gap-2 rounded-2xl border border-border/60 bg-white/85 p-2 shadow-[var(--shadow-glass)] backdrop-blur">
+        {items.map(({ icon: Icon, label }) => (
+          <button
+            key={label}
+            className="group flex w-20 flex-col items-center gap-1 rounded-xl px-2 py-2 text-[10px] font-semibold text-foreground/80 transition hover:bg-primary/5"
+          >
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-primary/10 text-primary transition-transform group-hover:scale-110">
+              <Icon className="h-4 w-4" />
+            </span>
+            <span className="leading-tight text-center">{label}</span>
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
 
-function Hero() {
-  return (
-    <>
-      <CinematicHero />
-      <section className="relative mx-auto max-w-7xl px-4 pt-2 pb-6">
-        <div className="rounded-3xl border border-border/60 bg-white/85 p-5 shadow-[var(--shadow-glass)] backdrop-blur md:p-7">
-          <div className="flex flex-wrap items-center justify-around gap-x-8 gap-y-4">
-            <Stat value={2} suffix="M+" label="Happy Customers" icon={<Users className="h-4 w-4"/>} />
-            <Stat value={50} suffix="+" label="Lending Partners" icon={<Building2 className="h-4 w-4"/>} />
-            <Stat value={99.6} suffix="%" label="Approval Rate" icon={<BadgeCheck className="h-4 w-4"/>} decimals={1}/>
-          </div>
-        </div>
-      </section>
-    </>
-  );
-}
 
 
 
 
 
-function Stat({ value, suffix, label, icon, decimals = 0 }:{value:number;suffix:string;label:string;icon:React.ReactNode;decimals?:number}) {
+
+function Stat({ value, suffix, label, icon, decimals = 0, hideValue = false }:{value:number;suffix:string;label:string;icon:React.ReactNode;decimals?:number;hideValue?:boolean}) {
   const v = useCounter(value);
   return (
     <div className="flex items-center gap-2.5">
       <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-primary ring-1 ring-primary/15 shadow-[var(--shadow-glass)]">{icon}</span>
       <div>
-        <div className="font-num text-lg font-bold leading-none">{v.toFixed(decimals)}{suffix}</div>
-        <div className="mt-1 text-[11px] text-muted-foreground">{label}</div>
+        {!hideValue && <div className="font-num text-lg font-bold leading-none">{v.toFixed(decimals)}{suffix}</div>}
+        <div className={`${hideValue ? "" : "mt-1"} whitespace-pre-line text-[11px] font-semibold text-foreground/80`}>{label}</div>
       </div>
     </div>
   );
