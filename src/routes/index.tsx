@@ -5,17 +5,15 @@ import {
   Zap, FileCheck, Clock, Users, Building2, CircleDollarSign,
   TrendingUp, Bike, Truck, ChevronRight, Menu, Play, Pause,
 } from "lucide-react";
-import { useEffect, useRef, useState, Suspense } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls, useGLTF, Environment, ContactShadows } from "@react-three/drei";
-import * as THREE from "three";
-import tataPunchAsset from "@/assets/tata_punch.glb.asset.json";
+import heroSuv from "@/assets/hero-suv.jpg";
 import resaleScene from "@/assets/resale-scene.jpg";
 import whyCar from "@/assets/why-car.png";
 import blog1 from "@/assets/blog-1.jpg";
 import blog2 from "@/assets/blog-2.jpg";
 import blog3 from "@/assets/blog-3.jpg";
+
 
 function Model() {
   const { scene } = useGLTF(tataPunchAsset.url);
