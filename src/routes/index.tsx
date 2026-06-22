@@ -479,15 +479,30 @@ function Resale() {
             </div>
           </div>
           <div className="relative grid place-items-center">
-            <div className="pointer-events-none absolute inset-0 -z-10 mx-auto h-48 w-48 rounded-full bg-primary/10 blur-3xl" />
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center select-none whitespace-nowrap font-display font-black uppercase leading-none tracking-tighter text-primary/10"
+              style={{ fontSize: "clamp(120px, 18vw, 240px)", letterSpacing: "-0.06em" }}
+            >
+              VALUE
+            </span>
+            <div className="pointer-events-none absolute inset-0 z-[1] mx-auto h-48 w-48 rounded-full bg-primary/15 blur-3xl" />
             <img
               src={resaleCar}
               alt="Car resale value"
               width={400}
               height={300}
               loading="lazy"
-              className="relative z-10 w-full max-w-[320px] car-depth transition-transform duration-500 hover:scale-105"
+              className="relative z-[2] w-full max-w-[320px] car-depth transition-transform duration-500 hover:scale-105"
+              style={{
+                filter:
+                  "drop-shadow(0 8px 6px rgba(0,0,0,0.18)) drop-shadow(0 30px 24px rgba(0,0,0,0.22))",
+                WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 90%, transparent 100%)",
+                maskImage: "linear-gradient(to bottom, black 0%, black 90%, transparent 100%)",
+              }}
             />
+            <div className="pointer-events-none absolute inset-x-[18%] bottom-2 z-[1] h-3 rounded-[50%] bg-black/50 blur-md" />
+            <div className="pointer-events-none absolute inset-x-[6%] bottom-0 z-[1] h-10 rounded-[50%] bg-black/25 blur-2xl" />
           </div>
         </div>
       </div>
