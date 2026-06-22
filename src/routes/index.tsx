@@ -167,14 +167,14 @@ function SideRail() {
 
 
 
-function Stat({ value, suffix, label, icon, decimals = 0 }:{value:number;suffix:string;label:string;icon:React.ReactNode;decimals?:number}) {
+function Stat({ value, suffix, label, icon, decimals = 0, hideValue = false }:{value:number;suffix:string;label:string;icon:React.ReactNode;decimals?:number;hideValue?:boolean}) {
   const v = useCounter(value);
   return (
     <div className="flex items-center gap-2.5">
       <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-primary ring-1 ring-primary/15 shadow-[var(--shadow-glass)]">{icon}</span>
       <div>
-        <div className="font-num text-lg font-bold leading-none">{v.toFixed(decimals)}{suffix}</div>
-        <div className="mt-1 text-[11px] text-muted-foreground">{label}</div>
+        {!hideValue && <div className="font-num text-lg font-bold leading-none">{v.toFixed(decimals)}{suffix}</div>}
+        <div className={`${hideValue ? "" : "mt-1"} whitespace-pre-line text-[11px] font-semibold text-foreground/80`}>{label}</div>
       </div>
     </div>
   );
