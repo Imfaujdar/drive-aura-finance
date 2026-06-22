@@ -8,6 +8,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import SplitText from "@/components/SplitText";
+import Shuffle from "@/components/Shuffle";
 import heroSuv from "@/assets/hero-suv.png";
 import whyCar from "@/assets/why-car.png";
 import resaleCar from "@/assets/resale-car.png";
@@ -138,13 +139,70 @@ function Hero() {
           {/* Floor reflection / ground shadow */}
           <div className="pointer-events-none absolute inset-x-10 bottom-4 h-10 rounded-[50%] bg-black/40 blur-2xl" />
 
-          <div className="animate-float">
+          <div className="relative animate-float">
             <img
               src={heroSuv}
               alt="Red Tata Safari SUV"
               className="relative z-10 w-full select-none [transform:rotateX(8deg)_rotateY(-14deg)_rotateZ(-1deg)] drop-shadow-[0_45px_35px_rgba(180,30,45,0.45)] transition-transform duration-700 hover:[transform:rotateX(4deg)_rotateY(-6deg)_rotateZ(0deg)_scale(1.03)]"
               style={{ transformStyle: "preserve-3d" }}
             />
+
+            {/* Shuffle floating labels around the car */}
+            <div className="pointer-events-none absolute -top-2 -left-2 z-20 rotate-[-6deg] rounded-2xl border border-primary/20 bg-white/85 px-3 py-1.5 shadow-[var(--shadow-glass)] backdrop-blur">
+              <Shuffle
+                text="LOWEST EMI"
+                tag="span"
+                shuffleDirection="right"
+                duration={0.4}
+                shuffleTimes={2}
+                stagger={0.04}
+                triggerOnHover
+                className="font-display text-xs font-extrabold tracking-[0.18em] text-primary"
+                textAlign="center"
+              />
+            </div>
+
+            <div className="pointer-events-none absolute top-6 -right-2 z-20 rotate-[5deg] rounded-2xl border border-primary/20 bg-gradient-brand px-3 py-1.5 shadow-[var(--shadow-glow)]">
+              <Shuffle
+                text="AI APPROVED"
+                tag="span"
+                shuffleDirection="up"
+                duration={0.45}
+                shuffleTimes={2}
+                stagger={0.05}
+                triggerOnHover
+                className="font-display text-xs font-extrabold tracking-[0.18em] text-white"
+                textAlign="center"
+              />
+            </div>
+
+            <div className="pointer-events-none absolute -bottom-1 left-6 z-20 rotate-[-3deg] rounded-2xl border border-amber-200 bg-amber-50/90 px-3 py-1.5 shadow-[var(--shadow-glass)] backdrop-blur">
+              <Shuffle
+                text="0% PROCESSING"
+                tag="span"
+                shuffleDirection="left"
+                duration={0.45}
+                shuffleTimes={2}
+                stagger={0.04}
+                triggerOnHover
+                className="font-display text-xs font-extrabold tracking-[0.18em] text-amber-600"
+                textAlign="center"
+              />
+            </div>
+
+            <div className="pointer-events-none absolute bottom-8 -right-3 z-20 rotate-[6deg] rounded-2xl border border-emerald-200 bg-emerald-50/90 px-3 py-1.5 shadow-[var(--shadow-glass)] backdrop-blur">
+              <Shuffle
+                text="2 MIN APPROVAL"
+                tag="span"
+                shuffleDirection="down"
+                duration={0.45}
+                shuffleTimes={2}
+                stagger={0.04}
+                triggerOnHover
+                className="font-display text-xs font-extrabold tracking-[0.18em] text-emerald-600"
+                textAlign="center"
+              />
+            </div>
           </div>
         </div>
 
