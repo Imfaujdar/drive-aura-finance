@@ -118,12 +118,20 @@ function Hero() {
           </div>
         </div>
 
-        {/* Right — Hero SUV */}
-        <div className="relative lg:col-span-6">
+        {/* Right — Hero SUV with 3D depth */}
+        <div className="relative lg:col-span-6 [perspective:1400px]">
+          {/* Glow halo */}
+          <div className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center">
+            <div className="h-[70%] w-[80%] rounded-full bg-gradient-to-br from-primary/30 via-primary/10 to-transparent blur-3xl" />
+          </div>
+          {/* Floor reflection / ground shadow */}
+          <div className="pointer-events-none absolute inset-x-10 bottom-4 h-10 rounded-[50%] bg-black/40 blur-2xl" />
+
           <img
             src={heroSuv}
-            alt="Red Tata Safari SUV with city skyline"
-            className="relative z-10 w-full drop-shadow-[0_30px_40px_rgba(180,40,50,0.25)]"
+            alt="Red Tata Safari SUV"
+            className="relative z-10 w-full select-none animate-float-slow [transform:rotateX(8deg)_rotateY(-12deg)_rotateZ(-1deg)] drop-shadow-[0_45px_35px_rgba(180,30,45,0.45)] drop-shadow-[0_20px_18px_rgba(0,0,0,0.25)] transition-transform duration-700 hover:[transform:rotateX(4deg)_rotateY(-6deg)_rotateZ(0deg)_scale(1.03)]"
+            style={{ transformStyle: "preserve-3d" }}
           />
         </div>
 
