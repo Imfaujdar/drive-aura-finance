@@ -172,10 +172,19 @@ function HeroCarousel() {
       onMouseLeave={() => { setPaused(false); setParallax({ x: 0, y: 0 }); }}
       onMouseMove={onMouseMove}
     >
-      {/* Soft layered light background */}
-      <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 80% 20%, #ffe4e1 0%, #fff5ec 45%, #fdf6ee 80%)" }} />
+      {/* Active slide background image */}
+      <div className="absolute inset-0 z-0">
+        <img
+          key={`bg-${active}`}
+          src={slide.image}
+          alt={slide.locationLabel}
+          className="h-full w-full object-cover transition-opacity duration-700"
+        />
+        <div className="absolute inset-0 bg-white/80 backdrop-blur-sm" />
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 80% 20%, #ffe4e1 0%, #fff5ec 45%, #fdf6ee 80%)" }} />
+      </div>
       <div
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute inset-0 z-0"
         style={{
           transform: `translate3d(${parallax.x * -22}px, ${parallax.y * -16}px, 0)`,
           transition: "transform .5s ease-out",
@@ -232,23 +241,23 @@ function HeroCarousel() {
               transition: "transform .6s ease-out",
             }}
           >
-            <div className="relative flex h-[500px] items-end justify-end pr-0 sm:h-[560px]">
+            <div className="relative flex h-[360px] items-end justify-end pr-0 sm:h-[400px]">
               {[0, 1, 2].map((offset) => {
                 const idx = (active + offset + 1) % total;
                 const s = heroSlides[idx];
-                const cardWidth = 240;
-                const overlap = 70;
+                const cardWidth = 160;
+                const overlap = 45;
                 return (
                   <button
                     key={`${active}-${idx}`}
                     onClick={() => goto(idx)}
-                    className="group absolute bottom-0 overflow-hidden rounded-[36px] ring-1 ring-foreground/10 shadow-[0_40px_90px_-25px_rgba(60,30,80,0.35)] transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_50px_100px_-20px_rgba(60,30,80,0.45)]"
+                    className="group absolute bottom-0 overflow-hidden rounded-[28px] ring-1 ring-foreground/10 shadow-[0_30px_60px_-20px_rgba(60,30,80,0.3)] transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_40px_80px_-15px_rgba(60,30,80,0.4)]"
                     style={{
                       width: `${cardWidth}px`,
-                      height: offset === 0 ? "520px" : "460px",
-                      right: `${offset * (cardWidth - overlap) - 30}px`,
+                      height: offset === 0 ? "340px" : "300px",
+                      right: `${offset * (cardWidth - overlap) - 20}px`,
                       zIndex: 3 - offset,
-                      transform: `translateY(${offset * 18}px) rotate(${(offset - 0.5) * 2}deg)`,
+                      transform: `translateY(${offset * 14}px) rotate(${(offset - 0.5) * 2}deg)`,
                       animation: `fade-in .7s ease-out ${offset * 0.12}s both`,
                     }}
                   >
@@ -258,11 +267,11 @@ function HeroCarousel() {
                       className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
-                    <div className="absolute inset-x-5 bottom-5 text-left">
+                    <div className="absolute inset-x-4 bottom-4 text-left">
                       <div className="text-[9px] font-semibold uppercase tracking-[0.24em] text-white/75">
                         {s.tag.split("·")[0]?.trim()}
                       </div>
-                      <div className="mt-1 font-display text-[20px] font-extrabold uppercase leading-[1.05] tracking-tight text-white">
+                      <div className="mt-1 font-display text-[14px] font-extrabold uppercase leading-[1.05] tracking-tight text-white">
                         {s.locationLabel}
                       </div>
                     </div>
