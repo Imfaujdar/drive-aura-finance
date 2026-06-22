@@ -8,7 +8,6 @@ import {
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import heroSuv from "@/assets/hero-suv.jpg";
-import resaleScene from "@/assets/resale-scene.jpg";
 import whyCar from "@/assets/why-car.png";
 import blog1 from "@/assets/blog-1.jpg";
 import blog2 from "@/assets/blog-2.jpg";
@@ -313,38 +312,39 @@ function CreditScoreCard() {
 function Resale() {
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-10">
-      <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-white/70 shadow-[var(--shadow-glass)]">
-        <img
-          src={resaleScene}
-          alt="Get the best resale value for your car"
-          width={1600}
-          height={600}
-          loading="lazy"
-          className="block h-auto w-full object-cover"
-        />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-l from-white/95 via-white/40 to-transparent" />
-        <div className="absolute right-0 top-0 flex h-full max-w-[55%] flex-col justify-center p-6 sm:p-10 md:p-12">
-          <h3 className="font-display text-2xl font-extrabold sm:text-3xl md:text-4xl">
-            Get the Best <span className="text-gradient">Value</span> for Your Car
-          </h3>
-          <p className="mt-2 max-w-md text-sm text-muted-foreground sm:text-base">
-            Check resale value of your used car in just a few clicks.
-          </p>
-          <div className="mt-5 flex flex-wrap items-center gap-3">
-            <button className="btn-shine inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-primary ring-1 ring-primary/30 shadow-[var(--shadow-glass)]">
-              Check Resale Value <ChevronRight className="h-4 w-4"/>
-            </button>
+      <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-white/80 shadow-[var(--shadow-glass)] backdrop-blur p-8 md:p-12">
+        <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
+        <div className="pointer-events-none absolute -left-20 -bottom-20 h-72 w-72 rounded-full bg-accent/20 blur-3xl" />
+        <div className="relative grid items-center gap-8 md:grid-cols-2">
+          <div>
+            <h3 className="font-display text-3xl font-extrabold md:text-4xl">
+              Get the Best <span className="text-gradient">Value</span> for Your Car
+            </h3>
+            <p className="mt-3 max-w-md text-base text-muted-foreground">
+              Check resale value of your used car in just a few clicks.
+            </p>
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <button className="btn-shine inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-5 py-3 text-sm font-semibold text-white shadow-[var(--shadow-glow)]">
+                Check Resale Value <ChevronRight className="h-4 w-4"/>
+              </button>
+            </div>
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              {[
+                { i: <Zap className="h-3.5 w-3.5"/>, t: "Instant" },
+                { i: <Sparkles className="h-3.5 w-3.5"/>, t: "Accurate" },
+                { i: <BadgeCheck className="h-3.5 w-3.5"/>, t: "Reliable" },
+              ].map(c => (
+                <span key={c.t} className="inline-flex items-center gap-1.5 rounded-full border border-border bg-white/85 px-3 py-1 text-xs font-semibold text-foreground/80">
+                  <span className="text-primary">{c.i}</span>{c.t}
+                </span>
+              ))}
+            </div>
           </div>
-          <div className="mt-3 flex flex-wrap items-center gap-2">
-            {[
-              { i: <Zap className="h-3.5 w-3.5"/>, t: "Instant" },
-              { i: <Sparkles className="h-3.5 w-3.5"/>, t: "Accurate" },
-              { i: <BadgeCheck className="h-3.5 w-3.5"/>, t: "Reliable" },
-            ].map(c => (
-              <span key={c.t} className="inline-flex items-center gap-1.5 rounded-full border border-border bg-white/85 px-3 py-1 text-xs font-semibold text-foreground/80">
-                <span className="text-primary">{c.i}</span>{c.t}
-              </span>
-            ))}
+          <div className="relative grid place-items-center">
+            <div className="pointer-events-none absolute inset-0 -z-10 mx-auto h-48 w-48 rounded-full bg-primary/10 blur-3xl" />
+            <div className="grid h-40 w-40 place-items-center rounded-full bg-primary/5 ring-1 ring-primary/20">
+              <Car className="h-16 w-16 text-primary/40" />
+            </div>
           </div>
         </div>
       </div>
