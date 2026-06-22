@@ -77,7 +77,9 @@ function CinematicHero() {
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const imagesRef = useRef<HTMLImageElement[]>([]);
-  const frameRef = useRef<{ i: number }>({ i: 0 });
+  const targetFrameRef = useRef(0);
+  const currentFrameRef = useRef(0);
+  const rafRef = useRef(0);
   const [progress, setProgress] = useState(0);
   const [loaded, setLoaded] = useState(0);
 
@@ -95,7 +97,6 @@ function CinematicHero() {
       imgs.push(img);
     }
     imagesRef.current = imgs;
-    frameRef.current = { i: 0 };
   }, []);
 
   const drawFrame = (idx: number) => {
@@ -125,6 +126,19 @@ function CinematicHero() {
   };
 
   useEffect(() => {
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+
+    const tick = () => {
+      const current = currentFrameRef.current;
+      const target = targetFrameRef.current;
+      if (Math.abs(target - current) > 0.05) {
+        currentFrameRef.current = lerp(current, target, 0.08);
+        drawFrame(Math.round(currentFrameRef.current));
+      }
+      rafRef.current = requestAnimationFrame(tick);
+    };
+    rafRef.current = requestAnimationFrame(tick);
+
     const onScroll = () => {
       const wrap = wrapRef.current;
       if (!wrap) return;
@@ -133,17 +147,14 @@ function CinematicHero() {
       const scrolled = Math.min(Math.max(-rect.top, 0), total);
       const p = total > 0 ? scrolled / total : 0;
       setProgress(p);
-      const idx = Math.round(p * (FRAME_COUNT - 1));
-      if (idx !== frameRef.current.i) {
-        frameRef.current.i = idx;
-        drawFrame(idx);
-      }
+      targetFrameRef.current = p * (FRAME_COUNT - 1);
     };
-    const onResize = () => drawFrame(frameRef.current?.i ?? 0);
+    const onResize = () => drawFrame(Math.round(currentFrameRef.current));
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onResize);
     onScroll();
     return () => {
+      cancelAnimationFrame(rafRef.current);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
     };
@@ -154,7 +165,7 @@ function CinematicHero() {
   const textY = (1 - Math.min(1, progress / 0.15)) * 30;
 
   return (
-    <section ref={wrapRef} className="relative" style={{ height: "300vh" }}>
+    <section ref={wrapRef} className="relative" style={{ height: "900vh" }}>
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* luxury gradient background */}
         <div
