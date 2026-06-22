@@ -188,12 +188,12 @@
   .card-lift:hover {
     transform: translateY(-6px) scale(1.015);
     box-shadow: var(--shadow-lift);
-    border-color: rgba(79, 70, 255, 0.35);
+    border-color: rgba(225, 29, 46, 0.35);
   }
 
   .ring-glow {
-    box-shadow: 0 0 0 1px rgba(79, 70, 255, 0.25),
-      0 0 40px rgba(79, 70, 255, 0.25);
+    box-shadow: 0 0 0 1px rgba(225, 29, 46, 0.25),
+      0 0 40px rgba(225, 29, 46, 0.25);
   }
 }
 
