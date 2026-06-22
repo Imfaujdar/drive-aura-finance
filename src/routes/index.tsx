@@ -109,28 +109,8 @@ function Hero() {
         </div>
 
         <div className="relative">
-          <div className="relative aspect-square">
-            {/* glowing rings on the floor */}
-            <div className="pointer-events-none absolute left-1/2 top-[72%] h-[40%] w-[95%] -translate-x-1/2 rounded-[50%] border border-primary/25 animate-spin-slow" />
-            <div className="pointer-events-none absolute left-1/2 top-[74%] h-[26%] w-[72%] -translate-x-1/2 rounded-[50%] border border-primary/15" />
-            <img
-              src={heroCar}
-              alt="Futuristic luxury electric car"
-              width={1280}
-              height={1280}
-              className="relative z-10 h-full w-full object-contain animate-float car-depth-lg"
-            />
-            {/* floating cards */}
-            <div className="absolute left-2 top-6 z-20 rounded-2xl glass px-3 py-2 text-xs font-semibold animate-float-sm">
-              <div className="flex items-center gap-2"><Wallet className="h-4 w-4 text-primary"/>Pre-approved · ₹8.2L</div>
-            </div>
-            <div className="absolute right-2 top-1/3 z-20 rounded-2xl glass px-3 py-2 text-xs font-semibold animate-float-sm" style={{animationDelay:"1.2s"}}>
-              <div className="flex items-center gap-2"><TrendingUp className="h-4 w-4 text-success"/>Rate · 8.49%*</div>
-            </div>
-            <div className="absolute bottom-6 left-2 z-20 rounded-2xl glass px-3 py-2 text-xs font-semibold animate-float-sm" style={{animationDelay:"2s"}}>
-              <div className="flex items-center gap-2"><Cpu className="h-4 w-4 text-primary"/>AI scoring engine</div>
-            </div>
-          </div>
+          <HeroCarStage />
+        </div>
 
           {/* quick actions floating panel */}
           <div className="absolute -right-3 top-1/2 z-30 hidden -translate-y-1/2 flex-col gap-2 rounded-2xl glass-strong p-2 lg:flex">
