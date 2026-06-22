@@ -15,45 +15,6 @@ import blog2 from "@/assets/blog-2.jpg";
 import blog3 from "@/assets/blog-3.jpg";
 
 
-function Model() {
-  const { scene } = useGLTF(tataPunchAsset.url);
-  const modelRef = useRef<THREE.Group>(null);
-
-  useEffect(() => {
-    if (modelRef.current) {
-      const box = new THREE.Box3().setFromObject(modelRef.current);
-      const center = box.getCenter(new THREE.Vector3());
-      const size = box.getSize(new THREE.Vector3());
-      const maxDim = Math.max(size.x, size.y, size.z);
-      const scale = 2 / maxDim;
-      modelRef.current.scale.setScalar(scale);
-      modelRef.current.position.sub(center.multiplyScalar(scale));
-      modelRef.current.position.y += 0.3;
-    }
-  }, []);
-
-  return (
-    <group ref={modelRef}>
-      <primitive object={scene.clone()} />
-    </group>
-  );
-}
-
-function ModelScene() {
-  return (
-    <Canvas camera={{ position: [3, 2, 4], fov: 35 }} shadows className="h-full w-full">
-      <ambientLight intensity={0.6} />
-      <directionalLight position={[5, 5, 5]} intensity={1.2} castShadow />
-      <directionalLight position={[-3, 2, -2]} intensity={0.4} />
-      <Environment preset="studio" />
-      <Suspense fallback={null}>
-        <Model />
-        <ContactShadows position={[0, -0.5, 0]} opacity={0.4} scale={10} blur={2} far={4} />
-      </Suspense>
-      <OrbitControls autoRotate autoRotateSpeed={1} enableZoom={false} enablePan={false} minPolarAngle={Math.PI / 4} maxPolarAngle={Math.PI / 2.2} />
-    </Canvas>
-  );
-}
 
 export const Route = createFileRoute("/")({
   head: () => ({
