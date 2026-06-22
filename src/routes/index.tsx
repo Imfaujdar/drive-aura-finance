@@ -632,19 +632,40 @@ function Footer() {
 }
 
 function Index() {
+  useEffect(() => {
+    const els = document.querySelectorAll<HTMLElement>("[data-reveal]");
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            gsap.fromTo(
+              e.target,
+              { y: 40, opacity: 0 },
+              { y: 0, opacity: 1, duration: 0.9, ease: "power3.out" }
+            );
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
   return (
     <div className="bg-mesh min-h-screen">
       <Nav />
       <main>
         <Hero />
-        <Services />
-        <Calculator2 />
-        <Resale />
-        <WhyFinonest />
-        <Rates />
-        <Blog />
-        <Partners />
-        <CTA />
+        <div data-reveal><Services /></div>
+        <div data-reveal><Calculator2 /></div>
+        <div data-reveal><Resale /></div>
+        <div data-reveal><WhyFinonest /></div>
+        <div data-reveal><Rates /></div>
+        <div data-reveal><Blog /></div>
+        <div data-reveal><Partners /></div>
+        <div data-reveal><CTA /></div>
       </main>
       <Footer />
     </div>
