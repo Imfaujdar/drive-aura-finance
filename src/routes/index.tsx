@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import SplitText from "@/components/SplitText";
 import heroSuv from "@/assets/hero-suv.png";
 import whyCar from "@/assets/why-car.png";
 import resaleCar from "@/assets/resale-car.png";
