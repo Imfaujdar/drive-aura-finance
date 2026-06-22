@@ -7,7 +7,6 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import heroSuv from "@/assets/hero-suv.jpg";
 import resaleScene from "@/assets/resale-scene.jpg";
 import whyCar from "@/assets/why-car.png";
 import blog1 from "@/assets/blog-1.jpg";
@@ -117,15 +116,19 @@ function Hero() {
           </div>
         </div>
 
-        {/* Right image */}
+        {/* Right — Sketchfab 3D */}
         <div className="relative lg:col-span-6">
-          <img
-            src={heroSuv}
-            alt="Premium SUV — Drive today, achieve tomorrow"
-            width={1536}
-            height={1024}
-            className="relative z-10 w-full select-none drop-shadow-[0_30px_40px_rgba(180,40,50,0.25)]"
-          />
+          <div className="relative z-10 aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.2)] ring-1 ring-black/5">
+            <iframe
+              title="2021 Tata Safari"
+              src="https://sketchfab.com/models/3051714dba91468f9d3f4f15305c2541/embed"
+              frameBorder="0"
+              allowFullScreen
+              allow="autoplay; fullscreen; xr-spatial-tracking"
+              className="absolute inset-0 h-full w-full"
+              loading="lazy"
+            />
+          </div>
         </div>
       </div>
 
