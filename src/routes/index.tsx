@@ -160,18 +160,10 @@ function Hero() {
           </div>
         </div>
 
-        {/* Right — Sketchfab 3D */}
+        {/* Right — 3D Model */}
         <div className="relative lg:col-span-6">
-          <div className="relative z-10 aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.2)] ring-1 ring-black/5">
-            <iframe
-              title="2021 Tata Safari"
-              src="https://sketchfab.com/models/3051714dba91468f9d3f4f15305c2541/embed"
-              frameBorder="0"
-              allowFullScreen
-              allow="autoplay; fullscreen; xr-spatial-tracking"
-              className="absolute inset-0 h-full w-full"
-              loading="lazy"
-            />
+          <div className="relative z-10 aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.2)] ring-1 ring-black/5 bg-gradient-to-br from-gray-50 to-gray-100">
+            <ModelScene />
           </div>
         </div>
       </div>
