@@ -167,7 +167,7 @@ function HeroCarousel() {
   return (
     <section
       ref={containerRef}
-      className="relative h-screen min-h-[720px] w-full overflow-hidden bg-[#fdf6ee] text-foreground"
+      className="relative h-[calc(100vh-2rem)] min-h-[680px] w-full overflow-hidden rounded-3xl bg-[#fdf6ee] text-foreground"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => { setPaused(false); setParallax({ x: 0, y: 0 }); }}
       onMouseMove={onMouseMove}
