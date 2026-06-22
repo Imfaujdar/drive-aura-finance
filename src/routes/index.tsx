@@ -5,7 +5,7 @@ import {
   Zap, FileCheck, Clock, Users, Building2, CircleDollarSign,
   TrendingUp, Bike, Truck, ChevronRight, Menu, Play, Pause,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import heroScene from "@/assets/hero-scene.jpg";
 import resaleScene from "@/assets/resale-scene.jpg";
