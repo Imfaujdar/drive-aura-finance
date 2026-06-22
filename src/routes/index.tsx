@@ -5,8 +5,11 @@ import {
   Zap, FileCheck, Clock, Users, Building2, CircleDollarSign,
   TrendingUp, Bike, Truck, ChevronRight, Menu,
 } from "lucide-react";
-import { useEffect, useState } from "react";
-import heroCar from "@/assets/hero-car.png";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import heroCar1 from "@/assets/hero-car-1.png";
+import heroCar2 from "@/assets/hero-car-2.png";
+import heroCar3 from "@/assets/hero-car-3.png";
 import resaleSuv from "@/assets/resale-suv.png";
 import whyCar from "@/assets/why-car.png";
 import blog1 from "@/assets/blog-1.jpg";
