@@ -85,8 +85,8 @@ const SplitText = ({
             : `+=${marginValue}${marginUnit}`;
       const start = `top ${startPct}%${sign}`;
 
-      let targets: unknown[] | undefined;
-      const assignTargets = (self: { chars: unknown[]; words: unknown[]; lines: unknown[] }) => {
+      let targets: any;
+      const assignTargets = (self: { chars: any[]; words: any[]; lines: any[] }) => {
         if (splitType.includes('chars') && self.chars.length) targets = self.chars;
         if (!targets && splitType.includes('words') && self.words.length) targets = self.words;
         if (!targets && splitType.includes('lines') && self.lines.length) targets = self.lines;
@@ -101,7 +101,7 @@ const SplitText = ({
         wordsClass: 'split-word',
         charsClass: 'split-char',
         reduceWhiteSpace: false,
-        onSplit: (self: { chars: unknown[]; words: unknown[]; lines: unknown[] }) => {
+        onSplit: (self: { chars: any[]; words: any[]; lines: any[] }) => {
           assignTargets(self);
           const tween = gsap.fromTo(
             targets,
