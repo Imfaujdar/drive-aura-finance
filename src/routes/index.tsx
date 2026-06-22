@@ -327,7 +327,7 @@ function Resale() {
 function BottomTriple() {
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-12">
-      <div className="grid gap-6 lg:grid-cols-3">
+      <div className="grid items-stretch gap-6 lg:grid-cols-3">
         <BlogCard />
         <WhyCard />
         <RatesCard />
@@ -336,25 +336,28 @@ function BottomTriple() {
   );
 }
 
+const TRIPLE_CARD =
+  "group flex h-full flex-col rounded-3xl border border-border/60 bg-white/90 p-5 shadow-[var(--shadow-glass)] backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_30px_80px_-30px_rgba(79,70,255,0.25)]";
+
 function BlogCard() {
   const posts = [
-    { img: blog1, cat: "Auto Industry",  date: "May 15, 2026", title: "Future of EV in India: What to Expect in 2026 & Beyond", read: "5 min read" },
-    { img: blog2, cat: "Finance Tips",   date: "May 10, 2026", title: "5 Smart Tips to Get the Best Auto Loan in 2026",        read: "4 min read" },
-    { img: blog3, cat: "Market Insights",date: "May 05, 2026", title: "Auto Loan Trends: Key Insights You Should Know",          read: "6 min read" },
+    { img: blog1, cat: "Auto Industry",  catColor: "bg-amber-50 text-amber-600",   date: "May 15, 2026", title: "Future of EV in India: What to Expect in 2026 & Beyond", read: "5 min read" },
+    { img: blog2, cat: "Finance Tips",   catColor: "bg-emerald-50 text-emerald-600", date: "May 10, 2026", title: "5 Smart Tips to Get the Best Auto Loan in 2026",        read: "4 min read" },
+    { img: blog3, cat: "Market Insights",catColor: "bg-violet-50 text-violet-600",  date: "May 05, 2026", title: "Auto Loan Trends: Key Insights You Should Know",          read: "6 min read" },
   ];
   return (
-    <div className="rounded-3xl border border-border/60 bg-white/85 p-5 shadow-[var(--shadow-glass)] backdrop-blur">
+    <div className={TRIPLE_CARD}>
       <div className="mb-4 flex items-center justify-between">
         <h3 className="font-display text-lg font-bold">Latest from the Blog</h3>
-        <a href="#" className="inline-flex items-center gap-1 text-xs font-semibold text-primary">View All <ArrowRight className="h-3.5 w-3.5"/></a>
+        <a href="#" className="inline-flex items-center gap-1 text-xs font-semibold text-primary transition-transform hover:translate-x-0.5">View All <ArrowRight className="h-3.5 w-3.5"/></a>
       </div>
-      <ul className="space-y-3">
+      <ul className="flex-1 space-y-3">
         {posts.map((p, i) => (
-          <li key={i} className="group flex items-start gap-3 rounded-2xl p-2 transition hover:bg-primary/5">
-            <img src={p.img} alt={p.title} width={120} height={90} loading="lazy" className="h-16 w-20 shrink-0 rounded-xl object-cover"/>
-            <div className="min-w-0">
-              <div className="flex items-center gap-2 text-[10px]">
-                <span className="rounded-full bg-amber-50 px-2 py-0.5 font-bold uppercase tracking-widest text-amber-600">{p.cat}</span>
+          <li key={i} className="flex items-start gap-3 rounded-2xl p-2 transition hover:bg-primary/5">
+            <img src={p.img} alt={p.title} width={120} height={90} loading="lazy" className="h-16 w-20 shrink-0 rounded-xl object-cover transition-transform duration-300 hover:scale-105"/>
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center justify-between gap-2 text-[10px]">
+                <span className={`rounded-full px-2 py-0.5 font-bold uppercase tracking-widest ${p.catColor}`}>{p.cat}</span>
                 <span className="text-muted-foreground">{p.date}</span>
               </div>
               <div className="mt-1 line-clamp-2 text-sm font-semibold leading-snug">{p.title}</div>
@@ -363,7 +366,7 @@ function BlogCard() {
           </li>
         ))}
       </ul>
-      <a href="#" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-primary">Explore More Articles <ArrowRight className="h-4 w-4"/></a>
+      <a href="#" className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary transition-transform hover:translate-x-0.5">Explore More Articles <ArrowRight className="h-4 w-4"/></a>
     </div>
   );
 }
@@ -378,13 +381,20 @@ function WhyCard() {
     "Expert Support at Every Step",
   ];
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-white/85 p-5 shadow-[var(--shadow-glass)] backdrop-blur">
+    <div className={`${TRIPLE_CARD} relative overflow-hidden`}>
       <h3 className="text-center font-display text-lg font-bold">Why Choose Finonest?</h3>
-      <div className="relative my-3">
-        <div className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-primary/10 blur-3xl"/>
-        <img src={whyCar} alt="Transparent car cutaway" width={1280} height={1024} loading="lazy" className="mx-auto w-full max-w-[260px] car-depth"/>
+      <div className="relative my-2 grid place-items-center">
+        <div className="pointer-events-none absolute inset-0 -z-10 mx-auto h-40 w-40 rounded-full bg-primary/10 blur-3xl"/>
+        <img
+          src={whyCar}
+          alt="Transparent car cutaway"
+          width={1280}
+          height={1024}
+          loading="lazy"
+          className="w-full max-w-[260px] car-depth transition-transform duration-500 group-hover:scale-105"
+        />
       </div>
-      <ul className="space-y-2">
+      <ul className="mt-2 space-y-2">
         {features.map(f => (
           <li key={f} className="flex items-center gap-2 text-sm font-medium text-foreground/85">
             <BadgeCheck className="h-4 w-4 shrink-0 text-primary"/> {f}
@@ -397,20 +407,20 @@ function WhyCard() {
 
 function RatesCard() {
   const rates = [
-    { icon: Car,   t: "New Car Loan",       v: "8.49%*",  color: "bg-blue-50 text-blue-500" },
-    { icon: Car,   t: "Used Car Loan",      v: "9.25%*",  color: "bg-amber-50 text-amber-500" },
-    { icon: Bike,  t: "Two Wheeler Loan",   v: "10.50%*", color: "bg-pink-50 text-pink-500" },
-    { icon: Truck, t: "Commercial Vehicle Loan", v: "9.75%*", color: "bg-indigo-50 text-indigo-500" },
+    { icon: Car,   t: "New Car Loan",            v: "8.49%*",  color: "bg-blue-50 text-blue-500",    valueColor: "text-blue-500" },
+    { icon: Car,   t: "Used Car Loan",           v: "9.25%*",  color: "bg-amber-50 text-amber-500",  valueColor: "text-amber-500" },
+    { icon: Bike,  t: "Two Wheeler Loan",        v: "10.50%*", color: "bg-pink-50 text-pink-500",    valueColor: "text-pink-500" },
+    { icon: Truck, t: "Commercial Vehicle Loan", v: "9.75%*",  color: "bg-violet-50 text-violet-500",valueColor: "text-violet-500" },
   ];
   return (
-    <div className="rounded-3xl border border-border/60 bg-white/85 p-5 shadow-[var(--shadow-glass)] backdrop-blur">
-      <div className="mb-4 flex items-center justify-between">
+    <div className={TRIPLE_CARD}>
+      <div className="mb-2 flex items-center justify-between">
         <h3 className="font-display text-lg font-bold">Current Interest Rates</h3>
-        <a href="#" className="inline-flex items-center gap-1 text-xs font-semibold text-primary">View All <ArrowRight className="h-3.5 w-3.5"/></a>
+        <a href="#" className="inline-flex items-center gap-1 text-xs font-semibold text-primary transition-transform hover:translate-x-0.5">View All <ArrowRight className="h-3.5 w-3.5"/></a>
       </div>
-      <ul className="divide-y divide-border/60">
-        {rates.map(({ icon: Icon, t, v, color }) => (
-          <li key={t} className="flex items-center justify-between gap-3 py-3">
+      <ul className="flex-1 divide-y divide-border/60">
+        {rates.map(({ icon: Icon, t, v, color, valueColor }) => (
+          <li key={t} className="flex items-center justify-between gap-3 py-3 transition hover:bg-primary/5 px-1 rounded-xl">
             <div className="flex items-center gap-3">
               <span className={`grid h-10 w-10 place-items-center rounded-full ${color}`}>
                 <Icon className="h-5 w-5"/>
@@ -420,14 +430,15 @@ function RatesCard() {
                 <div className="text-[11px] text-muted-foreground">Starting from</div>
               </div>
             </div>
-            <div className="font-num text-lg font-extrabold text-primary">{v}</div>
+            <div className={`font-num text-lg font-extrabold ${valueColor}`}>{v}</div>
           </li>
         ))}
       </ul>
-      <div className="mt-2 text-right text-[10px] text-muted-foreground">* T&C Apply</div>
+      <div className="mt-3 text-right text-[10px] text-muted-foreground">* T&amp;C Apply</div>
     </div>
   );
 }
+
 
 
 
