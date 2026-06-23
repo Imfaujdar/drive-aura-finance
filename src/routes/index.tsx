@@ -248,10 +248,17 @@ function Resale() {
               ))}
             </div>
           </div>
-          <div className="relative grid place-items-center">
+          <div className="relative grid place-items-center" style={{ overflow: "visible" }}>
             <div className="pointer-events-none absolute inset-0 -z-10 mx-auto h-48 w-48 rounded-full bg-primary/10 blur-3xl" />
             <img src={resaleCar} alt="Car resale value" width={400} height={300} loading="lazy"
               className="relative z-10 w-full max-w-[320px] car-depth transition-transform duration-500 hover:scale-105" />
+            <img
+              src={mascotSitting}
+              alt=""
+              aria-hidden
+              loading="lazy"
+              className="pointer-events-none absolute left-2 top-0 z-20 h-32 w-auto drop-shadow-[0_15px_25px_rgba(0,0,0,0.3)] sm:left-6 sm:h-40 md:left-0 md:h-44 lg:h-52"
+            />
           </div>
         </div>
       </div>
