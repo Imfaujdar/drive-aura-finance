@@ -228,6 +228,7 @@ function Hero() {
   const [idx, setIdx] = useState(0);
   const rootRef = useRef<HTMLDivElement>(null);
   const slide = HERO_SLIDES[idx];
+  const isPersonal = slide.tag === "Personal Loans";
 
   // Auto-rotate
   useEffect(() => {
