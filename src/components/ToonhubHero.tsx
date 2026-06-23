@@ -10,6 +10,7 @@ import heroTractor from "@/assets/hero-mascot-tractor.png";
 const IMAGES = [
   {
     src: heroUsedCar,
+    objectPosition: "center bottom",
     bg: "#F4845F",
     panel: "#F79B7F",
     ghost: "USED CAR",
@@ -21,6 +22,7 @@ const IMAGES = [
   },
   {
     src: heroLoanAgainstCar,
+    objectPosition: "center bottom",
     bg: "#E882B4",
     panel: "#ED9DC4",
     ghost: "LOAN AGAINST CAR",
@@ -32,6 +34,7 @@ const IMAGES = [
   },
   {
     src: heroNewCar,
+    objectPosition: "center bottom",
     bg: "#6EB5FF",
     panel: "#8DC4FF",
     ghost: "NEW CAR",
@@ -43,6 +46,7 @@ const IMAGES = [
   },
   {
     src: heroCommercial,
+    objectPosition: "48% bottom",
     bg: "#6BBF7A",
     panel: "#85CC92",
     ghost: "COMMERCIAL",
@@ -54,6 +58,7 @@ const IMAGES = [
   },
   {
     src: heroConstruction,
+    objectPosition: "center bottom",
     bg: "#F2B441",
     panel: "#F5C56A",
     ghost: "CONSTRUCTION",
@@ -65,6 +70,7 @@ const IMAGES = [
   },
   {
     src: heroTractor,
+    objectPosition: "center bottom",
     bg: "#5BAE6A",
     panel: "#7BC089",
     ghost: "TRACTOR",
@@ -92,13 +98,15 @@ const AUTOPLAY_MS = 4000;
 export default function ToonhubHero() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [scrollP, setScrollP] = useState(0);
   const sectionRef = useRef<HTMLElement | null>(null);
+  const isMobile = viewportWidth < 640;
+  const isTablet = viewportWidth >= 640 && viewportWidth < 1024;
 
   useEffect(() => {
-    const onResize = () => setIsMobile(window.innerWidth < 640);
+    const onResize = () => setViewportWidth(window.innerWidth);
     onResize();
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
