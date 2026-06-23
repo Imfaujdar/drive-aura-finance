@@ -160,9 +160,9 @@ export default function ToonhubHero() {
         return {
           ...base,
           left: isMobile ? "70%" : "72%",
-          bottom: isMobile ? "36%" : "4%",
-          height: isMobile ? "62%" : "82%",
-          transform: `translateX(-50%) scale(${isMobile ? 1.5 : 1.05})`,
+          bottom: isMobile ? "36%" : "2%",
+          height: isMobile ? "62%" : "92%",
+          transform: `translateX(-50%) scale(${isMobile ? 1.5 : 1.35})`,
 
           filter: "blur(0px)",
           opacity: 1,
