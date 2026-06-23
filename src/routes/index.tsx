@@ -261,71 +261,65 @@ function Hero() {
         </span>
       </div>
 
-      <div className="relative z-10 mx-auto grid min-h-[560px] max-w-7xl grid-cols-12 gap-4 md:min-h-[640px]">
-        {/* Category tag (top-left) */}
-        <div className="col-span-12 -mb-2">
-          <div
-            key={`tag-${idx}`}
-            className="hero-script-l inline-flex items-center gap-2 rounded-full bg-background px-4 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-primary neu-pressed"
-          >
-            <Sparkles className="h-3.5 w-3.5" /> {slide.category}
-          </div>
+      <div className="relative z-10 mx-auto max-w-7xl">
+        {/* Category tag */}
+        <div
+          key={`tag-${idx}`}
+          className="hero-script-l inline-flex items-center gap-2 rounded-full bg-background px-4 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-primary neu-pressed"
+        >
+          <Sparkles className="h-3.5 w-3.5" /> {slide.category}
         </div>
 
-        {/* Script headline LEFT */}
-        <div className="col-span-12 md:col-span-5 md:row-start-2">
-          <h1
-            key={`l-${idx}`}
-            className="hero-script-l font-display text-primary"
-            style={{
-              fontFamily: "'Caveat Brush', cursive",
-              fontSize: "clamp(3rem, 6.5vw, 6rem)",
-              lineHeight: 0.95,
-              letterSpacing: "-0.01em",
-            }}
-          >
-            {slide.scriptLeft}
-          </h1>
-          <p key={`sub-${idx}`} className="hero-sub mt-2 max-w-xs text-base font-medium text-foreground/80 md:text-lg">
-            {slide.sub}
-            <span className="mt-1 block h-1 w-24 rounded-full bg-primary/60" />
-          </p>
-        </div>
-
-        {/* Script headline RIGHT */}
-        <div className="col-span-12 hidden md:col-span-5 md:col-start-8 md:row-start-2 md:flex md:justify-end">
-          <h2
-            key={`r-${idx}`}
-            className="hero-script-r text-right text-primary"
-            style={{
-              fontFamily: "'Caveat Brush', cursive",
-              fontSize: "clamp(3rem, 6.5vw, 6rem)",
-              lineHeight: 0.95,
-            }}
-          >
-            {slide.scriptRight}
-            <span className="mt-1 ml-auto block h-1 w-32 rounded-full bg-primary/60" />
-          </h2>
-        </div>
-
-        {/* Center product image (spans middle) */}
-        <div className="col-span-12 row-start-3 grid place-items-center md:col-span-12 md:row-start-2">
-          <div className="pointer-events-none absolute left-1/2 top-[42%] -z-10 h-72 w-72 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl md:h-96 md:w-[28rem]" />
+        {/* Stage: image absolutely centered, scripts flanking, cards anchored bottom-left/right */}
+        <div className="relative mt-4 h-[640px] md:h-[680px]">
+          {/* Center product image */}
+          <div className="pointer-events-none absolute left-1/2 top-1/2 -z-0 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/15 blur-3xl" />
           <img
             key={`img-${idx}`}
             src={slide.image}
             alt={slide.imageAlt}
             width={1280}
             height={960}
-            className="hero-image relative z-10 mx-auto h-auto w-full max-w-[640px] object-contain drop-shadow-2xl"
+            className="hero-image pointer-events-none absolute left-1/2 top-1/2 z-10 h-[62%] w-auto max-w-[68%] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-2xl md:h-[70%]"
           />
-        </div>
 
-        {/* Why-choose card LEFT */}
-        <div className="col-span-12 md:col-span-3 md:col-start-1 md:row-start-3">
+          {/* Script LEFT */}
+          <h1
+            key={`l-${idx}`}
+            className="hero-script-l absolute left-0 top-[18%] z-20 text-primary"
+            style={{
+              fontFamily: "'Caveat Brush', cursive",
+              fontSize: "clamp(2.6rem, 6vw, 5.5rem)",
+              lineHeight: 0.95,
+              transform: "rotate(-2deg)",
+            }}
+          >
+            {slide.scriptLeft}
+            <span className="mt-1 block h-1 w-28 rounded-full bg-primary/60" />
+            <span className="mt-3 block max-w-[14rem] font-display text-sm font-semibold text-foreground/80 md:text-base" style={{ transform: "rotate(2deg)" }}>
+              {slide.sub}
+            </span>
+          </h1>
+
+          {/* Script RIGHT */}
+          <h2
+            key={`r-${idx}`}
+            className="hero-script-r absolute right-0 top-[28%] z-20 text-right text-primary"
+            style={{
+              fontFamily: "'Caveat Brush', cursive",
+              fontSize: "clamp(2.6rem, 6vw, 5.5rem)",
+              lineHeight: 0.95,
+              transform: "rotate(2deg)",
+            }}
+          >
+            {slide.scriptRight}
+            <span className="ml-auto mt-1 block h-1 w-32 rounded-full bg-primary/60" />
+          </h2>
+
+          {/* Why-choose card BOTTOM-LEFT */}
           <div
             key={`cl-${idx}`}
-            className="hero-card-l rounded-2xl bg-background/80 p-5 backdrop-blur neu-raised"
+            className="hero-card-l absolute bottom-2 left-0 z-20 w-[260px] rounded-2xl bg-background/85 p-5 backdrop-blur neu-raised md:w-[280px]"
           >
             <div className="text-xs font-bold uppercase tracking-[0.18em] text-foreground">
               {slide.whyTitle}
@@ -342,13 +336,11 @@ function Hero() {
               ))}
             </ul>
           </div>
-        </div>
 
-        {/* Rate card RIGHT */}
-        <div className="col-span-12 md:col-span-3 md:col-start-10 md:row-start-3">
+          {/* Rate card BOTTOM-RIGHT */}
           <div
             key={`cr-${idx}`}
-            className="hero-card-r rounded-2xl bg-background/80 p-5 text-right backdrop-blur neu-raised"
+            className="hero-card-r absolute bottom-2 right-0 z-20 w-[260px] rounded-2xl bg-background/85 p-5 text-right backdrop-blur neu-raised md:w-[280px]"
           >
             <div className="text-xs font-bold uppercase tracking-[0.18em] text-foreground">
               {slide.rateLabel}
@@ -362,11 +354,12 @@ function Hero() {
               {slide.cta} <ArrowRight className="h-4 w-4" />
             </button>
             <div className="mt-3 flex items-center justify-end gap-2 text-[11px] font-semibold text-foreground/70">
-              <Shield className="h-3.5 w-3.5 text-primary" /> Secure • Fast • Hassle Free
+              <Shield className="h-3.5 w-3.5 text-primary" /> Secure • Fast
             </div>
           </div>
         </div>
       </div>
+
 
       {/* Bottom feature strip */}
       <div className="relative z-10 mx-auto mt-6 max-w-5xl">
