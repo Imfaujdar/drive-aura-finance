@@ -10,7 +10,6 @@ import heroTractor from "@/assets/hero-mascot-tractor.png";
 const IMAGES = [
   {
     src: heroUsedCar,
-    objectPosition: "center bottom",
     bg: "#F4845F",
     panel: "#F79B7F",
     ghost: "USED CAR",
@@ -22,7 +21,6 @@ const IMAGES = [
   },
   {
     src: heroLoanAgainstCar,
-    objectPosition: "center bottom",
     bg: "#E882B4",
     panel: "#ED9DC4",
     ghost: "LOAN AGAINST CAR",
@@ -34,7 +32,6 @@ const IMAGES = [
   },
   {
     src: heroNewCar,
-    objectPosition: "center bottom",
     bg: "#6EB5FF",
     panel: "#8DC4FF",
     ghost: "NEW CAR",
@@ -46,7 +43,6 @@ const IMAGES = [
   },
   {
     src: heroCommercial,
-    objectPosition: "48% bottom",
     bg: "#6BBF7A",
     panel: "#85CC92",
     ghost: "COMMERCIAL",
@@ -58,7 +54,6 @@ const IMAGES = [
   },
   {
     src: heroConstruction,
-    objectPosition: "center bottom",
     bg: "#F2B441",
     panel: "#F5C56A",
     ghost: "CONSTRUCTION",
@@ -70,7 +65,6 @@ const IMAGES = [
   },
   {
     src: heroTractor,
-    objectPosition: "center bottom",
     bg: "#5BAE6A",
     panel: "#7BC089",
     ghost: "TRACTOR",
@@ -98,15 +92,13 @@ const AUTOPLAY_MS = 4000;
 export default function ToonhubHero() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [viewportWidth, setViewportWidth] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [scrollP, setScrollP] = useState(0);
   const sectionRef = useRef<HTMLElement | null>(null);
-  const isMobile = viewportWidth < 640;
-  const isTablet = viewportWidth >= 640 && viewportWidth < 1024;
 
   useEffect(() => {
-    const onResize = () => setViewportWidth(window.innerWidth);
+    const onResize = () => setIsMobile(window.innerWidth < 640);
     onResize();
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
@@ -172,55 +164,23 @@ export default function ToonhubHero() {
     return "back";
   };
 
-  const getCenterImageStyle = (index: number) => {
-    if (isMobile) {
-      return [
-        { left: "50%", bottom: "13%", height: "70%", width: "96vw" },
-        { left: "50%", bottom: "13%", height: "72%", width: "82vw" },
-        { left: "50%", bottom: "14%", height: "68%", width: "96vw" },
-        { left: "50%", bottom: "12%", height: "70%", width: "96vw" },
-        { left: "50%", bottom: "12%", height: "72%", width: "96vw" },
-        { left: "50%", bottom: "13%", height: "68%", width: "96vw" },
-      ][index];
-    }
-
-    if (isTablet) {
-      return [
-        { left: "62%", bottom: "4%", height: "78%", width: "54vw" },
-        { left: "65%", bottom: "4%", height: "82%", width: "36vw" },
-        { left: "64%", bottom: "5%", height: "76%", width: "55vw" },
-        { left: "62%", bottom: "4%", height: "78%", width: "56vw" },
-        { left: "62%", bottom: "3%", height: "78%", width: "56vw" },
-        { left: "62%", bottom: "5%", height: "74%", width: "55vw" },
-      ][index];
-    }
-
-    return [
-      { left: "72%", bottom: "2%", height: "88%", width: "48vw" },
-      { left: "74%", bottom: "2%", height: "92%", width: "32vw" },
-      { left: "72%", bottom: "3%", height: "84%", width: "48vw" },
-      { left: "72%", bottom: "2%", height: "86%", width: "48vw" },
-      { left: "72%", bottom: "1%", height: "86%", width: "48vw" },
-      { left: "72%", bottom: "3%", height: "82%", width: "47vw" },
-    ][index];
-  };
-
-  const itemStyle = (role: Role, index: number): CSSProperties => {
+  const itemStyle = (role: Role): CSSProperties => {
     const base: CSSProperties = {
       position: "absolute",
-      aspectRatio: "1 / 1",
-      transition: `transform ${DURATION}ms ${EASE}, filter ${DURATION}ms ${EASE}, opacity ${DURATION}ms ${EASE}, left ${DURATION}ms ${EASE}, bottom ${DURATION}ms ${EASE}, height ${DURATION}ms ${EASE}, width ${DURATION}ms ${EASE}`,
+      aspectRatio: isMobile ? "1 / 1" : "0.6 / 1",
+      transition: `transform ${DURATION}ms ${EASE}, filter ${DURATION}ms ${EASE}, opacity ${DURATION}ms ${EASE}, left ${DURATION}ms ${EASE}, bottom ${DURATION}ms ${EASE}, height ${DURATION}ms ${EASE}`,
       willChange: "transform, filter, opacity",
-      transformOrigin: "center bottom",
     };
     switch (role) {
       case "center":
         return {
           ...base,
-          ...getCenterImageStyle(index),
+          left: isMobile ? "50%" : "72%",
+          bottom: isMobile ? "8%" : "2%",
+          height: isMobile ? "82%" : "92%",
           transform: isMobile
-            ? "translateX(-50%) scale(1)"
-            : "translateX(-50%) scale(1.08)",
+            ? "translateX(-50%) scale(1.05)"
+            : "translateX(-50%) scale(1.35)",
 
           filter: "blur(0px)",
           opacity: 1,
@@ -389,7 +349,7 @@ export default function ToonhubHero() {
           }}
         >
           {IMAGES.map((img, i) => (
-            <div key={i} style={itemStyle(roleOf(i), i)}>
+            <div key={i} style={itemStyle(roleOf(i))}>
               <img
                 src={img.src}
                 alt=""
