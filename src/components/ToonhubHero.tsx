@@ -209,7 +209,7 @@ export default function ToonhubHero() {
     const base: CSSProperties = {
       position: "absolute",
       aspectRatio: "1 / 1",
-      transition: `transform ${DURATION}ms ${EASE}, filter ${DURATION}ms ${EASE}, opacity ${DURATION}ms ${EASE}, left ${DURATION}ms ${EASE}, bottom ${DURATION}ms ${EASE}, height ${DURATION}ms ${EASE}`,
+      transition: `transform ${DURATION}ms ${EASE}, filter ${DURATION}ms ${EASE}, opacity ${DURATION}ms ${EASE}, left ${DURATION}ms ${EASE}, bottom ${DURATION}ms ${EASE}, height ${DURATION}ms ${EASE}, width ${DURATION}ms ${EASE}`,
       willChange: "transform, filter, opacity",
     };
     switch (role) {
@@ -388,7 +388,7 @@ export default function ToonhubHero() {
           }}
         >
           {IMAGES.map((img, i) => (
-            <div key={i} style={itemStyle(roleOf(i))}>
+            <div key={i} style={itemStyle(roleOf(i), i)}>
               <img
                 src={img.src}
                 alt=""
