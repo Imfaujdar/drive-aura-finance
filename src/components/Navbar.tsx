@@ -63,26 +63,16 @@ export default function Navbar() {
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-3 sm:px-6 sm:py-4">
           {/* Brand */}
-          <a
-            href="/"
-            className="flex items-center gap-2 shrink-0"
-            style={{ fontFamily: "Anton, sans-serif" }}
-          >
-            <span
-              className={`grid h-9 w-9 place-items-center rounded-xl text-base font-black transition-colors ${
-                scrolled ? "bg-primary text-primary-foreground" : "bg-white/15 text-white backdrop-blur"
+          <a href="/" className="flex items-center shrink-0" aria-label="Finonest">
+            <img
+              src={finonestLogo.url}
+              alt="Finonest — Trust Comes First"
+              className={`h-10 sm:h-11 w-auto transition-all duration-300 ${
+                scrolled ? "" : "brightness-0 invert"
               }`}
-            >
-              F
-            </span>
-            <span
-              className={`text-xl tracking-[0.18em] uppercase transition-colors ${
-                scrolled ? "text-foreground" : "text-white"
-              }`}
-            >
-              Finonest
-            </span>
+            />
           </a>
+
 
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-1">
