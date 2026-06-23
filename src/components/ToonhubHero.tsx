@@ -172,49 +172,21 @@ export default function ToonhubHero() {
     return "back";
   };
 
-  // Per-slide tuning for the center vehicle. width uses min(vh, vw)
-  // so the 1:1 wrapper always fits inside the viewport on every breakpoint
-  // and the full vehicle stays visible (no wheel/roof clipping).
-  const getCenterImageStyle = (index: number) => {
+  const getCenterImageStyle = () => {
     if (isMobile) {
-      const common = { left: "50%", width: "min(68vh, 94vw)" } as const;
-      return [
-        { ...common, bottom: "14%" },
-        { ...common, bottom: "14%" },
-        { ...common, bottom: "15%" },
-        { ...common, bottom: "13%" },
-        { ...common, bottom: "13%" },
-        { ...common, bottom: "14%" },
-      ][index];
+      return { left: "50%", bottom: "14%", width: "94vw", height: "58vh" } as const;
     }
 
     if (isTablet) {
-      const common = { left: "60%", width: "min(78vh, 64vw)" } as const;
-      return [
-        { ...common, bottom: "6%" },
-        { ...common, bottom: "6%" },
-        { ...common, bottom: "7%" },
-        { ...common, bottom: "5%" },
-        { ...common, bottom: "5%" },
-        { ...common, bottom: "6%" },
-      ][index];
+      return { left: "62%", bottom: "6%", width: "62vw", height: "76vh" } as const;
     }
 
-    const common = { left: "70%", width: "min(86vh, 50vw)" } as const;
-    return [
-      { ...common, bottom: "3%" },
-      { ...common, bottom: "3%" },
-      { ...common, bottom: "4%" },
-      { ...common, bottom: "3%" },
-      { ...common, bottom: "2%" },
-      { ...common, bottom: "4%" },
-    ][index];
+    return { left: "71%", bottom: "3%", width: "52vw", height: "84vh" } as const;
   };
 
   const itemStyle = (role: Role, index: number): CSSProperties => {
     const base: CSSProperties = {
       position: "absolute",
-      aspectRatio: "1 / 1",
       transition: `transform ${DURATION}ms ${EASE}, filter ${DURATION}ms ${EASE}, opacity ${DURATION}ms ${EASE}, left ${DURATION}ms ${EASE}, bottom ${DURATION}ms ${EASE}, height ${DURATION}ms ${EASE}, width ${DURATION}ms ${EASE}`,
       willChange: "transform, filter, opacity",
       transformOrigin: "center bottom",
@@ -223,7 +195,7 @@ export default function ToonhubHero() {
       case "center":
         return {
           ...base,
-          ...getCenterImageStyle(index),
+          ...getCenterImageStyle(),
           transform: "translateX(-50%)",
           filter: "blur(0px)",
           opacity: 1,
