@@ -159,10 +159,10 @@ export default function ToonhubHero() {
       case "center":
         return {
           ...base,
-          left: isMobile ? "70%" : "72%",
-          bottom: isMobile ? "36%" : "6%",
-          height: isMobile ? "62%" : "78%",
-          transform: `translateX(-50%) scale(${isMobile ? 1.5 : 1.4})`,
+          left: isMobile ? "70%" : "74%",
+          bottom: isMobile ? "36%" : "2%",
+          height: isMobile ? "62%" : "95%",
+          transform: `translateX(-50%) scale(${isMobile ? 1.5 : 1.7})`,
 
           filter: "blur(0px)",
           opacity: 1,
