@@ -105,10 +105,6 @@ export default function ToonhubHero() {
   }, []);
 
   useEffect(() => {
-    if (isMobile) {
-      setScrollP(0);
-      return;
-    }
     let raf = 0;
     const onScroll = () => {
       if (raf) return;
@@ -128,7 +124,8 @@ export default function ToonhubHero() {
       window.removeEventListener("scroll", onScroll);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, [isMobile]);
+  }, []);
+
 
 
   useEffect(() => {
