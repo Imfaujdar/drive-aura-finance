@@ -268,8 +268,6 @@ export default function ToonhubHero() {
               objectFit: "contain",
               objectPosition: "bottom center",
               filter: "drop-shadow(0 18px 24px rgba(0,0,0,0.25))",
-              transform:
-                IMAGES[activeIndex].mascotSide === "left" ? "none" : "scaleX(-1)",
               animation: "fade-in 600ms ease-out",
             }}
           />
