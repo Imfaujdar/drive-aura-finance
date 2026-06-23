@@ -248,9 +248,9 @@ export default function ToonhubHero() {
           className="absolute inset-x-0 flex items-center pointer-events-none select-none"
           style={{
             zIndex: 2,
-            top: isMobile ? "22%" : "26%",
+            top: isMobile ? "22%" : "16%",
             justifyContent: isMobile ? "center" : "flex-start",
-            paddingLeft: isMobile ? 0 : "5%",
+            paddingLeft: isMobile ? 0 : "6%",
             transform: `translateY(${ghostShift}px)`,
             opacity: fadeOut,
             willChange: "transform, opacity",
@@ -259,13 +259,13 @@ export default function ToonhubHero() {
           <span
             style={{
               fontFamily: "Anton, sans-serif",
-              fontSize: isMobile ? "clamp(36px, 13vw, 82px)" : "clamp(80px, 11vw, 200px)",
+              fontSize: isMobile ? "clamp(36px, 13vw, 82px)" : "clamp(110px, 14vw, 240px)",
               fontWeight: 900,
               color: "#fff",
               opacity: isMobile ? 0.92 : 1,
-              lineHeight: 1,
+              lineHeight: 0.92,
               textTransform: "uppercase",
-              letterSpacing: "-0.02em",
+              letterSpacing: "-0.025em",
               whiteSpace: "nowrap",
               maxWidth: "92vw",
               overflow: "hidden",
