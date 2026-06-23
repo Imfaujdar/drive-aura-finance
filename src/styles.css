@@ -234,16 +234,10 @@
   }
 
   .snap-section {
-    min-height: 100svh;
     scroll-snap-align: start;
-    scroll-snap-stop: always;
-    display: flex;
-    align-items: center;
+    scroll-snap-stop: normal;
   }
 
-  .snap-section > * {
-    width: 100%;
-  }
 }
 
 @media (max-width: 767px) {
