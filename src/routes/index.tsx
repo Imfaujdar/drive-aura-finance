@@ -112,22 +112,6 @@ function Services() {
           <ChevronRight className="h-5 w-5 text-primary" />
         </button>
       </div>
-      {/* Mobile-only bottom mascot with offers callout */}
-      <div className="pointer-events-none relative mt-4 flex items-end justify-end gap-2 sm:hidden">
-        <div className="relative mb-4">
-          <div className="rounded-2xl rounded-br-sm bg-primary px-3.5 py-2 text-xs font-semibold text-primary-foreground shadow-[var(--shadow-lift)]">
-            🎁 Exclusive offers inside!
-          </div>
-          <span className="absolute -right-1.5 bottom-2 h-3 w-3 rotate-45 bg-primary" />
-        </div>
-        <img
-          src={mascotOffers}
-          alt=""
-          aria-hidden
-          loading="lazy"
-          className="h-36 w-auto drop-shadow-[0_18px_30px_rgba(0,0,0,0.35)]"
-        />
-      </div>
     </section>
   );
 }
