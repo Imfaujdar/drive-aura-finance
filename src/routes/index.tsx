@@ -75,13 +75,13 @@ function Services() {
   return (
     <section className="relative mx-auto max-w-7xl px-4 pt-12">
       {/* Welcome mascot sitting on the cards strip */}
-      <div className="pointer-events-none absolute left-4 sm:left-8 md:left-12 -top-20 sm:-top-28 md:-top-36 lg:-top-40 z-30 flex items-end gap-2 sm:gap-3">
+      <div className="pointer-events-none absolute left-4 sm:left-8 md:left-12 -top-14 sm:-top-24 md:-top-28 lg:-top-32 z-30 flex items-end gap-2 sm:gap-3">
         <img
           src={mascotSitting}
           alt=""
           aria-hidden
           loading="lazy"
-          className="h-24 w-auto -scale-x-100 drop-shadow-[0_18px_30px_rgba(0,0,0,0.35)] sm:h-32 md:h-40 lg:h-44"
+          className="h-20 w-auto -scale-x-100 drop-shadow-[0_18px_30px_rgba(0,0,0,0.35)] sm:h-32 md:h-40 lg:h-44"
         />
         <div className="relative mb-6 hidden sm:block">
           <div className="rounded-2xl rounded-bl-sm bg-white px-4 py-2 text-sm font-semibold text-foreground shadow-[var(--shadow-lift)] ring-1 ring-border md:text-base">
