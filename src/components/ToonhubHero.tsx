@@ -196,7 +196,7 @@ export default function ToonhubHero() {
               whiteSpace: "nowrap",
             }}
           >
-            FINONEST
+            {IMAGES[activeIndex].ghost}
           </span>
         </div>
 
@@ -205,7 +205,7 @@ export default function ToonhubHero() {
           className="absolute top-6 left-4 sm:left-8 text-xs font-semibold uppercase"
           style={{ zIndex: 60, color: "#fff", opacity: 0.9, letterSpacing: "0.18em" }}
         >
-          TOONHUB
+          FINONEST
         </div>
 
         {/* Carousel */}
@@ -236,14 +236,13 @@ export default function ToonhubHero() {
             className="mb-2 sm:mb-3 text-base sm:text-[22px] font-bold uppercase tracking-widest"
             style={{ color: "#fff", opacity: 0.95, letterSpacing: "0.02em" }}
           >
-            TOONHUB FIGURINES
+            {IMAGES[activeIndex].title}
           </h2>
           <p
             className="hidden sm:block text-xs sm:text-sm mb-4 sm:mb-5"
             style={{ color: "#fff", opacity: 0.85, lineHeight: 1.6 }}
           >
-            The artwork is stunning, shipped fully prepared. The finish is a vision, the 3D craft
-            is flawless. Many thanks! Wishing you the win. Order now.
+            {IMAGES[activeIndex].desc}
           </p>
           <div className="flex gap-3">
             <NavButton onClick={() => navigate("prev")} Icon={ArrowLeft} />
