@@ -11,6 +11,7 @@ import gsap from "gsap";
 import ToonhubHero from "@/components/ToonhubHero";
 import Navbar from "@/components/Navbar";
 import Typewriter from "@/components/Typewriter";
+import MascotPopup from "@/components/MascotPopup";
 
 import whyCar from "@/assets/why-car.png";
 import resaleCar from "@/assets/resale-car.png";
@@ -598,6 +599,7 @@ function HomePage() {
         <div data-reveal><CTA /></div>
       </main>
       <Footer />
+      <MascotPopup />
     </div>
   );
 }
