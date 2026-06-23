@@ -75,7 +75,7 @@ function Services() {
   return (
     <section className="relative mx-auto max-w-7xl px-4 pt-12">
       {/* Welcome mascot sitting on the cards strip */}
-      <div className="pointer-events-none absolute left-4 top-0 z-30 flex items-end gap-2 sm:left-8 sm:top-0 sm:gap-3 md:left-12">
+      <div className="pointer-events-none absolute left-4 top-16 z-30 flex items-end gap-2 sm:left-8 sm:top-12 sm:gap-3 md:left-12 md:top-10">
         <img
           src={mascotSitting}
           alt=""
