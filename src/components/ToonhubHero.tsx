@@ -472,6 +472,115 @@ export default function ToonhubHero() {
           <ArrowRight className="w-5 h-5 sm:w-8 sm:h-8" strokeWidth={2.25} />
         </a>
 
+        {/* Right-side vertical eyebrow - desktop only */}
+        <div
+          className="hidden sm:flex absolute right-6 top-1/2 -translate-y-1/2 items-center gap-3 pointer-events-none"
+          style={{
+            zIndex: 55,
+            writingMode: "vertical-rl",
+            transform: "translateY(-50%) rotate(180deg)",
+            color: "rgba(255,255,255,0.85)",
+            fontFamily: "Anton, sans-serif",
+            fontSize: 13,
+            letterSpacing: "0.32em",
+            textTransform: "uppercase",
+          }}
+        >
+          <span>Finance · Refinance · Insure</span>
+          <div style={{ width: 1, height: 60, background: "rgba(255,255,255,0.45)" }} />
+          <span style={{ fontFamily: "Inter, sans-serif", fontSize: 11, letterSpacing: "0.28em" }}>
+            Scroll
+          </span>
+        </div>
+
+        {/* Top-right feature pills - desktop only */}
+        <div
+          className="hidden lg:flex absolute top-28 right-10 flex-col items-end gap-3"
+          style={{ zIndex: 55, maxWidth: 280 }}
+        >
+          {[
+            { k: "01", v: "Approval in 30 mins" },
+            { k: "02", v: "Rates from 8.5% p.a." },
+            { k: "03", v: "100% Digital Process" },
+          ].map((f) => (
+            <div
+              key={f.k}
+              className="flex items-center gap-3 rounded-full px-4 py-2.5"
+              style={{
+                background: "rgba(255,255,255,0.12)",
+                backdropFilter: "blur(14px)",
+                WebkitBackdropFilter: "blur(14px)",
+                border: "1px solid rgba(255,255,255,0.25)",
+                color: "#fff",
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: "Anton, sans-serif",
+                  fontSize: 14,
+                  opacity: 0.85,
+                  letterSpacing: "0.06em",
+                }}
+              >
+                {f.k}
+              </span>
+              <span style={{ fontSize: 13, fontWeight: 500, letterSpacing: "0.01em" }}>
+                {f.v}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom-right stats card - desktop only */}
+        <div
+          className="hidden md:flex absolute bottom-32 right-10 flex-col gap-2 rounded-2xl px-5 py-4"
+          style={{
+            zIndex: 55,
+            background: "rgba(255,255,255,0.13)",
+            backdropFilter: "blur(16px)",
+            WebkitBackdropFilter: "blur(16px)",
+            border: "1px solid rgba(255,255,255,0.22)",
+            color: "#fff",
+            minWidth: 220,
+          }}
+        >
+          <div className="flex items-baseline gap-2">
+            <span
+              style={{
+                fontFamily: "Anton, sans-serif",
+                fontSize: 38,
+                lineHeight: 1,
+                letterSpacing: "-0.01em",
+              }}
+            >
+              ₹2,400Cr+
+            </span>
+          </div>
+          <span
+            style={{
+              fontSize: 11,
+              letterSpacing: "0.22em",
+              textTransform: "uppercase",
+              opacity: 0.85,
+            }}
+          >
+            Auto loans disbursed
+          </span>
+          <div className="mt-2 h-px w-full" style={{ background: "rgba(255,255,255,0.25)" }} />
+          <div className="flex items-center justify-between gap-3 pt-1">
+            <span style={{ fontSize: 12, opacity: 0.9 }}>1.2L+ happy drivers</span>
+            <span
+              style={{
+                fontFamily: "Anton, sans-serif",
+                fontSize: 13,
+                letterSpacing: "0.08em",
+              }}
+            >
+              ★ 4.8
+            </span>
+          </div>
+        </div>
+
 
       </div>
     </section>
