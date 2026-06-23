@@ -201,7 +201,7 @@ export default function ToonhubHero() {
           height: isMobile ? "13%" : "20%",
           transform: "translateX(-50%) scale(1)",
           filter: isMobile ? "none" : "blur(2px)",
-          opacity: isMobile ? 0.5 : 0,
+          opacity: 0,
           zIndex: 10,
         };
       case "right":
@@ -212,7 +212,7 @@ export default function ToonhubHero() {
           height: isMobile ? "12%" : "20%",
           transform: "translateX(-50%) scale(1)",
           filter: isMobile ? "none" : "blur(2px)",
-          opacity: isMobile ? 0.45 : 0,
+          opacity: 0,
           zIndex: 10,
         };
       case "back":
@@ -223,11 +223,12 @@ export default function ToonhubHero() {
           height: isMobile ? "10%" : "16%",
           transform: "translateX(-50%) scale(1)",
           filter: isMobile ? "none" : "blur(4px)",
-          opacity: isMobile ? 0.4 : 0,
+          opacity: 0,
           zIndex: 5,
         };
     }
   };
+
 
 
 
