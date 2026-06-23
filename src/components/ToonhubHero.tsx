@@ -1,4 +1,4 @@
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import toonCar from "@/assets/toon-car.png";
 import toonCard from "@/assets/toon-card.png";
@@ -78,12 +78,36 @@ export default function ToonhubHero() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [scrollP, setScrollP] = useState(0);
+  const sectionRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth < 640);
     onResize();
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  useEffect(() => {
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        const el = sectionRef.current;
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const h = rect.height || 1;
+        const p = Math.min(1, Math.max(0, -rect.top / h));
+        setScrollP(p);
+      });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   useEffect(() => {
@@ -101,11 +125,11 @@ export default function ToonhubHero() {
   };
 
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || scrollP > 0.05) return;
     const id = window.setInterval(() => navigate("next"), AUTOPLAY_MS);
     return () => window.clearInterval(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPaused, isAnimating]);
+  }, [isPaused, isAnimating, scrollP]);
 
 
   const roleOf = (i: number): Role => {
@@ -170,8 +194,19 @@ export default function ToonhubHero() {
     }
   };
 
+  const sideSign = IMAGES[activeIndex].mascotSide === "left" ? -1 : 1;
+  // Scroll-driven motion values
+  const ghostShift = -scrollP * 140; // ghost text rises
+  const subjectShift = scrollP * 80; // subject sinks slightly
+  const subjectScale = 1 - scrollP * 0.08;
+  const mascotShiftX = sideSign * scrollP * 180; // mascot slides off toward its edge
+  const mascotShiftY = scrollP * 120;
+  const mascotRot = sideSign * scrollP * 14;
+  const fadeOut = 1 - scrollP * 0.6;
+
   return (
     <section
+      ref={sectionRef}
       style={{
         backgroundColor: IMAGES[activeIndex].bg,
         transition: `background-color ${DURATION}ms ${EASE}`,
@@ -201,7 +236,13 @@ export default function ToonhubHero() {
         {/* Ghost text */}
         <div
           className="absolute inset-x-0 flex items-center justify-center pointer-events-none select-none"
-          style={{ zIndex: 2, top: "18%" }}
+          style={{
+            zIndex: 2,
+            top: "18%",
+            transform: `translateY(${ghostShift}px)`,
+            opacity: fadeOut,
+            willChange: "transform, opacity",
+          }}
         >
           <span
             style={{
@@ -229,7 +270,15 @@ export default function ToonhubHero() {
         </div>
 
         {/* Carousel */}
-        <div className="absolute inset-0" style={{ zIndex: 3 }}>
+        <div
+          className="absolute inset-0"
+          style={{
+            zIndex: 3,
+            transform: `translateY(${subjectShift}px) scale(${subjectScale})`,
+            transformOrigin: "center bottom",
+            willChange: "transform",
+          }}
+        >
           {IMAGES.map((img, i) => (
             <div key={i} style={itemStyle(roleOf(i))}>
               <img
@@ -273,6 +322,9 @@ export default function ToonhubHero() {
             bottom: isMobile ? "20%" : 0,
             [IMAGES[activeIndex].mascotSide]: isMobile ? "2%" : "26%",
             height: isMobile ? "30%" : "62%",
+            transform: `translate(${mascotShiftX}px, ${mascotShiftY}px) rotate(${mascotRot}deg)`,
+            opacity: fadeOut,
+            willChange: "transform, opacity",
           }}
           key={activeIndex}
         >
