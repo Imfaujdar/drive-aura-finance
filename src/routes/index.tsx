@@ -14,7 +14,7 @@ import cardCarLoan from "@/assets/card-car-loan.jpg";
 import cardHomeLoan from "@/assets/card-home-loan.jpg";
 import cardCreditCard from "@/assets/card-credit-card.jpg";
 import cardUsedCar from "@/assets/card-used-car.jpg";
-import heroCarMain from "@/assets/hero-car-main.png";
+
 import whyCar from "@/assets/why-car.png";
 import resaleCar from "@/assets/resale-car.png";
 import blog1 from "@/assets/blog-1.jpg";
