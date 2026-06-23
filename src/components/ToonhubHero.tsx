@@ -168,7 +168,7 @@ export default function ToonhubHero() {
               whiteSpace: "nowrap",
             }}
           >
-            3D SHAPE
+            FINONEST
           </span>
         </div>
 
