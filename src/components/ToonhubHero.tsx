@@ -6,10 +6,38 @@ import toonHome from "@/assets/toon-home.png";
 import toonCoins from "@/assets/toon-coins.png";
 
 const IMAGES = [
-  { src: toonCar, bg: "#F4845F", panel: "#F79B7F" },
-  { src: toonCard, bg: "#6BBF7A", panel: "#85CC92" },
-  { src: toonHome, bg: "#E882B4", panel: "#ED9DC4" },
-  { src: toonCoins, bg: "#6EB5FF", panel: "#8DC4FF" },
+  {
+    src: toonCar,
+    bg: "#F4845F",
+    panel: "#F79B7F",
+    ghost: "CAR LOAN",
+    title: "CAR LOAN",
+    desc: "Drive home your dream car with Finonest. Quick approvals, attractive interest rates and flexible tenures on new and used vehicles.",
+  },
+  {
+    src: toonCard,
+    bg: "#6BBF7A",
+    panel: "#85CC92",
+    ghost: "CREDIT CARD",
+    title: "CREDIT CARD",
+    desc: "Premium credit cards tailored to your lifestyle. Compare top issuers, unlock rewards and apply in minutes with Finonest.",
+  },
+  {
+    src: toonHome,
+    bg: "#E882B4",
+    panel: "#ED9DC4",
+    ghost: "HOME LOAN",
+    title: "HOME LOAN",
+    desc: "Turn the key to your dream home. Finonest brings you the lowest rates, fast sanctions and end-to-end paperwork support.",
+  },
+  {
+    src: toonCoins,
+    bg: "#6EB5FF",
+    panel: "#8DC4FF",
+    ghost: "PERSONAL LOAN",
+    title: "PERSONAL LOAN",
+    desc: "Instant personal loans for every milestone — weddings, travel, medical or emergencies. Funds in your account within hours.",
+  },
 ];
 
 const EASE = "cubic-bezier(0.4, 0, 0.2, 1)";
@@ -168,7 +196,7 @@ export default function ToonhubHero() {
               whiteSpace: "nowrap",
             }}
           >
-            FINONEST
+            {IMAGES[activeIndex].ghost}
           </span>
         </div>
 
@@ -177,7 +205,7 @@ export default function ToonhubHero() {
           className="absolute top-6 left-4 sm:left-8 text-xs font-semibold uppercase"
           style={{ zIndex: 60, color: "#fff", opacity: 0.9, letterSpacing: "0.18em" }}
         >
-          TOONHUB
+          FINONEST
         </div>
 
         {/* Carousel */}
@@ -208,14 +236,13 @@ export default function ToonhubHero() {
             className="mb-2 sm:mb-3 text-base sm:text-[22px] font-bold uppercase tracking-widest"
             style={{ color: "#fff", opacity: 0.95, letterSpacing: "0.02em" }}
           >
-            TOONHUB FIGURINES
+            {IMAGES[activeIndex].title}
           </h2>
           <p
             className="hidden sm:block text-xs sm:text-sm mb-4 sm:mb-5"
             style={{ color: "#fff", opacity: 0.85, lineHeight: 1.6 }}
           >
-            The artwork is stunning, shipped fully prepared. The finish is a vision, the 3D craft
-            is flawless. Many thanks! Wishing you the win. Order now.
+            {IMAGES[activeIndex].desc}
           </p>
           <div className="flex gap-3">
             <NavButton onClick={() => navigate("prev")} Icon={ArrowLeft} />
