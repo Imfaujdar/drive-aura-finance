@@ -83,8 +83,8 @@ export default function MascotPopup() {
           height={180}
           loading="lazy"
           className="block h-40 w-auto select-none drop-shadow-[0_10px_15px_rgba(0,0,0,0.28)] animate-[mascot-bob_2.6s_ease-in-out_infinite] sm:h-44"
-          style={{ transform: isLeft ? undefined : "scaleX(-1)" }}
         />
+
       </div>
 
       {/* Notification bubble — touches mascot, no gap */}
