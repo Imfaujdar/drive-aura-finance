@@ -41,83 +41,63 @@
 :root {
   --radius: 1rem;
 
-  /* Neumorphic cool-grey base */
-  --background: #E0E5EC;
-  --foreground: #3D4852;
+  /* Warm sand neumorphic base (matched to hero imagery) */
+  --background: #F2E7D8;
+  --foreground: #2B2118;
 
-  --card: #E0E5EC;
-  --card-foreground: #3D4852;
-  --popover: #E0E5EC;
-  --popover-foreground: #3D4852;
+  --card: #F2E7D8;
+  --card-foreground: #2B2118;
+  --popover: #F2E7D8;
+  --popover-foreground: #2B2118;
 
-  /* Soft violet accent */
-  --primary: #6C63FF;
-  --primary-foreground: #FFFFFF;
+  /* Terracotta / clay accent pulled from hero subject */
+  --primary: #C2674A;
+  --primary-foreground: #FFF7ED;
 
-  --secondary: #E0E5EC;
-  --secondary-foreground: #3D4852;
+  --secondary: #F2E7D8;
+  --secondary-foreground: #2B2118;
 
-  --muted: #D5DAE2;
-  --muted-foreground: #6B7280;
+  --muted: #E6D7C2;
+  --muted-foreground: #6B5A4A;
 
-  --accent: #6C63FF;
-  --accent-foreground: #FFFFFF;
+  --accent: #E8A87C;
+  --accent-foreground: #2B2118;
 
-  --destructive: #E11D2E;
-  --destructive-foreground: #FFFFFF;
+  --destructive: #B83A2A;
+  --destructive-foreground: #FFF7ED;
 
-  --success: #38B2AC;
+  --success: #7D9B6A;
 
   --border: transparent;
-  --input: #E0E5EC;
-  --ring: #6C63FF;
+  --input: #F2E7D8;
+  --ring: #C2674A;
 
-  --chart-1: #6C63FF;
-  --chart-2: #38B2AC;
-  --chart-3: #8B84FF;
-  --chart-4: #6B7280;
-  --chart-5: #3D4852;
+  --chart-1: #C2674A;
+  --chart-2: #E8A87C;
+  --chart-3: #8B6F5E;
+  --chart-4: #6B5A4A;
+  --chart-5: #2B2118;
 
-  --sidebar: #E0E5EC;
-  --sidebar-foreground: #3D4852;
-  --sidebar-primary: #6C63FF;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #D5DAE2;
-  --sidebar-accent-foreground: #3D4852;
+  --sidebar: #F2E7D8;
+  --sidebar-foreground: #2B2118;
+  --sidebar-primary: #C2674A;
+  --sidebar-primary-foreground: #FFF7ED;
+  --sidebar-accent: #E6D7C2;
+  --sidebar-accent-foreground: #2B2118;
   --sidebar-border: transparent;
-  --sidebar-ring: #6C63FF;
+  --sidebar-ring: #C2674A;
 
-  /* Neumorphic shadows */
-  --neu-shadow-dark: rgba(163, 177, 198, 0.6);
-  --neu-shadow-dark-strong: rgba(163, 177, 198, 0.7);
-  --neu-shadow-light: rgba(255, 255, 255, 0.5);
-  --neu-shadow-light-strong: rgba(255, 255, 255, 0.6);
-
-  --shadow-extruded:
-    9px 9px 16px var(--neu-shadow-dark),
-    -9px -9px 16px var(--neu-shadow-light);
-  --shadow-extruded-hover:
-    12px 12px 20px var(--neu-shadow-dark-strong),
-    -12px -12px 20px var(--neu-shadow-light-strong);
-  --shadow-extruded-sm:
-    5px 5px 10px var(--neu-shadow-dark),
-    -5px -5px 10px var(--neu-shadow-light);
-  --shadow-inset:
-    inset 6px 6px 10px var(--neu-shadow-dark),
-    inset -6px -6px 10px var(--neu-shadow-light);
-  --shadow-inset-deep:
-    inset 10px 10px 20px var(--neu-shadow-dark-strong),
-    inset -10px -10px 20px var(--neu-shadow-light-strong);
-  --shadow-inset-sm:
-    inset 3px 3px 6px var(--neu-shadow-dark),
-    inset -3px -3px 6px var(--neu-shadow-light);
-
-  /* Legacy aliases mapped to neumorphic equivalents */
-  --gradient-brand: linear-gradient(135deg, #8B84FF 0%, #6C63FF 100%);
+  /* Warm neumorphic shadows */
+  --neu-shadow-dark: rgba(168, 132, 96, 0.45);
+  --neu-shadow-dark-strong: rgba(168, 132, 96, 0.6);
+  --neu-shadow-light: rgba(255, 248, 235, 0.85);
+  --neu-shadow-light-strong: rgba(255, 250, 240, 0.95);
+...
+  --gradient-brand: linear-gradient(135deg, #E8A87C 0%, #C2674A 100%);
   --gradient-mesh: none;
   --shadow-glass: var(--shadow-extruded);
   --shadow-lift: var(--shadow-extruded-hover);
-  --shadow-glow: 0 0 0 2px rgba(108, 99, 255, 0.25), var(--shadow-extruded);
+  --shadow-glow: 0 0 0 2px rgba(194, 103, 74, 0.3), var(--shadow-extruded);
   --shadow-depth: var(--shadow-extruded-hover);
 }
 
@@ -219,7 +199,7 @@
   }
 
   .ring-glow {
-    box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.45), var(--shadow-extruded);
+    box-shadow: 0 0 0 2px rgba(194, 103, 74, 0.5), var(--shadow-extruded);
   }
 }
 
@@ -257,11 +237,11 @@
 
 .car-depth {
   filter:
-    drop-shadow(0 30px 25px rgba(163, 177, 198, 0.55))
-    drop-shadow(0 12px 12px rgba(163, 177, 198, 0.35));
+    drop-shadow(0 30px 25px rgba(168, 132, 96, 0.5))
+    drop-shadow(0 12px 12px rgba(168, 132, 96, 0.32));
 }
 .car-depth-lg {
   filter:
-    drop-shadow(0 36px 28px rgba(163, 177, 198, 0.6))
-    drop-shadow(0 12px 12px rgba(163, 177, 198, 0.35));
+    drop-shadow(0 36px 28px rgba(168, 132, 96, 0.55))
+    drop-shadow(0 12px 12px rgba(168, 132, 96, 0.32));
 }
