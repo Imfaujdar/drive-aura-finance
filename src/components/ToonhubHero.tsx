@@ -5,6 +5,7 @@ import heroLoanAgainstCar from "@/assets/hero-mascot-loanagainstcar.png";
 import heroNewCar from "@/assets/hero-mascot-newcar-v2.png";
 import heroCommercial from "@/assets/hero-mascot-commercial.png";
 import heroConstruction from "@/assets/hero-mascot-construction.png";
+import heroTractor from "@/assets/hero-mascot-tractor.png";
 
 const IMAGES = [
   {
