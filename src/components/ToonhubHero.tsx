@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import toonCar from "@/assets/toon-car.png";
-import toonCard from "@/assets/toon-card.png";
-import toonHome from "@/assets/toon-home.png";
-import toonCoins from "@/assets/toon-coins.png";
+import toonCar from "@/assets/hero-mascot-newcar.png";
+import toonCard from "@/assets/hero-mascot-refinance.png";
+import toonHome from "@/assets/hero-mascot-insurance.png";
+import toonCoins from "@/assets/hero-mascot-usedcar.png";
 import mascotCar from "@/assets/mascot-car.png";
 import mascotCard from "@/assets/mascot-card.png";
 import mascotHome from "@/assets/mascot-home.png";
