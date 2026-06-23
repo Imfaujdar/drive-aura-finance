@@ -201,7 +201,7 @@ function CalculatorSection() {
             ))}
           </div>
         </div>
-        <CreditScoreCard />
+        <div className="hidden lg:block"><CreditScoreCard /></div>
       </div>
     </section>
   );
