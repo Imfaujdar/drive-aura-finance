@@ -78,12 +78,36 @@ export default function ToonhubHero() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [scrollP, setScrollP] = useState(0);
+  const sectionRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth < 640);
     onResize();
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  useEffect(() => {
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        const el = sectionRef.current;
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const h = rect.height || 1;
+        const p = Math.min(1, Math.max(0, -rect.top / h));
+        setScrollP(p);
+      });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   useEffect(() => {
