@@ -314,47 +314,6 @@ export default function ToonhubHero() {
           }
         `}</style>
 
-        {/* Mascot pointing to subject */}
-        <div
-          className="absolute pointer-events-none"
-          style={{
-            zIndex: 15,
-            bottom: isMobile ? "20%" : 0,
-            [IMAGES[activeIndex].mascotSide]: isMobile ? "2%" : "26%",
-            height: isMobile ? "30%" : "62%",
-            transform: `translate(${mascotShiftX}px, ${mascotShiftY}px) rotate(${mascotRot}deg)`,
-            opacity: fadeOut,
-            willChange: "transform, opacity",
-          }}
-          key={activeIndex}
-        >
-          <div
-            style={{
-              height: "100%",
-              animation: `${IMAGES[activeIndex].mascotSide === "left" ? "mascot-pop-left" : "mascot-pop-right"} 720ms cubic-bezier(0.34, 1.56, 0.64, 1) both`,
-            }}
-          >
-            <div
-              style={{
-                height: "100%",
-                animation: "mascot-idle 3.6s ease-in-out 720ms infinite",
-                transformOrigin: "bottom center",
-              }}
-            >
-              <img
-                src={IMAGES[activeIndex].mascot}
-                alt=""
-                style={{
-                  height: "100%",
-                  width: "auto",
-                  objectFit: "contain",
-                  objectPosition: "bottom center",
-                  filter: "drop-shadow(0 18px 28px rgba(0,0,0,0.28))",
-                }}
-              />
-            </div>
-          </div>
-        </div>
 
         {/* Bottom-left */}
         <div
