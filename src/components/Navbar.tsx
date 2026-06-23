@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Menu, X, ChevronDown, Phone } from "lucide-react";
+import finonestLogo from "@/assets/finonest-logo.png.asset.json";
+
 
 const NAV = [
   {
