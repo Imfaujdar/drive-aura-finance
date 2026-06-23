@@ -15,6 +15,7 @@ import MascotPopup from "@/components/MascotPopup";
 
 import whyCar from "@/assets/why-car.png";
 import mascotFull from "@/assets/finonest-mascot-full.png";
+import mascotSitting from "@/assets/finonest-mascot-sitting.png";
 import resaleCar from "@/assets/resale-car.png";
 import blog1 from "@/assets/blog-1.jpg";
 import blog2 from "@/assets/blog-2.jpg";
@@ -331,7 +332,14 @@ function WhyCard() {
     "Expert Support at Every Step",
   ];
   return (
-    <div data-card className={`${TRIPLE_CARD} relative overflow-hidden`}>
+    <div data-card className={`${TRIPLE_CARD} relative`} style={{ overflow: "visible" }}>
+      <img
+        src={mascotSitting}
+        alt=""
+        aria-hidden
+        loading="lazy"
+        className="pointer-events-none absolute -top-16 -right-4 z-30 h-28 w-auto drop-shadow-[0_15px_25px_rgba(0,0,0,0.3)] sm:-top-20 sm:h-32 md:-top-24 md:h-36"
+      />
       <h3 className="text-center font-display text-lg font-bold">Why Choose Finonest?</h3>
       <div className="relative my-2 grid place-items-center">
         <div className="pointer-events-none absolute inset-0 -z-10 mx-auto h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
