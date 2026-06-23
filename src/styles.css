@@ -231,23 +231,38 @@
     animation: caret-blink 0.9s steps(2) infinite;
   }
 
+  /* Page-shift sections: snap softly without trapping scroll */
   .snap-section {
-    min-height: 100svh;
     scroll-snap-align: start;
-    scroll-snap-stop: always;
-    display: flex;
-    align-items: center;
+    scroll-snap-stop: normal;
+    scroll-margin-top: 4.75rem;
   }
+}
 
-  .snap-section > * {
-    width: 100%;
-  }
+html {
+  scroll-snap-type: y proximity;
+}
+
+/* Page-shift reveal: each section eases in as it enters the viewport */
+[data-page-section] {
+  opacity: 0;
+  transform: translateY(40px) scale(0.985);
+  transition:
+    opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: opacity, transform;
+}
+[data-page-section].in-view {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 @media (max-width: 767px) {
   html {
-    scroll-snap-type: y mandatory;
     scroll-padding-top: 4.25rem;
+  }
+  .snap-section {
+    scroll-margin-top: 4.25rem;
   }
 }
 
@@ -256,10 +271,13 @@
     scroll-behavior: auto;
     scroll-snap-type: none;
   }
-
   .snap-section {
     scroll-snap-align: none;
-    scroll-snap-stop: normal;
+  }
+  [data-page-section] {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
 
