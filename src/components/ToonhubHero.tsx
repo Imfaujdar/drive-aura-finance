@@ -126,6 +126,12 @@ export default function ToonhubHero() {
         fontFamily: "Inter, sans-serif",
       }}
       className="relative w-full overflow-hidden"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onFocusCapture={() => setIsPaused(true)}
+      onBlurCapture={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node)) setIsPaused(false);
+      }}
     >
       <div className="relative w-full" style={{ height: "100vh", overflow: "hidden" }}>
         {/* Grain */}
