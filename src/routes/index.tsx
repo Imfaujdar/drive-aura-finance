@@ -73,7 +73,23 @@ function Services() {
   ];
   return (
     <section className="relative mx-auto max-w-7xl px-4 pt-12">
-      <div className="relative overflow-hidden rounded-3xl glass p-3 sm:p-5 md:p-6">
+      {/* Welcome mascot sitting on the cards strip */}
+      <div className="pointer-events-none absolute left-4 sm:left-8 md:left-12 -top-4 sm:-top-8 md:-top-12 z-30 flex items-end gap-2 sm:gap-3">
+        <img
+          src={mascotSitting}
+          alt=""
+          aria-hidden
+          loading="lazy"
+          className="h-24 w-auto drop-shadow-[0_18px_30px_rgba(0,0,0,0.35)] sm:h-32 md:h-40 lg:h-44"
+        />
+        <div className="relative mb-6 hidden sm:block">
+          <div className="rounded-2xl rounded-bl-sm bg-white px-4 py-2 text-sm font-semibold text-foreground shadow-[var(--shadow-lift)] ring-1 ring-border md:text-base">
+            👋 Welcome to <span className="text-primary">Finonest</span>!
+          </div>
+          <span className="absolute -left-1.5 bottom-2 h-3 w-3 rotate-45 bg-white ring-1 ring-border" />
+        </div>
+      </div>
+      <div className="relative overflow-visible rounded-3xl glass p-3 sm:p-5 md:p-6">
         <div data-card-group className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6">
           {items.map(({ icon: Icon, title, sub, color }) => (
             <button
