@@ -172,10 +172,43 @@ export default function ToonhubHero() {
     return "back";
   };
 
-  const itemStyle = (role: Role): CSSProperties => {
+  const getCenterImageStyle = (index: number) => {
+    if (isMobile) {
+      return [
+        { left: "50%", bottom: "13%", height: "70%", width: "96vw" },
+        { left: "50%", bottom: "13%", height: "72%", width: "82vw" },
+        { left: "50%", bottom: "14%", height: "68%", width: "96vw" },
+        { left: "50%", bottom: "12%", height: "70%", width: "96vw" },
+        { left: "50%", bottom: "12%", height: "72%", width: "96vw" },
+        { left: "50%", bottom: "13%", height: "68%", width: "96vw" },
+      ][index];
+    }
+
+    if (isTablet) {
+      return [
+        { left: "62%", bottom: "4%", height: "78%", width: "54vw" },
+        { left: "65%", bottom: "4%", height: "82%", width: "36vw" },
+        { left: "64%", bottom: "5%", height: "76%", width: "55vw" },
+        { left: "62%", bottom: "4%", height: "78%", width: "56vw" },
+        { left: "62%", bottom: "3%", height: "78%", width: "56vw" },
+        { left: "62%", bottom: "5%", height: "74%", width: "55vw" },
+      ][index];
+    }
+
+    return [
+      { left: "72%", bottom: "2%", height: "88%", width: "48vw" },
+      { left: "74%", bottom: "2%", height: "92%", width: "32vw" },
+      { left: "72%", bottom: "3%", height: "84%", width: "48vw" },
+      { left: "72%", bottom: "2%", height: "86%", width: "48vw" },
+      { left: "72%", bottom: "1%", height: "86%", width: "48vw" },
+      { left: "72%", bottom: "3%", height: "82%", width: "47vw" },
+    ][index];
+  };
+
+  const itemStyle = (role: Role, index: number): CSSProperties => {
     const base: CSSProperties = {
       position: "absolute",
-      aspectRatio: isMobile ? "1 / 1" : "0.6 / 1",
+      aspectRatio: "1 / 1",
       transition: `transform ${DURATION}ms ${EASE}, filter ${DURATION}ms ${EASE}, opacity ${DURATION}ms ${EASE}, left ${DURATION}ms ${EASE}, bottom ${DURATION}ms ${EASE}, height ${DURATION}ms ${EASE}`,
       willChange: "transform, filter, opacity",
     };
@@ -183,12 +216,10 @@ export default function ToonhubHero() {
       case "center":
         return {
           ...base,
-          left: isMobile ? "50%" : "72%",
-          bottom: isMobile ? "8%" : "2%",
-          height: isMobile ? "82%" : "92%",
+          ...getCenterImageStyle(index),
           transform: isMobile
-            ? "translateX(-50%) scale(1.05)"
-            : "translateX(-50%) scale(1.35)",
+            ? "translateX(-50%) scale(1)"
+            : "translateX(-50%) scale(1.08)",
 
           filter: "blur(0px)",
           opacity: 1,
