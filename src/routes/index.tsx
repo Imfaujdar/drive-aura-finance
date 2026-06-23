@@ -145,6 +145,13 @@ function CreditScoreCard() {
 function CalculatorSection() {
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-12">
+      <img
+        src={mascotFull}
+        alt=""
+        aria-hidden
+        loading="lazy"
+        className="pointer-events-none absolute -top-10 right-2 z-20 hidden h-48 w-auto rotate-[8deg] drop-shadow-[0_15px_25px_rgba(0,0,0,0.25)] md:block lg:h-56"
+      />
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2 rounded-3xl glass-strong p-7 md:p-10 relative overflow-hidden">
           <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-primary/15 blur-3xl" />
