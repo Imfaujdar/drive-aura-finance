@@ -243,12 +243,12 @@ export default function ToonhubHero() {
           }}
         />
 
-        {/* Ghost text */}
+        {/* Ghost text - sits behind the subject for depth */}
         <div
           className="absolute inset-x-0 flex items-center justify-center pointer-events-none select-none"
           style={{
             zIndex: 2,
-            top: "18%",
+            top: isMobile ? "38%" : "20%",
             transform: `translateY(${ghostShift}px)`,
             opacity: fadeOut,
             willChange: "transform, opacity",
@@ -257,19 +257,21 @@ export default function ToonhubHero() {
           <span
             style={{
               fontFamily: "Anton, sans-serif",
-              fontSize: "clamp(56px, 18vw, 320px)",
+              fontSize: isMobile ? "clamp(64px, 22vw, 140px)" : "clamp(120px, 18vw, 320px)",
               fontWeight: 900,
               color: "#fff",
-              opacity: 1,
+              opacity: isMobile ? 0.92 : 1,
               lineHeight: 1,
               textTransform: "uppercase",
               letterSpacing: "-0.02em",
               whiteSpace: "nowrap",
+              textShadow: "0 2px 24px rgba(0,0,0,0.12)",
             }}
           >
             {IMAGES[activeIndex].ghost}
           </span>
         </div>
+
 
         {/* Brand handled by global Navbar */}
 
