@@ -247,6 +247,34 @@ export default function ToonhubHero() {
           ))}
         </div>
 
+        {/* Mascot pointing to subject */}
+        <div
+          className="absolute pointer-events-none hidden md:block"
+          style={{
+            zIndex: 25,
+            bottom: 0,
+            [IMAGES[activeIndex].mascotSide]: "8%",
+            height: "46%",
+            transition: `opacity ${DURATION}ms ${EASE}, transform ${DURATION}ms ${EASE}`,
+          }}
+          key={activeIndex}
+        >
+          <img
+            src={IMAGES[activeIndex].mascot}
+            alt=""
+            style={{
+              height: "100%",
+              width: "auto",
+              objectFit: "contain",
+              objectPosition: "bottom center",
+              filter: "drop-shadow(0 18px 24px rgba(0,0,0,0.25))",
+              transform:
+                IMAGES[activeIndex].mascotSide === "left" ? "none" : "scaleX(-1)",
+              animation: "fade-in 600ms ease-out",
+            }}
+          />
+        </div>
+
         {/* Bottom-left */}
         <div
           className="absolute bottom-6 left-4 sm:bottom-20 sm:left-24"
