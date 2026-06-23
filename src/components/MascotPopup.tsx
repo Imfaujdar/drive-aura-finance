@@ -41,26 +41,26 @@ export default function MascotPopup() {
 
   return (
     <div className="pointer-events-none fixed bottom-24 left-0 z-[60] flex items-center md:hidden">
-      {/* Mascot — auto slides in/out from left edge */}
+      {/* Mascot — auto slides in/out from left edge, flush to edge */}
       <div
-        className={`pointer-events-auto relative transition-all duration-700 ease-out ${
+        className={`pointer-events-auto relative -ml-4 transition-all duration-700 ease-out ${
           open ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
         }`}
       >
-        <div className="pointer-events-none absolute inset-0 -z-10 translate-x-4 rounded-full bg-primary/25 blur-2xl" />
+        <div className="pointer-events-none absolute inset-0 -z-10 translate-x-6 rounded-full bg-primary/25 blur-2xl" />
         <img
           src={mascot}
           alt="Finonest mascot"
-          width={140}
-          height={140}
+          width={180}
+          height={180}
           loading="lazy"
-          className="block h-28 w-auto select-none drop-shadow-[0_10px_15px_rgba(0,0,0,0.28)] animate-[mascot-bob_2.6s_ease-in-out_infinite]"
+          className="block h-40 w-auto select-none drop-shadow-[0_10px_15px_rgba(0,0,0,0.28)] animate-[mascot-bob_2.6s_ease-in-out_infinite] sm:h-44"
         />
       </div>
 
       {/* Notification bubble — directly touching mascot, no gap */}
       <div
-        className={`pointer-events-auto relative -ml-3 max-w-[200px] origin-left rounded-2xl bg-white/95 px-3 py-2.5 shadow-[0_10px_30px_rgba(0,0,0,0.18)] ring-1 ring-black/5 backdrop-blur transition-all delay-150 duration-500 ${
+        className={`pointer-events-auto relative -ml-6 max-w-[200px] origin-left rounded-2xl bg-white/95 px-3 py-2.5 shadow-[0_10px_30px_rgba(0,0,0,0.18)] ring-1 ring-black/5 backdrop-blur transition-all delay-150 duration-500 ${
           open
             ? "translate-x-0 scale-100 opacity-100"
             : "pointer-events-none -translate-x-4 scale-90 opacity-0"
