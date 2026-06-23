@@ -194,7 +194,7 @@ export default function ToonhubHero() {
           <span
             style={{
               fontFamily: "Anton, sans-serif",
-              fontSize: "clamp(90px, 28vw, 380px)",
+              fontSize: "clamp(56px, 18vw, 320px)",
               fontWeight: 900,
               color: "#fff",
               opacity: 1,
@@ -238,20 +238,56 @@ export default function ToonhubHero() {
         {/* Bottom-left */}
         <div
           className="absolute bottom-6 left-4 sm:bottom-20 sm:left-24"
-          style={{ zIndex: 60, maxWidth: 320 }}
+          style={{ zIndex: 60, maxWidth: "min(90vw, 360px)" }}
         >
           <h2
-            className="mb-2 sm:mb-3 text-base sm:text-[22px] font-bold uppercase tracking-widest"
-            style={{ color: "#fff", opacity: 0.95, letterSpacing: "0.02em" }}
+            className="mb-2 sm:mb-3 font-bold uppercase tracking-widest"
+            style={{
+              color: "#fff",
+              opacity: 0.95,
+              letterSpacing: "0.02em",
+              fontSize: "clamp(15px, 2.2vw, 24px)",
+              lineHeight: 1.15,
+            }}
           >
             {IMAGES[activeIndex].title}
           </h2>
           <p
-            className="hidden sm:block text-xs sm:text-sm mb-4 sm:mb-5"
-            style={{ color: "#fff", opacity: 0.85, lineHeight: 1.6 }}
+            className="hidden sm:block mb-4 sm:mb-5"
+            style={{
+              color: "#fff",
+              opacity: 0.85,
+              lineHeight: 1.6,
+              fontSize: "clamp(12px, 1.1vw, 15px)",
+            }}
           >
             {IMAGES[activeIndex].desc}
           </p>
+          <a
+            href={IMAGES[activeIndex].href}
+            className="inline-flex items-center gap-2 rounded-full font-semibold mb-4 sm:mb-5"
+            style={{
+              backgroundColor: "#fff",
+              color: IMAGES[activeIndex].bg,
+              padding: "10px 18px",
+              fontSize: "clamp(12px, 1vw, 14px)",
+              letterSpacing: "0.04em",
+              textTransform: "uppercase",
+              transition: `color ${DURATION}ms ${EASE}, transform 150ms ease, box-shadow 150ms ease`,
+              boxShadow: "0 6px 18px rgba(0,0,0,0.18)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "translateY(-2px)";
+              e.currentTarget.style.boxShadow = "0 10px 24px rgba(0,0,0,0.22)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = "0 6px 18px rgba(0,0,0,0.18)";
+            }}
+          >
+            {IMAGES[activeIndex].cta}
+            <ArrowRight size={16} strokeWidth={2.5} />
+          </a>
           <div className="flex gap-3">
             <NavButton onClick={() => navigate("prev")} Icon={ArrowLeft} />
             <NavButton onClick={() => navigate("next")} Icon={ArrowRight} />
