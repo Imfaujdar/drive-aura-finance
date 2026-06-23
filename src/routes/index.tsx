@@ -633,16 +633,16 @@ function HomePage() {
       <Navbar />
       <ToonhubHero />
       <main>
-        <div data-reveal><Services /></div>
-        <div data-reveal><CalculatorSection /></div>
-        <div data-reveal><HowItWorks /></div>
-        <div data-reveal><Resale /></div>
-        <div data-reveal><WhyChooseUs /></div>
-        <div data-reveal><BottomTriple /></div>
-        <div data-reveal><Testimonials /></div>
-        <div data-reveal><DSAPartner /></div>
-        <div data-reveal><Partners /></div>
-        <div data-reveal><CTA /></div>
+        <div data-page-section data-reveal className="snap-section"><Services /></div>
+        <div data-page-section data-reveal className="snap-section"><CalculatorSection /></div>
+        <div data-page-section data-reveal className="snap-section"><HowItWorks /></div>
+        <div data-page-section data-reveal className="snap-section"><Resale /></div>
+        <div data-page-section data-reveal className="snap-section"><WhyChooseUs /></div>
+        <div data-page-section data-reveal className="snap-section"><BottomTriple /></div>
+        <div data-page-section data-reveal className="snap-section"><Testimonials /></div>
+        <div data-page-section data-reveal className="snap-section"><DSAPartner /></div>
+        <div data-page-section data-reveal className="snap-section"><Partners /></div>
+        <div data-page-section data-reveal className="snap-section"><CTA /></div>
       </main>
       <Footer />
       <MascotPopup />

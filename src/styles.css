@@ -110,6 +110,8 @@
   html {
     font-family: var(--font-sans);
     scroll-behavior: smooth;
+    scroll-snap-type: y proximity;
+    scroll-padding-top: 4.75rem;
   }
 
   body {
@@ -117,6 +119,8 @@
     color: var(--foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    overscroll-behavior-y: contain;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -227,6 +231,37 @@
     vertical-align: -0.12em;
     background: var(--hero-accent);
     animation: caret-blink 0.9s steps(2) infinite;
+  }
+
+  .snap-section {
+    min-height: 100svh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+    align-items: center;
+  }
+
+  .snap-section > * {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  html {
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: 4.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+    scroll-snap-type: none;
+  }
+
+  .snap-section {
+    scroll-snap-align: none;
+    scroll-snap-stop: normal;
   }
 }
 

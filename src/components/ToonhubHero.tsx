@@ -239,12 +239,13 @@ export default function ToonhubHero() {
   return (
     <section
       ref={sectionRef}
+      data-page-section
       style={{
         backgroundColor: IMAGES[activeIndex].bg,
         transition: `background-color ${DURATION}ms ${EASE}`,
         fontFamily: "Inter, sans-serif",
       }}
-      className="relative w-full overflow-hidden"
+      className="relative w-full overflow-hidden snap-section"
       onFocusCapture={() => setIsPaused(true)}
       onBlurCapture={(e) => {
         if (!e.currentTarget.contains(e.relatedTarget as Node)) setIsPaused(false);
