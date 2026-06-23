@@ -121,11 +121,11 @@ function Services() {
           <span className="absolute -right-1.5 bottom-2 h-3 w-3 rotate-45 bg-primary" />
         </div>
         <img
-          src={mascotSitting}
+          src={mascotOffers}
           alt=""
           aria-hidden
           loading="lazy"
-          className="h-24 w-auto drop-shadow-[0_18px_30px_rgba(0,0,0,0.35)]"
+          className="h-36 w-auto drop-shadow-[0_18px_30px_rgba(0,0,0,0.35)]"
         />
       </div>
     </section>
