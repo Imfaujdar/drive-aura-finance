@@ -278,7 +278,6 @@ function Hero() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl">
-        {/* Category tag */}
         <div
           key={`tag-${idx}`}
           className="hero-script-l inline-flex items-center gap-2 rounded-full bg-background px-4 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-primary neu-pressed"
@@ -286,9 +285,17 @@ function Hero() {
           <Sparkles className="h-3.5 w-3.5" /> {slide.category}
         </div>
 
-        {/* Stage: image absolutely centered, scripts flanking, cards anchored bottom-left/right */}
-        <div className="relative mt-4 h-[640px] md:h-[680px]">
-          {/* Center product image */}
+        <div className={`relative mt-4 ${isPersonal ? "h-[700px] md:h-[760px]" : "h-[640px] md:h-[680px]"}`}>
+          <div className="pointer-events-none absolute inset-x-0 top-[10%] z-0 flex justify-center">
+            <span
+              key={`bg-${idx}`}
+              className="hero-bgword select-none whitespace-nowrap font-display font-extrabold tracking-tighter text-foreground/[0.06]"
+              style={{ fontSize: "clamp(8rem, 22vw, 22rem)", lineHeight: 0.9, letterSpacing: "-0.04em" }}
+            >
+              {slide.bgWord}
+            </span>
+          </div>
+
           <div className="pointer-events-none absolute left-1/2 top-1/2 -z-0 h-[28rem] w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/15 blur-3xl" />
           <img
             key={`img-${idx}`}
@@ -296,94 +303,102 @@ function Hero() {
             alt={slide.imageAlt}
             width={1280}
             height={960}
-            className="hero-image pointer-events-none absolute left-1/2 top-1/2 z-10 h-[62%] w-auto max-w-[68%] -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-2xl md:h-[70%]"
+            className={`hero-image pointer-events-none absolute z-10 object-contain drop-shadow-2xl ${isPersonal ? "left-1/2 top-[54%] h-[78%] w-auto max-w-[60%] -translate-x-1/2 -translate-y-1/2 md:h-[84%]" : "left-1/2 top-1/2 h-[62%] w-auto max-w-[68%] -translate-x-1/2 -translate-y-1/2 md:h-[70%]"}`}
           />
 
-          {/* Script LEFT */}
           <h1
             key={`l-${idx}`}
-            className="hero-script-l absolute left-0 top-[18%] z-20 text-primary"
+            className={`hero-script-l absolute z-20 text-primary ${isPersonal ? "left-0 top-[20%]" : "left-0 top-[18%]"}`}
             style={{
               fontFamily: "'Caveat Brush', cursive",
-              fontSize: "clamp(2.6rem, 6vw, 5.5rem)",
+              fontSize: isPersonal ? "clamp(3.2rem, 7vw, 6.2rem)" : "clamp(2.6rem, 6vw, 5.5rem)",
               lineHeight: 0.95,
               transform: "rotate(-2deg)",
             }}
           >
             {slide.scriptLeft}
-            <span className="mt-1 block h-1 w-28 rounded-full bg-primary/60" />
-            <span className="mt-3 block max-w-[14rem] font-display text-sm font-semibold text-foreground/80 md:text-base" style={{ transform: "rotate(2deg)" }}>
+            <span className={`mt-1 block rounded-full bg-primary/60 ${isPersonal ? "h-1 w-52" : "h-1 w-28"}`} />
+            <span className="hero-sub mt-3 block max-w-[15rem] font-display text-xl font-medium leading-tight text-foreground/90 md:text-[1.1rem]" style={{ transform: "rotate(2deg)" }}>
               {slide.sub}
             </span>
           </h1>
 
-          {/* Script RIGHT */}
           <h2
             key={`r-${idx}`}
-            className="hero-script-r absolute right-0 top-[28%] z-20 text-right text-primary"
+            className={`hero-script-r absolute z-20 text-right text-primary ${isPersonal ? "right-0 top-[28%]" : "right-0 top-[28%]"}`}
             style={{
               fontFamily: "'Caveat Brush', cursive",
-              fontSize: "clamp(2.6rem, 6vw, 5.5rem)",
+              fontSize: isPersonal ? "clamp(3.2rem, 7vw, 6.2rem)" : "clamp(2.6rem, 6vw, 5.5rem)",
               lineHeight: 0.95,
               transform: "rotate(2deg)",
             }}
           >
             {slide.scriptRight}
-            <span className="ml-auto mt-1 block h-1 w-32 rounded-full bg-primary/60" />
+            <span className={`ml-auto mt-1 block rounded-full bg-primary/60 ${isPersonal ? "h-1 w-60" : "h-1 w-32"}`} />
           </h2>
 
-          {/* Why-choose card BOTTOM-LEFT */}
           <div
             key={`cl-${idx}`}
-            className="hero-card-l absolute bottom-2 left-0 z-20 w-[260px] rounded-2xl bg-background/85 p-5 backdrop-blur neu-raised md:w-[280px]"
+            className={`hero-card-l absolute left-0 z-20 rounded-2xl bg-background/85 p-5 backdrop-blur neu-raised ${isPersonal ? "bottom-[8%] w-[300px]" : "bottom-2 w-[260px] md:w-[280px]"}`}
           >
             <div className="text-xs font-bold uppercase tracking-[0.18em] text-foreground">
               {slide.whyTitle}
             </div>
             <span className="mt-2 block h-0.5 w-12 rounded-full bg-primary" />
             <ul className="mt-4 space-y-3">
-              {slide.perks.map(({ icon: Icon, label }) => (
-                <li key={label} className="hero-perk flex items-center gap-3 text-sm font-semibold text-foreground/90">
-                  <span className="grid h-8 w-8 place-items-center rounded-full bg-primary/10 text-primary">
+              {slide.perks.map(({ icon: Icon, label, subLabel }) => (
+                <li key={label} className="hero-perk flex items-start gap-3 text-sm font-semibold text-foreground/90">
+                  <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
                     <Icon className="h-4 w-4" />
                   </span>
-                  {label}
+                  <span>
+                    <span className="block">{label}</span>
+                    {subLabel ? <span className="block text-xs font-medium text-muted-foreground">{subLabel}</span> : null}
+                  </span>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Rate card BOTTOM-RIGHT */}
           <div
             key={`cr-${idx}`}
-            className="hero-card-r absolute bottom-2 right-0 z-20 w-[260px] rounded-2xl bg-background/85 p-5 text-right backdrop-blur neu-raised md:w-[280px]"
+            className={`hero-card-r absolute right-0 z-20 rounded-2xl bg-background/85 p-5 text-left backdrop-blur neu-raised ${isPersonal ? "bottom-[8%] w-[320px]" : "bottom-2 w-[260px] text-right md:w-[280px]"}`}
           >
             <div className="text-xs font-bold uppercase tracking-[0.18em] text-foreground">
               {slide.rateLabel}
             </div>
-            <span className="ml-auto mt-2 block h-0.5 w-12 rounded-full bg-primary" />
-            <div className="mt-3 font-num text-4xl font-extrabold text-primary md:text-5xl">
+            <span className={`mt-2 block h-0.5 w-12 rounded-full bg-primary ${isPersonal ? "" : "ml-auto"}`} />
+            <div className={`mt-3 font-num font-extrabold text-primary ${isPersonal ? "text-6xl" : "text-4xl md:text-5xl"}`}>
               {slide.rateValue}
-              <span className="ml-1 text-sm font-semibold text-foreground/70">{slide.rateSuffix}</span>
+              <span className="ml-2 text-sm font-semibold text-primary">{slide.rateSuffix}</span>
             </div>
-            <button className="btn-shine mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-brand px-5 py-3 text-sm font-bold text-white shadow-[var(--shadow-glow)]">
+            {slide.rateSecondaryLabel ? (
+              <>
+                <div className="mt-5 border-t border-border/60 pt-4 text-xs font-bold uppercase tracking-[0.16em] text-foreground">
+                  {slide.rateSecondaryLabel}
+                </div>
+                <div className="mt-2 font-num text-4xl font-extrabold text-primary">
+                  {slide.rateSecondaryValue}
+                  <span className="ml-1 text-sm font-semibold text-foreground/70">{slide.rateSecondarySuffix}</span>
+                </div>
+              </>
+            ) : null}
+            <button className="btn-shine mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-brand px-5 py-3 text-sm font-bold text-white shadow-[var(--shadow-glow)]">
               {slide.cta} <ArrowRight className="h-4 w-4" />
             </button>
-            <div className="mt-3 flex items-center justify-end gap-2 text-[11px] font-semibold text-foreground/70">
-              <Shield className="h-3.5 w-3.5 text-primary" /> Secure • Fast
+            <div className={`mt-3 flex items-center gap-2 text-[11px] font-semibold text-foreground/70 ${isPersonal ? "justify-start" : "justify-end"}`}>
+              <Shield className="h-3.5 w-3.5 text-primary" /> {slide.rateFootnote}
             </div>
           </div>
         </div>
       </div>
 
-
-      {/* Bottom feature strip */}
-      <div className="relative z-10 mx-auto mt-6 max-w-5xl">
+      <div className={`relative z-10 mx-auto ${isPersonal ? "-mt-12 max-w-[990px]" : "mt-6 max-w-5xl"}`}>
         <div
           key={`b-${idx}`}
           className="hero-bottom rounded-2xl bg-background/80 px-4 py-4 backdrop-blur neu-raised"
         >
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+          <div className={`grid gap-3 ${slide.bottom.length === 4 ? "grid-cols-1 md:grid-cols-4" : "grid-cols-1 md:grid-cols-3"}`}>
             {slide.bottom.map(({ icon: Icon, title, sub }) => (
               <div key={title} className="hero-bottom-item flex items-center gap-3 px-2">
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
