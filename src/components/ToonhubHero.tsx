@@ -125,11 +125,11 @@ export default function ToonhubHero() {
   };
 
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || scrollP > 0.05) return;
     const id = window.setInterval(() => navigate("next"), AUTOPLAY_MS);
     return () => window.clearInterval(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPaused, isAnimating]);
+  }, [isPaused, isAnimating, scrollP]);
 
 
   const roleOf = (i: number): Role => {
