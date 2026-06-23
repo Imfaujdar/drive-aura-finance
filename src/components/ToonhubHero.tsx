@@ -5,6 +5,7 @@ import heroLoanAgainstCar from "@/assets/hero-mascot-loanagainstcar.png";
 import heroNewCar from "@/assets/hero-mascot-newcar-v2.png";
 import heroCommercial from "@/assets/hero-mascot-commercial.png";
 import heroConstruction from "@/assets/hero-mascot-construction.png";
+import heroTractor from "@/assets/hero-mascot-tractor.png";
 
 const IMAGES = [
   {
@@ -61,6 +62,17 @@ const IMAGES = [
     cta: "Get Equipment Loan",
     href: "/loans/construction-equipment",
     mascotSide: "right" as const,
+  },
+  {
+    src: heroTractor,
+    bg: "#5BAE6A",
+    panel: "#7BC089",
+    ghost: "TRACTOR",
+    title: "TRACTOR LOAN",
+    desc: "Grow your farm with Finonest. Finance any tractor brand with minimal paperwork, subsidies and farmer-friendly EMIs.",
+    cta: "Get Tractor Loan",
+    href: "/loans/tractor",
+    mascotSide: "left" as const,
   },
 ];
 
