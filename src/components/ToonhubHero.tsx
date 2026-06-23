@@ -4,6 +4,10 @@ import toonCar from "@/assets/toon-car.png";
 import toonCard from "@/assets/toon-card.png";
 import toonHome from "@/assets/toon-home.png";
 import toonCoins from "@/assets/toon-coins.png";
+import mascotCar from "@/assets/mascot-car.png";
+import mascotCard from "@/assets/mascot-card.png";
+import mascotHome from "@/assets/mascot-home.png";
+import mascotCoins from "@/assets/mascot-coins.png";
 
 const IMAGES = [
   {
