@@ -262,13 +262,7 @@ export default function ToonhubHero() {
           </span>
         </div>
 
-        {/* Brand */}
-        <div
-          className="absolute top-6 left-4 sm:left-8 text-xs font-semibold uppercase"
-          style={{ zIndex: 60, color: "#fff", opacity: 0.9, letterSpacing: "0.18em" }}
-        >
-          FINONEST
-        </div>
+        {/* Brand handled by global Navbar */}
 
         {/* Carousel */}
         <div
