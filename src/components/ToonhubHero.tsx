@@ -135,7 +135,7 @@ export default function ToonhubHero() {
 
   useEffect(() => {
     if (isPaused || scrollP > 0.05) return;
-    const id = window.setInterval(() => navigate("prev"), AUTOPLAY_MS);
+    const id = window.setInterval(() => navigate("next"), AUTOPLAY_MS);
     return () => window.clearInterval(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPaused, isAnimating, scrollP]);
