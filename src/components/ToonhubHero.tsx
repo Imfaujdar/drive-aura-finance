@@ -159,10 +159,10 @@ export default function ToonhubHero() {
       case "center":
         return {
           ...base,
-          left: isMobile ? "50%" : "72%",
-          bottom: isMobile ? "44%" : "6%",
-          height: isMobile ? "50%" : "82%",
-          transform: `translateX(-50%) scale(${isMobile ? 1.3 : 1.35})`,
+          left: isMobile ? "70%" : "72%",
+          bottom: isMobile ? "36%" : "6%",
+          height: isMobile ? "62%" : "82%",
+          transform: `translateX(-50%) scale(${isMobile ? 1.5 : 1.35})`,
           filter: "blur(0px)",
           opacity: 1,
           zIndex: 20,
@@ -170,37 +170,38 @@ export default function ToonhubHero() {
       case "left":
         return {
           ...base,
-          left: isMobile ? "18%" : "50%",
-          bottom: isMobile ? "44%" : "10%",
-          height: isMobile ? "14%" : "20%",
+          left: isMobile ? "15%" : "50%",
+          bottom: isMobile ? "38%" : "10%",
+          height: isMobile ? "13%" : "20%",
           transform: "translateX(-50%) scale(1)",
           filter: "blur(2px)",
-          opacity: 0.55,
+          opacity: 0.5,
           zIndex: 10,
         };
       case "right":
         return {
           ...base,
-          left: isMobile ? "82%" : "92%",
-          bottom: isMobile ? "44%" : "10%",
-          height: isMobile ? "14%" : "20%",
+          left: isMobile ? "92%" : "92%",
+          bottom: isMobile ? "78%" : "10%",
+          height: isMobile ? "12%" : "20%",
           transform: "translateX(-50%) scale(1)",
           filter: "blur(2px)",
-          opacity: 0.55,
+          opacity: 0.45,
           zIndex: 10,
         };
       case "back":
         return {
           ...base,
-          left: isMobile ? "50%" : "70%",
-          bottom: isMobile ? "44%" : "6%",
-          height: isMobile ? "11%" : "16%",
+          left: isMobile ? "38%" : "70%",
+          bottom: isMobile ? "78%" : "6%",
+          height: isMobile ? "10%" : "16%",
           transform: "translateX(-50%) scale(1)",
           filter: "blur(4px)",
-          opacity: 0.45,
+          opacity: 0.4,
           zIndex: 5,
         };
     }
+
   };
 
 
@@ -223,13 +224,12 @@ export default function ToonhubHero() {
         fontFamily: "Inter, sans-serif",
       }}
       className="relative w-full overflow-hidden"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
       onFocusCapture={() => setIsPaused(true)}
       onBlurCapture={(e) => {
         if (!e.currentTarget.contains(e.relatedTarget as Node)) setIsPaused(false);
       }}
     >
+
       <div className="relative w-full" style={{ height: "100vh", overflow: "hidden" }}>
         {/* Grain */}
         <div
@@ -248,9 +248,9 @@ export default function ToonhubHero() {
           className="absolute inset-x-0 flex items-center pointer-events-none select-none"
           style={{
             zIndex: 2,
-            top: isMobile ? "22%" : "16%",
-            justifyContent: isMobile ? "center" : "flex-start",
-            paddingLeft: isMobile ? 0 : "6%",
+            top: isMobile ? "10%" : "16%",
+            justifyContent: isMobile ? "flex-start" : "flex-start",
+            paddingLeft: isMobile ? "5%" : "6%",
             transform: `translateY(${ghostShift}px)`,
             opacity: fadeOut,
             willChange: "transform, opacity",
@@ -259,10 +259,10 @@ export default function ToonhubHero() {
           <span
             style={{
               fontFamily: "Anton, sans-serif",
-              fontSize: isMobile ? "clamp(36px, 13vw, 82px)" : "clamp(110px, 14vw, 240px)",
+              fontSize: isMobile ? "clamp(56px, 18vw, 110px)" : "clamp(110px, 14vw, 240px)",
               fontWeight: 900,
               color: "#fff",
-              opacity: isMobile ? 0.92 : 1,
+              opacity: isMobile ? 0.95 : 1,
               lineHeight: 0.92,
               textTransform: "uppercase",
               letterSpacing: "-0.025em",
@@ -276,6 +276,7 @@ export default function ToonhubHero() {
             {IMAGES[activeIndex].ghost}
           </span>
         </div>
+
 
 
         {/* Brand handled by global Navbar */}
