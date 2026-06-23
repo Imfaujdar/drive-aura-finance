@@ -161,45 +161,50 @@ export default function ToonhubHero() {
           ...base,
           left: isMobile ? "70%" : "72%",
           bottom: isMobile ? "36%" : "6%",
-          height: isMobile ? "62%" : "82%",
-          transform: `translateX(-50%) scale(${isMobile ? 1.5 : 1.35})`,
+          height: isMobile ? "62%" : "78%",
+          transform: `translateX(-50%) scale(${isMobile ? 1.5 : 1.4})`,
+
           filter: "blur(0px)",
           opacity: 1,
           zIndex: 20,
         };
+
       case "left":
         return {
           ...base,
-          left: isMobile ? "15%" : "50%",
-          bottom: isMobile ? "38%" : "10%",
+          left: isMobile ? "15%" : "44%",
+          bottom: isMobile ? "38%" : "8%",
           height: isMobile ? "13%" : "20%",
           transform: "translateX(-50%) scale(1)",
           filter: "blur(2px)",
-          opacity: 0.5,
+          opacity: isMobile ? 0.5 : 0,
           zIndex: 10,
         };
       case "right":
         return {
           ...base,
-          left: isMobile ? "92%" : "92%",
-          bottom: isMobile ? "78%" : "10%",
+          left: isMobile ? "92%" : "90%",
+          bottom: isMobile ? "78%" : "8%",
           height: isMobile ? "12%" : "20%",
           transform: "translateX(-50%) scale(1)",
           filter: "blur(2px)",
-          opacity: 0.45,
+          opacity: isMobile ? 0.45 : 0,
           zIndex: 10,
         };
       case "back":
         return {
           ...base,
-          left: isMobile ? "38%" : "70%",
-          bottom: isMobile ? "78%" : "6%",
+          left: isMobile ? "38%" : "68%",
+          bottom: isMobile ? "78%" : "5%",
           height: isMobile ? "10%" : "16%",
           transform: "translateX(-50%) scale(1)",
           filter: "blur(4px)",
-          opacity: 0.4,
+          opacity: isMobile ? 0.4 : 0,
+
           zIndex: 5,
         };
+
+
     }
 
   };
@@ -472,31 +477,28 @@ export default function ToonhubHero() {
           <ArrowRight className="w-5 h-5 sm:w-8 sm:h-8" strokeWidth={2.25} />
         </a>
 
-        {/* Right-side vertical eyebrow - desktop only */}
+        {/* Right-edge vertical eyebrow - desktop only */}
         <div
-          className="hidden sm:flex absolute right-6 top-1/2 -translate-y-1/2 items-center gap-3 pointer-events-none"
+          className="hidden lg:block absolute right-3 top-1/2 pointer-events-none"
           style={{
             zIndex: 55,
             writingMode: "vertical-rl",
             transform: "translateY(-50%) rotate(180deg)",
-            color: "rgba(255,255,255,0.85)",
-            fontFamily: "Anton, sans-serif",
-            fontSize: 13,
-            letterSpacing: "0.32em",
+            color: "rgba(255,255,255,0.7)",
+            fontFamily: "Inter, sans-serif",
+            fontSize: 10,
+            fontWeight: 600,
+            letterSpacing: "0.42em",
             textTransform: "uppercase",
           }}
         >
-          <span>Finance · Refinance · Insure</span>
-          <div style={{ width: 1, height: 60, background: "rgba(255,255,255,0.45)" }} />
-          <span style={{ fontFamily: "Inter, sans-serif", fontSize: 11, letterSpacing: "0.28em" }}>
-            Scroll
-          </span>
+          Finonest Auto — Finance · Refinance · Insure
         </div>
 
-        {/* Top-right feature pills - desktop only */}
+        {/* Right-side stacked column: pills + stats - desktop only */}
         <div
-          className="hidden lg:flex absolute top-28 right-10 flex-col items-end gap-3"
-          style={{ zIndex: 55, maxWidth: 280 }}
+          className="hidden md:flex absolute top-28 right-10 flex-col items-end gap-3"
+          style={{ zIndex: 55, width: "min(280px, 26vw)" }}
         >
           {[
             { k: "01", v: "Approval in 30 mins" },
@@ -505,9 +507,9 @@ export default function ToonhubHero() {
           ].map((f) => (
             <div
               key={f.k}
-              className="flex items-center gap-3 rounded-full px-4 py-2.5"
+              className="flex w-full items-center gap-3 rounded-full px-4 py-2.5"
               style={{
-                background: "rgba(255,255,255,0.12)",
+                background: "rgba(255,255,255,0.13)",
                 backdropFilter: "blur(14px)",
                 WebkitBackdropFilter: "blur(14px)",
                 border: "1px solid rgba(255,255,255,0.25)",
@@ -529,57 +531,54 @@ export default function ToonhubHero() {
               </span>
             </div>
           ))}
-        </div>
 
-        {/* Bottom-right stats card - desktop only */}
-        <div
-          className="hidden md:flex absolute bottom-32 right-10 flex-col gap-2 rounded-2xl px-5 py-4"
-          style={{
-            zIndex: 55,
-            background: "rgba(255,255,255,0.13)",
-            backdropFilter: "blur(16px)",
-            WebkitBackdropFilter: "blur(16px)",
-            border: "1px solid rgba(255,255,255,0.22)",
-            color: "#fff",
-            minWidth: 220,
-          }}
-        >
-          <div className="flex items-baseline gap-2">
+          {/* Stats card directly under pills */}
+          <div
+            className="mt-2 flex w-full flex-col gap-2 rounded-2xl px-5 py-4"
+            style={{
+              background: "rgba(255,255,255,0.13)",
+              backdropFilter: "blur(16px)",
+              WebkitBackdropFilter: "blur(16px)",
+              border: "1px solid rgba(255,255,255,0.25)",
+              color: "#fff",
+            }}
+          >
             <span
               style={{
                 fontFamily: "Anton, sans-serif",
-                fontSize: 38,
+                fontSize: 32,
                 lineHeight: 1,
                 letterSpacing: "-0.01em",
               }}
             >
               ₹2,400Cr+
             </span>
-          </div>
-          <span
-            style={{
-              fontSize: 11,
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-              opacity: 0.85,
-            }}
-          >
-            Auto loans disbursed
-          </span>
-          <div className="mt-2 h-px w-full" style={{ background: "rgba(255,255,255,0.25)" }} />
-          <div className="flex items-center justify-between gap-3 pt-1">
-            <span style={{ fontSize: 12, opacity: 0.9 }}>1.2L+ happy drivers</span>
             <span
               style={{
-                fontFamily: "Anton, sans-serif",
-                fontSize: 13,
-                letterSpacing: "0.08em",
+                fontSize: 10,
+                letterSpacing: "0.22em",
+                textTransform: "uppercase",
+                opacity: 0.85,
               }}
             >
-              ★ 4.8
+              Auto loans disbursed
             </span>
+            <div className="mt-1 h-px w-full" style={{ background: "rgba(255,255,255,0.25)" }} />
+            <div className="flex items-center justify-between gap-3 pt-1">
+              <span style={{ fontSize: 12, opacity: 0.9 }}>1.2L+ happy drivers</span>
+              <span
+                style={{
+                  fontFamily: "Anton, sans-serif",
+                  fontSize: 13,
+                  letterSpacing: "0.08em",
+                }}
+              >
+                ★ 4.8
+              </span>
+            </div>
           </div>
         </div>
+
 
 
       </div>
