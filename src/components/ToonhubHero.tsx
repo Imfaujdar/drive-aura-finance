@@ -4,6 +4,10 @@ import toonCar from "@/assets/toon-car.png";
 import toonCard from "@/assets/toon-card.png";
 import toonHome from "@/assets/toon-home.png";
 import toonCoins from "@/assets/toon-coins.png";
+import mascotCar from "@/assets/mascot-car.png";
+import mascotCard from "@/assets/mascot-card.png";
+import mascotHome from "@/assets/mascot-home.png";
+import mascotCoins from "@/assets/mascot-coins.png";
 
 const IMAGES = [
   {
@@ -15,6 +19,8 @@ const IMAGES = [
     desc: "Drive home your dream car with Finonest. Quick approvals, attractive interest rates and flexible tenures on new and used vehicles.",
     cta: "Get Car Loan Offers",
     href: "/loans/car",
+    mascot: mascotCar,
+    mascotSide: "left" as const,
   },
   {
     src: toonCard,
@@ -25,6 +31,8 @@ const IMAGES = [
     desc: "Premium credit cards tailored to your lifestyle. Compare top issuers, unlock rewards and apply in minutes with Finonest.",
     cta: "Get Credit Card Offers",
     href: "/cards",
+    mascot: mascotCard,
+    mascotSide: "right" as const,
   },
   {
     src: toonHome,
@@ -35,6 +43,8 @@ const IMAGES = [
     desc: "Turn the key to your dream home. Finonest brings you the lowest rates, fast sanctions and end-to-end paperwork support.",
     cta: "Get Home Loan Offers",
     href: "/loans/home",
+    mascot: mascotHome,
+    mascotSide: "left" as const,
   },
   {
     src: toonCoins,
@@ -45,6 +55,8 @@ const IMAGES = [
     desc: "Instant personal loans for every milestone — weddings, travel, medical or emergencies. Funds in your account within hours.",
     cta: "Get Personal Loan Offers",
     href: "/loans/personal",
+    mascot: mascotCoins,
+    mascotSide: "right" as const,
   },
 ];
 
@@ -233,6 +245,32 @@ export default function ToonhubHero() {
               />
             </div>
           ))}
+        </div>
+
+        {/* Mascot pointing to subject */}
+        <div
+          className="absolute pointer-events-none hidden md:block"
+          style={{
+            zIndex: 25,
+            bottom: 0,
+            [IMAGES[activeIndex].mascotSide]: "8%",
+            height: "46%",
+            transition: `opacity ${DURATION}ms ${EASE}, transform ${DURATION}ms ${EASE}`,
+          }}
+          key={activeIndex}
+        >
+          <img
+            src={IMAGES[activeIndex].mascot}
+            alt=""
+            style={{
+              height: "100%",
+              width: "auto",
+              objectFit: "contain",
+              objectPosition: "bottom center",
+              filter: "drop-shadow(0 18px 24px rgba(0,0,0,0.25))",
+              animation: "fade-in 600ms ease-out",
+            }}
+          />
         </div>
 
         {/* Bottom-left */}
