@@ -196,37 +196,36 @@ export default function ToonhubHero() {
       case "left":
         return {
           ...base,
-          left: isMobile ? "-30%" : "44%",
-          bottom: isMobile ? "8%" : "8%",
-          height: isMobile ? "82%" : "20%",
+          left: isMobile ? "15%" : "44%",
+          bottom: isMobile ? "38%" : "8%",
+          height: isMobile ? "13%" : "20%",
           transform: "translateX(-50%) scale(1)",
           filter: isMobile ? "none" : "blur(2px)",
-          opacity: 0,
+          opacity: isMobile ? 0.5 : 0,
           zIndex: 10,
         };
       case "right":
         return {
           ...base,
-          left: isMobile ? "130%" : "90%",
-          bottom: isMobile ? "8%" : "8%",
-          height: isMobile ? "82%" : "20%",
+          left: isMobile ? "92%" : "90%",
+          bottom: isMobile ? "78%" : "8%",
+          height: isMobile ? "12%" : "20%",
           transform: "translateX(-50%) scale(1)",
           filter: isMobile ? "none" : "blur(2px)",
-          opacity: 0,
+          opacity: isMobile ? 0.45 : 0,
           zIndex: 10,
         };
       case "back":
         return {
           ...base,
-          left: isMobile ? "50%" : "68%",
-          bottom: isMobile ? "8%" : "5%",
-          height: isMobile ? "82%" : "16%",
-          transform: "translateX(-50%) scale(0.9)",
+          left: isMobile ? "38%" : "68%",
+          bottom: isMobile ? "78%" : "5%",
+          height: isMobile ? "10%" : "16%",
+          transform: "translateX(-50%) scale(1)",
           filter: isMobile ? "none" : "blur(4px)",
-          opacity: 0,
+          opacity: isMobile ? 0.4 : 0,
           zIndex: 5,
         };
-
     }
   };
 
