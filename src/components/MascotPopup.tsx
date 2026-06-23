@@ -43,7 +43,7 @@ export default function MascotPopup() {
       <button
         onClick={() => setBubbleOpen((v) => !v)}
         aria-label="Finonest offers"
-        className="pointer-events-auto relative -ml-12 block"
+        className="pointer-events-auto relative block"
       >
         <div className="pointer-events-none absolute inset-0 -z-10 translate-x-6 translate-y-2 rounded-full bg-primary/25 blur-2xl" />
         <img
