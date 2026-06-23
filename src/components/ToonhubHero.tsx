@@ -19,10 +19,13 @@ const GRAIN_SVG =
 
 type Role = "center" | "left" | "right" | "back";
 
+const AUTOPLAY_MS = 4000;
+
 export default function ToonhubHero() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth < 640);
@@ -44,6 +47,14 @@ export default function ToonhubHero() {
     setActiveIndex((p) => (dir === "next" ? (p + 1) % 4 : (p + 3) % 4));
     setTimeout(() => setIsAnimating(false), DURATION);
   };
+
+  useEffect(() => {
+    if (isPaused) return;
+    const id = window.setInterval(() => navigate("next"), AUTOPLAY_MS);
+    return () => window.clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isPaused, isAnimating]);
+
 
   const roleOf = (i: number): Role => {
     if (i === activeIndex) return "center";
