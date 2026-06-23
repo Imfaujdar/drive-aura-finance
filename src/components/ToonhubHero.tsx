@@ -133,7 +133,7 @@ export default function ToonhubHero() {
   const navigate = (dir: "next" | "prev") => {
     if (isAnimating) return;
     setIsAnimating(true);
-    setActiveIndex((p) => (dir === "next" ? (p + 1) % 4 : (p + 3) % 4));
+    setActiveIndex((p) => (dir === "next" ? (p + 1) % IMAGES.length : (p + IMAGES.length - 1) % IMAGES.length));
     setTimeout(() => setIsAnimating(false), DURATION);
   };
 
