@@ -147,8 +147,8 @@ export default function ToonhubHero() {
 
   const roleOf = (i: number): Role => {
     if (i === activeIndex) return "center";
-    if (i === (activeIndex + 3) % 4) return "left";
-    if (i === (activeIndex + 1) % 4) return "right";
+    if (i === (activeIndex + IMAGES.length - 1) % IMAGES.length) return "left";
+    if (i === (activeIndex + 1) % IMAGES.length) return "right";
     return "back";
   };
 
