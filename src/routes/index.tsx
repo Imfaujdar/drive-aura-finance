@@ -14,6 +14,7 @@ import Typewriter from "@/components/Typewriter";
 import MascotPopup from "@/components/MascotPopup";
 
 import whyCar from "@/assets/why-car.png";
+import mascotFull from "@/assets/finonest-mascot-full.png";
 import resaleCar from "@/assets/resale-car.png";
 import blog1 from "@/assets/blog-1.jpg";
 import blog2 from "@/assets/blog-2.jpg";
@@ -144,6 +145,13 @@ function CreditScoreCard() {
 function CalculatorSection() {
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-12">
+      <img
+        src={mascotFull}
+        alt=""
+        aria-hidden
+        loading="lazy"
+        className="pointer-events-none absolute -top-10 right-2 z-20 hidden h-48 w-auto rotate-[8deg] drop-shadow-[0_15px_25px_rgba(0,0,0,0.25)] md:block lg:h-56"
+      />
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2 rounded-3xl glass-strong p-7 md:p-10 relative overflow-hidden">
           <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-primary/15 blur-3xl" />
@@ -430,6 +438,13 @@ function DSAPartner() {
   ];
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-16">
+      <img
+        src={mascotFull}
+        alt=""
+        aria-hidden
+        loading="lazy"
+        className="pointer-events-none absolute -bottom-4 right-0 z-20 h-44 w-auto -rotate-[6deg] drop-shadow-[0_15px_25px_rgba(0,0,0,0.3)] sm:right-6 sm:h-56 md:-bottom-6 md:h-72 lg:h-80"
+      />
       <div className="relative overflow-hidden rounded-[2rem] glass-tinted p-8 md:p-12">
         <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-primary/15 blur-3xl" />
         <div className="pointer-events-none absolute -left-16 bottom-0 h-72 w-72 rounded-full bg-accent/15 blur-3xl" />
