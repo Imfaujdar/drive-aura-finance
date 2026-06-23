@@ -46,15 +46,18 @@ function useCounter(target: number, duration = 1600) {
   return v;
 }
 
-function SectionHeader({ eyebrow, title, sub }: { eyebrow: string; title: ReactNode; sub: string }) {
+function SectionHeader({ eyebrow, title, sub }: { eyebrow: string; title: string; sub: string }) {
   return (
     <div className="mx-auto max-w-2xl text-center">
-      <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-white/60 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-primary backdrop-blur">{eyebrow}</div>
-      <h2 className="mt-5 font-display text-4xl font-extrabold tracking-tight md:text-5xl">{title}</h2>
+      <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 glass-soft px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-primary">{eyebrow}</div>
+      <h2 className="mt-5 font-display text-4xl font-extrabold tracking-tight md:text-5xl">
+        <Typewriter text={title} />
+      </h2>
       <p className="mt-3 text-muted-foreground">{sub}</p>
     </div>
   );
 }
+
 
 function Services() {
   const items: { icon: any; title: string; sub: string; color: string }[] = [
