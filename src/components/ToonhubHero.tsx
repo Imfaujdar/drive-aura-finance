@@ -194,8 +194,19 @@ export default function ToonhubHero() {
     }
   };
 
+  const sideSign = IMAGES[activeIndex].mascotSide === "left" ? -1 : 1;
+  // Scroll-driven motion values
+  const ghostShift = -scrollP * 140; // ghost text rises
+  const subjectShift = scrollP * 80; // subject sinks slightly
+  const subjectScale = 1 - scrollP * 0.08;
+  const mascotShiftX = sideSign * scrollP * 180; // mascot slides off toward its edge
+  const mascotShiftY = scrollP * 120;
+  const mascotRot = sideSign * scrollP * 14;
+  const fadeOut = 1 - scrollP * 0.6;
+
   return (
     <section
+      ref={sectionRef}
       style={{
         backgroundColor: IMAGES[activeIndex].bg,
         transition: `background-color ${DURATION}ms ${EASE}`,
