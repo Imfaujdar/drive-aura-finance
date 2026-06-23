@@ -264,7 +264,7 @@ export default function ToonhubHero() {
           <span
             style={{
               fontFamily: "Anton, sans-serif",
-              fontSize: isMobile ? "clamp(56px, 18vw, 110px)" : "clamp(110px, 14vw, 240px)",
+              fontSize: isMobile ? "clamp(64px, 20vw, 130px)" : "clamp(140px, 22vw, 360px)",
               fontWeight: 900,
               color: "#fff",
               opacity: isMobile ? 0.7 : 0.55,
