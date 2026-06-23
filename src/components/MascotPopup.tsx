@@ -19,53 +19,55 @@ const OFFERS: Offer[] = [
 
 export default function MascotPopup() {
   const [offerIdx, setOfferIdx] = useState(0);
-  const [bubbleOpen, setBubbleOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const tick = () => {
+    let hide: ReturnType<typeof setTimeout>;
+    const show = () => {
       setOfferIdx((i) => (i + 1) % OFFERS.length);
-      setBubbleOpen(true);
-      window.setTimeout(() => setBubbleOpen(false), 5000);
+      setOpen(true);
+      hide = setTimeout(() => setOpen(false), 5000);
     };
-    const first = window.setTimeout(tick, 2000);
-    const loop = window.setInterval(tick, 9000);
+    const first = setTimeout(show, 2500);
+    const loop = setInterval(show, 12000);
     return () => {
-      window.clearTimeout(first);
-      window.clearInterval(loop);
+      clearTimeout(first);
+      clearTimeout(hide);
+      clearInterval(loop);
     };
   }, []);
 
   const offer = OFFERS[offerIdx];
 
   return (
-    <div className="pointer-events-none fixed bottom-2 left-0 z-[60] flex items-end md:hidden">
-      {/* Mascot peeking from the left edge — always half visible */}
-      <button
-        onClick={() => setBubbleOpen((v) => !v)}
-        aria-label="Finonest offers"
-        className="pointer-events-auto relative block"
+    <div className="pointer-events-none fixed bottom-24 left-0 z-[60] flex items-center md:hidden">
+      {/* Mascot — auto slides in/out from left edge */}
+      <div
+        className={`pointer-events-auto relative transition-all duration-700 ease-out ${
+          open ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
+        }`}
       >
-        <div className="pointer-events-none absolute inset-0 -z-10 translate-x-6 translate-y-2 rounded-full bg-primary/25 blur-2xl" />
+        <div className="pointer-events-none absolute inset-0 -z-10 translate-x-4 rounded-full bg-primary/25 blur-2xl" />
         <img
           src={mascot}
           alt="Finonest mascot"
           width={140}
           height={140}
           loading="lazy"
-          className="h-32 w-auto select-none drop-shadow-[0_10px_15px_rgba(0,0,0,0.28)] animate-[mascot-bob_2.6s_ease-in-out_infinite]"
+          className="block h-28 w-auto select-none drop-shadow-[0_10px_15px_rgba(0,0,0,0.28)] animate-[mascot-bob_2.6s_ease-in-out_infinite]"
         />
-      </button>
+      </div>
 
-      {/* Notification bubble */}
+      {/* Notification bubble — directly touching mascot, no gap */}
       <div
-        className={`pointer-events-auto relative mb-8 -ml-1 max-w-[200px] origin-bottom-left rounded-2xl bg-white/95 px-3 py-2.5 shadow-[0_10px_30px_rgba(0,0,0,0.18)] ring-1 ring-black/5 backdrop-blur transition-all duration-500 ${
-          bubbleOpen
+        className={`pointer-events-auto relative -ml-3 max-w-[200px] origin-left rounded-2xl bg-white/95 px-3 py-2.5 shadow-[0_10px_30px_rgba(0,0,0,0.18)] ring-1 ring-black/5 backdrop-blur transition-all delay-150 duration-500 ${
+          open
             ? "translate-x-0 scale-100 opacity-100"
-            : "pointer-events-none -translate-x-3 scale-90 opacity-0"
+            : "pointer-events-none -translate-x-4 scale-90 opacity-0"
         }`}
-        aria-hidden={!bubbleOpen}
+        aria-hidden={!open}
       >
-        <div className={`absolute -left-1.5 bottom-5 h-3 w-3 rotate-45 bg-white`} />
+        <div className="absolute -left-1.5 top-1/2 h-3 w-3 -translate-y-1/2 rotate-45 bg-white" />
         <div
           className={`inline-flex items-center gap-1 rounded-full bg-gradient-to-r ${offer.accent} px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white`}
         >
@@ -79,7 +81,7 @@ export default function MascotPopup() {
           </div>
         </div>
         <button
-          onClick={() => setBubbleOpen(false)}
+          onClick={() => setOpen(false)}
           className="absolute -right-1.5 -top-1.5 grid h-5 w-5 place-items-center rounded-full bg-foreground text-[10px] font-bold text-white shadow"
           aria-label="Dismiss"
         >
@@ -90,7 +92,7 @@ export default function MascotPopup() {
       <style>{`
         @keyframes mascot-bob {
           0%, 100% { transform: translateY(0) rotate(-1deg); }
-          50% { transform: translateY(-5px) rotate(1.5deg); }
+          50% { transform: translateY(-4px) rotate(1.5deg); }
         }
       `}</style>
     </div>
