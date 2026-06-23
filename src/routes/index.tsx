@@ -201,7 +201,7 @@ function CalculatorSection() {
             ))}
           </div>
         </div>
-        <CreditScoreCard />
+        <div className="hidden lg:block"><CreditScoreCard /></div>
       </div>
     </section>
   );
@@ -637,6 +637,8 @@ function HomePage() {
       <ToonhubHero />
       <main>
         <div data-page-section data-reveal className="snap-section"><Services /></div>
+        <div className="lg:hidden px-4 mx-auto max-w-7xl mt-6"><CreditScoreCard /></div>
+
         <div data-page-section data-reveal className="snap-section"><CalculatorSection /></div>
         <div data-page-section data-reveal className="snap-section"><HowItWorks /></div>
         <div data-page-section data-reveal className="snap-section"><Resale /></div>
