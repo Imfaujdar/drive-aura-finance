@@ -117,6 +117,15 @@ export default function ToonhubHero() {
     });
   }, []);
 
+  // Sync hero accent to the page on slide change
+  useEffect(() => {
+    const slide = IMAGES[activeIndex];
+    const root = document.documentElement;
+    root.style.setProperty("--hero-accent", slide.bg);
+    root.style.setProperty("--hero-accent-soft", slide.panel);
+  }, [activeIndex]);
+
+
   const navigate = (dir: "next" | "prev") => {
     if (isAnimating) return;
     setIsAnimating(true);

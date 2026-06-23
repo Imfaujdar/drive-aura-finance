@@ -10,6 +10,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import gsap from "gsap";
 import ToonhubHero from "@/components/ToonhubHero";
 import Navbar from "@/components/Navbar";
+import Typewriter from "@/components/Typewriter";
 
 import whyCar from "@/assets/why-car.png";
 import resaleCar from "@/assets/resale-car.png";
@@ -45,15 +46,18 @@ function useCounter(target: number, duration = 1600) {
   return v;
 }
 
-function SectionHeader({ eyebrow, title, sub }: { eyebrow: string; title: ReactNode; sub: string }) {
+function SectionHeader({ eyebrow, title, sub }: { eyebrow: string; title: string; sub: string }) {
   return (
     <div className="mx-auto max-w-2xl text-center">
-      <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-white/60 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-primary backdrop-blur">{eyebrow}</div>
-      <h2 className="mt-5 font-display text-4xl font-extrabold tracking-tight md:text-5xl">{title}</h2>
+      <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 glass-soft px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-primary">{eyebrow}</div>
+      <h2 className="mt-5 font-display text-4xl font-extrabold tracking-tight md:text-5xl">
+        <Typewriter text={title} />
+      </h2>
       <p className="mt-3 text-muted-foreground">{sub}</p>
     </div>
   );
 }
+
 
 function Services() {
   const items: { icon: any; title: string; sub: string; color: string }[] = [
@@ -66,10 +70,10 @@ function Services() {
   ];
   return (
     <section className="relative mx-auto max-w-7xl px-4 pt-12">
-      <div className="relative rounded-3xl border border-border/60 bg-white/85 p-5 shadow-[var(--shadow-glass)] backdrop-blur md:p-7">
-        <div className="grid grid-cols-3 gap-4 md:grid-cols-6">
+      <div className="relative rounded-3xl glass p-5 md:p-7">
+        <div data-card-group className="grid grid-cols-3 gap-4 md:grid-cols-6">
           {items.map(({ icon: Icon, title, sub, color }) => (
-            <button key={title} className="group flex flex-col items-center gap-3 rounded-2xl p-2 transition-all hover:-translate-y-1">
+            <button key={title} data-card className="group flex flex-col items-center gap-3 rounded-2xl glass-soft p-3 transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
               <span className={`grid h-16 w-16 place-items-center rounded-full ring-1 ${color} transition-transform group-hover:scale-105`}>
                 <Icon className="h-7 w-7" />
               </span>
@@ -178,10 +182,10 @@ function HowItWorks() {
   ];
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-16">
-      <SectionHeader eyebrow="How It Works" title={<>Get Your Loan in <span className="text-primary">4 Simple Steps</span></>} sub="Our streamlined process gets your funds quickly with minimum hassle." />
-      <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+      <SectionHeader eyebrow="How It Works" title="Get Your Loan in 4 Simple Steps" sub="Our streamlined process gets your funds quickly with minimum hassle." />
+      <div data-card-group className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
         {steps.map(({ n, icon: Icon, title, sub }, i) => (
-          <div key={n} className="group relative rounded-3xl glass-strong p-6 transition-all hover:-translate-y-1">
+          <div key={n} data-card className="group relative rounded-3xl glass-strong p-6 transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
             <div className="absolute -top-3 left-6 rounded-full bg-gradient-brand px-3 py-1 text-xs font-bold tracking-widest text-white shadow-[var(--shadow-glow)]">STEP {n}</div>
             <div className="mt-3 grid h-14 w-14 place-items-center rounded-2xl bg-primary/10 text-primary ring-1 ring-primary/20">
               <Icon className="h-7 w-7" />
@@ -201,7 +205,7 @@ function HowItWorks() {
 function Resale() {
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-10">
-      <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-white/80 shadow-[var(--shadow-glass)] backdrop-blur p-8 md:p-12">
+      <div className="relative overflow-hidden rounded-3xl glass-strong p-8 md:p-12">
         <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
         <div className="pointer-events-none absolute -left-20 -bottom-20 h-72 w-72 rounded-full bg-accent/20 blur-3xl" />
         <div className="relative grid items-center gap-8 md:grid-cols-2">
@@ -251,10 +255,10 @@ function WhyChooseUs() {
   ];
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-16">
-      <SectionHeader eyebrow="Why Choose Us" title={<>We Make Financial Freedom <span className="text-primary">Accessible</span></>} sub="Over 5 years of experience and 50,000+ satisfied customers — Finonest is India's trusted partner for every financial need." />
-      <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <SectionHeader eyebrow="Why Choose Us" title="We Make Financial Freedom Accessible" sub="Over 5 years of experience and 50,000+ satisfied customers — Finonest is India's trusted partner for every financial need." />
+      <div data-card-group className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {items.map(({ icon: Icon, title, sub, c }) => (
-          <div key={title} className="relative overflow-hidden rounded-3xl border border-border/60 bg-white/80 p-6 shadow-[var(--shadow-glass)] backdrop-blur transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
+          <div key={title} data-card className="relative overflow-hidden rounded-3xl glass-strong p-6 transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
             <div className={`pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-gradient-to-br ${c} blur-2xl`} />
             <div className={`grid h-12 w-12 place-items-center rounded-xl bg-white ring-1 ring-border ${c.split(" ").pop()}`}>
               <Icon className="h-6 w-6" />
@@ -269,7 +273,7 @@ function WhyChooseUs() {
 }
 
 const TRIPLE_CARD =
-  "group flex h-full flex-col rounded-3xl border border-border/60 bg-white/90 p-5 shadow-[var(--shadow-glass)] backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_30px_80px_-30px_rgba(79,70,255,0.25)]";
+  "group flex h-full flex-col rounded-3xl glass-strong p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]";
 
 function BlogCard() {
   const posts = [
@@ -278,7 +282,7 @@ function BlogCard() {
     { img: blog3, cat: "Market Insights",catColor: "bg-violet-50 text-violet-600",  date: "May 05, 2026", title: "Auto Loan Trends: Key Insights You Should Know",          read: "6 min read" },
   ];
   return (
-    <div className={TRIPLE_CARD}>
+    <div data-card className={TRIPLE_CARD}>
       <div className="mb-4 flex items-center justify-between">
         <h3 className="font-display text-lg font-bold">Latest from the Blog</h3>
         <a href="#" className="inline-flex items-center gap-1 text-xs font-semibold text-primary transition-transform hover:translate-x-0.5">View All <ArrowRight className="h-3.5 w-3.5" /></a>
@@ -313,7 +317,7 @@ function WhyCard() {
     "Expert Support at Every Step",
   ];
   return (
-    <div className={`${TRIPLE_CARD} relative overflow-hidden`}>
+    <div data-card className={`${TRIPLE_CARD} relative overflow-hidden`}>
       <h3 className="text-center font-display text-lg font-bold">Why Choose Finonest?</h3>
       <div className="relative my-2 grid place-items-center">
         <div className="pointer-events-none absolute inset-0 -z-10 mx-auto h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
@@ -368,7 +372,7 @@ function RatesCard() {
 function BottomTriple() {
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-12">
-      <div className="grid items-stretch gap-6 lg:grid-cols-3">
+      <div data-card-group className="grid items-stretch gap-6 lg:grid-cols-3">
         <BlogCard />
         <WhyCard />
         <RatesCard />
@@ -388,10 +392,10 @@ function Testimonials() {
   ];
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-16">
-      <SectionHeader eyebrow="Top Testimonials" title={<>What Our <span className="text-primary">Customers Say</span></>} sub="Ranked by customer satisfaction and feedback quality." />
-      <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <SectionHeader eyebrow="Top Testimonials" title="What Our Customers Say" sub="Ranked by customer satisfaction and feedback quality." />
+      <div data-card-group className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {reviews.map((r, i) => (
-          <div key={r.name} className="relative rounded-3xl border border-border/60 bg-white/80 p-6 shadow-[var(--shadow-glass)] backdrop-blur transition-all hover:-translate-y-1">
+          <div key={r.name} data-card className="relative rounded-3xl glass-strong p-6 transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
             <Quote className="absolute right-5 top-5 h-8 w-8 text-primary/15" />
             <div className="flex items-center gap-1 text-amber-500">
               {Array.from({ length: 5 }).map((_, k) => <Star key={k} className="h-4 w-4 fill-current" />)}
@@ -420,7 +424,7 @@ function DSAPartner() {
   ];
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-16">
-      <div className="relative overflow-hidden rounded-[2rem] border border-border/60 bg-white/80 p-8 shadow-[var(--shadow-glass)] backdrop-blur md:p-12">
+      <div className="relative overflow-hidden rounded-[2rem] glass-tinted p-8 md:p-12">
         <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-primary/15 blur-3xl" />
         <div className="pointer-events-none absolute -left-16 bottom-0 h-72 w-72 rounded-full bg-accent/15 blur-3xl" />
         <div className="relative grid gap-10 lg:grid-cols-2 lg:items-center">
@@ -435,9 +439,9 @@ function DSAPartner() {
               <button className="inline-flex items-center gap-2 rounded-2xl border border-border bg-white/70 px-6 py-3.5 font-semibold text-foreground hover:bg-white">Learn More</button>
             </div>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div data-card-group className="grid gap-4 sm:grid-cols-2">
             {perks.map(({ icon: Icon, t, s }) => (
-              <div key={t} className="rounded-2xl glass-strong p-5">
+              <div key={t} data-card className="rounded-2xl glass-strong p-5">
                 <div className="grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary ring-1 ring-primary/20">
                   <Icon className="h-5 w-5" />
                 </div>
@@ -457,7 +461,7 @@ function Partners() {
   const row = [...list, ...list];
   return (
     <section className="relative py-20">
-      <SectionHeader eyebrow="Trusted Partners" title={<>Our <span className="text-gradient">Lending & Insurance</span> Partners</>} sub="50+ banks and NBFCs powering instant offers." />
+      <SectionHeader eyebrow="Trusted Partners" title="Our Lending & Insurance Partners" sub="50+ banks and NBFCs powering instant offers." />
       <div className="mt-12 overflow-hidden">
         <div className="flex w-max animate-marquee gap-5 px-4">
           {row.map((p, i) => (
@@ -494,7 +498,7 @@ function CTA() {
 
 function Footer() {
   return (
-    <footer className="border-t border-border bg-white/60 backdrop-blur">
+    <footer className="border-t border-border/40 glass-soft">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-4">
         <div>
           <div className="flex items-center gap-2">
@@ -523,8 +527,8 @@ function Footer() {
 
 function HomePage() {
   useEffect(() => {
-    const els = document.querySelectorAll<HTMLElement>("[data-reveal]");
-    const io = new IntersectionObserver(
+    const sectionEls = document.querySelectorAll<HTMLElement>("[data-reveal]");
+    const sectionIO = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
           if (e.isIntersecting) {
@@ -533,15 +537,44 @@ function HomePage() {
               { y: 40, opacity: 0 },
               { y: 0, opacity: 1, duration: 0.9, ease: "power3.out" }
             );
-            io.unobserve(e.target);
+            sectionIO.unobserve(e.target);
           }
         });
       },
       { threshold: 0.12 }
     );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
+    sectionEls.forEach((el) => sectionIO.observe(el));
+
+    // Card-level reveal with stagger inside each group
+    const cardGroups = document.querySelectorAll<HTMLElement>("[data-card-group]");
+    cardGroups.forEach((group) => {
+      const cards = group.querySelectorAll<HTMLElement>("[data-card]");
+      cards.forEach((c, i) => {
+        c.classList.add("reveal-up");
+        (c.style as any).transitionDelay = `${Math.min(i * 90, 540)}ms`;
+      });
+    });
+    const cardIO = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("in-view");
+            cardIO.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    document
+      .querySelectorAll<HTMLElement>("[data-card]")
+      .forEach((c) => cardIO.observe(c));
+
+    return () => {
+      sectionIO.disconnect();
+      cardIO.disconnect();
+    };
   }, []);
+
 
   return (
     <div className="bg-mesh min-h-screen">
