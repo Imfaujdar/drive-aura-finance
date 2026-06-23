@@ -211,6 +211,7 @@ export default function ToonhubHero() {
       aspectRatio: "1 / 1",
       transition: `transform ${DURATION}ms ${EASE}, filter ${DURATION}ms ${EASE}, opacity ${DURATION}ms ${EASE}, left ${DURATION}ms ${EASE}, bottom ${DURATION}ms ${EASE}, height ${DURATION}ms ${EASE}, width ${DURATION}ms ${EASE}`,
       willChange: "transform, filter, opacity",
+      transformOrigin: "center bottom",
     };
     switch (role) {
       case "center":
