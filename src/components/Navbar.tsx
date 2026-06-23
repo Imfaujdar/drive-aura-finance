@@ -110,7 +110,7 @@ export default function Navbar() {
                 {"items" in item && active === item.label && (
                   <div className="absolute left-1/2 top-full -translate-x-1/2 pt-3">
                     <div className="min-w-[220px] rounded-2xl border border-black/5 bg-white p-2 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.25)]">
-                      {item.items.map((s) => (
+                      {item.items!.map((s) => (
                         <a
                           key={s.label}
                           href={s.href}
@@ -211,7 +211,7 @@ export default function Navbar() {
                     <ChevronDown size={16} className="transition-transform group-open:rotate-180" />
                   </summary>
                   <div className="flex flex-col pl-3 mt-1 mb-2 border-l-2 border-primary/15 ml-4">
-                    {item.items.map((s) => (
+                    {item.items!.map((s) => (
                       <a
                         key={s.label}
                         href={s.href}
