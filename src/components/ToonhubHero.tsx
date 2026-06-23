@@ -19,6 +19,8 @@ const IMAGES = [
     desc: "Drive home your dream car with Finonest. Quick approvals, attractive interest rates and flexible tenures on new and used vehicles.",
     cta: "Get Car Loan Offers",
     href: "/loans/car",
+    mascot: mascotCar,
+    mascotSide: "left" as const,
   },
   {
     src: toonCard,
@@ -29,6 +31,8 @@ const IMAGES = [
     desc: "Premium credit cards tailored to your lifestyle. Compare top issuers, unlock rewards and apply in minutes with Finonest.",
     cta: "Get Credit Card Offers",
     href: "/cards",
+    mascot: mascotCard,
+    mascotSide: "right" as const,
   },
   {
     src: toonHome,
@@ -39,6 +43,8 @@ const IMAGES = [
     desc: "Turn the key to your dream home. Finonest brings you the lowest rates, fast sanctions and end-to-end paperwork support.",
     cta: "Get Home Loan Offers",
     href: "/loans/home",
+    mascot: mascotHome,
+    mascotSide: "left" as const,
   },
   {
     src: toonCoins,
@@ -49,6 +55,8 @@ const IMAGES = [
     desc: "Instant personal loans for every milestone — weddings, travel, medical or emergencies. Funds in your account within hours.",
     cta: "Get Personal Loan Offers",
     href: "/loans/personal",
+    mascot: mascotCoins,
+    mascotSide: "right" as const,
   },
 ];
 
