@@ -364,7 +364,7 @@ function WhyCard() {
         alt=""
         aria-hidden
         loading="lazy"
-        className="pointer-events-none absolute -top-8 -right-4 z-30 h-24 w-auto drop-shadow-[0_15px_25px_rgba(0,0,0,0.3)] sm:-top-10 sm:h-28 md:-top-12 md:h-32"
+        className="pointer-events-none absolute -top-12 right-2 z-30 h-20 w-auto drop-shadow-[0_15px_25px_rgba(0,0,0,0.3)] sm:-top-14 sm:right-3 sm:h-24 md:-top-16 md:h-28"
       />
       <h3 className="text-center font-display text-lg font-bold">Why Choose Finonest?</h3>
       <div className="relative my-2 grid place-items-center">
