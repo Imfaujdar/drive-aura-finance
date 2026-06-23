@@ -247,15 +247,15 @@ export default function ToonhubHero() {
           ))}
         </div>
 
-        {/* Mascot pointing to subject */}
+        {/* Mascot pointing to subject (sits near subject, clear of bottom CTAs) */}
         <div
-          className="absolute pointer-events-none hidden md:block"
+          className="absolute pointer-events-none hidden lg:block"
           style={{
-            zIndex: 25,
+            zIndex: 15,
             bottom: 0,
-            [IMAGES[activeIndex].mascotSide]: "8%",
-            height: "46%",
-            transition: `opacity ${DURATION}ms ${EASE}, transform ${DURATION}ms ${EASE}`,
+            [IMAGES[activeIndex].mascotSide]: "26%",
+            height: "62%",
+            transition: `opacity ${DURATION}ms ${EASE}`,
           }}
           key={activeIndex}
         >
@@ -267,7 +267,7 @@ export default function ToonhubHero() {
               width: "auto",
               objectFit: "contain",
               objectPosition: "bottom center",
-              filter: "drop-shadow(0 18px 24px rgba(0,0,0,0.25))",
+              filter: "drop-shadow(0 18px 28px rgba(0,0,0,0.28))",
               animation: "fade-in 600ms ease-out",
             }}
           />
