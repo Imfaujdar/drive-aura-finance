@@ -172,21 +172,43 @@ export default function ToonhubHero() {
     return "back";
   };
 
-  const getCenterImageStyle = () => {
+  const getCenterImageStyle = (index: number) => {
     if (isMobile) {
-      return { left: "50%", bottom: "14%", width: "94vw", height: "58vh" } as const;
+      return [
+        { left: "50%", bottom: "13%", height: "70%", width: "96vw" },
+        { left: "50%", bottom: "13%", height: "72%", width: "82vw" },
+        { left: "50%", bottom: "14%", height: "68%", width: "96vw" },
+        { left: "50%", bottom: "12%", height: "70%", width: "96vw" },
+        { left: "50%", bottom: "12%", height: "72%", width: "96vw" },
+        { left: "50%", bottom: "13%", height: "68%", width: "96vw" },
+      ][index];
     }
 
     if (isTablet) {
-      return { left: "62%", bottom: "6%", width: "62vw", height: "76vh" } as const;
+      return [
+        { left: "62%", bottom: "4%", height: "78%", width: "54vw" },
+        { left: "65%", bottom: "4%", height: "82%", width: "36vw" },
+        { left: "64%", bottom: "5%", height: "76%", width: "55vw" },
+        { left: "62%", bottom: "4%", height: "78%", width: "56vw" },
+        { left: "62%", bottom: "3%", height: "78%", width: "56vw" },
+        { left: "62%", bottom: "5%", height: "74%", width: "55vw" },
+      ][index];
     }
 
-    return { left: "71%", bottom: "3%", width: "52vw", height: "84vh" } as const;
+    return [
+      { left: "72%", bottom: "2%", height: "88%", width: "48vw" },
+      { left: "74%", bottom: "2%", height: "92%", width: "32vw" },
+      { left: "72%", bottom: "3%", height: "84%", width: "48vw" },
+      { left: "72%", bottom: "2%", height: "86%", width: "48vw" },
+      { left: "72%", bottom: "1%", height: "86%", width: "48vw" },
+      { left: "72%", bottom: "3%", height: "82%", width: "47vw" },
+    ][index];
   };
 
   const itemStyle = (role: Role, index: number): CSSProperties => {
     const base: CSSProperties = {
       position: "absolute",
+      aspectRatio: "1 / 1",
       transition: `transform ${DURATION}ms ${EASE}, filter ${DURATION}ms ${EASE}, opacity ${DURATION}ms ${EASE}, left ${DURATION}ms ${EASE}, bottom ${DURATION}ms ${EASE}, height ${DURATION}ms ${EASE}, width ${DURATION}ms ${EASE}`,
       willChange: "transform, filter, opacity",
       transformOrigin: "center bottom",
@@ -195,8 +217,11 @@ export default function ToonhubHero() {
       case "center":
         return {
           ...base,
-          ...getCenterImageStyle(),
-          transform: "translateX(-50%)",
+          ...getCenterImageStyle(index),
+          transform: isMobile
+            ? "translateX(-50%) scale(1)"
+            : "translateX(-50%) scale(1.08)",
+
           filter: "blur(0px)",
           opacity: 1,
           zIndex: 20,
@@ -283,8 +308,39 @@ export default function ToonhubHero() {
           }}
         />
 
-        {/* Ghost text removed per request */}
-
+        {/* Ghost text - sits behind the subject for depth */}
+        <div
+          className="absolute inset-x-0 flex items-center pointer-events-none select-none"
+          style={{
+            zIndex: 2,
+            top: isMobile ? "10%" : "16%",
+            justifyContent: isMobile ? "flex-start" : "flex-start",
+            paddingLeft: isMobile ? "5%" : "6%",
+            transform: `translateY(${ghostShift}px)`,
+            opacity: fadeOut,
+            willChange: "transform, opacity",
+          }}
+        >
+          <span
+            style={{
+              fontFamily: "Anton, sans-serif",
+              fontSize: isMobile ? "clamp(64px, 20vw, 130px)" : "clamp(140px, 22vw, 360px)",
+              fontWeight: 900,
+              color: "#fff",
+              opacity: isMobile ? 0.7 : 0.55,
+              lineHeight: 0.92,
+              textTransform: "uppercase",
+              letterSpacing: "-0.025em",
+              whiteSpace: "nowrap",
+              maxWidth: "92vw",
+              overflow: "hidden",
+              textOverflow: "clip",
+              textShadow: "0 2px 24px rgba(0,0,0,0.12)",
+            }}
+          >
+            {IMAGES[activeIndex].ghost}
+          </span>
+        </div>
 
 
 
@@ -342,7 +398,7 @@ export default function ToonhubHero() {
                   width: "100%",
                   height: "100%",
                   objectFit: "contain",
-                  objectPosition: img.objectPosition,
+                  objectPosition: "bottom center",
                 }}
               />
             </div>
