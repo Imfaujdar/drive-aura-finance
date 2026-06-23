@@ -373,7 +373,7 @@ export default function ToonhubHero() {
                   width: "100%",
                   height: "100%",
                   objectFit: "contain",
-                  objectPosition: "bottom center",
+                  objectPosition: img.objectPosition,
                 }}
               />
             </div>
