@@ -527,8 +527,8 @@ function Footer() {
 
 function HomePage() {
   useEffect(() => {
-    const els = document.querySelectorAll<HTMLElement>("[data-reveal]");
-    const io = new IntersectionObserver(
+    const sectionEls = document.querySelectorAll<HTMLElement>("[data-reveal]");
+    const sectionIO = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
           if (e.isIntersecting) {
@@ -537,15 +537,44 @@ function HomePage() {
               { y: 40, opacity: 0 },
               { y: 0, opacity: 1, duration: 0.9, ease: "power3.out" }
             );
-            io.unobserve(e.target);
+            sectionIO.unobserve(e.target);
           }
         });
       },
       { threshold: 0.12 }
     );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
+    sectionEls.forEach((el) => sectionIO.observe(el));
+
+    // Card-level reveal with stagger inside each group
+    const cardGroups = document.querySelectorAll<HTMLElement>("[data-card-group]");
+    cardGroups.forEach((group) => {
+      const cards = group.querySelectorAll<HTMLElement>("[data-card]");
+      cards.forEach((c, i) => {
+        c.classList.add("reveal-up");
+        (c.style as any).transitionDelay = `${Math.min(i * 90, 540)}ms`;
+      });
+    });
+    const cardIO = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("in-view");
+            cardIO.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    document
+      .querySelectorAll<HTMLElement>("[data-card]")
+      .forEach((c) => cardIO.observe(c));
+
+    return () => {
+      sectionIO.disconnect();
+      cardIO.disconnect();
+    };
   }, []);
+
 
   return (
     <div className="bg-mesh min-h-screen">
