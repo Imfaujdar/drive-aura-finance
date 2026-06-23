@@ -63,6 +63,17 @@ const IMAGES = [
     href: "/loans/construction-equipment",
     mascotSide: "right" as const,
   },
+  {
+    src: heroTractor,
+    bg: "#5BAE6A",
+    panel: "#7BC089",
+    ghost: "TRACTOR",
+    title: "TRACTOR LOAN",
+    desc: "Grow your farm with Finonest. Finance any tractor brand with minimal paperwork, subsidies and farmer-friendly EMIs.",
+    cta: "Get Tractor Loan",
+    href: "/loans/tractor",
+    mascotSide: "left" as const,
+  },
 ];
 
 const EASE = "cubic-bezier(0.4, 0, 0.2, 1)";
