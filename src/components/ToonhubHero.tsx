@@ -286,7 +286,8 @@ export default function ToonhubHero() {
               fontFamily: "Anton, sans-serif",
               fontSize: isMobile
                 ? `min(${Math.floor(180 / Math.max(IMAGES[activeIndex].ghost.length, 1))}vw, 110px)`
-                : "clamp(140px, 22vw, 360px)",
+                : `min(${Math.floor(200 / Math.max(IMAGES[activeIndex].ghost.length, 1))}vw, 320px)`,
+
 
               fontWeight: 900,
               color: "#fff",
