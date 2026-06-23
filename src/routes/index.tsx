@@ -75,13 +75,13 @@ function Services() {
   return (
     <section className="relative mx-auto max-w-7xl px-4 pt-12">
       {/* Welcome mascot sitting on the cards strip */}
-      <div className="pointer-events-none absolute left-4 top-16 z-30 flex items-end gap-2 sm:left-8 sm:top-12 sm:gap-3 md:left-12 md:top-10">
+      <div className="pointer-events-none absolute -top-10 left-2 z-30 flex items-end gap-2 sm:-top-16 sm:left-6 sm:gap-3 md:-top-20 md:left-10">
         <img
           src={mascotSitting}
           alt=""
           aria-hidden
           loading="lazy"
-          className="h-20 w-auto -scale-x-100 drop-shadow-[0_18px_30px_rgba(0,0,0,0.35)] sm:h-32 md:h-40 lg:h-44"
+          className="h-24 w-auto drop-shadow-[0_18px_30px_rgba(0,0,0,0.35)] sm:h-36 md:h-44 lg:h-48"
         />
         <div className="relative mb-6 hidden sm:block">
           <div className="rounded-2xl rounded-bl-sm bg-white px-4 py-2 text-sm font-semibold text-foreground shadow-[var(--shadow-lift)] ring-1 ring-border md:text-base">
@@ -90,6 +90,7 @@ function Services() {
           <span className="absolute -left-1.5 bottom-2 h-3 w-3 rotate-45 bg-white ring-1 ring-border" />
         </div>
       </div>
+
       <div className="relative overflow-visible rounded-3xl glass p-3 sm:p-5 md:p-6">
         <div data-card-group className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6">
           {items.map(({ icon: Icon, title, sub, color }) => (
