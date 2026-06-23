@@ -329,7 +329,7 @@ export default function ToonhubHero() {
         {/* Bottom content */}
         <div
           className="absolute bottom-4 left-3 right-3 sm:bottom-20 sm:left-24 sm:right-auto"
-          style={{ zIndex: 60, maxWidth: "min(96vw, 360px)" }}
+          style={{ zIndex: 60, maxWidth: "min(94vw, 380px)" }}
         >
           {/* Mobile glass card wrapper */}
           <div
