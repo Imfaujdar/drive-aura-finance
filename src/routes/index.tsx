@@ -14,6 +14,7 @@ import Typewriter from "@/components/Typewriter";
 import MascotPopup from "@/components/MascotPopup";
 
 import whyCar from "@/assets/why-car.png";
+import mascotFull from "@/assets/finonest-mascot-full.png";
 import resaleCar from "@/assets/resale-car.png";
 import blog1 from "@/assets/blog-1.jpg";
 import blog2 from "@/assets/blog-2.jpg";
