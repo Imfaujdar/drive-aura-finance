@@ -438,6 +438,13 @@ function DSAPartner() {
   ];
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-16">
+      <img
+        src={mascotFull}
+        alt=""
+        aria-hidden
+        loading="lazy"
+        className="pointer-events-none absolute -bottom-4 right-0 z-20 h-44 w-auto -rotate-[6deg] drop-shadow-[0_15px_25px_rgba(0,0,0,0.3)] sm:right-6 sm:h-56 md:-bottom-6 md:h-72 lg:h-80"
+      />
       <div className="relative overflow-hidden rounded-[2rem] glass-tinted p-8 md:p-12">
         <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-primary/15 blur-3xl" />
         <div className="pointer-events-none absolute -left-16 bottom-0 h-72 w-72 rounded-full bg-accent/15 blur-3xl" />
