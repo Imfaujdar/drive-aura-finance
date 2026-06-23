@@ -151,9 +151,9 @@ export default function ToonhubHero() {
         return {
           ...base,
           left: "50%",
-          bottom: isMobile ? "22%" : 0,
-          height: isMobile ? "60%" : "92%",
-          transform: `translateX(-50%) scale(${isMobile ? 1.25 : 1.68})`,
+          bottom: isMobile ? "38%" : 0,
+          height: isMobile ? "52%" : "92%",
+          transform: `translateX(-50%) scale(${isMobile ? 1.35 : 1.68})`,
           filter: "blur(0px)",
           opacity: 1,
           zIndex: 20,
@@ -161,38 +161,39 @@ export default function ToonhubHero() {
       case "left":
         return {
           ...base,
-          left: isMobile ? "20%" : "30%",
-          bottom: isMobile ? "32%" : "12%",
-          height: isMobile ? "16%" : "28%",
+          left: isMobile ? "18%" : "30%",
+          bottom: isMobile ? "44%" : "12%",
+          height: isMobile ? "14%" : "28%",
           transform: "translateX(-50%) scale(1)",
           filter: "blur(2px)",
-          opacity: 0.85,
+          opacity: 0.7,
           zIndex: 10,
         };
       case "right":
         return {
           ...base,
-          left: isMobile ? "80%" : "70%",
-          bottom: isMobile ? "32%" : "12%",
-          height: isMobile ? "16%" : "28%",
+          left: isMobile ? "82%" : "70%",
+          bottom: isMobile ? "44%" : "12%",
+          height: isMobile ? "14%" : "28%",
           transform: "translateX(-50%) scale(1)",
           filter: "blur(2px)",
-          opacity: 0.85,
+          opacity: 0.7,
           zIndex: 10,
         };
       case "back":
         return {
           ...base,
           left: "50%",
-          bottom: isMobile ? "32%" : "12%",
-          height: isMobile ? "13%" : "22%",
+          bottom: isMobile ? "44%" : "12%",
+          height: isMobile ? "11%" : "22%",
           transform: "translateX(-50%) scale(1)",
           filter: "blur(4px)",
-          opacity: 1,
+          opacity: 0.9,
           zIndex: 5,
         };
     }
   };
+
 
   const sideSign = IMAGES[activeIndex].mascotSide === "left" ? -1 : 1;
   // Scroll-driven motion values
@@ -315,30 +316,39 @@ export default function ToonhubHero() {
         `}</style>
 
 
-        {/* Bottom-left */}
+        {/* Bottom content */}
         <div
-          className="absolute bottom-6 left-4 sm:bottom-20 sm:left-24"
-          style={{ zIndex: 60, maxWidth: "min(90vw, 360px)" }}
+          className="absolute bottom-5 left-4 right-4 sm:bottom-20 sm:left-24 sm:right-auto"
+          style={{ zIndex: 60, maxWidth: "min(94vw, 360px)" }}
         >
+          {/* Mobile pagination indicator */}
+          <div className="flex sm:hidden items-center gap-2 mb-3" style={{ color: "#fff" }}>
+            <span style={{ fontFamily: "Anton, sans-serif", fontSize: 22, lineHeight: 1 }}>
+              0{activeIndex + 1}
+            </span>
+            <span style={{ opacity: 0.6, fontSize: 12 }}>/ 0{IMAGES.length}</span>
+            <div className="flex-1 h-px ml-2" style={{ background: "rgba(255,255,255,0.35)" }} />
+          </div>
+
           <h2
-            className="mb-2 sm:mb-3 font-bold uppercase tracking-widest"
+            className="mb-2 sm:mb-3 font-bold uppercase"
             style={{
               color: "#fff",
-              opacity: 0.95,
-              letterSpacing: "0.02em",
-              fontSize: "clamp(15px, 2.2vw, 24px)",
-              lineHeight: 1.15,
+              fontFamily: "Anton, sans-serif",
+              letterSpacing: "0.01em",
+              fontSize: "clamp(26px, 7vw, 32px)",
+              lineHeight: 1.05,
             }}
           >
             {IMAGES[activeIndex].title}
           </h2>
           <p
-            className="hidden sm:block mb-4 sm:mb-5"
+            className="mb-4 sm:mb-5"
             style={{
               color: "#fff",
-              opacity: 0.85,
-              lineHeight: 1.6,
-              fontSize: "clamp(12px, 1.1vw, 15px)",
+              opacity: 0.88,
+              lineHeight: 1.5,
+              fontSize: "clamp(12px, 3.4vw, 15px)",
             }}
           >
             {IMAGES[activeIndex].desc}
@@ -349,8 +359,8 @@ export default function ToonhubHero() {
             style={{
               backgroundColor: "#fff",
               color: IMAGES[activeIndex].bg,
-              padding: "10px 18px",
-              fontSize: "clamp(12px, 1vw, 14px)",
+              padding: "11px 20px",
+              fontSize: "clamp(12px, 3.2vw, 14px)",
               letterSpacing: "0.04em",
               textTransform: "uppercase",
               transition: `color ${DURATION}ms ${EASE}, transform 150ms ease, box-shadow 150ms ease`,
@@ -368,16 +378,34 @@ export default function ToonhubHero() {
             {IMAGES[activeIndex].cta}
             <ArrowRight size={16} strokeWidth={2.5} />
           </a>
-          <div className="flex gap-3">
-            <NavButton onClick={() => navigate("prev")} Icon={ArrowLeft} />
-            <NavButton onClick={() => navigate("next")} Icon={ArrowRight} />
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex gap-3">
+              <NavButton onClick={() => navigate("prev")} Icon={ArrowLeft} />
+              <NavButton onClick={() => navigate("next")} Icon={ArrowRight} />
+            </div>
+            {/* Dots on mobile */}
+            <div className="flex sm:hidden items-center gap-1.5">
+              {IMAGES.map((_, i) => (
+                <span
+                  key={i}
+                  style={{
+                    width: i === activeIndex ? 18 : 6,
+                    height: 6,
+                    borderRadius: 999,
+                    background: "#fff",
+                    opacity: i === activeIndex ? 1 : 0.5,
+                    transition: "all 300ms ease",
+                  }}
+                />
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Bottom-right */}
+        {/* Bottom-right - desktop only */}
         <a
           href="#"
-          className="absolute bottom-6 right-4 sm:bottom-20 sm:right-10 flex items-center gap-2 no-underline"
+          className="hidden sm:flex absolute bottom-20 right-10 items-center gap-2 no-underline"
           style={{
             zIndex: 60,
             color: "#fff",
@@ -396,6 +424,7 @@ export default function ToonhubHero() {
           DISCOVER IT
           <ArrowRight className="w-5 h-5 sm:w-8 sm:h-8" strokeWidth={2.25} />
         </a>
+
       </div>
     </section>
   );
