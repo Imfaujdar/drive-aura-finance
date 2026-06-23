@@ -286,18 +286,19 @@ export default function ToonhubHero() {
 
         {/* Brand handled by global Navbar */}
 
-        {/* Ground / floor — anchors the subject so it doesn't look like it's floating */}
+        {/* Ground / floor — subtle horizon tint, kept low so it doesn't cut across subjects */}
         <div
           className="pointer-events-none absolute inset-x-0"
           style={{
             zIndex: 2,
             bottom: 0,
-            height: isMobile ? "32%" : "22%",
-            background: `linear-gradient(to top, ${IMAGES[activeIndex].bg} 0%, ${IMAGES[activeIndex].bg} 25%, color-mix(in oklab, ${IMAGES[activeIndex].bg} 70%, #000) 70%, transparent 100%)`,
+            height: isMobile ? "14%" : "9%",
+            background: `linear-gradient(to top, color-mix(in oklab, ${IMAGES[activeIndex].bg} 80%, #000) 0%, transparent 100%)`,
             transition: `background ${DURATION}ms ${EASE}`,
-            opacity: 0.55,
+            opacity: 0.35,
           }}
         />
+
         {/* Contact shadow under the active subject */}
         <div
           className="pointer-events-none absolute"
