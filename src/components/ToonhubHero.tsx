@@ -1,11 +1,15 @@
 import { useEffect, useState, type CSSProperties } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import toonCar from "@/assets/toon-car.png";
+import toonCard from "@/assets/toon-card.png";
+import toonHome from "@/assets/toon-home.png";
+import toonCoins from "@/assets/toon-coins.png";
 
 const IMAGES = [
-  { src: "https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/1.02464a56.png", bg: "#F4845F", panel: "#F79B7F" },
-  { src: "https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/2.b977faab.png", bg: "#6BBF7A", panel: "#85CC92" },
-  { src: "https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/3.4df853b4.png", bg: "#E882B4", panel: "#ED9DC4" },
-  { src: "https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/4.4457fbce.png", bg: "#6EB5FF", panel: "#8DC4FF" },
+  { src: toonCar, bg: "#F4845F", panel: "#F79B7F" },
+  { src: toonCard, bg: "#6BBF7A", panel: "#85CC92" },
+  { src: toonHome, bg: "#E882B4", panel: "#ED9DC4" },
+  { src: toonCoins, bg: "#6EB5FF", panel: "#8DC4FF" },
 ];
 
 const EASE = "cubic-bezier(0.4, 0, 0.2, 1)";
