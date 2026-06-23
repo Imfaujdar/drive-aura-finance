@@ -21,10 +21,10 @@ import blog3 from "@/assets/blog-3.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Finonest — Smart Loans & Credit Cards" },
-      { name: "description", content: "Compare and apply for car loans, home loans, personal loans and premium credit cards on Finonest." },
-      { property: "og:title", content: "Finonest — Smart Loans & Credit Cards" },
-      { property: "og:description", content: "AI-powered loans, insurance and credit intelligence." },
+      { title: "Finonest — Smart Auto Loans, Car Finance & Refinance" },
+      { name: "description", content: "India's auto-loan specialist. Compare new car loans, used car loans, refinance and car insurance from 50+ lenders in minutes." },
+      { property: "og:title", content: "Finonest — Smart Auto Loans & Car Finance" },
+      { property: "og:description", content: "AI-powered car loans, refinance and insurance — approvals in 24 hours." },
     ],
   }),
   component: HomePage,

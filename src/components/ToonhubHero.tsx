@@ -14,48 +14,48 @@ const IMAGES = [
     src: toonCar,
     bg: "#F4845F",
     panel: "#F79B7F",
-    ghost: "CAR LOAN",
-    title: "CAR LOAN",
-    desc: "Drive home your dream car with Finonest. Quick approvals, attractive interest rates and flexible tenures on new and used vehicles.",
+    ghost: "NEW CAR",
+    title: "NEW CAR LOAN",
+    desc: "Drive home your dream car with Finonest. Quick approvals, lowest interest rates and flexible tenures on every new car brand.",
     cta: "Get Car Loan Offers",
     href: "/loans/car",
     mascot: mascotCar,
     mascotSide: "left" as const,
   },
   {
-    src: toonCard,
+    src: toonCoins,
     bg: "#6BBF7A",
     panel: "#85CC92",
-    ghost: "CREDIT CARD",
-    title: "CREDIT CARD",
-    desc: "Premium credit cards tailored to your lifestyle. Compare top issuers, unlock rewards and apply in minutes with Finonest.",
-    cta: "Get Credit Card Offers",
-    href: "/cards",
-    mascot: mascotCard,
+    ghost: "USED CAR",
+    title: "USED CAR LOAN",
+    desc: "Finance any pre-owned car with confidence. Transparent valuation, instant eligibility check and best-in-class rates.",
+    cta: "Check Used Car Offers",
+    href: "/loans/used-car",
+    mascot: mascotCoins,
     mascotSide: "right" as const,
   },
   {
-    src: toonHome,
+    src: toonCard,
     bg: "#E882B4",
     panel: "#ED9DC4",
-    ghost: "HOME LOAN",
-    title: "HOME LOAN",
-    desc: "Turn the key to your dream home. Finonest brings you the lowest rates, fast sanctions and end-to-end paperwork support.",
-    cta: "Get Home Loan Offers",
-    href: "/loans/home",
-    mascot: mascotHome,
+    ghost: "REFINANCE",
+    title: "CAR REFINANCE",
+    desc: "Lower your EMI by refinancing your existing car loan. Switch lenders in minutes and save up to ₹50,000 over your tenure.",
+    cta: "Refinance My Car",
+    href: "/loans/refinance",
+    mascot: mascotCard,
     mascotSide: "left" as const,
   },
   {
-    src: toonCoins,
+    src: toonHome,
     bg: "#6EB5FF",
     panel: "#8DC4FF",
-    ghost: "PERSONAL LOAN",
-    title: "PERSONAL LOAN",
-    desc: "Instant personal loans for every milestone — weddings, travel, medical or emergencies. Funds in your account within hours.",
-    cta: "Get Personal Loan Offers",
-    href: "/loans/personal",
-    mascot: mascotCoins,
+    ghost: "INSURANCE",
+    title: "CAR INSURANCE",
+    desc: "Renew or buy car insurance from top insurers. Compare plans, claim assistance and zero paperwork in under 5 minutes.",
+    cta: "Get Insurance Quotes",
+    href: "/insurance/car",
+    mascot: mascotHome,
     mascotSide: "right" as const,
   },
 ];
@@ -259,7 +259,7 @@ export default function ToonhubHero() {
           <span
             style={{
               fontFamily: "Anton, sans-serif",
-              fontSize: isMobile ? "clamp(40px, 14vw, 90px)" : "clamp(90px, 12vw, 220px)",
+              fontSize: isMobile ? "clamp(36px, 13vw, 82px)" : "clamp(80px, 11vw, 200px)",
               fontWeight: 900,
               color: "#fff",
               opacity: isMobile ? 0.92 : 1,
@@ -267,6 +267,9 @@ export default function ToonhubHero() {
               textTransform: "uppercase",
               letterSpacing: "-0.02em",
               whiteSpace: "nowrap",
+              maxWidth: "92vw",
+              overflow: "hidden",
+              textOverflow: "clip",
               textShadow: "0 2px 24px rgba(0,0,0,0.12)",
             }}
           >
@@ -326,7 +329,7 @@ export default function ToonhubHero() {
         {/* Bottom content */}
         <div
           className="absolute bottom-4 left-3 right-3 sm:bottom-20 sm:left-24 sm:right-auto"
-          style={{ zIndex: 60, maxWidth: "min(96vw, 360px)" }}
+          style={{ zIndex: 60, maxWidth: "min(94vw, 380px)" }}
         >
           {/* Mobile glass card wrapper */}
           <div
@@ -349,13 +352,15 @@ export default function ToonhubHero() {
             </div>
 
             <h2
-              className="mb-2 sm:mb-3 font-bold uppercase"
+              className="mb-2 sm:mb-3 font-bold uppercase break-words"
               style={{
                 color: "#fff",
                 fontFamily: "Anton, sans-serif",
                 letterSpacing: "0.005em",
-                fontSize: "clamp(28px, 8vw, 34px)",
-                lineHeight: 0.98,
+                fontSize: "clamp(24px, 7.2vw, 38px)",
+                lineHeight: 1,
+                wordBreak: "break-word",
+                hyphens: "auto",
               }}
             >
               {IMAGES[activeIndex].title}
@@ -365,8 +370,8 @@ export default function ToonhubHero() {
               style={{
                 color: "#fff",
                 opacity: 0.9,
-                lineHeight: 1.5,
-                fontSize: "clamp(12.5px, 3.4vw, 15px)",
+                lineHeight: 1.45,
+                fontSize: "clamp(12px, 3.2vw, 15px)",
                 maxWidth: "32ch",
               }}
             >
@@ -374,13 +379,14 @@ export default function ToonhubHero() {
             </p>
             <a
               href={IMAGES[activeIndex].href}
-              className="inline-flex items-center gap-2 rounded-full font-semibold mb-4 sm:mb-5"
+              className="inline-flex max-w-full items-center justify-center gap-2 rounded-full font-semibold mb-4 sm:mb-5 whitespace-normal text-center"
               style={{
                 backgroundColor: "#fff",
                 color: IMAGES[activeIndex].bg,
-                padding: "12px 22px",
-                fontSize: "clamp(12px, 3.2vw, 14px)",
-                letterSpacing: "0.05em",
+                padding: "11px 18px",
+                fontSize: "clamp(11px, 3vw, 13.5px)",
+                lineHeight: 1.15,
+                letterSpacing: "0.04em",
                 textTransform: "uppercase",
                 transition: `color ${DURATION}ms ${EASE}, transform 150ms ease, box-shadow 150ms ease`,
                 boxShadow: "0 8px 22px rgba(0,0,0,0.22)",
@@ -394,8 +400,8 @@ export default function ToonhubHero() {
                 e.currentTarget.style.boxShadow = "0 8px 22px rgba(0,0,0,0.22)";
               }}
             >
-              {IMAGES[activeIndex].cta}
-              <ArrowRight size={16} strokeWidth={2.5} />
+              <span className="min-w-0">{IMAGES[activeIndex].cta}</span>
+              <ArrowRight size={16} strokeWidth={2.5} className="shrink-0" />
             </a>
             <div className="flex items-center justify-between gap-3">
               <div className="flex gap-2.5">
