@@ -70,20 +70,20 @@ function Services() {
   ];
   return (
     <section className="relative mx-auto max-w-7xl px-4 pt-12">
-      <div className="relative rounded-3xl glass p-4 sm:p-5 md:p-7">
-        <div data-card-group className="grid grid-cols-3 gap-2.5 sm:gap-4 md:grid-cols-6">
+      <div className="relative overflow-hidden rounded-3xl glass p-3 sm:p-5 md:p-6">
+        <div data-card-group className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6">
           {items.map(({ icon: Icon, title, sub, color }) => (
             <button
               key={title}
               data-card
-              className="group flex h-full min-h-[120px] sm:min-h-[140px] flex-col items-center justify-start gap-2 sm:gap-3 rounded-2xl glass-soft p-2.5 sm:p-3 transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]"
+              className="group grid h-full min-h-[132px] grid-rows-[auto_1fr] place-items-center gap-3 rounded-2xl glass-soft px-3 py-4 text-center transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-lift)] sm:min-h-[150px] lg:min-h-[158px] lg:px-3.5"
             >
-              <span className={`grid h-12 w-12 sm:h-16 sm:w-16 shrink-0 place-items-center rounded-full ring-1 ${color} transition-transform group-hover:scale-105`}>
+              <span className={`grid h-14 w-14 shrink-0 place-items-center rounded-full ring-1 ${color} transition-transform group-hover:scale-105 sm:h-16 sm:w-16 lg:h-[68px] lg:w-[68px]`}>
                 <Icon className="h-6 w-6 sm:h-7 sm:w-7" />
               </span>
-              <div className="text-center text-[11px] sm:text-xs font-semibold leading-tight text-foreground/85">
-                <div className="line-clamp-1">{title}</div>
-                <div className="line-clamp-1 text-foreground/70">{sub}</div>
+              <div className="flex min-w-0 flex-col justify-center text-xs font-semibold leading-snug text-foreground/85 sm:text-sm lg:text-[13px]">
+                <div className="break-words">{title}</div>
+                <div className="break-words text-foreground/70">{sub}</div>
               </div>
             </button>
           ))}
