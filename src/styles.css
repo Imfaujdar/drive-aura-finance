@@ -92,7 +92,6 @@
   --neu-shadow-dark-strong: rgba(168, 132, 96, 0.6);
   --neu-shadow-light: rgba(255, 248, 235, 0.85);
   --neu-shadow-light-strong: rgba(255, 250, 240, 0.95);
-...
   --gradient-brand: linear-gradient(135deg, #E8A87C 0%, #C2674A 100%);
   --gradient-mesh: none;
   --shadow-glass: var(--shadow-extruded);
