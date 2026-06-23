@@ -97,8 +97,8 @@ export default function MascotPopup() {
             : "pointer-events-none translate-x-4 scale-90 opacity-0"
         }`}
         style={{
-          marginLeft: isLeft ? "-1.5rem" : 0,
-          marginRight: isLeft ? 0 : "-1.5rem",
+          marginLeft: isLeft ? "-3.5rem" : 0,
+          marginRight: isLeft ? 0 : "-3.5rem",
           transformOrigin: isLeft ? "left center" : "right center",
         }}
         aria-hidden={!open}
