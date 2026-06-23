@@ -267,7 +267,7 @@ export default function ToonhubHero() {
               fontSize: isMobile ? "clamp(56px, 18vw, 110px)" : "clamp(110px, 14vw, 240px)",
               fontWeight: 900,
               color: "#fff",
-              opacity: isMobile ? 0.95 : 1,
+              opacity: isMobile ? 0.7 : 0.55,
               lineHeight: 0.92,
               textTransform: "uppercase",
               letterSpacing: "-0.025em",
