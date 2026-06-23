@@ -318,86 +318,98 @@ export default function ToonhubHero() {
 
         {/* Bottom content */}
         <div
-          className="absolute bottom-5 left-4 right-4 sm:bottom-20 sm:left-24 sm:right-auto"
-          style={{ zIndex: 60, maxWidth: "min(94vw, 360px)" }}
+          className="absolute bottom-4 left-3 right-3 sm:bottom-20 sm:left-24 sm:right-auto"
+          style={{ zIndex: 60, maxWidth: "min(96vw, 360px)" }}
         >
-          {/* Mobile pagination indicator */}
-          <div className="flex sm:hidden items-center gap-2 mb-3" style={{ color: "#fff" }}>
-            <span style={{ fontFamily: "Anton, sans-serif", fontSize: 22, lineHeight: 1 }}>
-              0{activeIndex + 1}
-            </span>
-            <span style={{ opacity: 0.6, fontSize: 12 }}>/ 0{IMAGES.length}</span>
-            <div className="flex-1 h-px ml-2" style={{ background: "rgba(255,255,255,0.35)" }} />
-          </div>
-
-          <h2
-            className="mb-2 sm:mb-3 font-bold uppercase"
+          {/* Mobile glass card wrapper */}
+          <div
+            className="sm:contents rounded-3xl p-5"
             style={{
-              color: "#fff",
-              fontFamily: "Anton, sans-serif",
-              letterSpacing: "0.01em",
-              fontSize: "clamp(26px, 7vw, 32px)",
-              lineHeight: 1.05,
+              background: "rgba(255,255,255,0.10)",
+              backdropFilter: "blur(14px)",
+              WebkitBackdropFilter: "blur(14px)",
+              border: "1px solid rgba(255,255,255,0.22)",
+              boxShadow: "0 10px 40px -10px rgba(0,0,0,0.25)",
             }}
           >
-            {IMAGES[activeIndex].title}
-          </h2>
-          <p
-            className="mb-4 sm:mb-5"
-            style={{
-              color: "#fff",
-              opacity: 0.88,
-              lineHeight: 1.5,
-              fontSize: "clamp(12px, 3.4vw, 15px)",
-            }}
-          >
-            {IMAGES[activeIndex].desc}
-          </p>
-          <a
-            href={IMAGES[activeIndex].href}
-            className="inline-flex items-center gap-2 rounded-full font-semibold mb-4 sm:mb-5"
-            style={{
-              backgroundColor: "#fff",
-              color: IMAGES[activeIndex].bg,
-              padding: "11px 20px",
-              fontSize: "clamp(12px, 3.2vw, 14px)",
-              letterSpacing: "0.04em",
-              textTransform: "uppercase",
-              transition: `color ${DURATION}ms ${EASE}, transform 150ms ease, box-shadow 150ms ease`,
-              boxShadow: "0 6px 18px rgba(0,0,0,0.18)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-2px)";
-              e.currentTarget.style.boxShadow = "0 10px 24px rgba(0,0,0,0.22)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "0 6px 18px rgba(0,0,0,0.18)";
-            }}
-          >
-            {IMAGES[activeIndex].cta}
-            <ArrowRight size={16} strokeWidth={2.5} />
-          </a>
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex gap-3">
-              <NavButton onClick={() => navigate("prev")} Icon={ArrowLeft} />
-              <NavButton onClick={() => navigate("next")} Icon={ArrowRight} />
+            {/* Pagination indicator (mobile) */}
+            <div className="flex sm:hidden items-center gap-2 mb-3" style={{ color: "#fff" }}>
+              <span style={{ fontFamily: "Anton, sans-serif", fontSize: 20, lineHeight: 1, letterSpacing: "0.02em" }}>
+                0{activeIndex + 1}
+              </span>
+              <span style={{ opacity: 0.65, fontSize: 11, letterSpacing: "0.08em" }}>/ 0{IMAGES.length}</span>
+              <div className="flex-1 h-px ml-2" style={{ background: "rgba(255,255,255,0.3)" }} />
             </div>
-            {/* Dots on mobile */}
-            <div className="flex sm:hidden items-center gap-1.5">
-              {IMAGES.map((_, i) => (
-                <span
-                  key={i}
-                  style={{
-                    width: i === activeIndex ? 18 : 6,
-                    height: 6,
-                    borderRadius: 999,
-                    background: "#fff",
-                    opacity: i === activeIndex ? 1 : 0.5,
-                    transition: "all 300ms ease",
-                  }}
-                />
-              ))}
+
+            <h2
+              className="mb-2 sm:mb-3 font-bold uppercase"
+              style={{
+                color: "#fff",
+                fontFamily: "Anton, sans-serif",
+                letterSpacing: "0.005em",
+                fontSize: "clamp(28px, 8vw, 34px)",
+                lineHeight: 0.98,
+              }}
+            >
+              {IMAGES[activeIndex].title}
+            </h2>
+            <p
+              className="mb-4 sm:mb-5"
+              style={{
+                color: "#fff",
+                opacity: 0.9,
+                lineHeight: 1.5,
+                fontSize: "clamp(12.5px, 3.4vw, 15px)",
+                maxWidth: "32ch",
+              }}
+            >
+              {IMAGES[activeIndex].desc}
+            </p>
+            <a
+              href={IMAGES[activeIndex].href}
+              className="inline-flex items-center gap-2 rounded-full font-semibold mb-4 sm:mb-5"
+              style={{
+                backgroundColor: "#fff",
+                color: IMAGES[activeIndex].bg,
+                padding: "12px 22px",
+                fontSize: "clamp(12px, 3.2vw, 14px)",
+                letterSpacing: "0.05em",
+                textTransform: "uppercase",
+                transition: `color ${DURATION}ms ${EASE}, transform 150ms ease, box-shadow 150ms ease`,
+                boxShadow: "0 8px 22px rgba(0,0,0,0.22)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-2px)";
+                e.currentTarget.style.boxShadow = "0 12px 28px rgba(0,0,0,0.26)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "0 8px 22px rgba(0,0,0,0.22)";
+              }}
+            >
+              {IMAGES[activeIndex].cta}
+              <ArrowRight size={16} strokeWidth={2.5} />
+            </a>
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex gap-2.5">
+                <NavButton onClick={() => navigate("prev")} Icon={ArrowLeft} />
+                <NavButton onClick={() => navigate("next")} Icon={ArrowRight} />
+              </div>
+              <div className="flex sm:hidden items-center gap-1.5">
+                {IMAGES.map((_, i) => (
+                  <span
+                    key={i}
+                    style={{
+                      width: i === activeIndex ? 20 : 6,
+                      height: 6,
+                      borderRadius: 999,
+                      background: "#fff",
+                      opacity: i === activeIndex ? 1 : 0.45,
+                      transition: "all 300ms ease",
+                    }}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -424,6 +436,7 @@ export default function ToonhubHero() {
           DISCOVER IT
           <ArrowRight className="w-5 h-5 sm:w-8 sm:h-8" strokeWidth={2.25} />
         </a>
+
 
       </div>
     </section>
