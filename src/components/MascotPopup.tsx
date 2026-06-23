@@ -37,8 +37,8 @@ export default function MascotPopup() {
 
   return (
     <div
-      className={`pointer-events-none fixed bottom-3 left-3 z-[60] flex items-end gap-2 transition-all duration-500 md:hidden ${
-        visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+      className={`pointer-events-none fixed bottom-3 left-0 z-[60] flex items-end gap-2 transition-all duration-700 ease-out md:hidden ${
+        visible ? "translate-x-3 opacity-100" : "-translate-x-[110%] opacity-0"
       }`}
       aria-hidden={!visible}
     >
