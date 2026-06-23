@@ -105,9 +105,26 @@ export default function ToonhubHero() {
   }, []);
 
   useEffect(() => {
-    setScrollP(0);
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        const el = sectionRef.current;
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const h = rect.height || 1;
+        const p = Math.min(1, Math.max(0, -rect.top / h));
+        setScrollP(p);
+      });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
-
 
   useEffect(() => {
     IMAGES.forEach((i) => {
@@ -164,10 +181,13 @@ export default function ToonhubHero() {
           transform: isMobile
             ? "translateX(-50%) scale(1.05)"
             : "translateX(-50%) scale(1.6)",
+
           filter: "blur(0px)",
           opacity: 1,
           zIndex: 20,
         };
+
+
       case "left":
         return {
           ...base,
@@ -175,7 +195,7 @@ export default function ToonhubHero() {
           bottom: isMobile ? "38%" : "8%",
           height: isMobile ? "13%" : "20%",
           transform: "translateX(-50%) scale(1)",
-          filter: isMobile ? "none" : "blur(2px)",
+          filter: "blur(2px)",
           opacity: isMobile ? 0.5 : 0,
           zIndex: 10,
         };
@@ -186,7 +206,7 @@ export default function ToonhubHero() {
           bottom: isMobile ? "78%" : "8%",
           height: isMobile ? "12%" : "20%",
           transform: "translateX(-50%) scale(1)",
-          filter: isMobile ? "none" : "blur(2px)",
+          filter: "blur(2px)",
           opacity: isMobile ? 0.45 : 0,
           zIndex: 10,
         };
@@ -197,13 +217,16 @@ export default function ToonhubHero() {
           bottom: isMobile ? "78%" : "5%",
           height: isMobile ? "10%" : "16%",
           transform: "translateX(-50%) scale(1)",
-          filter: isMobile ? "none" : "blur(4px)",
+          filter: "blur(4px)",
           opacity: isMobile ? 0.4 : 0,
+
           zIndex: 5,
         };
-    }
-  };
 
+
+    }
+
+  };
 
 
   const sideSign = IMAGES[activeIndex].mascotSide === "left" ? -1 : 1;
