@@ -242,7 +242,7 @@
 
 @media (max-width: 767px) {
   html {
-    scroll-snap-type: y mandatory;
+    scroll-snap-type: y proximity;
     scroll-padding-top: 4.25rem;
   }
 }
