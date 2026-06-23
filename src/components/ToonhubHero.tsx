@@ -322,6 +322,9 @@ export default function ToonhubHero() {
             bottom: isMobile ? "20%" : 0,
             [IMAGES[activeIndex].mascotSide]: isMobile ? "2%" : "26%",
             height: isMobile ? "30%" : "62%",
+            transform: `translate(${mascotShiftX}px, ${mascotShiftY}px) rotate(${mascotRot}deg)`,
+            opacity: fadeOut,
+            willChange: "transform, opacity",
           }}
           key={activeIndex}
         >
