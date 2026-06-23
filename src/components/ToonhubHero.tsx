@@ -200,7 +200,7 @@ export default function ToonhubHero() {
           bottom: isMobile ? "38%" : "8%",
           height: isMobile ? "13%" : "20%",
           transform: "translateX(-50%) scale(1)",
-          filter: "blur(2px)",
+          filter: isMobile ? "none" : "blur(2px)",
           opacity: isMobile ? 0.5 : 0,
           zIndex: 10,
         };
@@ -211,7 +211,7 @@ export default function ToonhubHero() {
           bottom: isMobile ? "78%" : "8%",
           height: isMobile ? "12%" : "20%",
           transform: "translateX(-50%) scale(1)",
-          filter: "blur(2px)",
+          filter: isMobile ? "none" : "blur(2px)",
           opacity: isMobile ? 0.45 : 0,
           zIndex: 10,
         };
@@ -222,16 +222,13 @@ export default function ToonhubHero() {
           bottom: isMobile ? "78%" : "5%",
           height: isMobile ? "10%" : "16%",
           transform: "translateX(-50%) scale(1)",
-          filter: "blur(4px)",
+          filter: isMobile ? "none" : "blur(4px)",
           opacity: isMobile ? 0.4 : 0,
-
           zIndex: 5,
         };
-
-
     }
-
   };
+
 
 
   const sideSign = IMAGES[activeIndex].mascotSide === "left" ? -1 : 1;
