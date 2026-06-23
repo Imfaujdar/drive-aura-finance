@@ -159,10 +159,10 @@ export default function ToonhubHero() {
       case "center":
         return {
           ...base,
-          left: isMobile ? "50%" : "78%",
-          bottom: isMobile ? "44%" : "10%",
-          height: isMobile ? "50%" : "80%",
-          transform: `translateX(-50%) scale(${isMobile ? 1.3 : 1.4})`,
+          left: isMobile ? "50%" : "72%",
+          bottom: isMobile ? "44%" : "6%",
+          height: isMobile ? "50%" : "82%",
+          transform: `translateX(-50%) scale(${isMobile ? 1.3 : 1.35})`,
           filter: "blur(0px)",
           opacity: 1,
           zIndex: 20,
@@ -170,34 +170,34 @@ export default function ToonhubHero() {
       case "left":
         return {
           ...base,
-          left: isMobile ? "18%" : "58%",
-          bottom: isMobile ? "44%" : "12%",
-          height: isMobile ? "14%" : "22%",
+          left: isMobile ? "18%" : "50%",
+          bottom: isMobile ? "44%" : "10%",
+          height: isMobile ? "14%" : "20%",
           transform: "translateX(-50%) scale(1)",
           filter: "blur(2px)",
-          opacity: 0.6,
+          opacity: 0.55,
           zIndex: 10,
         };
       case "right":
         return {
           ...base,
-          left: isMobile ? "82%" : "94%",
-          bottom: isMobile ? "44%" : "12%",
-          height: isMobile ? "14%" : "22%",
+          left: isMobile ? "82%" : "92%",
+          bottom: isMobile ? "44%" : "10%",
+          height: isMobile ? "14%" : "20%",
           transform: "translateX(-50%) scale(1)",
           filter: "blur(2px)",
-          opacity: 0.6,
+          opacity: 0.55,
           zIndex: 10,
         };
       case "back":
         return {
           ...base,
-          left: isMobile ? "50%" : "76%",
-          bottom: isMobile ? "44%" : "8%",
-          height: isMobile ? "11%" : "18%",
+          left: isMobile ? "50%" : "70%",
+          bottom: isMobile ? "44%" : "6%",
+          height: isMobile ? "11%" : "16%",
           transform: "translateX(-50%) scale(1)",
           filter: "blur(4px)",
-          opacity: 0.5,
+          opacity: 0.45,
           zIndex: 5,
         };
     }
@@ -248,9 +248,9 @@ export default function ToonhubHero() {
           className="absolute inset-x-0 flex items-center pointer-events-none select-none"
           style={{
             zIndex: 2,
-            top: isMobile ? "22%" : "26%",
+            top: isMobile ? "22%" : "16%",
             justifyContent: isMobile ? "center" : "flex-start",
-            paddingLeft: isMobile ? 0 : "5%",
+            paddingLeft: isMobile ? 0 : "6%",
             transform: `translateY(${ghostShift}px)`,
             opacity: fadeOut,
             willChange: "transform, opacity",
@@ -259,13 +259,13 @@ export default function ToonhubHero() {
           <span
             style={{
               fontFamily: "Anton, sans-serif",
-              fontSize: isMobile ? "clamp(36px, 13vw, 82px)" : "clamp(80px, 11vw, 200px)",
+              fontSize: isMobile ? "clamp(36px, 13vw, 82px)" : "clamp(110px, 14vw, 240px)",
               fontWeight: 900,
               color: "#fff",
               opacity: isMobile ? 0.92 : 1,
-              lineHeight: 1,
+              lineHeight: 0.92,
               textTransform: "uppercase",
-              letterSpacing: "-0.02em",
+              letterSpacing: "-0.025em",
               whiteSpace: "nowrap",
               maxWidth: "92vw",
               overflow: "hidden",
@@ -328,7 +328,7 @@ export default function ToonhubHero() {
 
         {/* Bottom content */}
         <div
-          className="absolute bottom-4 left-3 right-3 sm:bottom-20 sm:left-24 sm:right-auto"
+          className="absolute bottom-4 left-3 right-3 sm:bottom-auto sm:right-auto sm:top-1/2 sm:left-[6%] sm:max-w-[520px] sm:-translate-y-[10%]"
           style={{ zIndex: 60, maxWidth: "min(94vw, 380px)" }}
         >
           {/* Mobile glass card wrapper */}
@@ -351,14 +351,35 @@ export default function ToonhubHero() {
               <div className="flex-1 h-px ml-2" style={{ background: "rgba(255,255,255,0.3)" }} />
             </div>
 
+            {/* Desktop eyebrow */}
+            <div
+              className="hidden sm:flex items-center gap-3 mb-5"
+              style={{ color: "rgba(255,255,255,0.85)" }}
+            >
+              <span
+                style={{
+                  fontFamily: "Anton, sans-serif",
+                  fontSize: 22,
+                  lineHeight: 1,
+                  letterSpacing: "0.04em",
+                }}
+              >
+                0{activeIndex + 1}
+              </span>
+              <span style={{ fontSize: 11, letterSpacing: "0.22em", textTransform: "uppercase" }}>
+                / 0{IMAGES.length} &nbsp;·&nbsp; Finonest Auto
+              </span>
+              <div className="h-px w-16" style={{ background: "rgba(255,255,255,0.5)" }} />
+            </div>
+
             <h2
-              className="mb-2 sm:mb-3 font-bold uppercase break-words"
+              className="mb-3 sm:mb-5 font-bold uppercase break-words"
               style={{
                 color: "#fff",
                 fontFamily: "Anton, sans-serif",
                 letterSpacing: "0.005em",
-                fontSize: "clamp(24px, 7.2vw, 38px)",
-                lineHeight: 1,
+                fontSize: "clamp(24px, 7.2vw, 56px)",
+                lineHeight: 0.95,
                 wordBreak: "break-word",
                 hyphens: "auto",
               }}
@@ -366,38 +387,38 @@ export default function ToonhubHero() {
               {IMAGES[activeIndex].title}
             </h2>
             <p
-              className="mb-4 sm:mb-5"
+              className="mb-5 sm:mb-7"
               style={{
                 color: "#fff",
-                opacity: 0.9,
-                lineHeight: 1.45,
-                fontSize: "clamp(12px, 3.2vw, 15px)",
-                maxWidth: "32ch",
+                opacity: 0.92,
+                lineHeight: 1.55,
+                fontSize: "clamp(12px, 3.2vw, 17px)",
+                maxWidth: "44ch",
               }}
             >
               {IMAGES[activeIndex].desc}
             </p>
             <a
               href={IMAGES[activeIndex].href}
-              className="inline-flex max-w-full items-center justify-center gap-2 rounded-full font-semibold mb-4 sm:mb-5 whitespace-normal text-center"
+              className="inline-flex max-w-full items-center justify-center gap-2 rounded-full font-semibold mb-5 sm:mb-7 whitespace-normal text-center sm:px-7 sm:py-4"
               style={{
                 backgroundColor: "#fff",
                 color: IMAGES[activeIndex].bg,
                 padding: "11px 18px",
-                fontSize: "clamp(11px, 3vw, 13.5px)",
+                fontSize: "clamp(11px, 3vw, 14px)",
                 lineHeight: 1.15,
-                letterSpacing: "0.04em",
+                letterSpacing: "0.06em",
                 textTransform: "uppercase",
                 transition: `color ${DURATION}ms ${EASE}, transform 150ms ease, box-shadow 150ms ease`,
-                boxShadow: "0 8px 22px rgba(0,0,0,0.22)",
+                boxShadow: "0 10px 28px rgba(0,0,0,0.22)",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = "translateY(-2px)";
-                e.currentTarget.style.boxShadow = "0 12px 28px rgba(0,0,0,0.26)";
+                e.currentTarget.style.boxShadow = "0 14px 32px rgba(0,0,0,0.28)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "0 8px 22px rgba(0,0,0,0.22)";
+                e.currentTarget.style.boxShadow = "0 10px 28px rgba(0,0,0,0.22)";
               }}
             >
               <span className="min-w-0">{IMAGES[activeIndex].cta}</span>
@@ -430,13 +451,13 @@ export default function ToonhubHero() {
         {/* Bottom-right - desktop only */}
         <a
           href="#"
-          className="hidden sm:flex absolute bottom-20 right-10 items-center gap-2 no-underline"
+          className="hidden sm:flex absolute bottom-10 right-10 items-center gap-2 no-underline"
           style={{
             zIndex: 60,
             color: "#fff",
-            opacity: 0.95,
+            opacity: 0.9,
             fontFamily: "Anton, sans-serif",
-            fontSize: "clamp(20px, 4vw, 56px)",
+            fontSize: "clamp(18px, 2.2vw, 32px)",
             fontWeight: 400,
             letterSpacing: "-0.02em",
             lineHeight: 1,
