@@ -169,7 +169,7 @@ export default function ToonhubHero() {
   const itemStyle = (role: Role): CSSProperties => {
     const base: CSSProperties = {
       position: "absolute",
-      aspectRatio: isMobile ? "1 / 1" : "0.6 / 1",
+      aspectRatio: "0.6 / 1",
       transition: `transform ${DURATION}ms ${EASE}, filter ${DURATION}ms ${EASE}, opacity ${DURATION}ms ${EASE}, left ${DURATION}ms ${EASE}, bottom ${DURATION}ms ${EASE}, height ${DURATION}ms ${EASE}`,
       willChange: "transform, filter, opacity",
     };
@@ -177,54 +177,32 @@ export default function ToonhubHero() {
       case "center":
         return {
           ...base,
-          left: isMobile ? "50%" : "70%",
-          bottom: isMobile ? "8%" : "12%",
-          height: isMobile ? "82%" : "115%",
+          left: isMobile ? "72%" : "70%",
+          bottom: isMobile ? "14%" : "12%",
+          height: isMobile ? "70%" : "115%",
           transform: isMobile
-            ? "translateX(-50%) scale(1.05)"
+            ? "translateX(-50%) scale(1.25)"
             : "translateX(-50%) scale(1.6)",
-
           filter: "blur(0px)",
           opacity: 1,
           zIndex: 20,
         };
-
-
       case "left":
-        return {
-          ...base,
-          left: isMobile ? "15%" : "44%",
-          bottom: isMobile ? "38%" : "8%",
-          height: isMobile ? "13%" : "20%",
-          transform: "translateX(-50%) scale(1)",
-          filter: isMobile ? "none" : "blur(2px)",
-          opacity: 0,
-          zIndex: 10,
-        };
       case "right":
-        return {
-          ...base,
-          left: isMobile ? "92%" : "90%",
-          bottom: isMobile ? "78%" : "8%",
-          height: isMobile ? "12%" : "20%",
-          transform: "translateX(-50%) scale(1)",
-          filter: isMobile ? "none" : "blur(2px)",
-          opacity: 0,
-          zIndex: 10,
-        };
       case "back":
         return {
           ...base,
-          left: isMobile ? "38%" : "68%",
-          bottom: isMobile ? "78%" : "5%",
-          height: isMobile ? "10%" : "16%",
+          left: "70%",
+          bottom: "8%",
+          height: "20%",
           transform: "translateX(-50%) scale(1)",
-          filter: isMobile ? "none" : "blur(4px)",
+          filter: "blur(2px)",
           opacity: 0,
           zIndex: 5,
         };
     }
   };
+
 
 
 
