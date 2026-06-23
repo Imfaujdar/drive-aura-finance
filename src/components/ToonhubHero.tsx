@@ -451,13 +451,13 @@ export default function ToonhubHero() {
         {/* Bottom-right - desktop only */}
         <a
           href="#"
-          className="hidden sm:flex absolute bottom-20 right-10 items-center gap-2 no-underline"
+          className="hidden sm:flex absolute bottom-10 right-10 items-center gap-2 no-underline"
           style={{
             zIndex: 60,
             color: "#fff",
-            opacity: 0.95,
+            opacity: 0.9,
             fontFamily: "Anton, sans-serif",
-            fontSize: "clamp(20px, 4vw, 56px)",
+            fontSize: "clamp(18px, 2.2vw, 32px)",
             fontWeight: 400,
             letterSpacing: "-0.02em",
             lineHeight: 1,
