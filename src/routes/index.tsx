@@ -582,33 +582,23 @@ function Footer() {
 
 function HomePage() {
   useEffect(() => {
-    const isMobile = window.matchMedia("(max-width: 767px)").matches;
     const sectionEls = document.querySelectorAll<HTMLElement>("[data-reveal]");
-    if (isMobile) {
-      sectionEls.forEach((el) => {
-        el.style.opacity = "1";
-        el.style.transform = "none";
-      });
-    }
     const sectionIO = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
           if (e.isIntersecting) {
-            if (!isMobile) {
-              gsap.fromTo(
-                e.target,
-                { y: 40, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.9, ease: "power3.out" }
-              );
-            }
+            gsap.fromTo(
+              e.target,
+              { y: 40, opacity: 0 },
+              { y: 0, opacity: 1, duration: 0.9, ease: "power3.out" }
+            );
             sectionIO.unobserve(e.target);
           }
         });
       },
       { threshold: 0.12 }
     );
-    if (!isMobile) sectionEls.forEach((el) => sectionIO.observe(el));
-
+    sectionEls.forEach((el) => sectionIO.observe(el));
 
     // Card-level reveal with stagger inside each group
     const cardGroups = document.querySelectorAll<HTMLElement>("[data-card-group]");

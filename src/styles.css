@@ -242,14 +242,10 @@
 
 @media (max-width: 767px) {
   html {
-    scroll-snap-type: none;
+    scroll-snap-type: y proximity;
     scroll-padding-top: 4.25rem;
   }
-  .snap-section {
-    scroll-snap-align: none;
-  }
 }
-
 
 @media (prefers-reduced-motion: reduce) {
   html {
