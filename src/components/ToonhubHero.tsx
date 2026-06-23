@@ -1,61 +1,65 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import toonCar from "@/assets/hero-mascot-newcar.png";
-import toonCard from "@/assets/hero-mascot-refinance.png";
-import toonHome from "@/assets/hero-mascot-insurance.png";
-import toonCoins from "@/assets/hero-mascot-usedcar.png";
-import mascotCar from "@/assets/mascot-car.png";
-import mascotCard from "@/assets/mascot-card.png";
-import mascotHome from "@/assets/mascot-home.png";
-import mascotCoins from "@/assets/mascot-coins.png";
+import heroUsedCar from "@/assets/hero-mascot-usedcar-v2.png";
+import heroLoanAgainstCar from "@/assets/hero-mascot-loanagainstcar.png";
+import heroNewCar from "@/assets/hero-mascot-newcar-v2.png";
+import heroCommercial from "@/assets/hero-mascot-commercial.png";
+import heroConstruction from "@/assets/hero-mascot-construction.png";
 
 const IMAGES = [
   {
-    src: toonCar,
+    src: heroUsedCar,
     bg: "#F4845F",
     panel: "#F79B7F",
-    ghost: "NEW CAR",
-    title: "NEW CAR LOAN",
-    desc: "Drive home your dream car with Finonest. Quick approvals, lowest interest rates and flexible tenures on every new car brand.",
-    cta: "Get Car Loan Offers",
-    href: "/loans/car",
-    mascot: mascotCar,
-    mascotSide: "left" as const,
-  },
-  {
-    src: toonCoins,
-    bg: "#6BBF7A",
-    panel: "#85CC92",
     ghost: "USED CAR",
     title: "USED CAR LOAN",
     desc: "Finance any pre-owned car with confidence. Transparent valuation, instant eligibility check and best-in-class rates.",
     cta: "Check Used Car Offers",
     href: "/loans/used-car",
-    mascot: mascotCoins,
     mascotSide: "right" as const,
   },
   {
-    src: toonCard,
+    src: heroLoanAgainstCar,
     bg: "#E882B4",
     panel: "#ED9DC4",
-    ghost: "REFINANCE",
-    title: "CAR REFINANCE",
-    desc: "Lower your EMI by refinancing your existing car loan. Switch lenders in minutes and save up to ₹50,000 over your tenure.",
-    cta: "Refinance My Car",
-    href: "/loans/refinance",
-    mascot: mascotCard,
+    ghost: "LOAN AGAINST CAR",
+    title: "LOAN AGAINST CAR",
+    desc: "Unlock the value of your existing car. Get instant cash with minimal documentation while you continue to drive your vehicle.",
+    cta: "Get Loan Against Car",
+    href: "/loans/loan-against-car",
     mascotSide: "left" as const,
   },
   {
-    src: toonHome,
+    src: heroNewCar,
     bg: "#6EB5FF",
     panel: "#8DC4FF",
-    ghost: "INSURANCE",
-    title: "CAR INSURANCE",
-    desc: "Renew or buy car insurance from top insurers. Compare plans, claim assistance and zero paperwork in under 5 minutes.",
-    cta: "Get Insurance Quotes",
-    href: "/insurance/car",
-    mascot: mascotHome,
+    ghost: "NEW CAR",
+    title: "NEW CAR LOAN",
+    desc: "Drive home your dream car with Finonest. Quick approvals, lowest interest rates and flexible tenures on every new car brand.",
+    cta: "Get Car Loan Offers",
+    href: "/loans/car",
+    mascotSide: "right" as const,
+  },
+  {
+    src: heroCommercial,
+    bg: "#6BBF7A",
+    panel: "#85CC92",
+    ghost: "COMMERCIAL",
+    title: "COMMERCIAL VEHICLE LOAN",
+    desc: "Power your business on the road. Finance trucks, buses, tempos and fleet vehicles with flexible tenures and competitive rates.",
+    cta: "Finance My Vehicle",
+    href: "/loans/commercial-vehicle",
+    mascotSide: "left" as const,
+  },
+  {
+    src: heroConstruction,
+    bg: "#F2B441",
+    panel: "#F5C56A",
+    ghost: "CONSTRUCTION",
+    title: "CONSTRUCTION EQUIPMENT LOAN",
+    desc: "Build bigger with Finonest. Finance excavators, loaders, cranes and tractors with fast approvals and easy EMIs.",
+    cta: "Get Equipment Loan",
+    href: "/loans/construction-equipment",
     mascotSide: "right" as const,
   },
 ];
