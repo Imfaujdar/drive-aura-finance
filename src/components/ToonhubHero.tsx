@@ -245,10 +245,12 @@ export default function ToonhubHero() {
 
         {/* Ghost text - sits behind the subject for depth */}
         <div
-          className="absolute inset-x-0 flex items-center justify-center pointer-events-none select-none"
+          className="absolute inset-x-0 flex items-center pointer-events-none select-none"
           style={{
             zIndex: 2,
-            top: isMobile ? "22%" : "20%",
+            top: isMobile ? "22%" : "26%",
+            justifyContent: isMobile ? "center" : "flex-start",
+            paddingLeft: isMobile ? 0 : "5%",
             transform: `translateY(${ghostShift}px)`,
             opacity: fadeOut,
             willChange: "transform, opacity",
@@ -257,7 +259,7 @@ export default function ToonhubHero() {
           <span
             style={{
               fontFamily: "Anton, sans-serif",
-              fontSize: isMobile ? "clamp(40px, 14vw, 90px)" : "clamp(120px, 18vw, 320px)",
+              fontSize: isMobile ? "clamp(40px, 14vw, 90px)" : "clamp(90px, 12vw, 220px)",
               fontWeight: 900,
               color: "#fff",
               opacity: isMobile ? 0.92 : 1,
