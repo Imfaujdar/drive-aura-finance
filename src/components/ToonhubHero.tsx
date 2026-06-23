@@ -236,7 +236,13 @@ export default function ToonhubHero() {
         {/* Ghost text */}
         <div
           className="absolute inset-x-0 flex items-center justify-center pointer-events-none select-none"
-          style={{ zIndex: 2, top: "18%" }}
+          style={{
+            zIndex: 2,
+            top: "18%",
+            transform: `translateY(${ghostShift}px)`,
+            opacity: fadeOut,
+            willChange: "transform, opacity",
+          }}
         >
           <span
             style={{
