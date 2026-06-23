@@ -545,6 +545,7 @@ function HomePage() {
 
   return (
     <div className="bg-mesh min-h-screen">
+      <Navbar />
       <ToonhubHero />
       <main>
         <div data-reveal><Services /></div>
