@@ -82,7 +82,7 @@ function Nav() {
 import heroUsedCar from "@/assets/hero-used-car.png";
 import heroHome from "@/assets/hero-home.png";
 import heroCard from "@/assets/hero-card.png";
-import heroPersonal from "@/assets/hero-personal.png";
+import heroPersonalClean from "@/assets/hero-personal-clean.png";
 
 type HeroSlide = {
   tag: string;
@@ -94,10 +94,14 @@ type HeroSlide = {
   image: string;
   imageAlt: string;
   whyTitle: string;
-  perks: { icon: any; label: string }[];
+  perks: { icon: any; label: string; subLabel?: string }[];
   rateLabel: string;
   rateValue: string;
   rateSuffix: string;
+  rateSecondaryLabel?: string;
+  rateSecondaryValue?: string;
+  rateSecondarySuffix?: string;
+  rateFootnote?: string;
   cta: string;
   bottom: { icon: any; title: string; sub: string }[];
 };
