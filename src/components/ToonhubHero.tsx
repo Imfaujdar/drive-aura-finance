@@ -151,9 +151,9 @@ export default function ToonhubHero() {
         return {
           ...base,
           left: "50%",
-          bottom: isMobile ? "22%" : 0,
-          height: isMobile ? "60%" : "92%",
-          transform: `translateX(-50%) scale(${isMobile ? 1.25 : 1.68})`,
+          bottom: isMobile ? "38%" : 0,
+          height: isMobile ? "52%" : "92%",
+          transform: `translateX(-50%) scale(${isMobile ? 1.35 : 1.68})`,
           filter: "blur(0px)",
           opacity: 1,
           zIndex: 20,
@@ -161,38 +161,39 @@ export default function ToonhubHero() {
       case "left":
         return {
           ...base,
-          left: isMobile ? "20%" : "30%",
-          bottom: isMobile ? "32%" : "12%",
-          height: isMobile ? "16%" : "28%",
+          left: isMobile ? "18%" : "30%",
+          bottom: isMobile ? "44%" : "12%",
+          height: isMobile ? "14%" : "28%",
           transform: "translateX(-50%) scale(1)",
           filter: "blur(2px)",
-          opacity: 0.85,
+          opacity: 0.7,
           zIndex: 10,
         };
       case "right":
         return {
           ...base,
-          left: isMobile ? "80%" : "70%",
-          bottom: isMobile ? "32%" : "12%",
-          height: isMobile ? "16%" : "28%",
+          left: isMobile ? "82%" : "70%",
+          bottom: isMobile ? "44%" : "12%",
+          height: isMobile ? "14%" : "28%",
           transform: "translateX(-50%) scale(1)",
           filter: "blur(2px)",
-          opacity: 0.85,
+          opacity: 0.7,
           zIndex: 10,
         };
       case "back":
         return {
           ...base,
           left: "50%",
-          bottom: isMobile ? "32%" : "12%",
-          height: isMobile ? "13%" : "22%",
+          bottom: isMobile ? "44%" : "12%",
+          height: isMobile ? "11%" : "22%",
           transform: "translateX(-50%) scale(1)",
           filter: "blur(4px)",
-          opacity: 1,
+          opacity: 0.9,
           zIndex: 5,
         };
     }
   };
+
 
   const sideSign = IMAGES[activeIndex].mascotSide === "left" ? -1 : 1;
   // Scroll-driven motion values
