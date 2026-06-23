@@ -349,13 +349,15 @@ export default function ToonhubHero() {
             </div>
 
             <h2
-              className="mb-2 sm:mb-3 font-bold uppercase"
+              className="mb-2 sm:mb-3 font-bold uppercase break-words"
               style={{
                 color: "#fff",
                 fontFamily: "Anton, sans-serif",
                 letterSpacing: "0.005em",
-                fontSize: "clamp(28px, 8vw, 34px)",
-                lineHeight: 0.98,
+                fontSize: "clamp(24px, 7.2vw, 38px)",
+                lineHeight: 1,
+                wordBreak: "break-word",
+                hyphens: "auto",
               }}
             >
               {IMAGES[activeIndex].title}
@@ -365,8 +367,8 @@ export default function ToonhubHero() {
               style={{
                 color: "#fff",
                 opacity: 0.9,
-                lineHeight: 1.5,
-                fontSize: "clamp(12.5px, 3.4vw, 15px)",
+                lineHeight: 1.45,
+                fontSize: "clamp(12px, 3.2vw, 15px)",
                 maxWidth: "32ch",
               }}
             >
@@ -374,13 +376,14 @@ export default function ToonhubHero() {
             </p>
             <a
               href={IMAGES[activeIndex].href}
-              className="inline-flex items-center gap-2 rounded-full font-semibold mb-4 sm:mb-5"
+              className="inline-flex max-w-full items-center justify-center gap-2 rounded-full font-semibold mb-4 sm:mb-5 whitespace-normal text-center"
               style={{
                 backgroundColor: "#fff",
                 color: IMAGES[activeIndex].bg,
-                padding: "12px 22px",
-                fontSize: "clamp(12px, 3.2vw, 14px)",
-                letterSpacing: "0.05em",
+                padding: "11px 18px",
+                fontSize: "clamp(11px, 3vw, 13.5px)",
+                lineHeight: 1.15,
+                letterSpacing: "0.04em",
                 textTransform: "uppercase",
                 transition: `color ${DURATION}ms ${EASE}, transform 150ms ease, box-shadow 150ms ease`,
                 boxShadow: "0 8px 22px rgba(0,0,0,0.22)",
@@ -394,8 +397,8 @@ export default function ToonhubHero() {
                 e.currentTarget.style.boxShadow = "0 8px 22px rgba(0,0,0,0.22)";
               }}
             >
-              {IMAGES[activeIndex].cta}
-              <ArrowRight size={16} strokeWidth={2.5} />
+              <span className="min-w-0">{IMAGES[activeIndex].cta}</span>
+              <ArrowRight size={16} strokeWidth={2.5} className="shrink-0" />
             </a>
             <div className="flex items-center justify-between gap-3">
               <div className="flex gap-2.5">
