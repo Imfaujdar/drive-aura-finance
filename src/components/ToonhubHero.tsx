@@ -159,10 +159,10 @@ export default function ToonhubHero() {
       case "center":
         return {
           ...base,
-          left: isMobile ? "50%" : "78%",
-          bottom: isMobile ? "44%" : "10%",
-          height: isMobile ? "50%" : "80%",
-          transform: `translateX(-50%) scale(${isMobile ? 1.3 : 1.4})`,
+          left: isMobile ? "50%" : "72%",
+          bottom: isMobile ? "44%" : "6%",
+          height: isMobile ? "50%" : "82%",
+          transform: `translateX(-50%) scale(${isMobile ? 1.3 : 1.35})`,
           filter: "blur(0px)",
           opacity: 1,
           zIndex: 20,
@@ -170,34 +170,34 @@ export default function ToonhubHero() {
       case "left":
         return {
           ...base,
-          left: isMobile ? "18%" : "58%",
-          bottom: isMobile ? "44%" : "12%",
-          height: isMobile ? "14%" : "22%",
+          left: isMobile ? "18%" : "50%",
+          bottom: isMobile ? "44%" : "10%",
+          height: isMobile ? "14%" : "20%",
           transform: "translateX(-50%) scale(1)",
           filter: "blur(2px)",
-          opacity: 0.6,
+          opacity: 0.55,
           zIndex: 10,
         };
       case "right":
         return {
           ...base,
-          left: isMobile ? "82%" : "94%",
-          bottom: isMobile ? "44%" : "12%",
-          height: isMobile ? "14%" : "22%",
+          left: isMobile ? "82%" : "92%",
+          bottom: isMobile ? "44%" : "10%",
+          height: isMobile ? "14%" : "20%",
           transform: "translateX(-50%) scale(1)",
           filter: "blur(2px)",
-          opacity: 0.6,
+          opacity: 0.55,
           zIndex: 10,
         };
       case "back":
         return {
           ...base,
-          left: isMobile ? "50%" : "76%",
-          bottom: isMobile ? "44%" : "8%",
-          height: isMobile ? "11%" : "18%",
+          left: isMobile ? "50%" : "70%",
+          bottom: isMobile ? "44%" : "6%",
+          height: isMobile ? "11%" : "16%",
           transform: "translateX(-50%) scale(1)",
           filter: "blur(4px)",
-          opacity: 0.5,
+          opacity: 0.45,
           zIndex: 5,
         };
     }
