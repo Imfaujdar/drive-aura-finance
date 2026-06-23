@@ -247,30 +247,61 @@ export default function ToonhubHero() {
           ))}
         </div>
 
-        {/* Mascot pointing to subject (sits near subject, clear of bottom CTAs) */}
+        {/* Mascot keyframes */}
+        <style>{`
+          @keyframes mascot-pop-left {
+            0% { opacity: 0; transform: translateY(40px) translateX(-30px) rotate(-6deg) scale(0.85); }
+            60% { opacity: 1; transform: translateY(-6px) translateX(4px) rotate(2deg) scale(1.03); }
+            100% { opacity: 1; transform: translateY(0) translateX(0) rotate(0deg) scale(1); }
+          }
+          @keyframes mascot-pop-right {
+            0% { opacity: 0; transform: translateY(40px) translateX(30px) rotate(6deg) scale(0.85); }
+            60% { opacity: 1; transform: translateY(-6px) translateX(-4px) rotate(-2deg) scale(1.03); }
+            100% { opacity: 1; transform: translateY(0) translateX(0) rotate(0deg) scale(1); }
+          }
+          @keyframes mascot-idle {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-6px) rotate(1.2deg); }
+          }
+        `}</style>
+
+        {/* Mascot pointing to subject */}
         <div
-          className="absolute pointer-events-none hidden lg:block"
+          className="absolute pointer-events-none"
           style={{
             zIndex: 15,
-            bottom: 0,
-            [IMAGES[activeIndex].mascotSide]: "26%",
-            height: "62%",
-            transition: `opacity ${DURATION}ms ${EASE}`,
+            bottom: isMobile ? "20%" : 0,
+            [IMAGES[activeIndex].mascotSide]: isMobile ? "2%" : "26%",
+            height: isMobile ? "30%" : "62%",
           }}
           key={activeIndex}
         >
-          <img
-            src={IMAGES[activeIndex].mascot}
-            alt=""
+          <div
             style={{
               height: "100%",
-              width: "auto",
-              objectFit: "contain",
-              objectPosition: "bottom center",
-              filter: "drop-shadow(0 18px 28px rgba(0,0,0,0.28))",
-              animation: "fade-in 600ms ease-out",
+              animation: `${IMAGES[activeIndex].mascotSide === "left" ? "mascot-pop-left" : "mascot-pop-right"} 720ms cubic-bezier(0.34, 1.56, 0.64, 1) both`,
             }}
-          />
+          >
+            <div
+              style={{
+                height: "100%",
+                animation: "mascot-idle 3.6s ease-in-out 720ms infinite",
+                transformOrigin: "bottom center",
+              }}
+            >
+              <img
+                src={IMAGES[activeIndex].mascot}
+                alt=""
+                style={{
+                  height: "100%",
+                  width: "auto",
+                  objectFit: "contain",
+                  objectPosition: "bottom center",
+                  filter: "drop-shadow(0 18px 28px rgba(0,0,0,0.28))",
+                }}
+              />
+            </div>
+          </div>
         </div>
 
         {/* Bottom-left */}
