@@ -41,83 +41,66 @@
 :root {
   --radius: 1rem;
 
-  /* Warm sand neumorphic base (matched to hero imagery) */
-  --background: #F2E7D8;
-  --foreground: #2B2118;
+  /* Hero-synced accent (updated live by ToonhubHero on slide change) */
+  --hero-accent: #F4845F;
+  --hero-accent-soft: #FFD6C2;
 
-  --card: #F2E7D8;
-  --card-foreground: #2B2118;
-  --popover: #F2E7D8;
-  --popover-foreground: #2B2118;
+  /* Page palette tuned to hero warmth */
+  --background: #FFF6EE;
+  --foreground: #1F1A16;
 
-  /* Terracotta / clay accent pulled from hero subject */
-  --primary: #C2674A;
-  --primary-foreground: #FFF7ED;
+  --card: #FFFFFF;
+  --card-foreground: #1F1A16;
+  --popover: #FFFFFF;
+  --popover-foreground: #1F1A16;
 
-  --secondary: #F2E7D8;
-  --secondary-foreground: #2B2118;
+  --primary: var(--hero-accent);
+  --primary-foreground: #FFFFFF;
 
-  --muted: #E6D7C2;
+  --secondary: #FFEFE3;
+  --secondary-foreground: #1F1A16;
+
+  --muted: #F5E8DA;
   --muted-foreground: #6B5A4A;
 
-  --accent: #E8A87C;
-  --accent-foreground: #2B2118;
+  --accent: var(--hero-accent-soft);
+  --accent-foreground: #1F1A16;
 
   --destructive: #B83A2A;
-  --destructive-foreground: #FFF7ED;
+  --destructive-foreground: #FFFFFF;
 
-  --success: #7D9B6A;
+  --success: #6BBF7A;
 
-  --border: transparent;
-  --input: #F2E7D8;
-  --ring: #C2674A;
+  --border: rgba(31, 26, 22, 0.08);
+  --input: rgba(31, 26, 22, 0.08);
+  --ring: var(--hero-accent);
 
-  --chart-1: #C2674A;
-  --chart-2: #E8A87C;
-  --chart-3: #8B6F5E;
-  --chart-4: #6B5A4A;
-  --chart-5: #2B2118;
+  --chart-1: var(--hero-accent);
+  --chart-2: #6BBF7A;
+  --chart-3: #E882B4;
+  --chart-4: #6EB5FF;
+  --chart-5: #1F1A16;
 
-  --sidebar: #F2E7D8;
-  --sidebar-foreground: #2B2118;
-  --sidebar-primary: #C2674A;
-  --sidebar-primary-foreground: #FFF7ED;
-  --sidebar-accent: #E6D7C2;
-  --sidebar-accent-foreground: #2B2118;
-  --sidebar-border: transparent;
-  --sidebar-ring: #C2674A;
+  --sidebar: #FFF6EE;
+  --sidebar-foreground: #1F1A16;
+  --sidebar-primary: var(--hero-accent);
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: var(--hero-accent-soft);
+  --sidebar-accent-foreground: #1F1A16;
+  --sidebar-border: rgba(31, 26, 22, 0.08);
+  --sidebar-ring: var(--hero-accent);
 
-  /* Warm neumorphic shadows */
-  --neu-shadow-dark: rgba(168, 132, 96, 0.45);
-  --neu-shadow-dark-strong: rgba(168, 132, 96, 0.6);
-  --neu-shadow-light: rgba(255, 248, 235, 0.85);
-  --neu-shadow-light-strong: rgba(255, 250, 240, 0.95);
+  --gradient-brand: linear-gradient(135deg, var(--hero-accent-soft) 0%, var(--hero-accent) 100%);
+  --gradient-mesh:
+    radial-gradient(1200px 600px at 10% -10%, color-mix(in oklab, var(--hero-accent) 18%, transparent), transparent 60%),
+    radial-gradient(900px 500px at 110% 20%, color-mix(in oklab, var(--hero-accent-soft) 35%, transparent), transparent 60%);
 
-  --shadow-extruded-sm:
-    4px 4px 8px var(--neu-shadow-dark),
-    -4px -4px 8px var(--neu-shadow-light);
-  --shadow-extruded:
-    8px 8px 18px var(--neu-shadow-dark),
-    -8px -8px 18px var(--neu-shadow-light);
-  --shadow-extruded-hover:
-    12px 12px 26px var(--neu-shadow-dark-strong),
-    -12px -12px 26px var(--neu-shadow-light-strong);
-  --shadow-inset-sm:
-    inset 3px 3px 6px var(--neu-shadow-dark),
-    inset -3px -3px 6px var(--neu-shadow-light);
-  --shadow-inset:
-    inset 6px 6px 12px var(--neu-shadow-dark),
-    inset -6px -6px 12px var(--neu-shadow-light);
-  --shadow-inset-deep:
-    inset 8px 8px 16px var(--neu-shadow-dark-strong),
-    inset -8px -8px 16px var(--neu-shadow-light-strong);
-  --gradient-brand: linear-gradient(135deg, #E8A87C 0%, #C2674A 100%);
-  --gradient-mesh: none;
-  --shadow-glass: var(--shadow-extruded);
-  --shadow-lift: var(--shadow-extruded-hover);
-  --shadow-glow: 0 0 0 2px rgba(194, 103, 74, 0.3), var(--shadow-extruded);
-  --shadow-depth: var(--shadow-extruded-hover);
+  --shadow-glass: 0 10px 40px -12px rgba(31, 26, 22, 0.15), 0 2px 6px rgba(31, 26, 22, 0.05);
+  --shadow-lift: 0 24px 60px -20px rgba(31, 26, 22, 0.25), 0 4px 12px rgba(31, 26, 22, 0.08);
+  --shadow-glow: 0 12px 32px -8px color-mix(in oklab, var(--hero-accent) 50%, transparent);
+  --shadow-depth: 0 30px 80px -30px rgba(31, 26, 22, 0.3);
 }
+
 
 @layer base {
   * {
