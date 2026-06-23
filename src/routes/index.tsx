@@ -82,7 +82,7 @@ function Services() {
             alt=""
             aria-hidden
             loading="lazy"
-            className="h-24 w-auto -scale-x-100 drop-shadow-[0_18px_30px_rgba(0,0,0,0.35)] sm:h-32 md:h-36 lg:h-40"
+            className="h-24 w-auto drop-shadow-[0_18px_30px_rgba(0,0,0,0.35)] sm:h-32 md:h-36 lg:h-40"
           />
           <div className="relative mb-6 hidden sm:block">
             <div className="rounded-2xl rounded-br-sm bg-white px-4 py-2 text-sm font-semibold text-foreground shadow-[var(--shadow-lift)] ring-1 ring-border md:text-base">
