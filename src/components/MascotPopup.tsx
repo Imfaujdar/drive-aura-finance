@@ -20,12 +20,12 @@ const OFFERS: Offer[] = [
 type Pos = { side: "left" | "right"; topPct: number };
 
 const SPOTS: Pos[] = [
-  { side: "left", topPct: 30 },
-  { side: "right", topPct: 45 },
+  { side: "left", topPct: 25 },
+  { side: "left", topPct: 40 },
+  { side: "left", topPct: 55 },
+  { side: "left", topPct: 70 },
+  { side: "left", topPct: 35 },
   { side: "left", topPct: 60 },
-  { side: "right", topPct: 25 },
-  { side: "left", topPct: 75 },
-  { side: "right", topPct: 65 },
 ];
 
 export default function MascotPopup() {
