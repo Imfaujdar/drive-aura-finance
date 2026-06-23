@@ -159,10 +159,10 @@ export default function ToonhubHero() {
       case "center":
         return {
           ...base,
-          left: "50%",
-          bottom: isMobile ? "44%" : "14%",
-          height: isMobile ? "50%" : "74%",
-          transform: `translateX(-50%) scale(${isMobile ? 1.3 : 1.45})`,
+          left: isMobile ? "50%" : "78%",
+          bottom: isMobile ? "44%" : "10%",
+          height: isMobile ? "50%" : "80%",
+          transform: `translateX(-50%) scale(${isMobile ? 1.3 : 1.4})`,
           filter: "blur(0px)",
           opacity: 1,
           zIndex: 20,
@@ -170,34 +170,34 @@ export default function ToonhubHero() {
       case "left":
         return {
           ...base,
-          left: isMobile ? "18%" : "30%",
+          left: isMobile ? "18%" : "58%",
           bottom: isMobile ? "44%" : "12%",
-          height: isMobile ? "14%" : "28%",
+          height: isMobile ? "14%" : "22%",
           transform: "translateX(-50%) scale(1)",
           filter: "blur(2px)",
-          opacity: 0.7,
+          opacity: 0.6,
           zIndex: 10,
         };
       case "right":
         return {
           ...base,
-          left: isMobile ? "82%" : "70%",
+          left: isMobile ? "82%" : "94%",
           bottom: isMobile ? "44%" : "12%",
-          height: isMobile ? "14%" : "28%",
+          height: isMobile ? "14%" : "22%",
           transform: "translateX(-50%) scale(1)",
           filter: "blur(2px)",
-          opacity: 0.7,
+          opacity: 0.6,
           zIndex: 10,
         };
       case "back":
         return {
           ...base,
-          left: "50%",
-          bottom: isMobile ? "44%" : "12%",
-          height: isMobile ? "11%" : "22%",
+          left: isMobile ? "50%" : "76%",
+          bottom: isMobile ? "44%" : "8%",
+          height: isMobile ? "11%" : "18%",
           transform: "translateX(-50%) scale(1)",
           filter: "blur(4px)",
-          opacity: 0.9,
+          opacity: 0.5,
           zIndex: 5,
         };
     }
@@ -245,10 +245,12 @@ export default function ToonhubHero() {
 
         {/* Ghost text - sits behind the subject for depth */}
         <div
-          className="absolute inset-x-0 flex items-center justify-center pointer-events-none select-none"
+          className="absolute inset-x-0 flex items-center pointer-events-none select-none"
           style={{
             zIndex: 2,
-            top: isMobile ? "22%" : "20%",
+            top: isMobile ? "22%" : "26%",
+            justifyContent: isMobile ? "center" : "flex-start",
+            paddingLeft: isMobile ? 0 : "5%",
             transform: `translateY(${ghostShift}px)`,
             opacity: fadeOut,
             willChange: "transform, opacity",
@@ -257,7 +259,7 @@ export default function ToonhubHero() {
           <span
             style={{
               fontFamily: "Anton, sans-serif",
-              fontSize: isMobile ? "clamp(40px, 14vw, 90px)" : "clamp(120px, 18vw, 320px)",
+              fontSize: isMobile ? "clamp(40px, 14vw, 90px)" : "clamp(90px, 12vw, 220px)",
               fontWeight: 900,
               color: "#fff",
               opacity: isMobile ? 0.92 : 1,
