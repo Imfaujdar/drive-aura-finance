@@ -9,6 +9,7 @@ import {
 import { useEffect, useState, type ReactNode } from "react";
 import gsap from "gsap";
 import ToonhubHero from "@/components/ToonhubHero";
+import Navbar from "@/components/Navbar";
 
 import whyCar from "@/assets/why-car.png";
 import resaleCar from "@/assets/resale-car.png";
