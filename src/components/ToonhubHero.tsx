@@ -167,23 +167,26 @@ export default function ToonhubHero() {
   const itemStyle = (role: Role): CSSProperties => {
     const base: CSSProperties = {
       position: "absolute",
-      aspectRatio: "0.6 / 1",
-      transition: `transform ${DURATION}ms ${EASE}, filter ${DURATION}ms ${EASE}, opacity ${DURATION}ms ${EASE}, left ${DURATION}ms ${EASE}`,
+      aspectRatio: isMobile ? "1 / 1" : "0.6 / 1",
+      transition: `transform ${DURATION}ms ${EASE}, filter ${DURATION}ms ${EASE}, opacity ${DURATION}ms ${EASE}, left ${DURATION}ms ${EASE}, bottom ${DURATION}ms ${EASE}, height ${DURATION}ms ${EASE}`,
       willChange: "transform, filter, opacity",
     };
     switch (role) {
       case "center":
         return {
           ...base,
-          left: isMobile ? "70%" : "72%",
-          bottom: isMobile ? "36%" : "2%",
-          height: isMobile ? "62%" : "92%",
-          transform: `translateX(-50%) scale(${isMobile ? 1.5 : 1.35})`,
+          left: isMobile ? "50%" : "72%",
+          bottom: isMobile ? "8%" : "2%",
+          height: isMobile ? "82%" : "92%",
+          transform: isMobile
+            ? "translateX(-50%) scale(1.05)"
+            : "translateX(-50%) scale(1.35)",
 
           filter: "blur(0px)",
           opacity: 1,
           zIndex: 20,
         };
+
 
       case "left":
         return {
@@ -321,10 +324,10 @@ export default function ToonhubHero() {
           className="pointer-events-none absolute"
           style={{
             zIndex: 2,
-            left: isMobile ? "70%" : "74%",
-            bottom: isMobile ? "34%" : "1.5%",
-            width: isMobile ? "55%" : "32%",
-            height: isMobile ? "26px" : "44px",
+            left: isMobile ? "50%" : "74%",
+            bottom: isMobile ? "6%" : "1.5%",
+            width: isMobile ? "62%" : "32%",
+            height: isMobile ? "22px" : "44px",
             transform: "translate(-50%, 50%)",
             background:
               "radial-gradient(ellipse at center, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0) 70%)",
@@ -333,6 +336,7 @@ export default function ToonhubHero() {
             opacity: fadeOut,
           }}
         />
+
 
         {/* Carousel */}
         <div
