@@ -70,15 +70,20 @@ function Services() {
   ];
   return (
     <section className="relative mx-auto max-w-7xl px-4 pt-12">
-      <div className="relative rounded-3xl glass p-5 md:p-7">
-        <div data-card-group className="grid grid-cols-3 gap-4 md:grid-cols-6">
+      <div className="relative rounded-3xl glass p-4 sm:p-5 md:p-7">
+        <div data-card-group className="grid grid-cols-3 gap-2.5 sm:gap-4 md:grid-cols-6">
           {items.map(({ icon: Icon, title, sub, color }) => (
-            <button key={title} data-card className="group flex flex-col items-center gap-3 rounded-2xl glass-soft p-3 transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
-              <span className={`grid h-16 w-16 place-items-center rounded-full ring-1 ${color} transition-transform group-hover:scale-105`}>
-                <Icon className="h-7 w-7" />
+            <button
+              key={title}
+              data-card
+              className="group flex h-full min-h-[120px] sm:min-h-[140px] flex-col items-center justify-start gap-2 sm:gap-3 rounded-2xl glass-soft p-2.5 sm:p-3 transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]"
+            >
+              <span className={`grid h-12 w-12 sm:h-16 sm:w-16 shrink-0 place-items-center rounded-full ring-1 ${color} transition-transform group-hover:scale-105`}>
+                <Icon className="h-6 w-6 sm:h-7 sm:w-7" />
               </span>
-              <div className="text-center text-xs font-semibold leading-tight text-foreground/85">
-                {title}<br />{sub}
+              <div className="text-center text-[11px] sm:text-xs font-semibold leading-tight text-foreground/85">
+                <div className="line-clamp-1">{title}</div>
+                <div className="line-clamp-1 text-foreground/70">{sub}</div>
               </div>
             </button>
           ))}
