@@ -92,7 +92,25 @@
   --neu-shadow-dark-strong: rgba(168, 132, 96, 0.6);
   --neu-shadow-light: rgba(255, 248, 235, 0.85);
   --neu-shadow-light-strong: rgba(255, 250, 240, 0.95);
-...
+
+  --shadow-extruded-sm:
+    4px 4px 8px var(--neu-shadow-dark),
+    -4px -4px 8px var(--neu-shadow-light);
+  --shadow-extruded:
+    8px 8px 18px var(--neu-shadow-dark),
+    -8px -8px 18px var(--neu-shadow-light);
+  --shadow-extruded-hover:
+    12px 12px 26px var(--neu-shadow-dark-strong),
+    -12px -12px 26px var(--neu-shadow-light-strong);
+  --shadow-inset-sm:
+    inset 3px 3px 6px var(--neu-shadow-dark),
+    inset -3px -3px 6px var(--neu-shadow-light);
+  --shadow-inset:
+    inset 6px 6px 12px var(--neu-shadow-dark),
+    inset -6px -6px 12px var(--neu-shadow-light);
+  --shadow-inset-deep:
+    inset 8px 8px 16px var(--neu-shadow-dark-strong),
+    inset -8px -8px 16px var(--neu-shadow-light-strong);
   --gradient-brand: linear-gradient(135deg, #E8A87C 0%, #C2674A 100%);
   --gradient-mesh: none;
   --shadow-glass: var(--shadow-extruded);
