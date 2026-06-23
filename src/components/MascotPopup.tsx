@@ -17,19 +17,32 @@ const OFFERS: Offer[] = [
   { emoji: "💯", title: "Credit Score: Free", sub: "Check yours instantly", accent: "from-sky-500 to-cyan-500" },
 ];
 
+type Pos = { side: "left" | "right"; topPct: number };
+
+const SPOTS: Pos[] = [
+  { side: "left", topPct: 30 },
+  { side: "right", topPct: 45 },
+  { side: "left", topPct: 60 },
+  { side: "right", topPct: 25 },
+  { side: "left", topPct: 75 },
+  { side: "right", topPct: 65 },
+];
+
 export default function MascotPopup() {
   const [offerIdx, setOfferIdx] = useState(0);
+  const [spotIdx, setSpotIdx] = useState(0);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     let hide: ReturnType<typeof setTimeout>;
     const show = () => {
       setOfferIdx((i) => (i + 1) % OFFERS.length);
+      setSpotIdx(Math.floor(Math.random() * SPOTS.length));
       setOpen(true);
       hide = setTimeout(() => setOpen(false), 5000);
     };
     const first = setTimeout(show, 2500);
-    const loop = setInterval(show, 12000);
+    const loop = setInterval(show, 11000);
     return () => {
       clearTimeout(first);
       clearTimeout(hide);
@@ -38,16 +51,31 @@ export default function MascotPopup() {
   }, []);
 
   const offer = OFFERS[offerIdx];
+  const spot = SPOTS[spotIdx];
+  const isLeft = spot.side === "left";
 
   return (
-    <div className="pointer-events-none fixed bottom-24 left-0 z-[60] flex items-center md:hidden">
-      {/* Mascot — auto slides in/out from left edge, flush to edge */}
+    <div
+      className="pointer-events-none fixed z-[60] flex items-center md:hidden"
+      style={{
+        top: `${spot.topPct}%`,
+        left: isLeft ? 0 : "auto",
+        right: isLeft ? "auto" : 0,
+        flexDirection: isLeft ? "row" : "row-reverse",
+      }}
+    >
+      {/* Mascot — slides in from the screen edge */}
       <div
-        className={`pointer-events-auto relative -ml-4 transition-all duration-700 ease-out ${
-          open ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
+        className={`pointer-events-auto relative transition-all duration-700 ease-out ${
+          open
+            ? "translate-x-0 opacity-100"
+            : isLeft
+            ? "-translate-x-full opacity-0"
+            : "translate-x-full opacity-0"
         }`}
+        style={{ marginLeft: isLeft ? "-1rem" : 0, marginRight: isLeft ? 0 : "-1rem" }}
       >
-        <div className="pointer-events-none absolute inset-0 -z-10 translate-x-6 rounded-full bg-primary/25 blur-2xl" />
+        <div className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-primary/25 blur-2xl" />
         <img
           src={mascot}
           alt="Finonest mascot"
@@ -55,19 +83,30 @@ export default function MascotPopup() {
           height={180}
           loading="lazy"
           className="block h-40 w-auto select-none drop-shadow-[0_10px_15px_rgba(0,0,0,0.28)] animate-[mascot-bob_2.6s_ease-in-out_infinite] sm:h-44"
+          style={{ transform: isLeft ? undefined : "scaleX(-1)" }}
         />
       </div>
 
-      {/* Notification bubble — directly touching mascot, no gap */}
+      {/* Notification bubble — touches mascot, no gap */}
       <div
-        className={`pointer-events-auto relative -ml-6 max-w-[200px] origin-left rounded-2xl bg-white/95 px-3 py-2.5 shadow-[0_10px_30px_rgba(0,0,0,0.18)] ring-1 ring-black/5 backdrop-blur transition-all delay-150 duration-500 ${
+        className={`pointer-events-auto relative max-w-[200px] rounded-2xl bg-white/95 px-3 py-2.5 shadow-[0_10px_30px_rgba(0,0,0,0.18)] ring-1 ring-black/5 backdrop-blur transition-all delay-150 duration-500 ${
           open
             ? "translate-x-0 scale-100 opacity-100"
-            : "pointer-events-none -translate-x-4 scale-90 opacity-0"
+            : isLeft
+            ? "pointer-events-none -translate-x-4 scale-90 opacity-0"
+            : "pointer-events-none translate-x-4 scale-90 opacity-0"
         }`}
+        style={{
+          marginLeft: isLeft ? "-1.5rem" : 0,
+          marginRight: isLeft ? 0 : "-1.5rem",
+          transformOrigin: isLeft ? "left center" : "right center",
+        }}
         aria-hidden={!open}
       >
-        <div className="absolute -left-1.5 top-1/2 h-3 w-3 -translate-y-1/2 rotate-45 bg-white" />
+        <div
+          className="absolute top-1/2 h-3 w-3 -translate-y-1/2 rotate-45 bg-white"
+          style={isLeft ? { left: "-0.375rem" } : { right: "-0.375rem" }}
+        />
         <div
           className={`inline-flex items-center gap-1 rounded-full bg-gradient-to-r ${offer.accent} px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white`}
         >
