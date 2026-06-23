@@ -286,6 +286,36 @@ export default function ToonhubHero() {
 
         {/* Brand handled by global Navbar */}
 
+        {/* Ground / floor — anchors the subject so it doesn't look like it's floating */}
+        <div
+          className="pointer-events-none absolute inset-x-0"
+          style={{
+            zIndex: 2,
+            bottom: 0,
+            height: isMobile ? "32%" : "22%",
+            background: `linear-gradient(to top, ${IMAGES[activeIndex].bg} 0%, ${IMAGES[activeIndex].bg} 25%, color-mix(in oklab, ${IMAGES[activeIndex].bg} 70%, #000) 70%, transparent 100%)`,
+            transition: `background ${DURATION}ms ${EASE}`,
+            opacity: 0.55,
+          }}
+        />
+        {/* Contact shadow under the active subject */}
+        <div
+          className="pointer-events-none absolute"
+          style={{
+            zIndex: 2,
+            left: isMobile ? "70%" : "74%",
+            bottom: isMobile ? "34%" : "1.5%",
+            width: isMobile ? "55%" : "32%",
+            height: isMobile ? "26px" : "44px",
+            transform: "translate(-50%, 50%)",
+            background:
+              "radial-gradient(ellipse at center, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0) 70%)",
+            filter: "blur(6px)",
+            transition: `left ${DURATION}ms ${EASE}, bottom ${DURATION}ms ${EASE}`,
+            opacity: fadeOut,
+          }}
+        />
+
         {/* Carousel */}
         <div
           className="absolute inset-0"
@@ -312,6 +342,7 @@ export default function ToonhubHero() {
             </div>
           ))}
         </div>
+
 
         {/* Mascot keyframes */}
         <style>{`
