@@ -73,9 +73,10 @@ function Services() {
     { icon: Gauge,            title: "Check Credit Score", sub: "& Offers", color: "bg-indigo-50 text-indigo-500 ring-indigo-100" },
   ];
   return (
-    <section className="relative mx-auto max-w-7xl px-4 pt-12">
+    <section className="relative mx-auto max-w-7xl px-4 pt-28 sm:pt-36 md:pt-40">
       {/* Welcome mascot sitting on the cards strip */}
-      <div className="pointer-events-none absolute -top-10 left-2 z-30 flex items-end gap-2 sm:-top-16 sm:left-6 sm:gap-3 md:-top-20 md:left-10">
+      <div className="pointer-events-none absolute left-2 top-2 z-30 flex items-end gap-2 sm:left-6 sm:top-2 sm:gap-3 md:left-10">
+
         <img
           src={mascotSitting}
           alt=""
