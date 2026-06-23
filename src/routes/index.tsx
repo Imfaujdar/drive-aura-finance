@@ -596,21 +596,17 @@ function Footer() {
 
 function HomePage() {
   useEffect(() => {
-    const sectionEls = document.querySelectorAll<HTMLElement>("[data-reveal]");
+    const sectionEls = document.querySelectorAll<HTMLElement>("[data-page-section], [data-reveal]");
     const sectionIO = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
           if (e.isIntersecting) {
-            gsap.fromTo(
-              e.target,
-              { y: 40, opacity: 0 },
-              { y: 0, opacity: 1, duration: 0.9, ease: "power3.out" }
-            );
+            e.target.classList.add("in-view");
             sectionIO.unobserve(e.target);
           }
         });
       },
-      { threshold: 0.12 }
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
     );
     sectionEls.forEach((el) => sectionIO.observe(el));
 
