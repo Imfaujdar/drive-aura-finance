@@ -160,7 +160,7 @@ export default function ToonhubHero() {
         return {
           ...base,
           left: "50%",
-          bottom: isMobile ? "32%" : "14%",
+          bottom: isMobile ? "44%" : "14%",
           height: isMobile ? "50%" : "74%",
           transform: `translateX(-50%) scale(${isMobile ? 1.3 : 1.45})`,
           filter: "blur(0px)",
@@ -248,7 +248,7 @@ export default function ToonhubHero() {
           className="absolute inset-x-0 flex items-center justify-center pointer-events-none select-none"
           style={{
             zIndex: 2,
-            top: isMobile ? "38%" : "20%",
+            top: isMobile ? "22%" : "20%",
             transform: `translateY(${ghostShift}px)`,
             opacity: fadeOut,
             willChange: "transform, opacity",
