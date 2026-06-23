@@ -273,7 +273,7 @@ function Resale() {
               alt=""
               aria-hidden
               loading="lazy"
-              className="pointer-events-none absolute left-1/2 top-2 z-20 h-28 w-auto -translate-x-[78%] drop-shadow-[0_15px_25px_rgba(0,0,0,0.35)] sm:h-32 md:top-4 md:h-36 lg:h-40"
+              className="pointer-events-none absolute left-1/2 top-[14%] z-20 h-20 w-auto -translate-x-1/2 drop-shadow-[0_15px_25px_rgba(0,0,0,0.35)] sm:h-24 md:top-[16%] md:h-28 lg:h-32"
             />
           </div>
         </div>
