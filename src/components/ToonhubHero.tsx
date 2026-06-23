@@ -105,6 +105,10 @@ export default function ToonhubHero() {
   }, []);
 
   useEffect(() => {
+    if (isMobile) {
+      setScrollP(0);
+      return;
+    }
     let raf = 0;
     const onScroll = () => {
       if (raf) return;
@@ -124,8 +128,7 @@ export default function ToonhubHero() {
       window.removeEventListener("scroll", onScroll);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, []);
-
+  }, [isMobile]);
 
 
   useEffect(() => {
@@ -198,7 +201,7 @@ export default function ToonhubHero() {
           height: isMobile ? "13%" : "20%",
           transform: "translateX(-50%) scale(1)",
           filter: isMobile ? "none" : "blur(2px)",
-          opacity: 0,
+          opacity: isMobile ? 0.5 : 0,
           zIndex: 10,
         };
       case "right":
@@ -209,7 +212,7 @@ export default function ToonhubHero() {
           height: isMobile ? "12%" : "20%",
           transform: "translateX(-50%) scale(1)",
           filter: isMobile ? "none" : "blur(2px)",
-          opacity: 0,
+          opacity: isMobile ? 0.45 : 0,
           zIndex: 10,
         };
       case "back":
@@ -220,12 +223,11 @@ export default function ToonhubHero() {
           height: isMobile ? "10%" : "16%",
           transform: "translateX(-50%) scale(1)",
           filter: isMobile ? "none" : "blur(4px)",
-          opacity: 0,
+          opacity: isMobile ? 0.4 : 0,
           zIndex: 5,
         };
     }
   };
-
 
 
 
@@ -284,11 +286,7 @@ export default function ToonhubHero() {
           <span
             style={{
               fontFamily: "Anton, sans-serif",
-              fontSize: isMobile
-                ? `min(${Math.floor(180 / Math.max(IMAGES[activeIndex].ghost.length, 1))}vw, 110px)`
-                : `min(${Math.floor(200 / Math.max(IMAGES[activeIndex].ghost.length, 1))}vw, 320px)`,
-
-
+              fontSize: isMobile ? "clamp(64px, 20vw, 130px)" : "clamp(140px, 22vw, 360px)",
               fontWeight: 900,
               color: "#fff",
               opacity: isMobile ? 0.7 : 0.55,
