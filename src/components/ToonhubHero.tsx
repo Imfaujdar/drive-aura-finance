@@ -270,7 +270,15 @@ export default function ToonhubHero() {
         </div>
 
         {/* Carousel */}
-        <div className="absolute inset-0" style={{ zIndex: 3 }}>
+        <div
+          className="absolute inset-0"
+          style={{
+            zIndex: 3,
+            transform: `translateY(${subjectShift}px) scale(${subjectScale})`,
+            transformOrigin: "center bottom",
+            willChange: "transform",
+          }}
+        >
           {IMAGES.map((img, i) => (
             <div key={i} style={itemStyle(roleOf(i))}>
               <img
