@@ -182,7 +182,7 @@ function HowItWorks() {
   ];
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-16">
-      <SectionHeader eyebrow="How It Works" title={<>Get Your Loan in <span className="text-primary">4 Simple Steps</span></>} sub="Our streamlined process gets your funds quickly with minimum hassle." />
+      <SectionHeader eyebrow="How It Works" title="Get Your Loan in 4 Simple Steps" sub="Our streamlined process gets your funds quickly with minimum hassle." />
       <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
         {steps.map(({ n, icon: Icon, title, sub }, i) => (
           <div key={n} className="group relative rounded-3xl glass-strong p-6 transition-all hover:-translate-y-1">
@@ -255,7 +255,7 @@ function WhyChooseUs() {
   ];
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-16">
-      <SectionHeader eyebrow="Why Choose Us" title={<>We Make Financial Freedom <span className="text-primary">Accessible</span></>} sub="Over 5 years of experience and 50,000+ satisfied customers — Finonest is India's trusted partner for every financial need." />
+      <SectionHeader eyebrow="Why Choose Us" title="We Make Financial Freedom Accessible" sub="Over 5 years of experience and 50,000+ satisfied customers — Finonest is India's trusted partner for every financial need." />
       <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {items.map(({ icon: Icon, title, sub, c }) => (
           <div key={title} className="relative overflow-hidden rounded-3xl border border-border/60 bg-white/80 p-6 shadow-[var(--shadow-glass)] backdrop-blur transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
@@ -392,7 +392,7 @@ function Testimonials() {
   ];
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-16">
-      <SectionHeader eyebrow="Top Testimonials" title={<>What Our <span className="text-primary">Customers Say</span></>} sub="Ranked by customer satisfaction and feedback quality." />
+      <SectionHeader eyebrow="Top Testimonials" title="What Our Customers Say" sub="Ranked by customer satisfaction and feedback quality." />
       <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {reviews.map((r, i) => (
           <div key={r.name} className="relative rounded-3xl border border-border/60 bg-white/80 p-6 shadow-[var(--shadow-glass)] backdrop-blur transition-all hover:-translate-y-1">
@@ -461,7 +461,7 @@ function Partners() {
   const row = [...list, ...list];
   return (
     <section className="relative py-20">
-      <SectionHeader eyebrow="Trusted Partners" title={<>Our <span className="text-gradient">Lending & Insurance</span> Partners</>} sub="50+ banks and NBFCs powering instant offers." />
+      <SectionHeader eyebrow="Trusted Partners" title="Our Lending & Insurance Partners" sub="50+ banks and NBFCs powering instant offers." />
       <div className="mt-12 overflow-hidden">
         <div className="flex w-max animate-marquee gap-5 px-4">
           {row.map((p, i) => (
