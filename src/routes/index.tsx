@@ -79,64 +79,332 @@ function Nav() {
   );
 }
 
+import heroUsedCar from "@/assets/hero-used-car.png";
+import heroHome from "@/assets/hero-home.png";
+import heroCard from "@/assets/hero-card.png";
+import heroPersonal from "@/assets/hero-personal.png";
+
+type HeroSlide = {
+  tag: string;
+  category: string;
+  scriptLeft: string;
+  scriptRight: string;
+  sub: string;
+  bgWord: string;
+  image: string;
+  imageAlt: string;
+  whyTitle: string;
+  perks: { icon: any; label: string }[];
+  rateLabel: string;
+  rateValue: string;
+  rateSuffix: string;
+  cta: string;
+  bottom: { icon: any; title: string; sub: string }[];
+};
+
+const HERO_SLIDES: HeroSlide[] = [
+  {
+    tag: "Used Car Loans",
+    category: "USED CAR LOANS",
+    scriptLeft: "Drive Your",
+    scriptRight: "Dream",
+    sub: "Get Instant Used Car Loans",
+    bgWord: "FINONEST",
+    image: heroUsedCar,
+    imageAlt: "Premium sedan",
+    whyTitle: "FAST APPROVAL",
+    perks: [
+      { icon: Zap, label: "Instant Eligibility" },
+      { icon: Clock, label: "Approval in Minutes" },
+      { icon: CircleDollarSign, label: "Low Interest Rates" },
+      { icon: TrendingUp, label: "Up to 200% Refinance" },
+    ],
+    rateLabel: "EMI STARTING",
+    rateValue: "₹4,999",
+    rateSuffix: "/month",
+    cta: "Apply Now",
+    bottom: [
+      { icon: CircleDollarSign, title: "Lowest Interest", sub: "Competitive Rates" },
+      { icon: Shield, title: "100% Secure", sub: "Your Data is Safe" },
+      { icon: Clock, title: "Flexible Tenure", sub: "Up to 5 Years" },
+    ],
+  },
+  {
+    tag: "Home Loans",
+    category: "HOME LOANS",
+    scriptLeft: "Building",
+    scriptRight: "Together",
+    sub: "Your Future",
+    bgWord: "FINONEST",
+    image: heroHome,
+    imageAlt: "Modern home",
+    whyTitle: "WHY CHOOSE FINONEST?",
+    perks: [
+      { icon: Shield, label: "Low Interest Rates" },
+      { icon: Clock, label: "Quick Approval" },
+      { icon: CircleDollarSign, label: "Up to 90% Loan" },
+      { icon: FileCheck, label: "Minimal Documentation" },
+    ],
+    rateLabel: "HOME LOAN STARTING FROM",
+    rateValue: "8.35%",
+    rateSuffix: "p.a.",
+    cta: "Check Eligibility",
+    bottom: [
+      { icon: Wallet, title: "Flexible Repayment", sub: "Options" },
+      { icon: HomeIcon, title: "Balance Transfer", sub: "Available" },
+      { icon: TrendingUp, title: "Top Up Loan", sub: "Facility" },
+    ],
+  },
+  {
+    tag: "Credit Card",
+    category: "CREDIT CARD",
+    scriptLeft: "Power Your",
+    scriptRight: "Lifestyle",
+    sub: "Experience Limitless Possibilities",
+    bgWord: "FINONEST",
+    image: heroCard,
+    imageAlt: "Premium credit card",
+    whyTitle: "WHY CHOOSE FINONEST?",
+    perks: [
+      { icon: Sparkles, label: "Exciting Reward Points" },
+      { icon: CircleDollarSign, label: "Up to 5% Cashback" },
+      { icon: Shield, label: "Zero Joining Fee" },
+      { icon: Zap, label: "Instant Approval" },
+    ],
+    rateLabel: "LIMITED TIME OFFER",
+    rateValue: "5%",
+    rateSuffix: "CASHBACK*",
+    cta: "Apply Now",
+    bottom: [
+      { icon: CircleDollarSign, title: "Limit Up to ₹10L", sub: "Instantly" },
+      { icon: Sparkles, title: "₹2,000 Voucher", sub: "Welcome Benefit" },
+      { icon: Shield, title: "100% Secure", sub: "Fraud Protection" },
+    ],
+  },
+  {
+    tag: "Personal Loans",
+    category: "PERSONAL LOANS",
+    scriptLeft: "Dream Big.",
+    scriptRight: "We've Got You.",
+    sub: "Personal Loans for Every Need",
+    bgWord: "FINONEST",
+    image: heroPersonal,
+    imageAlt: "Happy customer",
+    whyTitle: "WHY CHOOSE FINONEST?",
+    perks: [
+      { icon: Zap, label: "Quick Approval" },
+      { icon: CircleDollarSign, label: "Low Interest Rates" },
+      { icon: Wallet, label: "Loan Up to ₹25 Lakhs" },
+      { icon: FileCheck, label: "Minimal Documentation" },
+    ],
+    rateLabel: "INTEREST FROM",
+    rateValue: "10.49%",
+    rateSuffix: "p.a.",
+    cta: "Check Eligibility",
+    bottom: [
+      { icon: Clock, title: "Flexible Tenure", sub: "12 to 60 Months" },
+      { icon: Shield, title: "No Hidden Charges", sub: "Transparent" },
+      { icon: Users, title: "Trusted by Millions", sub: "Across India" },
+    ],
+  },
+];
+
 function Hero() {
+  const [idx, setIdx] = useState(0);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const slide = HERO_SLIDES[idx];
+
+  // Auto-rotate
+  useEffect(() => {
+    const t = setInterval(() => setIdx((i) => (i + 1) % HERO_SLIDES.length), 6500);
+    return () => clearInterval(t);
+  }, []);
+
+  // Layer-by-layer animation on slide change
+  useEffect(() => {
+    if (!rootRef.current) return;
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      tl.fromTo(".hero-bgword", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.9 })
+        .fromTo(".hero-script-l", { opacity: 0, x: -60, rotate: -4 }, { opacity: 1, x: 0, rotate: -2, duration: 0.7 }, "-=0.55")
+        .fromTo(".hero-script-r", { opacity: 0, x: 60, rotate: 4 }, { opacity: 1, x: 0, rotate: 2, duration: 0.7 }, "-=0.5")
+        .fromTo(".hero-sub", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4 }, "-=0.3")
+        .fromTo(".hero-image", { opacity: 0, scale: 0.82, y: 30, filter: "blur(12px)" }, { opacity: 1, scale: 1, y: 0, filter: "blur(0px)", duration: 0.9 }, "-=0.55")
+        .fromTo(".hero-card-l", { opacity: 0, x: -40, y: 20 }, { opacity: 1, x: 0, y: 0, duration: 0.55 }, "-=0.55")
+        .fromTo(".hero-card-r", { opacity: 0, x: 40, y: 20 }, { opacity: 1, x: 0, y: 0, duration: 0.55 }, "-=0.55")
+        .fromTo(".hero-perk", { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.35, stagger: 0.08 }, "-=0.35")
+        .fromTo(".hero-bottom", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.55 }, "-=0.3")
+        .fromTo(".hero-bottom-item", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.35, stagger: 0.08 }, "-=0.35");
+    }, rootRef);
+    return () => ctx.revert();
+  }, [idx]);
+
   return (
-    <section className="relative w-full overflow-hidden rounded-3xl bg-background px-5 py-10 text-foreground md:px-12 md:py-14">
+    <section
+      ref={rootRef}
+      className="relative w-full overflow-hidden rounded-3xl bg-background px-4 pb-8 pt-6 text-foreground md:px-10 md:pb-12 md:pt-10"
+    >
+      {/* Soft background blobs */}
       <div className="pointer-events-none absolute inset-0 -z-0">
-        <div className="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-primary/10 blur-3xl" />
-        <div className="absolute -left-20 bottom-0 h-72 w-72 rounded-full bg-accent/10 blur-3xl" />
+        <div className="absolute -right-32 -top-32 h-[480px] w-[480px] rounded-full bg-primary/10 blur-3xl" />
+        <div className="absolute -left-32 bottom-0 h-[420px] w-[420px] rounded-full bg-accent/10 blur-3xl" />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-7xl">
-        <div className="grid items-center gap-10 lg:grid-cols-2">
-          {/* Left — Copy */}
-          <div className="max-w-xl">
-            <div className="inline-flex items-center gap-2 rounded-full bg-background px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-primary neu-pressed">
-              <Sparkles className="h-3.5 w-3.5" /> India's AI Finance Marketplace
-            </div>
-            <h1 className="mt-6 font-display text-5xl font-extrabold leading-[1.05] tracking-tight text-foreground md:text-6xl lg:text-7xl">
-              Drive Your <span className="text-primary">Dream Car</span> Today
-            </h1>
-            <p className="mt-5 max-w-lg text-base text-muted-foreground md:text-lg">
-              AI-powered auto loans, home loans, credit cards and insurance from 50+ trusted lenders. Instant approval, lowest rates, zero hassle.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <button className="btn-shine inline-flex items-center gap-2 rounded-2xl bg-gradient-brand px-6 py-3.5 text-base font-bold text-white shadow-[var(--shadow-glow)]">
-                Check Offers <ArrowRight className="h-5 w-5" />
-              </button>
-              <button className="inline-flex items-center gap-2 rounded-2xl bg-background px-6 py-3.5 text-base font-bold text-foreground neu-raised hover:shadow-[var(--shadow-extruded-hover)] transition-shadow">
-                Get Pre-Approved
-              </button>
-            </div>
-            <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-xs font-semibold text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <Users className="h-4 w-4 text-primary" /> 1.2M+ customers
-              </div>
-              <div className="flex items-center gap-2">
-                <BadgeCheck className="h-4 w-4 text-primary" /> 4.8/5 rating
-              </div>
-              <div className="flex items-center gap-2">
-                <Zap className="h-4 w-4 text-primary" /> 2-min approval
-              </div>
-            </div>
-          </div>
+      {/* Giant background word */}
+      <div className="pointer-events-none absolute inset-x-0 top-[14%] z-0 flex justify-center">
+        <span
+          key={`bg-${idx}`}
+          className="hero-bgword select-none whitespace-nowrap font-display font-extrabold tracking-tighter text-foreground/[0.06]"
+          style={{ fontSize: "clamp(8rem, 22vw, 22rem)", lineHeight: 0.9, letterSpacing: "-0.04em" }}
+        >
+          {slide.bgWord}
+        </span>
+      </div>
 
-          {/* Right — Car Image */}
-          <div className="relative grid place-items-center">
-            <div className="pointer-events-none absolute inset-0 -z-10 mx-auto h-64 w-64 rounded-full bg-primary/15 blur-3xl md:h-80 md:w-80" />
-            <img
-              src={heroCarMain}
-              alt="Premium SUV"
-              width={1024}
-              height={1024}
-              className="relative z-10 w-full max-w-[520px] animate-float car-depth-lg transition-transform duration-500 hover:scale-105"
-            />
+      <div className="relative z-10 mx-auto grid min-h-[560px] max-w-7xl grid-cols-12 gap-4 md:min-h-[640px]">
+        {/* Category tag (top-left) */}
+        <div className="col-span-12 -mb-2">
+          <div
+            key={`tag-${idx}`}
+            className="hero-script-l inline-flex items-center gap-2 rounded-full bg-background px-4 py-2 text-[11px] font-bold uppercase tracking-[0.22em] text-primary neu-pressed"
+          >
+            <Sparkles className="h-3.5 w-3.5" /> {slide.category}
           </div>
         </div>
+
+        {/* Script headline LEFT */}
+        <div className="col-span-12 md:col-span-5 md:row-start-2">
+          <h1
+            key={`l-${idx}`}
+            className="hero-script-l font-display text-primary"
+            style={{
+              fontFamily: "'Caveat Brush', cursive",
+              fontSize: "clamp(3rem, 6.5vw, 6rem)",
+              lineHeight: 0.95,
+              letterSpacing: "-0.01em",
+            }}
+          >
+            {slide.scriptLeft}
+          </h1>
+          <p key={`sub-${idx}`} className="hero-sub mt-2 max-w-xs text-base font-medium text-foreground/80 md:text-lg">
+            {slide.sub}
+            <span className="mt-1 block h-1 w-24 rounded-full bg-primary/60" />
+          </p>
+        </div>
+
+        {/* Script headline RIGHT */}
+        <div className="col-span-12 hidden md:col-span-5 md:col-start-8 md:row-start-2 md:flex md:justify-end">
+          <h2
+            key={`r-${idx}`}
+            className="hero-script-r text-right text-primary"
+            style={{
+              fontFamily: "'Caveat Brush', cursive",
+              fontSize: "clamp(3rem, 6.5vw, 6rem)",
+              lineHeight: 0.95,
+            }}
+          >
+            {slide.scriptRight}
+            <span className="mt-1 ml-auto block h-1 w-32 rounded-full bg-primary/60" />
+          </h2>
+        </div>
+
+        {/* Center product image (spans middle) */}
+        <div className="col-span-12 row-start-3 grid place-items-center md:col-span-12 md:row-start-2">
+          <div className="pointer-events-none absolute left-1/2 top-[42%] -z-10 h-72 w-72 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl md:h-96 md:w-[28rem]" />
+          <img
+            key={`img-${idx}`}
+            src={slide.image}
+            alt={slide.imageAlt}
+            width={1280}
+            height={960}
+            className="hero-image relative z-10 mx-auto h-auto w-full max-w-[640px] object-contain drop-shadow-2xl"
+          />
+        </div>
+
+        {/* Why-choose card LEFT */}
+        <div className="col-span-12 md:col-span-3 md:col-start-1 md:row-start-3">
+          <div
+            key={`cl-${idx}`}
+            className="hero-card-l rounded-2xl bg-background/80 p-5 backdrop-blur neu-raised"
+          >
+            <div className="text-xs font-bold uppercase tracking-[0.18em] text-foreground">
+              {slide.whyTitle}
+            </div>
+            <span className="mt-2 block h-0.5 w-12 rounded-full bg-primary" />
+            <ul className="mt-4 space-y-3">
+              {slide.perks.map(({ icon: Icon, label }) => (
+                <li key={label} className="hero-perk flex items-center gap-3 text-sm font-semibold text-foreground/90">
+                  <span className="grid h-8 w-8 place-items-center rounded-full bg-primary/10 text-primary">
+                    <Icon className="h-4 w-4" />
+                  </span>
+                  {label}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Rate card RIGHT */}
+        <div className="col-span-12 md:col-span-3 md:col-start-10 md:row-start-3">
+          <div
+            key={`cr-${idx}`}
+            className="hero-card-r rounded-2xl bg-background/80 p-5 text-right backdrop-blur neu-raised"
+          >
+            <div className="text-xs font-bold uppercase tracking-[0.18em] text-foreground">
+              {slide.rateLabel}
+            </div>
+            <span className="ml-auto mt-2 block h-0.5 w-12 rounded-full bg-primary" />
+            <div className="mt-3 font-num text-4xl font-extrabold text-primary md:text-5xl">
+              {slide.rateValue}
+              <span className="ml-1 text-sm font-semibold text-foreground/70">{slide.rateSuffix}</span>
+            </div>
+            <button className="btn-shine mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-brand px-5 py-3 text-sm font-bold text-white shadow-[var(--shadow-glow)]">
+              {slide.cta} <ArrowRight className="h-4 w-4" />
+            </button>
+            <div className="mt-3 flex items-center justify-end gap-2 text-[11px] font-semibold text-foreground/70">
+              <Shield className="h-3.5 w-3.5 text-primary" /> Secure • Fast • Hassle Free
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom feature strip */}
+      <div className="relative z-10 mx-auto mt-6 max-w-5xl">
+        <div
+          key={`b-${idx}`}
+          className="hero-bottom rounded-2xl bg-background/80 px-4 py-4 backdrop-blur neu-raised"
+        >
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+            {slide.bottom.map(({ icon: Icon, title, sub }) => (
+              <div key={title} className="hero-bottom-item flex items-center gap-3 px-2">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
+                  <Icon className="h-5 w-5" />
+                </span>
+                <div>
+                  <div className="text-sm font-bold text-foreground">{title}</div>
+                  <div className="text-[11px] font-medium text-muted-foreground">{sub}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Slide indicators */}
+      <div className="relative z-10 mx-auto mt-5 flex max-w-7xl items-center justify-center gap-2">
+        {HERO_SLIDES.map((s, i) => (
+          <button
+            key={s.tag}
+            onClick={() => setIdx(i)}
+            aria-label={s.tag}
+            className={`h-1.5 rounded-full transition-all ${i === idx ? "w-10 bg-primary" : "w-3 bg-foreground/20 hover:bg-foreground/40"}`}
+          />
+        ))}
       </div>
     </section>
   );
 }
+
 
 function SideRail() {
   const items = [
