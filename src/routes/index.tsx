@@ -12,6 +12,7 @@ import ToonhubHero from "@/components/ToonhubHero";
 import Navbar from "@/components/Navbar";
 import Typewriter from "@/components/Typewriter";
 import MascotPopup from "@/components/MascotPopup";
+import SlideCanvas from "@/components/SlideCanvas";
 
 import whyCar from "@/assets/why-car.png";
 import mascotFull from "@/assets/finonest-mascot-full.png";
@@ -632,24 +633,21 @@ function HomePage() {
 
 
   return (
-    <div className="bg-mesh min-h-screen">
+    <div className="bg-mesh">
       <Navbar />
-      <ToonhubHero />
-      <main>
-        <div data-page-section data-reveal className="snap-section"><Services /></div>
-        <div className="lg:hidden px-4 mx-auto max-w-7xl mt-6"><CreditScoreCard /></div>
-
-        <div data-page-section data-reveal className="snap-section"><CalculatorSection /></div>
-        <div data-page-section data-reveal className="snap-section"><HowItWorks /></div>
-        <div data-page-section data-reveal className="snap-section"><Resale /></div>
-        <div data-page-section data-reveal className="snap-section"><WhyChooseUs /></div>
-        <div data-page-section data-reveal className="snap-section"><BottomTriple /></div>
-        <div data-page-section data-reveal className="snap-section"><Testimonials /></div>
-        <div data-page-section data-reveal className="snap-section"><DSAPartner /></div>
-        <div data-page-section data-reveal className="snap-section"><Partners /></div>
-        <div data-page-section data-reveal className="snap-section"><CTA /></div>
-      </main>
-      <Footer />
+      <SlideCanvas>
+        <div data-page-section><ToonhubHero /></div>
+        <div data-page-section><Services /></div>
+        <div data-page-section><CalculatorSection /></div>
+        <div data-page-section><HowItWorks /></div>
+        <div data-page-section><Resale /></div>
+        <div data-page-section><WhyChooseUs /></div>
+        <div data-page-section><BottomTriple /></div>
+        <div data-page-section><Testimonials /></div>
+        <div data-page-section><DSAPartner /></div>
+        <div data-page-section><Partners /></div>
+        <div data-page-section><CTA /><Footer /></div>
+      </SlideCanvas>
       <MascotPopup />
     </div>
   );
