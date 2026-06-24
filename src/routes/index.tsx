@@ -12,6 +12,7 @@ import ToonhubHero from "@/components/ToonhubHero";
 import Navbar from "@/components/Navbar";
 import Typewriter from "@/components/Typewriter";
 import MascotPopup from "@/components/MascotPopup";
+import SlideCanvas from "@/components/SlideCanvas";
 
 import whyCar from "@/assets/why-car.png";
 import mascotFull from "@/assets/finonest-mascot-full.png";
