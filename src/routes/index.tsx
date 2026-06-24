@@ -12,6 +12,7 @@ import ToonhubHero from "@/components/ToonhubHero";
 import Navbar from "@/components/Navbar";
 import Typewriter from "@/components/Typewriter";
 import MascotPopup from "@/components/MascotPopup";
+import ScrollCanvas from "@/components/ScrollCanvas";
 
 import whyCar from "@/assets/why-car.png";
 import mascotFull from "@/assets/finonest-mascot-full.png";
@@ -640,6 +641,7 @@ function HomePage() {
         <div className="lg:hidden px-4 mx-auto max-w-7xl mt-6"><CreditScoreCard /></div>
 
         <div data-page-section data-reveal className="snap-section"><CalculatorSection /></div>
+        <div data-page-section><ScrollCanvas /></div>
         <div data-page-section data-reveal className="snap-section"><HowItWorks /></div>
         <div data-page-section data-reveal className="snap-section"><Resale /></div>
         <div data-page-section data-reveal className="snap-section"><WhyChooseUs /></div>
