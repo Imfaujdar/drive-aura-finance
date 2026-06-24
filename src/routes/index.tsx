@@ -12,7 +12,7 @@ import ToonhubHero from "@/components/ToonhubHero";
 import Navbar from "@/components/Navbar";
 import Typewriter from "@/components/Typewriter";
 import MascotPopup from "@/components/MascotPopup";
-import SlideCanvas from "@/components/SlideCanvas";
+import ScrollStack, { ScrollStackItem } from "@/components/ScrollStack";
 
 import whyCar from "@/assets/why-car.png";
 import mascotFull from "@/assets/finonest-mascot-full.png";
@@ -635,19 +635,20 @@ function HomePage() {
   return (
     <div className="bg-mesh">
       <Navbar />
-      <SlideCanvas>
-        <div data-page-section><ToonhubHero /></div>
-        <div data-page-section><Services /></div>
-        <div data-page-section><CalculatorSection /></div>
-        <div data-page-section><HowItWorks /></div>
-        <div data-page-section><Resale /></div>
-        <div data-page-section><WhyChooseUs /></div>
-        <div data-page-section><BottomTriple /></div>
-        <div data-page-section><Testimonials /></div>
-        <div data-page-section><DSAPartner /></div>
-        <div data-page-section><Partners /></div>
-        <div data-page-section><CTA /><Footer /></div>
-      </SlideCanvas>
+      <ToonhubHero />
+      <ScrollStack useWindowScroll itemDistance={80} itemScale={0.03} itemStackDistance={30} baseScale={0.88}>
+        <ScrollStackItem><Services /></ScrollStackItem>
+        <ScrollStackItem><CalculatorSection /></ScrollStackItem>
+        <ScrollStackItem><HowItWorks /></ScrollStackItem>
+        <ScrollStackItem><Resale /></ScrollStackItem>
+        <ScrollStackItem><WhyChooseUs /></ScrollStackItem>
+        <ScrollStackItem><BottomTriple /></ScrollStackItem>
+        <ScrollStackItem><Testimonials /></ScrollStackItem>
+        <ScrollStackItem><DSAPartner /></ScrollStackItem>
+        <ScrollStackItem><Partners /></ScrollStackItem>
+        <ScrollStackItem><CTA /></ScrollStackItem>
+      </ScrollStack>
+      <Footer />
       <MascotPopup />
     </div>
   );
