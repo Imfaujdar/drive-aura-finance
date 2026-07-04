@@ -632,10 +632,24 @@ function HomePage() {
   }, []);
 
 
+  const slideBackgrounds = [
+    "linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%)", // Hero — soft indigo
+    "linear-gradient(135deg, #FFF7ED 0%, #FFE4CC 100%)", // Services — warm peach
+    "linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%)", // Calculator — mint
+    "linear-gradient(135deg, #FDF4FF 0%, #FAE8FF 100%)", // How It Works — lavender
+    "linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%)", // Resale — amber
+    "linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%)", // Why Choose Us — sky
+    "linear-gradient(135deg, #FCE7F3 0%, #FBCFE8 100%)", // BottomTriple — pink
+    "linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%)", // Testimonials — slate
+    "linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%)", // DSA — rose
+    "linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%)", // Partners — violet
+    "linear-gradient(135deg, #0F172A 0%, #1E293B 100%)", // CTA + Footer — dark
+  ];
+
   return (
-    <div className="bg-mesh">
+    <div>
       <Navbar />
-      <SlideCanvas>
+      <SlideCanvas backgrounds={slideBackgrounds}>
         <div data-page-section><ToonhubHero /></div>
         <div data-page-section><Services /></div>
         <div data-page-section><CalculatorSection /></div>
