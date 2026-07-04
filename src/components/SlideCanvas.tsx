@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState, Children, type ReactNode } from "react";
+import { useEffect, useRef, useState, Children, type ReactNode } from "react";
 
 interface SlideCanvasProps {
   children: ReactNode;
@@ -12,32 +12,16 @@ interface SlideCanvasProps {
  * bottom. Smooth translateY only — no fade, no scale, no parallax.
  *
  * Scroll-space math:
- *   N slides need (N - 1) transitions of 100vh each, plus 100vh for the
- *   sticky viewport itself. Total wrapper height = N * 100vh.
- *   We compute this in pixels from the *measured* viewport height so mobile
- *   URL-bar collapse / rotation don't leave blank gaps or cut the last slide.
+ *   N slides need (N - 1) transitions plus 1 viewport of sticky pinning.
+ *   Total scroll wrapper height = N * viewport-height.
+ *   We use `dvh` (dynamic viewport height) so mobile URL-bar collapse and
+ *   orientation changes do not leave a blank gap or clip the last slide.
  */
 export default function SlideCanvas({ children, backgrounds }: SlideCanvasProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
-  const [vh, setVh] = useState(() =>
-    typeof window === "undefined" ? 800 : window.innerHeight,
-  );
   const slides = Children.toArray(children);
   const count = slides.length;
-
-  // Keep wrapper height in sync with the real viewport height (px, not vh)
-  // so mobile browser chrome and orientation changes don't create gaps.
-  useLayoutEffect(() => {
-    const measure = () => setVh(window.innerHeight);
-    measure();
-    window.addEventListener("resize", measure);
-    window.addEventListener("orientationchange", measure);
-    return () => {
-      window.removeEventListener("resize", measure);
-      window.removeEventListener("orientationchange", measure);
-    };
-  }, []);
 
   useEffect(() => {
     let raf = 0;
@@ -54,41 +38,47 @@ export default function SlideCanvas({ children, backgrounds }: SlideCanvasProps)
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(compute);
     };
-    compute();
+    // Initial measure after first paint so layout is settled.
+    raf = requestAnimationFrame(compute);
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     window.addEventListener("orientationchange", onScroll);
+    // Recompute if the wrapper itself changes size (e.g. font load, image load).
+    const ro = new ResizeObserver(onScroll);
+    if (wrapperRef.current) ro.observe(wrapperRef.current);
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       window.removeEventListener("orientationchange", onScroll);
+      ro.disconnect();
     };
-  }, [count, vh]);
+  }, [count]);
 
-  // Explicit pixel height = exactly the scroll distance needed for N slides.
-  const wrapperHeightPx = count * vh;
+  // Use dvh so the scroll distance = exactly N viewports at all times.
+  const wrapperHeight = `calc(var(--slide-canvas-vh, 1dvh) * 100 * ${count})`;
+  const slideHeight = "calc(var(--slide-canvas-vh, 1dvh) * 100)";
 
   return (
     <div
       ref={wrapperRef}
-      style={{ height: `${wrapperHeightPx}px` }}
+      style={{ height: wrapperHeight }}
       className="relative w-full"
     >
       <div
         className="sticky top-0 w-full overflow-hidden"
-        style={{ height: `${vh}px` }}
+        style={{ height: slideHeight }}
       >
         {slides.map((child, i) => {
-          const offset = (i - progress) * vh;
+          const offset = (i - progress) * 100;
           const background = backgrounds?.[i];
           return (
             <div
               key={i}
               className="absolute inset-x-0 top-0 w-full will-change-transform"
               style={{
-                height: `${vh}px`,
-                transform: `translate3d(0, ${offset}px, 0)`,
+                height: slideHeight,
+                transform: `translate3d(0, ${offset}dvh, 0)`,
                 transition: "transform 0.7s cubic-bezier(0.7, 0, 0.3, 1)",
                 background,
               }}
