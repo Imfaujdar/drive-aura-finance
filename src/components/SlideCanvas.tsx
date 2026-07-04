@@ -2,15 +2,17 @@ import { useEffect, useRef, useState, Children, type ReactNode } from "react";
 
 interface SlideCanvasProps {
   children: ReactNode;
+  /** Optional per-slide background (CSS color or gradient). Length should match children. */
+  backgrounds?: string[];
 }
 
 /**
  * Full-screen sticky canvas. Each direct child becomes one 100vh block.
  * On scroll, the entire block translates up and the next enters from the
  * bottom. Smooth translateY only — no fade, no scale, no parallax.
- * Fully responsive: each block fills the viewport at any screen size.
+ * Each slide can have its own solid background color via `backgrounds`.
  */
-export default function SlideCanvas({ children }: SlideCanvasProps) {
+export default function SlideCanvas({ children, backgrounds }: SlideCanvasProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
   const slides = Children.toArray(children);
@@ -44,6 +46,7 @@ export default function SlideCanvas({ children }: SlideCanvasProps) {
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {slides.map((child, i) => {
           const offset = (i - progress) * 100;
+          const background = backgrounds?.[i];
           return (
             <div
               key={i}
@@ -51,6 +54,7 @@ export default function SlideCanvas({ children }: SlideCanvasProps) {
               style={{
                 transform: `translate3d(0, ${offset}vh, 0)`,
                 transition: "transform 0.7s cubic-bezier(0.7, 0, 0.3, 1)",
+                background,
               }}
             >
               <div className="h-full w-full overflow-y-auto overflow-x-hidden">
