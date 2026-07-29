@@ -12,7 +12,6 @@ import ToonhubHero from "@/components/ToonhubHero";
 import Navbar from "@/components/Navbar";
 import Typewriter from "@/components/Typewriter";
 import MascotPopup from "@/components/MascotPopup";
-import SlideCanvas from "@/components/SlideCanvas";
 
 import whyCar from "@/assets/why-car.png";
 import mascotFull from "@/assets/finonest-mascot-full.png";
@@ -646,22 +645,35 @@ function HomePage() {
     "linear-gradient(135deg, #0F172A 0%, #1E293B 100%)", // CTA + Footer — dark
   ];
 
+  const sections = [
+    <ToonhubHero key="hero" />,
+    <Services key="services" />,
+    <CalculatorSection key="calc" />,
+    <HowItWorks key="how" />,
+    <Resale key="resale" />,
+    <WhyChooseUs key="why" />,
+    <BottomTriple key="bottom" />,
+    <Testimonials key="testi" />,
+    <DSAPartner key="dsa" />,
+    <Partners key="partners" />,
+    <div key="cta">
+      <CTA />
+      <Footer />
+    </div>,
+  ];
+
   return (
     <div>
       <Navbar />
-      <SlideCanvas backgrounds={slideBackgrounds}>
-        <div data-page-section><ToonhubHero /></div>
-        <div data-page-section><Services /></div>
-        <div data-page-section><CalculatorSection /></div>
-        <div data-page-section><HowItWorks /></div>
-        <div data-page-section><Resale /></div>
-        <div data-page-section><WhyChooseUs /></div>
-        <div data-page-section><BottomTriple /></div>
-        <div data-page-section><Testimonials /></div>
-        <div data-page-section><DSAPartner /></div>
-        <div data-page-section><Partners /></div>
-        <div data-page-section><CTA /><Footer /></div>
-      </SlideCanvas>
+      {sections.map((section, i) => (
+        <div
+          key={i}
+          data-page-section
+          style={{ background: slideBackgrounds[i] }}
+        >
+          {section}
+        </div>
+      ))}
       <MascotPopup />
     </div>
   );
