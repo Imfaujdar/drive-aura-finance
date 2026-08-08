@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import type { DeviceLayout, ElementId, HeroSlide } from "@/lib/hero-slides";
-import { ELEMENT_IDS } from "@/lib/hero-slides";
 
 const GRAIN_SVG =
   "data:image/svg+xml;utf8," +
@@ -336,8 +335,6 @@ export default function HeroRenderer({
         { pointerEvents: "none" },
       )}
 
-      {/* keeps ELEMENT_IDS referenced for exhaustiveness in dev */}
-      {import.meta.env.DEV && ELEMENT_IDS.length === 0 ? null : null}
     </div>
   );
 }
