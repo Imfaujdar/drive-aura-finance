@@ -33,8 +33,8 @@ export const listHeroLayouts = createServerFn({ method: "GET" }).handler(async (
     .from("hero_slide_layouts")
     .select("slide_id, layouts");
   if (error) throw new Error(error.message);
-  const map: Record<string, unknown> = {};
-  for (const row of data ?? []) map[row.slide_id as string] = row.layouts;
+  const map: Record<string, string> = {};
+  for (const row of data ?? []) map[row.slide_id as string] = JSON.stringify(row.layouts ?? {});
   return map;
 });
 
